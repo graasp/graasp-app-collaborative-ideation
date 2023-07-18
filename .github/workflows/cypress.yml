@@ -1,0 +1,75 @@
+name: cypress tests
+
+on:
+  push:
+    branches-ignore:
+      - 'release-please-**'
+
+jobs:
+  cypress-run:
+    concurrency: cypress-${{ github.head_ref || github.ref }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: set up node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Yarn Install and Cache
+        uses: graasp/graasp-deploy/.github/actions/yarn-install-and-cache@v1
+        with:
+          cypress: true
+
+      - name: cypress run
+        uses: cypress-io/github-action@v5
+        env:
+          VITE_PORT: 3000
+          VITE_API_HOST: http://localhost:3636
+          VITE_GRAASP_APP_ID: id-1234567890
+          VITE_MOCK_API: true
+          VITE_VERSION: cypress-tests
+        with:
+          install: false
+          build: yarn build
+          config: baseUrl=http://localhost:3000
+          start: yarn dev
+          browser: chrome
+          quiet: true
+          # point to new cypress@10 config file
+          config-file: cypress.config.ts
+
+      # - name: Run Component tests 🧪
+      #   uses: cypress-io/github-action@v5
+      #   with:
+      #     # we have already installed everything
+      #     install: false
+      #     # to run component tests we need to use "component: true"
+      #     component: true
+
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
+      - name: coverage report
+        run: npx nyc report --reporter=text-summary
+
+      - name: coverage commit status
+        run: |
+          total=$(cat coverage/coverage-summary.json | jq .total.lines.pct)
+          echo Total coverage ${total}
+          curl -S -s \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+            https://api.github.com/repos/${REPO_PATH}/statuses/${COMMIT_SHA} \
+            -d "{\"state\":\"success\",\"target_url\":\"https://github.com/${REPO_PATH}/actions/runs/${RUN_ID}\",\"description\":\"${total}%\",\"context\":\"code-coverage\"}"
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          REPO_PATH: ${{ github.repository }}
+          COMMIT_SHA: ${{ github.sha }}
+          RUN_ID: ${{ github.run_id }}
