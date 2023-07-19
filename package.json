@@ -4,6 +4,11 @@
   "license": "AGPL-3.0-only",
   "author": "Graasp",
   "contributors": [
+    {
+      "name": "Jérémy La Scala",
+      "email": "jeremy.lascala@epfl.ch",
+      "url": "https://github.com/swouf"
+    },
     "Basile Spaenlehauer"
   ],
   "homepage": ".",
@@ -30,6 +35,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-i18next": "12.3.1",
+    "react-router-dom": "^6.14.2",
     "react-toastify": "9.1.3",
     "typescript": "4.9.5"
   },
