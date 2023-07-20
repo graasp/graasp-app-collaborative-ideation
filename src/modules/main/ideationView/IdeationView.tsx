@@ -13,6 +13,8 @@ import { useLocalContext } from '@graasp/apps-query-client';
 
 import {
   CurrentStateAppData,
+  Derivation,
+  IdeaAppData,
   IdeaSetAppData,
   IdeasData,
 } from '@/config/appDataTypes';
@@ -81,7 +83,8 @@ const PhasesStepper = (props: {
 const IdeationView: FC = () => {
   const { appData } = useAppDataContext();
   const { memberId } = useLocalContext();
-  const [, setChosenIdeaId] = useState<string | null>(null); // choseIdeaId
+  const [chosenIdea, setChosenIdea] = useState<IdeaAppData | null>(null);
+  const [, setDerivation] = useState<Derivation | null>(null);
 
   const currentState = appData.find(
     (a) => a.type === 'current-state',
@@ -114,15 +117,31 @@ const IdeationView: FC = () => {
   const [phase, setPhase] = useState<number>(phases[0].phase);
 
   const handleChoose = (id: string): void => {
-    setPhase(IdeationPhases.Add);
-    setChosenIdeaId(id);
+    const idea = appData.find((i) => i.id === id && i.type === 'idea') as
+      | IdeaAppData
+      | undefined;
+    if (typeof idea !== 'undefined') {
+      setChosenIdea(idea);
+      setPhase(IdeationPhases.Add);
+    }
+  };
+
+  const handleDerivation = (d: Derivation): void => {
+    setDerivation(d);
+    setPhase(IdeationPhases.Input);
   };
 
   const renderPhaseOfIdeation = (): React.JSX.Element | null => {
     if (phase === IdeationPhases.Input) return <IdeaInput />;
-    if (phase === IdeationPhases.Choose && ideas !== null)
-      return <IdeaChoose ideas={ideas} onChoose={handleChoose} />;
-    if (phase === IdeationPhases.Add) return <IdeaAdd />;
+    if (phase === IdeationPhases.Choose)
+      if (ideas !== null)
+        return <IdeaChoose ideas={ideas} onChoose={handleChoose} />;
+      else setPhase(IdeationPhases.Input);
+    if (phase === IdeationPhases.Add && chosenIdea)
+      return (
+        <IdeaAdd idea={chosenIdea} onDerivationChoose={handleDerivation} />
+      );
+    setPhase(IdeationPhases.Choose);
 
     return null;
   };

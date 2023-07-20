@@ -103,11 +103,7 @@ const mockAppData: AppData[] = [
     createdAt: new Date(),
     updatedAt: new Date(),
     data: {
-      ideas: [
-        { id: '0', idea: 'A', round: 0 },
-        { id: '1', idea: 'B', round: 0 },
-        { id: '2', idea: 'C', round: 0 },
-      ],
+      ideas: ['0', '1', '2'],
       round: 1,
     },
   },
