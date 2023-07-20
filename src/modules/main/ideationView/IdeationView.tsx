@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 
 import { useLocalContext } from '@graasp/apps-query-client';
+import { Loader } from '@graasp/ui';
 
 import {
   CurrentStateAppData,
@@ -83,13 +84,16 @@ const PhasesStepper = (props: {
 const IdeationView: FC = () => {
   const { appData } = useAppDataContext();
   const { memberId } = useLocalContext();
-  const [chosenIdea, setChosenIdea] = useState<IdeaAppData | null>(null);
-  const [, setDerivation] = useState<Derivation | null>(null);
+  const [chosenIdea, setChosenIdea] = useState<IdeaAppData>();
+  const [derivation, setDerivation] = useState<Derivation>();
+  const [ideas, setIdeas] = useState<IdeasData>();
+  const [round, setRound] = useState<number>(1); // To be taken as prop.
+  const phases = getPhases(ideas?.size);
+  const [phase, setPhase] = useState<number>(phases[0].phase);
 
   const currentState = appData.find(
     (a) => a.type === 'current-state',
   ) as CurrentStateAppData;
-  const [round, setRound] = useState<number>(1);
 
   useEffect(() => {
     if (typeof currentState !== 'undefined') {
@@ -104,8 +108,6 @@ const IdeationView: FC = () => {
       a.data.round === round,
   ) as IdeaSetAppData;
 
-  const [ideas, setIdeas] = useState<IdeasData | null>(null);
-
   useEffect(() => {
     if (typeof currentIdeaSet !== 'undefined') {
       setIdeas(currentIdeaSet.data.ideas);
@@ -113,8 +115,6 @@ const IdeationView: FC = () => {
   }, [currentIdeaSet]);
 
   const challenge = 'Lorem Ipsum?';
-  const phases = getPhases(ideas?.size);
-  const [phase, setPhase] = useState<number>(phases[0].phase);
 
   const handleChoose = (id: string): void => {
     const idea = appData.find((i) => i.id === id && i.type === 'idea') as
@@ -131,16 +131,32 @@ const IdeationView: FC = () => {
     setPhase(IdeationPhases.Input);
   };
 
+  const handleSubmission = (): void => {
+    // Ideation done!
+    // eslint-disable-next-line no-console
+    console.info('Ideation done.');
+    setPhase(IdeationPhases.Wait);
+  };
+
   const renderPhaseOfIdeation = (): React.JSX.Element | null => {
-    if (phase === IdeationPhases.Input) return <IdeaInput />;
+    if (phase === IdeationPhases.Input)
+      return (
+        <IdeaInput
+          currentRound={round}
+          derivation={derivation}
+          refIdea={chosenIdea}
+          onSubmitted={handleSubmission}
+        />
+      );
     if (phase === IdeationPhases.Choose)
-      if (ideas !== null)
+      if (typeof ideas !== 'undefined')
         return <IdeaChoose ideas={ideas} onChoose={handleChoose} />;
       else setPhase(IdeationPhases.Input);
     if (phase === IdeationPhases.Add && chosenIdea)
       return (
         <IdeaAdd idea={chosenIdea} onDerivationChoose={handleDerivation} />
       );
+    if (phase === IdeationPhases.Wait) return <Loader />;
     setPhase(IdeationPhases.Choose);
 
     return null;
@@ -158,13 +174,13 @@ const IdeationView: FC = () => {
         {/* Turn to component */}
         <Typography variant="h3">{challenge}</Typography>
         {renderPhaseOfIdeation()}
-        {ideas && ideas.size > 1 ? (
+        {ideas && ideas.size > 1 && (
           <PhasesStepper
             activeStep={phase}
             steps={phases}
             selectStep={(newPhase: number) => setPhase(newPhase)}
           />
-        ) : null}
+        )}
       </Stack>
     </Container>
   );

@@ -9,7 +9,7 @@ export type IdeaData = {
   idea: string;
   round: number;
   derivation?: Derivation;
-  refId: string;
+  refId?: string;
 };
 
 export type IdeasData = List<string>;
