@@ -41,6 +41,7 @@
   },
   "scripts": {
     "dev": "yarn vite",
+    "dev:mock": "VITE_MOCK_API=true && yarn vite",
     "start:test": "yarn vite --mode test",
     "build": "yarn vite build",
     "preview": "yarn vite preview",
@@ -53,7 +54,7 @@
     "hooks:install": "husky install",
     "hooks:uninstall": "husky uninstall",
     "pre-commit": "yarn prettier:check && yarn lint",
-    "cypress:open": "env-cmd -f ./.env.development cypress open",
+    "cypress:open": "env-cmd -f ./.env.test cypress open",
     "test": "concurrently -k -s first \"yarn start:test\" \"yarn test:ci\" ",
     "test:ci": "env-cmd -f ./.env.test cypress run --browser chrome --headless && nyc report --reporter=text --reporter=text-summary",
     "cov:report": "open ./coverage/lcov-report/index.html"

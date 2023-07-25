@@ -13,7 +13,7 @@ jobs:
         id: release
         with:
           release-type: node
-          package-name: graasp-app-starter-ts-vite
+          package-name: graasp-app-brainwriting
           changelog-types: '[{"type":"feat","section":"Features","hidden":false},{"type":"fix","section":"Bug Fixes","hidden":false},{"type":"docs","section":"Documentation","hidden":false},{"type":"test","section":"Tests","hidden":false}]'
 
       - uses: actions/checkout@v3
