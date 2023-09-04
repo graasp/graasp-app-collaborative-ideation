@@ -34,6 +34,7 @@ const AdminControl = (): JSX.Element => {
   const { appData } = useAppDataContext();
   const { data: appContext } = hooks.useAppContext();
 
+  // Sync effect
   useEffect(() => {
     if (sync) {
       const setId = appData.find(({ type }) => type === 'idea-set')?.id;

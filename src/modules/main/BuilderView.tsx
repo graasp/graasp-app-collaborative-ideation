@@ -23,7 +23,6 @@ const BuilderView = (): JSX.Element => {
     setTab(value);
   };
   const { permission } = useLocalContext();
-  console.debug(permission);
 
   return (
     <Stack data-cy={BUILDER_VIEW_CY} direction="row" spacing={2}>
@@ -36,7 +35,7 @@ const BuilderView = (): JSX.Element => {
           >
             <Tab label={t('IDEATION_TAB')} />
             {/* {permission === PermissionLevel.Admin ?? ( */}
-            <Tab label={t('IDEAS_VIEW_TAB')} />
+            {/* <Tab label={t('IDEAS_VIEW_TAB')} /> */}
             <Tab label={t('SETTINGS_TAB')} />
             {/* )} */}
           </Tabs>
@@ -45,9 +44,9 @@ const BuilderView = (): JSX.Element => {
           <IdeationView />
         </TabPanel>
         {/* {permission === PermissionLevel.Admin ?? ( */}
-        <TabPanel value={tab} index={1}>
+        {/* <TabPanel value={tab} index={1}>
           <IdeasView />
-        </TabPanel>
+        </TabPanel> */}
         {/* )} */}
       </Paper>
       <AdminControl />

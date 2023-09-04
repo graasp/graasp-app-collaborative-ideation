@@ -1,87 +1,37 @@
 import { FC, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import {
-  Box,
-  Container,
-  Stack,
-  Step,
-  StepButton,
-  Stepper,
-  Typography,
-} from '@mui/material';
+import Alert from '@mui/material/Alert';
+import Container from '@mui/material/Container';
+import Snackbar from '@mui/material/Snackbar';
+import Stack from '@mui/material/Stack';
 
 import { useLocalContext } from '@graasp/apps-query-client';
 import { Loader } from '@graasp/ui';
 
 import { List } from 'immutable';
 
-import { IdeaAppData, IdeaSetAppData, IdeasData } from '@/config/appDataTypes';
+import {
+  AnonymousIdeaData,
+  IdeaAppData,
+  IdeaSetAppData,
+  IdeasData,
+} from '@/config/appDataTypes';
 import { IDEATION_VIEW_CY } from '@/config/selectors';
+import { ChoosePhase, IdeationPhases, InputPhase } from '@/interfaces/ideation';
+import Challenge from '@/modules/common/Challenge';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { showNewIdeas } from '@/utils/ideas';
 
 import IdeaChoose from './IdeaChoose';
 import IdeaInput from './IdeaInput';
-
-enum IdeationPhases {
-  Input = 2,
-  Choose = 0,
-  // Add = 1,
-  Wait = 3,
-}
-
-type Phase = {
-  phase: number;
-  label: string;
-};
-
-const InputPhase: Phase = {
-  phase: IdeationPhases.Input,
-  label: 'Input',
-};
-
-// const AddPhase: Phase = {
-//   phase: IdeationPhases.Add,
-//   label: 'Add',
-// };
-
-const ChoosePhase: Phase = {
-  phase: IdeationPhases.Choose,
-  label: 'Choose',
-};
-
-// const getPhases = (nbrIdeas: number | undefined): Array<Phase> => {
-//   if (typeof nbrIdeas === 'undefined') return [InputPhase];
-//   if (nbrIdeas < 1) return [InputPhase];
-//   if (nbrIdeas < 2) return [AddPhase, InputPhase];
-
-//   return [ChoosePhase, AddPhase, InputPhase];
-// };
-
-const PhasesStepper = (props: {
-  steps: Phase[];
-  activeStep: number;
-  selectStep: (step: number) => void;
-}): React.JSX.Element => {
-  const { activeStep, steps, selectStep } = props;
-  const sortedSteps = steps.sort((a, b) => a.phase - b.phase);
-  return (
-    <Stepper activeStep={activeStep}>
-      {sortedSteps.map((step) => (
-        <Step key={step.label}>
-          <StepButton onClick={() => selectStep(step.phase)}>
-            {step.label}
-          </StepButton>
-        </Step>
-      ))}
-    </Stepper>
-  );
-};
+import PhasesStepper from './PhaseStepper';
 
 const IdeationView: FC = () => {
+  const { t } = useTranslation();
   const { appData } = useAppDataContext();
   const { memberId } = useLocalContext();
-  const [chosenIdea, setChosenIdea] = useState<IdeaAppData>();
+  const [chosenIdea, setChosenIdea] = useState<AnonymousIdeaData>();
   const [ideas, setIdeas] = useState<IdeasData>();
   const [round, setRound] = useState<number>(1);
   const [phase, setPhase] = useState<number>(IdeationPhases.Input);
@@ -91,6 +41,18 @@ const IdeationView: FC = () => {
   const [seenIdeas, setSeenIdeas] = useState<IdeasData>(List([]));
 
   console.debug('Render ideation view with phase ', phase);
+
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const handleCloseSnackbar = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string,
+  ): void => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSnackbar(false);
+  };
 
   useEffect(() => {
     const currentIdeaSet = appData.find(
@@ -105,8 +67,8 @@ const IdeationView: FC = () => {
     'How might we design an online platform for efficiently building, sharing, and using open educational resources?';
 
   const handleChoose = (id: string): void => {
-    const idea = appData.find((i) => i.id === id && i.type === 'idea') as
-      | IdeaAppData
+    const idea = ideas?.find((i) => i.id === id) as
+      | AnonymousIdeaData
       | undefined;
     if (typeof idea !== 'undefined') {
       setChosenIdea(idea);
@@ -120,6 +82,7 @@ const IdeationView: FC = () => {
     // Ideation done!
     // eslint-disable-next-line no-console
     console.info('Ideation done.');
+    setOpenSnackbar(true);
     setPhase(IdeationPhases.Choose);
   };
 
@@ -134,9 +97,7 @@ const IdeationView: FC = () => {
       return (
         <IdeaInput
           currentRound={round}
-          parent={
-            chosenIdea ? { ...chosenIdea.data, id: chosenIdea?.id } : undefined
-          }
+          parent={chosenIdea}
           onSubmitted={handleSubmission}
         />
       );
@@ -160,24 +121,28 @@ const IdeationView: FC = () => {
         height="100%"
         spacing={4}
       >
-        {/* Turn to component */}
-        <Box component="span">
-          <Typography sx={{ fontSize: '18pt' }} variant="h3">
-            Ideation
-          </Typography>
-          <Typography>Round {round}</Typography>
-        </Box>
-        <Typography sx={{ fontSize: '18pt' }} variant="h4">
-          {challenge}
-        </Typography>
-        {renderPhaseOfIdeation()}
         {ideas && ideas.size > 1 && (
           <PhasesStepper
             activeStep={phase}
             steps={[InputPhase, ChoosePhase]}
-            selectStep={(newPhase: number) => setPhase(newPhase)}
+            // selectStep={(newPhase: number) => setPhase(newPhase)}
           />
         )}
+        <Challenge>{challenge}</Challenge>
+        {renderPhaseOfIdeation()}
+        <Snackbar
+          open={openSnackbar}
+          autoHideDuration={6000}
+          onClose={handleCloseSnackbar}
+        >
+          <Alert
+            onClose={handleCloseSnackbar}
+            severity="success"
+            sx={{ width: '100%' }}
+          >
+            {t('IDEA_SUBMITTED_SUCCESS')}
+          </Alert>
+        </Snackbar>
       </Stack>
     </Container>
   );

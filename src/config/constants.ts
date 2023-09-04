@@ -9,3 +9,5 @@ export const INITIAL_STATE = {
   },
   visibility: AppDataVisibility.Item,
 };
+
+export const IDEA_MAXIMUM_LENGTH = 500;

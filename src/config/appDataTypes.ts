@@ -2,9 +2,6 @@ import { AppDataRecord } from '@graasp/sdk/frontend';
 
 import { List } from 'immutable';
 
-export type Derivation = 'lateral' | 'variation' | 'precision';
-// Maybe 'elaboration' instead of 'precision'?
-
 export type IdeaData = {
   idea: string;
   round?: number;
@@ -36,4 +33,11 @@ export type CurrentStateData = {
 export type CurrentStateAppData = AppDataRecord & {
   type: 'current-state';
   data: CurrentStateData;
+};
+
+export type RatingsData = {
+  ideaRef: string;
+  ratings: {
+    [key: string]: number;
+  };
 };
