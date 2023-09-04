@@ -12,15 +12,17 @@ const IdeaChoose: FC<{
   ideas: IdeasData;
   onChoose: (id: string) => void;
 }> = ({ ideas, onChoose }) => {
+  console.debug('Render IdeaChoose');
   const { appData } = useAppDataContext();
 
-  const collectedIdeas = appData.filter(
-    (i) => ideas.includes(i.id) && i.type === 'idea',
-  ) as List<IdeaAppData>;
+  // const collectedIdeas = appData.filter(
+  //   (i) => ideas.includes(i.id) && i.type === 'idea',
+  // ) as List<IdeaAppData>;
+
   return (
     <Stack direction="row" spacing={4}>
-      {collectedIdeas.map((idea) => (
-        <Idea key={idea.id} idea={idea} onClick={onChoose} />
+      {ideas.map((idea) => (
+        <Idea key={idea.id} idea={idea} onSelect={onChoose} />
       ))}
     </Stack>
   );

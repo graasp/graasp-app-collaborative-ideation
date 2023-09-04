@@ -7,12 +7,15 @@ export type Derivation = 'lateral' | 'variation' | 'precision';
 
 export type IdeaData = {
   idea: string;
-  round: number;
-  derivation?: Derivation;
-  refId?: string;
+  round?: number;
+  bot?: boolean;
+  parentId?: string;
+  encoding?: 'text' | 'markdown';
 };
 
-export type IdeasData = List<string>;
+export type AnonymousIdeaData = IdeaData & { id: string };
+
+export type IdeasData = List<AnonymousIdeaData>;
 
 export type IdeaAppData = AppDataRecord & {
   type: 'idea';
@@ -22,14 +25,15 @@ export type IdeaAppData = AppDataRecord & {
 export type IdeaSetAppData = AppDataRecord & {
   type: 'idea-set';
   data: {
-    round: number;
     ideas: IdeasData;
   };
 };
 
+export type CurrentStateData = {
+  round: number;
+};
+
 export type CurrentStateAppData = AppDataRecord & {
   type: 'current-state';
-  data: {
-    round: number;
-  };
+  data: CurrentStateData;
 };

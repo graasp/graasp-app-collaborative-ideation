@@ -5,20 +5,25 @@ import { TextField } from '@mui/material';
 import { AppData } from '@graasp/sdk';
 import { Button, Loader } from '@graasp/ui';
 
-import { Derivation, IdeaAppData, IdeaData } from '@/config/appDataTypes';
+import {
+  AnonymousIdeaData,
+  Derivation,
+  IdeaAppData,
+  IdeaData,
+} from '@/config/appDataTypes';
 import Idea from '@/modules/common/Idea';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
 const IdeaInput: FC<{
   currentRound: number;
-  refIdea?: IdeaAppData;
-  derivation?: Derivation;
+  parent?: AnonymousIdeaData;
   onSubmitted?: (id: string) => void;
-}> = ({ refIdea, derivation, currentRound, onSubmitted }) => {
-  const initialIdea =
-    derivation === 'variation' && typeof refIdea !== 'undefined'
-      ? refIdea?.data?.idea
-      : '';
+}> = ({ parent, currentRound, onSubmitted }) => {
+  console.debug('Render IdeaInput');
+  const initialIdea = parent?.idea || '';
+  // derivation === 'variation' && typeof refIdea !== 'undefined'
+  //   ? refIdea?.data?.idea
+  //   : '';
   const [idea, setIdea] = useState<string>(initialIdea);
   const { postAppDataAsync } = useAppDataContext();
   const [promisePostIdea, setPromisePostIdea] = useState<
@@ -27,8 +32,7 @@ const IdeaInput: FC<{
   const submit = (): void => {
     const newIdeaData: IdeaData = {
       idea,
-      refId: refIdea?.id,
-      derivation,
+      parentId: parent?.id,
       round: currentRound,
     };
 
@@ -46,9 +50,6 @@ const IdeaInput: FC<{
   const isPosting = typeof promisePostIdea !== 'undefined';
   return (
     <>
-      {derivation === 'precision' && typeof refIdea !== 'undefined' && (
-        <Idea idea={refIdea} />
-      )}
       <TextField
         multiline
         fullWidth

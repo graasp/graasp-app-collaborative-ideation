@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 
 import {
+  Box,
   Container,
   Stack,
   Step,
@@ -12,24 +13,20 @@ import {
 import { useLocalContext } from '@graasp/apps-query-client';
 import { Loader } from '@graasp/ui';
 
-import {
-  CurrentStateAppData,
-  Derivation,
-  IdeaAppData,
-  IdeaSetAppData,
-  IdeasData,
-} from '@/config/appDataTypes';
+import { List } from 'immutable';
+
+import { IdeaAppData, IdeaSetAppData, IdeasData } from '@/config/appDataTypes';
 import { IDEATION_VIEW_CY } from '@/config/selectors';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
+import { showNewIdeas } from '@/utils/ideas';
 
-import IdeaAdd from './IdeaAdd';
 import IdeaChoose from './IdeaChoose';
 import IdeaInput from './IdeaInput';
 
 enum IdeationPhases {
   Input = 2,
   Choose = 0,
-  Add = 1,
+  // Add = 1,
   Wait = 3,
 }
 
@@ -43,23 +40,23 @@ const InputPhase: Phase = {
   label: 'Input',
 };
 
-const AddPhase: Phase = {
-  phase: IdeationPhases.Add,
-  label: 'Add',
-};
+// const AddPhase: Phase = {
+//   phase: IdeationPhases.Add,
+//   label: 'Add',
+// };
 
 const ChoosePhase: Phase = {
   phase: IdeationPhases.Choose,
   label: 'Choose',
 };
 
-const getPhases = (nbrIdeas: number | undefined): Array<Phase> => {
-  if (typeof nbrIdeas === 'undefined') return [InputPhase];
-  if (nbrIdeas < 1) return [InputPhase];
-  if (nbrIdeas < 2) return [AddPhase, InputPhase];
+// const getPhases = (nbrIdeas: number | undefined): Array<Phase> => {
+//   if (typeof nbrIdeas === 'undefined') return [InputPhase];
+//   if (nbrIdeas < 1) return [InputPhase];
+//   if (nbrIdeas < 2) return [AddPhase, InputPhase];
 
-  return [ChoosePhase, AddPhase, InputPhase];
-};
+//   return [ChoosePhase, AddPhase, InputPhase];
+// };
 
 const PhasesStepper = (props: {
   steps: Phase[];
@@ -85,36 +82,27 @@ const IdeationView: FC = () => {
   const { appData } = useAppDataContext();
   const { memberId } = useLocalContext();
   const [chosenIdea, setChosenIdea] = useState<IdeaAppData>();
-  const [derivation, setDerivation] = useState<Derivation>();
   const [ideas, setIdeas] = useState<IdeasData>();
-  const [round, setRound] = useState<number>(1); // To be taken as prop.
-  const phases = getPhases(ideas?.size);
-  const [phase, setPhase] = useState<number>(phases[0].phase);
+  const [round, setRound] = useState<number>(1);
+  const [phase, setPhase] = useState<number>(IdeationPhases.Input);
+  const [listOfSeenIdeas, setListOfSeenIdeas] = useState<List<string>>(
+    List([]),
+  );
+  const [seenIdeas, setSeenIdeas] = useState<IdeasData>(List([]));
 
-  const currentState = appData.find(
-    (a) => a.type === 'current-state',
-  ) as CurrentStateAppData;
-
-  useEffect(() => {
-    if (typeof currentState !== 'undefined') {
-      setRound(currentState.data.round);
-    }
-  }, [currentState]);
-
-  const currentIdeaSet = appData.find(
-    (a) =>
-      a.member.id === memberId &&
-      a.type === 'idea-set' &&
-      a.data.round === round,
-  ) as IdeaSetAppData;
+  console.debug('Render ideation view with phase ', phase);
 
   useEffect(() => {
+    const currentIdeaSet = appData.find(
+      (a) => a.type === 'idea-set',
+    ) as IdeaSetAppData;
     if (typeof currentIdeaSet !== 'undefined') {
       setIdeas(currentIdeaSet.data.ideas);
     }
-  }, [currentIdeaSet]);
+  }, [appData]);
 
-  const challenge = 'Lorem Ipsum?';
+  const challenge =
+    'How might we design an online platform for efficiently building, sharing, and using open educational resources?';
 
   const handleChoose = (id: string): void => {
     const idea = appData.find((i) => i.id === id && i.type === 'idea') as
@@ -122,20 +110,23 @@ const IdeationView: FC = () => {
       | undefined;
     if (typeof idea !== 'undefined') {
       setChosenIdea(idea);
-      setPhase(IdeationPhases.Add);
+      setPhase(IdeationPhases.Input);
     }
-  };
-
-  const handleDerivation = (d: Derivation): void => {
-    setDerivation(d);
-    setPhase(IdeationPhases.Input);
+    const tmpSeenIds = seenIdeas.map(({ id: ID }) => ID);
+    setListOfSeenIdeas(listOfSeenIdeas.merge(tmpSeenIds));
   };
 
   const handleSubmission = (): void => {
     // Ideation done!
     // eslint-disable-next-line no-console
     console.info('Ideation done.');
-    setPhase(IdeationPhases.Wait);
+    setPhase(IdeationPhases.Choose);
+  };
+
+  const getIdeasToShow = (i: IdeasData): IdeasData => {
+    const ideasToShow = showNewIdeas(i, 3, listOfSeenIdeas, 1);
+    // setSeenIdeas(ideasToShow);
+    return ideasToShow;
   };
 
   const renderPhaseOfIdeation = (): React.JSX.Element | null => {
@@ -143,21 +134,19 @@ const IdeationView: FC = () => {
       return (
         <IdeaInput
           currentRound={round}
-          derivation={derivation}
-          refIdea={chosenIdea}
+          parent={
+            chosenIdea ? { ...chosenIdea.data, id: chosenIdea?.id } : undefined
+          }
           onSubmitted={handleSubmission}
         />
       );
     if (phase === IdeationPhases.Choose)
       if (typeof ideas !== 'undefined')
-        return <IdeaChoose ideas={ideas} onChoose={handleChoose} />;
+        return (
+          <IdeaChoose ideas={getIdeasToShow(ideas)} onChoose={handleChoose} />
+        );
       else setPhase(IdeationPhases.Input);
-    if (phase === IdeationPhases.Add && chosenIdea)
-      return (
-        <IdeaAdd idea={chosenIdea} onDerivationChoose={handleDerivation} />
-      );
     if (phase === IdeationPhases.Wait) return <Loader />;
-    setPhase(IdeationPhases.Choose);
 
     return null;
   };
@@ -166,18 +155,26 @@ const IdeationView: FC = () => {
     <Container data-cy={IDEATION_VIEW_CY}>
       <Stack
         direction="column"
-        alignItems="center"
+        alignItems="flex-start"
         justifyContent="space-between"
         height="100%"
         spacing={4}
       >
         {/* Turn to component */}
-        <Typography variant="h3">{challenge}</Typography>
+        <Box component="span">
+          <Typography sx={{ fontSize: '18pt' }} variant="h3">
+            Ideation
+          </Typography>
+          <Typography>Round {round}</Typography>
+        </Box>
+        <Typography sx={{ fontSize: '18pt' }} variant="h4">
+          {challenge}
+        </Typography>
         {renderPhaseOfIdeation()}
         {ideas && ideas.size > 1 && (
           <PhasesStepper
             activeStep={phase}
-            steps={phases}
+            steps={[InputPhase, ChoosePhase]}
             selectStep={(newPhase: number) => setPhase(newPhase)}
           />
         )}

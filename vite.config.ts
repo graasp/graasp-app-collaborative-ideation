@@ -11,6 +11,9 @@ export default ({ mode }: { mode: string }): UserConfigExport => {
 
   return defineConfig({
     base: '',
+    css: {
+      devSourcemap: true,
+    },
     server: {
       port: parseInt(process.env.VITE_PORT, 10) || 4001,
       open: mode !== 'test', // open only when mode is different form test

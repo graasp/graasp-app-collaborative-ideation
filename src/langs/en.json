@@ -1,5 +1,9 @@
 {
   "translations": {
-    "Welcome to the Graasp App Starter Kit": "Welcome to the Graasp App Starter Kit"
+    "Welcome to the Graasp App Starter Kit": "Welcome to the Graasp App Starter Kit",
+    "IDEATION_TAB": "Ideation",
+    "IDEAS_VIEW_TAB": "Ideas view",
+    "SETTINGS_TAB": "Settings",
+    "BUILD_ON_THIS_IDEA": "Build on this idea"
   }
 }
