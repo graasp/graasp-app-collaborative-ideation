@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import {
   Avatar,
@@ -22,9 +23,12 @@ import { hooks } from '@/config/queryClient';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { anonymizeIdeas } from '@/utils/ideas';
 
-// interface AdminControlProps {}
+interface AdminControlProps {
+  width?: string;
+}
 
-const AdminControl = (): JSX.Element => {
+const AdminControl: FC<AdminControlProps> = ({ width }): JSX.Element => {
+  const { t } = useTranslation();
   const { postAppData, patchAppData } = useAppDataContext();
   const [currentState, setCurrentState] = useState<CurrentStateAppData>();
   const [sync, setSync] = useState<boolean>(false);
@@ -91,8 +95,10 @@ const AdminControl = (): JSX.Element => {
 
   return (
     <Paper
+      variant="outlined"
       elevation={2}
       sx={{
+        width,
         backgroundColor: grey[50],
         // b: '1pt',
         // borderColor: 'black',
@@ -101,25 +107,27 @@ const AdminControl = (): JSX.Element => {
         // borderRadius: 2,
       }}
     >
-      <Typography variant="h3" fontSize="16pt">
-        Admin panel
-      </Typography>
-      <Divider />
-      <Typography variant="h4" fontSize="14pt">
-        Participants
-      </Typography>
-      <Stack sx={{ m: 1 }} direction="row" spacing={2}>
-        {members?.map((member) => (
-          <Badge
-            key={member.id}
-            badgeContent={getNumberOfIdeas(member)}
-            color="secondary"
-          >
-            <Avatar alt={member.name}>{member.name[0]}</Avatar>
-          </Badge>
-        ))}
+      <Stack direction="column">
+        <Typography variant="h3" fontSize="16pt">
+          {t('ADMIN_PANE_TITLE')}
+        </Typography>
+        <Divider />
+        <Typography variant="h4" fontSize="14pt">
+          Participants
+        </Typography>
+        <Stack sx={{ m: 1 }} direction="row" spacing={2}>
+          {members?.map((member) => (
+            <Badge
+              key={member.id}
+              badgeContent={getNumberOfIdeas(member)}
+              color="secondary"
+            >
+              <Avatar alt={member.name}>{member.name[0]}</Avatar>
+            </Badge>
+          ))}
+        </Stack>
+        <Switch checked={sync} onChange={handleSyncChange} />
       </Stack>
-      <Switch checked={sync} onChange={handleSyncChange} />
     </Paper>
   );
 };

@@ -8,6 +8,11 @@
     "IDEA_TOO_LONG_ALERT": "Your idea is too long. Please, try to be more concise.",
     "IDEA_SUBMITTED_SUCCESS": "Your idea was successfully submitted.",
     "SUBMIT_NEW_IDEA_STEP_TITLE": "Submit a new idea",
-    "READ_IDEAS_STEP_TITLE": "Find inspiration"
+    "READ_IDEAS_STEP_TITLE": "Find inspiration",
+    "ADMIN_PANE_TITLE": "Admin Panel",
+    "SETTINGS_TITLE": "Settings",
+    "HELPER_PROMPT_SETTING": "Provide a prompt to be shown in your activity.",
+    "LABEL_PROMPT_SETTING": "Prompt",
+    "SAVE": "Save"
   }
 }

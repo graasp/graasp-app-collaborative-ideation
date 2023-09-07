@@ -19,7 +19,7 @@ import {
 } from '@/config/appDataTypes';
 import { IDEATION_VIEW_CY } from '@/config/selectors';
 import { ChoosePhase, IdeationPhases, InputPhase } from '@/interfaces/ideation';
-import Challenge from '@/modules/common/Challenge';
+import Prompt from '@/modules/common/Prompt';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { showNewIdeas } from '@/utils/ideas';
 
@@ -62,9 +62,6 @@ const IdeationView: FC = () => {
       setIdeas(currentIdeaSet.data.ideas);
     }
   }, [appData]);
-
-  const challenge =
-    'How might we design an online platform for efficiently building, sharing, and using open educational resources?';
 
   const handleChoose = (id: string): void => {
     const idea = ideas?.find((i) => i.id === id) as
@@ -128,7 +125,7 @@ const IdeationView: FC = () => {
             // selectStep={(newPhase: number) => setPhase(newPhase)}
           />
         )}
-        <Challenge>{challenge}</Challenge>
+        <Prompt />
         {renderPhaseOfIdeation()}
         <Snackbar
           open={openSnackbar}

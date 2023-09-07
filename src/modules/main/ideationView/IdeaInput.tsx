@@ -21,10 +21,8 @@ const IdeaInput: FC<{
   parent?: AnonymousIdeaData;
   onSubmitted?: (id: string) => void;
 }> = ({ parent, currentRound, onSubmitted }) => {
-  console.debug('Render IdeaInput');
   const { t } = useTranslation();
   const initialIdea = parent?.idea || '';
-  console.debug('Initial idea: ', parent);
   const [idea, setIdea] = useState<string>(initialIdea);
   const { postAppDataAsync } = useAppDataContext();
   const [promisePostIdea, setPromisePostIdea] = useState<

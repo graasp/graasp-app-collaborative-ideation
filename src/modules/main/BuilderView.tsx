@@ -1,4 +1,4 @@
-import { SyntheticEvent, useState } from 'react';
+import { FC, SyntheticEvent, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Paper, Stack } from '@mui/material';
@@ -7,49 +7,75 @@ import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 
 import { useLocalContext } from '@graasp/apps-query-client';
-import { PermissionLevel, PermissionLevelCompare } from '@graasp/sdk';
+import { PermissionLevel } from '@graasp/sdk';
 
 import { BUILDER_VIEW_CY } from '@/config/selectors';
 
 import TabPanel from '../common/TabPanel';
-import IdeasView from './ideasView/IdeasView';
-import AdminControl from './ideationView/AdminControl';
+import AdminControl from './AdminControl';
 import IdeationView from './ideationView/IdeationView';
+import SettingsView from './settingsView/SettingsView';
+
+interface TabType {
+  tabLabel: string;
+  tabChild: JSX.Element;
+}
 
 const BuilderView = (): JSX.Element => {
-  const [tab, setTab] = useState<number>(0);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
   const { t } = useTranslation();
   const handleChange = (event: SyntheticEvent, value: number): void => {
-    setTab(value);
+    setSelectedTab(value);
   };
   const { permission } = useLocalContext();
 
+  const isAdmin = useMemo(
+    () => permission === PermissionLevel.Admin,
+    [permission],
+  );
+
+  const ideationTab = useMemo(
+    () => ({
+      tabLabel: t('IDEATION_TAB'),
+      tabChild: <IdeationView />,
+    }),
+    [t],
+  );
+
+  const settingsTab = useMemo(
+    () => ({
+      tabLabel: t('SETTINGS_TAB'),
+      tabChild: <SettingsView />,
+    }),
+    [t],
+  );
+
+  const tabs: TabType[] = useMemo(
+    () => (isAdmin ? [ideationTab, settingsTab] : [ideationTab]),
+    [permission, ideationTab, settingsTab],
+  );
+
   return (
-    <Stack data-cy={BUILDER_VIEW_CY} direction="row" spacing={2}>
-      <Paper elevation={0}>
+    <Stack data-cy={BUILDER_VIEW_CY} direction="row" spacing={2} width="100%">
+      <Paper elevation={0} sx={{ width: isAdmin ? '66%' : '100%' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs
-            value={tab}
+            value={selectedTab}
             onChange={handleChange}
-            aria-label="basic tabs example"
+            aria-label="Tabs in the builder view."
           >
-            <Tab label={t('IDEATION_TAB')} />
-            {/* {permission === PermissionLevel.Admin ?? ( */}
-            {/* <Tab label={t('IDEAS_VIEW_TAB')} /> */}
-            <Tab label={t('SETTINGS_TAB')} />
-            {/* )} */}
+            {tabs.map((tab, index) => (
+              <Tab key={index} label={tab.tabLabel} />
+            ))}
           </Tabs>
         </Box>
-        <TabPanel value={tab} index={0}>
-          <IdeationView />
-        </TabPanel>
-        {/* {permission === PermissionLevel.Admin ?? ( */}
-        {/* <TabPanel value={tab} index={1}>
-          <IdeasView />
-        </TabPanel> */}
-        {/* )} */}
+        {tabs.map((tab, index) => (
+          <TabPanel key={index} value={selectedTab} index={index}>
+            {tab.tabChild}
+          </TabPanel>
+        ))}
       </Paper>
-      <AdminControl />
+      {isAdmin ?? <AdminControl width="33%" />}
     </Stack>
   );
 };

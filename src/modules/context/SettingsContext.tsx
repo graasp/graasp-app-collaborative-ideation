@@ -7,14 +7,30 @@ import Loader from '../common/Loader';
 
 // mapping between Setting names and their data type
 // eslint-disable-next-line @typescript-eslint/ban-types
-type AllSettingsType = {};
+type AllSettingsType = {
+  prompt: {
+    content: string;
+    type: 'html' | 'markdown' | 'plain-text';
+  };
+  orchestrator: { id: string };
+};
 
 // default values for the data property of settings by name
-const defaultSettingsValues: AllSettingsType = {};
+const defaultSettingsValues: AllSettingsType = {
+  prompt: {
+    content: '',
+    type: 'plain-text',
+  },
+  orchestrator: {
+    id: '',
+  },
+};
 
 // list of the settings names
 const ALL_SETTING_NAMES = [
   // name of your settings
+  'prompt',
+  'orchestrator',
 ] as const;
 
 // automatically generated types
@@ -86,11 +102,17 @@ export const SettingsProvider: FC<Prop> = ({ children }) => {
       const allSettings: AllSettingsType = ALL_SETTING_NAMES.reduce(
         <T extends AllSettingsNameType>(acc: AllSettingsType, key: T) => {
           const setting = appSettingsList.find((s) => s.name === key);
-          const settingData = setting?.data;
-          acc[key] = settingData as AllSettingsType[T];
+          if (setting) {
+            const settingData =
+              setting?.data as unknown as AllSettingsType[typeof key];
+            acc[key] = settingData;
+          } else {
+            acc[key] = defaultSettingsValues[key];
+          }
+          console.debug('acc: ', acc);
           return acc;
         },
-        {},
+        defaultSettingsValues,
       );
       return {
         ...allSettings,

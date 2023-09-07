@@ -1,5 +1,5 @@
 {
-  "name": "graasp-app-brainwriting",
+  "name": "graasp-app-collaborative-ideation",
   "version": "0.0.0",
   "license": "AGPL-3.0-only",
   "author": "Graasp",
@@ -11,6 +11,15 @@
     },
     "Basile Spaenlehauer"
   ],
+  "keywords": [
+    "collaboration",
+    "ideation",
+    "collaborative learning",
+    "graasp"
+  ],
+  "repository": {
+    "url": "https://github.com/graasp/graasp-app-collaborative-ideation"
+  },
   "homepage": ".",
   "dependencies": {
     "@emotion/react": "11.11.1",
