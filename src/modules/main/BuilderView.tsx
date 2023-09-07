@@ -13,6 +13,7 @@ import { BUILDER_VIEW_CY } from '@/config/selectors';
 
 import TabPanel from '../common/TabPanel';
 import AdminControl from './AdminControl';
+import IdeasView from './ideasView/IdeasView';
 import IdeationView from './ideationView/IdeationView';
 import SettingsView from './settingsView/SettingsView';
 
@@ -50,9 +51,17 @@ const BuilderView = (): JSX.Element => {
     [t],
   );
 
+  const ideasViewTab = useMemo(
+    () => ({
+      tabLabel: t('IDEAS_VIEW_TAB'),
+      tabChild: <IdeasView />,
+    }),
+    [t],
+  );
+
   const tabs: TabType[] = useMemo(
-    () => (isAdmin ? [ideationTab, settingsTab] : [ideationTab]),
-    [permission, ideationTab, settingsTab],
+    () => (isAdmin ? [ideationTab, ideasViewTab, settingsTab] : [ideationTab]),
+    [isAdmin, ideationTab, ideasViewTab, settingsTab],
   );
 
   return (
@@ -75,7 +84,7 @@ const BuilderView = (): JSX.Element => {
           </TabPanel>
         ))}
       </Paper>
-      {isAdmin ?? <AdminControl width="33%" />}
+      {isAdmin && <AdminControl width="33%" />}
     </Stack>
   );
 };

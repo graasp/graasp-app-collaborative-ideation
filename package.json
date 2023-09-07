@@ -30,6 +30,7 @@
     "@mui/icons-material": "5.14.0",
     "@mui/lab": "5.0.0-alpha.136",
     "@mui/material": "5.14.0",
+    "@mui/x-data-grid": "^6.12.1",
     "@sentry/browser": "7.59.2",
     "@sentry/react": "7.59.2",
     "@sentry/tracing": "7.59.2",

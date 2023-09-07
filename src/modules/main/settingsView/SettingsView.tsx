@@ -25,7 +25,6 @@ const SettingsView: FC<SettingsViewProps> = () => {
   const { saveSettings, prompt, orchestrator } = useSettings();
 
   const members = useMembersContext();
-  console.debug('prompt', prompt);
   const [promptContent, setPromptContent] = useState(prompt.content);
   const [orchestratorId, setOrchestratorId] = useState(
     orchestrator.id.length === 0 ? appContext?.creator?.id : orchestrator.id,
@@ -35,6 +34,9 @@ const SettingsView: FC<SettingsViewProps> = () => {
     saveSettings('prompt', {
       content: promptContent,
       type: 'plain-text',
+    });
+    saveSettings('orchestrator', {
+      id: orchestratorId || '',
     });
   };
 

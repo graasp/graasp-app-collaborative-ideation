@@ -4,7 +4,11 @@ import { useTranslation } from 'react-i18next';
 import {
   Avatar,
   Badge,
+  Collapse,
   Divider,
+  FormControlLabel,
+  FormGroup,
+  FormHelperText,
   Paper,
   Stack,
   Switch,
@@ -12,16 +16,15 @@ import {
 } from '@mui/material';
 import grey from '@mui/material/colors/grey';
 
-import { AppDataVisibility, Member } from '@graasp/sdk';
+import { Member } from '@graasp/sdk';
 import { Button } from '@graasp/ui';
 
-import { List } from 'immutable';
-
-import { CurrentStateAppData, IdeaAppData } from '@/config/appDataTypes';
+import { CurrentStateAppData } from '@/config/appDataTypes';
 import { INITIAL_STATE } from '@/config/constants';
 import { hooks } from '@/config/queryClient';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
-import { anonymizeIdeas } from '@/utils/ideas';
+
+import Synchronizer from '../common/Synchronizer';
 
 interface AdminControlProps {
   width?: string;
@@ -29,43 +32,13 @@ interface AdminControlProps {
 
 const AdminControl: FC<AdminControlProps> = ({ width }): JSX.Element => {
   const { t } = useTranslation();
-  const { postAppData, patchAppData } = useAppDataContext();
+  const { postAppData, patchAppData, appData } = useAppDataContext();
   const [currentState, setCurrentState] = useState<CurrentStateAppData>();
   const [sync, setSync] = useState<boolean>(false);
   const initState = (): void => {
     postAppData(INITIAL_STATE);
   };
-  const { appData } = useAppDataContext();
   const { data: appContext } = hooks.useAppContext();
-
-  // Sync effect
-  useEffect(() => {
-    if (sync) {
-      const setId = appData.find(({ type }) => type === 'idea-set')?.id;
-      const ideas = appData.filter(
-        ({ type }) => type === 'idea',
-      ) as List<IdeaAppData>;
-      if (ideas) {
-        const anonymousIdeas = anonymizeIdeas(ideas);
-        if (setId) {
-          patchAppData({
-            id: setId,
-            data: {
-              ideas: anonymousIdeas.toJS(),
-            },
-          });
-        } else {
-          postAppData({
-            type: 'idea-set',
-            visibility: AppDataVisibility.Item,
-            data: {
-              ideas: anonymousIdeas,
-            },
-          });
-        }
-      }
-    }
-  }, [appData, patchAppData, postAppData, sync]);
 
   useEffect(() => {
     const state = appData.find(
@@ -107,7 +80,7 @@ const AdminControl: FC<AdminControlProps> = ({ width }): JSX.Element => {
         // borderRadius: 2,
       }}
     >
-      <Stack direction="column">
+      <Stack spacing={2} direction="column">
         <Typography variant="h3" fontSize="16pt">
           {t('ADMIN_PANE_TITLE')}
         </Typography>
@@ -126,7 +99,22 @@ const AdminControl: FC<AdminControlProps> = ({ width }): JSX.Element => {
             </Badge>
           ))}
         </Stack>
-        <Switch checked={sync} onChange={handleSyncChange} />
+        <Typography variant="h4" fontSize="14pt">
+          Orchestration
+        </Typography>
+        <FormGroup>
+          <FormHelperText>
+            When enabled, the applications distribute ideas to the participants
+            in an anonymous way.
+          </FormHelperText>
+          <FormControlLabel
+            control={<Switch checked={sync} onChange={handleSyncChange} />}
+            label="Enable syncronisation"
+          />
+        </FormGroup>
+        <Collapse in={sync} mountOnEnter unmountOnExit>
+          <Synchronizer sync={sync} />
+        </Collapse>
       </Stack>
     </Paper>
   );
