@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 
 import { Alert } from '@mui/material';
 
@@ -20,6 +20,8 @@ const Synchronizer: FC<SynchronizerProps> = ({ sync }) => {
   const { postAppData, patchAppData, appData } = useAppDataContext();
   const { memberId } = useLocalContext();
 
+  const [ideasIds, setIdeasIds] = useState<List<string>>(List([]));
+
   const setId = useMemo(
     () =>
       appData.find(
@@ -36,7 +38,9 @@ const Synchronizer: FC<SynchronizerProps> = ({ sync }) => {
   // Sync effect
   useEffect(() => {
     if (sync) {
-      if (ideas) {
+      const newIdeasIds = ideas.map(({ id }) => id).sort();
+      if (ideas && !ideasIds.equals(newIdeasIds)) {
+        setIdeasIds(newIdeasIds);
         const anonymousIdeas = anonymizeIdeas(ideas);
         if (setId) {
           patchAppData({
@@ -56,7 +60,7 @@ const Synchronizer: FC<SynchronizerProps> = ({ sync }) => {
         }
       }
     }
-  }, [ideas, patchAppData, postAppData, setId, sync]);
+  }, [ideas, ideasIds, patchAppData, postAppData, setId, sync]);
 
   return <Alert severity="success">All ideas are sync.</Alert>; // TODO: improve
 };

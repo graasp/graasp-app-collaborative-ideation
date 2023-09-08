@@ -3,6 +3,10 @@ import { useEffect } from 'react';
 import { useLocalContext } from '@graasp/apps-query-client';
 import { Context, DEFAULT_LANG } from '@graasp/sdk';
 
+import * as Sentry from '@sentry/react';
+
+import { hooks } from '@/config/queryClient';
+
 import i18n from '../../config/i18n';
 import { AppDataProvider } from '../context/AppDataContext';
 import { MembersProvider } from '../context/MembersContext';
@@ -13,6 +17,25 @@ import PlayerView from './PlayerView';
 
 const App = (): JSX.Element => {
   const context = useLocalContext();
+  const { data: appContext, isSuccess } = hooks.useAppContext();
+
+  useEffect(() => {
+    if (isSuccess) {
+      const m = appContext?.members?.find(({ id }) => id === context.memberId);
+      if (m) {
+        Sentry.setUser({
+          id: m.id,
+          email: m.email,
+          username: m.name,
+        });
+      }
+      Sentry.setContext('app-context', {
+        itemId: appContext.id,
+        name: appContext.name,
+        path: appContext.path,
+      });
+    }
+  });
 
   useEffect(() => {
     // handle a change of language
