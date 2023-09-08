@@ -29,6 +29,7 @@ export type AppDataContextType = {
   patchAppData: (payload: PatchAppDataType) => void;
   deleteAppData: (payload: DeleteAppDataType) => void;
   appData: List<AppDataRecord>;
+  isSuccess: boolean;
 };
 
 const defaultContextValue = {
@@ -37,6 +38,7 @@ const defaultContextValue = {
   patchAppData: () => null,
   deleteAppData: () => null,
   appData: List([]),
+  isSuccess: false,
 };
 
 const AppDataContext = createContext<AppDataContextType>(defaultContextValue);
@@ -46,7 +48,7 @@ type Props = {
 };
 
 export const AppDataProvider = ({ children }: Props): JSX.Element => {
-  const { data: appData, isLoading } = hooks.useAppData();
+  const { data: appData, isLoading, isSuccess } = hooks.useAppData();
 
   const { mutate: postAppData, mutateAsync: postAppDataAsync } = useMutation<
     AppData,
@@ -71,8 +73,16 @@ export const AppDataProvider = ({ children }: Props): JSX.Element => {
       postAppDataAsync,
       deleteAppData,
       appData: appData || List<AppDataRecord>([]),
+      isSuccess,
     }),
-    [patchAppData, postAppData, postAppDataAsync, deleteAppData, appData],
+    [
+      patchAppData,
+      postAppData,
+      postAppDataAsync,
+      deleteAppData,
+      appData,
+      isSuccess,
+    ],
   );
 
   if (isLoading) {

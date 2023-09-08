@@ -28,14 +28,14 @@ import PhasesStepper from './PhaseStepper';
 
 const IdeationView: FC = () => {
   const { t } = useTranslation();
-  const { appData } = useAppDataContext();
+  const { appData, isSuccess } = useAppDataContext();
   const { orchestrator } = useSettings();
   const [chosenIdea, setChosenIdea] = useState<AnonymousIdeaData>();
   const [ideas, setIdeas] = useState<IdeasData>();
   // TODO: Implement round counting
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [round, setRound] = useState<number>(1);
-  const [phase, setPhase] = useState<number>(IdeationPhases.Input);
+  const [phase, setPhase] = useState<number>(IdeationPhases.Choose);
   const [listOfSeenIdeas, setListOfSeenIdeas] = useState<List<string>>(
     List([]),
   );
@@ -56,13 +56,15 @@ const IdeationView: FC = () => {
   };
 
   useEffect(() => {
-    const currentIdeaSet = appData.find(
-      (a) => a.type === 'idea-set' && a.member.id === orchestrator.id,
-    ) as IdeaSetAppData;
-    if (typeof currentIdeaSet !== 'undefined') {
-      setIdeas(currentIdeaSet.data.ideas);
+    if (isSuccess) {
+      const currentIdeaSet = appData.find(
+        (a) => a.type === 'idea-set' && a.member.id === orchestrator.id,
+      ) as IdeaSetAppData;
+      if (typeof currentIdeaSet !== 'undefined') {
+        setIdeas(currentIdeaSet.data.ideas);
+      }
     }
-  }, [appData, orchestrator]);
+  }, [appData, isSuccess, orchestrator]);
 
   const handleChoose = (id: string): void => {
     const idea = ideas?.find((i) => i.id === id) as
