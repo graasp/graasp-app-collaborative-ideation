@@ -6,14 +6,12 @@ import Container from '@mui/material/Container';
 import Snackbar from '@mui/material/Snackbar';
 import Stack from '@mui/material/Stack';
 
-import { useLocalContext } from '@graasp/apps-query-client';
 import { Loader } from '@graasp/ui';
 
 import { List } from 'immutable';
 
 import {
   AnonymousIdeaData,
-  IdeaAppData,
   IdeaSetAppData,
   IdeasData,
 } from '@/config/appDataTypes';
@@ -21,6 +19,7 @@ import { IDEATION_VIEW_CY } from '@/config/selectors';
 import { ChoosePhase, IdeationPhases, InputPhase } from '@/interfaces/ideation';
 import Prompt from '@/modules/common/Prompt';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
+import { useSettings } from '@/modules/context/SettingsContext';
 import { showNewIdeas } from '@/utils/ideas';
 
 import IdeaChoose from './IdeaChoose';
@@ -30,7 +29,7 @@ import PhasesStepper from './PhaseStepper';
 const IdeationView: FC = () => {
   const { t } = useTranslation();
   const { appData } = useAppDataContext();
-  const { memberId } = useLocalContext();
+  const { orchestrator } = useSettings();
   const [chosenIdea, setChosenIdea] = useState<AnonymousIdeaData>();
   const [ideas, setIdeas] = useState<IdeasData>();
   const [round, setRound] = useState<number>(1);
@@ -39,8 +38,6 @@ const IdeationView: FC = () => {
     List([]),
   );
   const [seenIdeas, setSeenIdeas] = useState<IdeasData>(List([]));
-
-  console.debug('Render ideation view with phase ', phase);
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const handleCloseSnackbar = (
@@ -56,12 +53,12 @@ const IdeationView: FC = () => {
 
   useEffect(() => {
     const currentIdeaSet = appData.find(
-      (a) => a.type === 'idea-set',
+      (a) => a.type === 'idea-set' && a.member.id === orchestrator.id,
     ) as IdeaSetAppData;
     if (typeof currentIdeaSet !== 'undefined') {
       setIdeas(currentIdeaSet.data.ideas);
     }
-  }, [appData]);
+  }, [appData, orchestrator]);
 
   const handleChoose = (id: string): void => {
     const idea = ideas?.find((i) => i.id === id) as

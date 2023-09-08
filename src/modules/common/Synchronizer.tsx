@@ -1,7 +1,8 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 
 import { Alert } from '@mui/material';
 
+import { useLocalContext } from '@graasp/apps-query-client';
 import { AppDataVisibility } from '@graasp/sdk';
 
 import { List } from 'immutable';
@@ -17,14 +18,24 @@ interface SynchronizerProps {
 
 const Synchronizer: FC<SynchronizerProps> = ({ sync }) => {
   const { postAppData, patchAppData, appData } = useAppDataContext();
+  const { memberId } = useLocalContext();
+
+  const setId = useMemo(
+    () =>
+      appData.find(
+        ({ type, creator }) => type === 'idea-set' && creator?.id === memberId,
+      )?.id,
+    [appData, memberId],
+  );
+
+  const ideas = useMemo(
+    () => appData.filter(({ type }) => type === 'idea') as List<IdeaAppData>,
+    [appData],
+  );
 
   // Sync effect
   useEffect(() => {
     if (sync) {
-      const setId = appData.find(({ type }) => type === 'idea-set')?.id;
-      const ideas = appData.filter(
-        ({ type }) => type === 'idea',
-      ) as List<IdeaAppData>;
       if (ideas) {
         const anonymousIdeas = anonymizeIdeas(ideas);
         if (setId) {
@@ -45,7 +56,7 @@ const Synchronizer: FC<SynchronizerProps> = ({ sync }) => {
         }
       }
     }
-  }, [appData, patchAppData, postAppData, sync]);
+  }, [ideas, patchAppData, postAppData, setId, sync]);
 
   return <Alert severity="success">All ideas are sync.</Alert>; // TODO: improve
 };

@@ -30,6 +30,7 @@ const SettingsView: FC<SettingsViewProps> = () => {
     orchestrator.id.length === 0 ? appContext?.creator?.id : orchestrator.id,
   );
 
+  const m = members.get(0);
   const handleSave = (): void => {
     saveSettings('prompt', {
       content: promptContent,
