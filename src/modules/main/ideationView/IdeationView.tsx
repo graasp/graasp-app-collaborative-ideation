@@ -32,11 +32,15 @@ const IdeationView: FC = () => {
   const { orchestrator } = useSettings();
   const [chosenIdea, setChosenIdea] = useState<AnonymousIdeaData>();
   const [ideas, setIdeas] = useState<IdeasData>();
+  // TODO: Implement round counting
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [round, setRound] = useState<number>(1);
   const [phase, setPhase] = useState<number>(IdeationPhases.Input);
   const [listOfSeenIdeas, setListOfSeenIdeas] = useState<List<string>>(
     List([]),
   );
+  // TODO: implement idea filtering
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [seenIdeas, setSeenIdeas] = useState<IdeasData>(List([]));
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -74,8 +78,6 @@ const IdeationView: FC = () => {
 
   const handleSubmission = (): void => {
     // Ideation done!
-    // eslint-disable-next-line no-console
-    console.info('Ideation done.');
     setOpenSnackbar(true);
     setPhase(IdeationPhases.Choose);
   };

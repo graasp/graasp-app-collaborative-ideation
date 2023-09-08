@@ -1,4 +1,4 @@
-import { FC, SyntheticEvent, useMemo, useState } from 'react';
+import { SyntheticEvent, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Paper, Stack } from '@mui/material';

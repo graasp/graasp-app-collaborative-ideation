@@ -1,6 +1,4 @@
-import { AppData, AppDataVisibility } from '@graasp/sdk';
-
-import { CurrentStateData } from './appDataTypes';
+import { AppDataVisibility } from '@graasp/sdk';
 
 export const INITIAL_STATE = {
   type: 'current-state',

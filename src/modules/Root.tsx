@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { I18nextProvider } from 'react-i18next';
 
 import { CssBaseline, ThemeProvider, createTheme, styled } from '@mui/material';
-import { grey, orange, pink } from '@mui/material/colors';
+import { grey, orange } from '@mui/material/colors';
 import { StyledEngineProvider } from '@mui/material/styles';
 
 import { withContext, withToken } from '@graasp/apps-query-client';

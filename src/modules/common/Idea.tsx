@@ -49,7 +49,7 @@ const Idea: FC<{
         Boolean(noveltyRating) && Boolean(relevanceRating),
       );
     }
-  }, [noveltyRating, relevanceRating]);
+  }, [noveltyRating, onRatingsChange, relevanceRating]);
   return (
     <Card
       variant="outlined"

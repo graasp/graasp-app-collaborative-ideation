@@ -1,6 +1,6 @@
-import { useState } from 'react';
-
-import { Slider, Stack, Typography, useTheme } from '@mui/material';
+import Slider from '@mui/material/Slider';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 
 interface LikertScaleProps {
   minLabel?: string;
@@ -12,12 +12,11 @@ interface LikertScaleProps {
 
 const LikertScale = (props: LikertScaleProps): JSX.Element => {
   const { minLabel, maxLabel, levels, onChange, levelsLabels } = props;
-  const theme = useTheme();
-  const [isSet, setIsSet] = useState(false);
   if (levels <= 1) {
     throw Error('The `levels` prop should be striclty higher than 1.');
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const displayValue = (value: number, _index: number): JSX.Element => {
     if (levelsLabels) {
       return (
@@ -30,11 +29,11 @@ const LikertScale = (props: LikertScaleProps): JSX.Element => {
   const handleChange = (
     _event: Event,
     rating: number | number[],
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _activeThumb: number,
   ): void => {
     if (onChange && typeof rating === 'number') {
       onChange(rating);
-      setIsSet(true);
     }
   };
   return (

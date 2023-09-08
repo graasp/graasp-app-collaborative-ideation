@@ -109,7 +109,6 @@ export const SettingsProvider: FC<Prop> = ({ children }) => {
           } else {
             acc[key] = defaultSettingsValues[key];
           }
-          console.debug('acc: ', acc);
           return acc;
         },
         defaultSettingsValues,

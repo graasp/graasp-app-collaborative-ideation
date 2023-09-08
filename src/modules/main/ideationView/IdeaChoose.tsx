@@ -4,9 +4,8 @@ import Stack from '@mui/material/Stack';
 
 import { Set } from 'immutable';
 
-import { IdeaAppData, IdeasData } from '@/config/appDataTypes';
+import { IdeasData } from '@/config/appDataTypes';
 import Idea from '@/modules/common/Idea';
-import { useAppDataContext } from '@/modules/context/AppDataContext';
 
 const IdeaChoose: FC<{
   ideas: IdeasData;
@@ -15,9 +14,6 @@ const IdeaChoose: FC<{
     ratings: { [key: string]: { [key: string]: number } },
   ) => void;
 }> = ({ ideas, onChoose }) => {
-  console.debug('Render IdeaChoose');
-  const { appData } = useAppDataContext();
-
   const ideasIds = useMemo(() => ideas.map((i) => i.id).toSet(), [ideas]);
   const [completeIdeas, setCompleteIdeas] = useState(Set<string>([]));
 
@@ -48,7 +44,6 @@ const IdeaChoose: FC<{
 
       if (ideasIds.equals(newCompleteIdeasSet)) {
         setReady(true);
-        console.debug('Sets are equal.');
       }
       setCompleteIdeas(newCompleteIdeasSet);
     },
@@ -59,7 +54,8 @@ const IdeaChoose: FC<{
     if (ratings) {
       onChoose(id, ratings);
     } else {
-      // Show alert.
+      // TODO: Show alert.
+      // eslint-disable-next-line no-console
       console.warn('No ratings were provided.');
     }
   };

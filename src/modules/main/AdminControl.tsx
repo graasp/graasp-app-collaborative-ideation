@@ -32,7 +32,7 @@ interface AdminControlProps {
 
 const AdminControl: FC<AdminControlProps> = ({ width }): JSX.Element => {
   const { t } = useTranslation();
-  const { postAppData, patchAppData, appData } = useAppDataContext();
+  const { postAppData, appData } = useAppDataContext();
   const [currentState, setCurrentState] = useState<CurrentStateAppData>();
   const [sync, setSync] = useState<boolean>(false);
   const initState = (): void => {

@@ -1,14 +1,11 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 
-import { Box, Container, Typography } from '@mui/material';
-import Stack from '@mui/material/Stack';
+import Container from '@mui/material/Container';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
-import * as d3 from 'd3';
 import { List, RecordOf } from 'immutable';
 
 import { IdeaAppData } from '@/config/appDataTypes';
-import Idea from '@/modules/common/Idea';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
 // const renderChart = (data: List<IdeaAppData>): void => {
