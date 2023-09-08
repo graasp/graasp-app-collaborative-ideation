@@ -9,7 +9,6 @@ import {
   Typography,
 } from '@mui/material';
 
-import { useLocalContext } from '@graasp/apps-query-client';
 import { Button } from '@graasp/ui';
 
 import { hooks } from '@/config/queryClient';

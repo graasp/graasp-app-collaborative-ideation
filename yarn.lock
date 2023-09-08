@@ -3742,15 +3742,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/tracing@npm:7.59.2":
-  version: 7.59.2
-  resolution: "@sentry/tracing@npm:7.59.2"
-  dependencies:
-    "@sentry-internal/tracing": 7.59.2
-  checksum: 505783f6140f68ef2c1f76fb514eb4d36f4918eabb3495fa4d0311d284815b5579d1642e1756fe21d01e9ca51f8f79612446d585126b8d019707ed5a991cf75f
-  languageName: node
-  linkType: hard
-
 "@sentry/types@npm:7.59.2":
   version: 7.59.2
   resolution: "@sentry/types@npm:7.59.2"
@@ -8556,9 +8547,7 @@ __metadata:
     "@mui/lab": 5.0.0-alpha.136
     "@mui/material": 5.14.0
     "@mui/x-data-grid": ^6.12.1
-    "@sentry/browser": 7.59.2
     "@sentry/react": 7.59.2
-    "@sentry/tracing": 7.59.2
     "@tanstack/react-query": ^4.29.25
     "@tanstack/react-query-devtools": ^4.29.25
     "@trivago/prettier-plugin-sort-imports": 4.1.1

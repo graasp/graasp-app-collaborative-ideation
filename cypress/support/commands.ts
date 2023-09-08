@@ -40,13 +40,26 @@ Cypress.Commands.add(
         ...database,
         items: [MOCK_SERVER_ITEM],
       };
-      // eslint-disable-next-line no-param-reassign
-      win.appContext = {
+
+      // DEV SHIT
+      console.debug('AppContext provided: ', appContext);
+      console.debug('FUCKING API HOST: ', Cypress.env('VITE_API_HOST'));
+      const c = {
         memberId: currentMember.id,
         itemId: MOCK_SERVER_ITEM.id,
         apiHost: Cypress.env('VITE_API_HOST'),
         ...appContext,
       };
+      console.debug(c);
+      // eslint-disable-next-line no-param-reassign
+      win.appContext = c;
+      // eslint-disable-next-line no-param-reassign
+      // win.appContext = {
+      //   memberId: currentMember.id,
+      //   itemId: MOCK_SERVER_ITEM.id,
+      //   apiHost: Cypress.env('VITE_API_HOST'),
+      //   ...appContext,
+      // };
     });
 
     // setup mocks here
