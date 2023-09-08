@@ -31,6 +31,7 @@ jobs:
           VITE_GRAASP_APP_ID: id-1234567890
           VITE_MOCK_API: true
           VITE_VERSION: cypress-tests
+          VITE_WS_HOST: ws://localhost:3636/ws
         with:
           install: false
           build: yarn build
