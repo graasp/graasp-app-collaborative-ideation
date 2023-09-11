@@ -31,7 +31,7 @@ const {
         buildMockLocalContext(window.Cypress ? window.appContext : mockContext),
       ) as Window)
     : window.parent,
-  enableWebsocket: true,
+  enableWebsocket: Boolean(WS_HOST),
   WS_HOST,
 });
 
