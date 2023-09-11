@@ -30,6 +30,7 @@ export type AppDataContextType = {
   deleteAppData: (payload: DeleteAppDataType) => void;
   appData: List<AppDataRecord>;
   isSuccess: boolean;
+  isLoading: boolean;
 };
 
 const defaultContextValue = {
@@ -39,6 +40,7 @@ const defaultContextValue = {
   deleteAppData: () => null,
   appData: List([]),
   isSuccess: false,
+  isLoading: true,
 };
 
 const AppDataContext = createContext<AppDataContextType>(defaultContextValue);
@@ -74,6 +76,7 @@ export const AppDataProvider = ({ children }: Props): JSX.Element => {
       deleteAppData,
       appData: appData || List<AppDataRecord>([]),
       isSuccess,
+      isLoading,
     }),
     [
       patchAppData,
@@ -82,6 +85,7 @@ export const AppDataProvider = ({ children }: Props): JSX.Element => {
       deleteAppData,
       appData,
       isSuccess,
+      isLoading,
     ],
   );
 

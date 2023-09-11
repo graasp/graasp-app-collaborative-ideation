@@ -1,33 +1,68 @@
-import { FC, useCallback, useMemo, useState } from 'react';
+import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Typography } from '@mui/material';
-import Stack from '@mui/material/Stack';
+import { Alert, Grid, Typography } from '@mui/material';
 
-import { Set } from 'immutable';
+import { useLocalContext } from '@graasp/apps-query-client';
+import { Loader } from '@graasp/ui';
 
-import { IdeasData } from '@/config/appDataTypes';
+import { List, Set } from 'immutable';
+
+import { IdeasData, RatingsAppData } from '@/config/appDataTypes';
+import { NUMBER_OF_IDEAS_TO_SHOW } from '@/config/constants';
+import { NoveltyRelevanceRatings } from '@/interfaces/ratings';
 import Idea from '@/modules/common/Idea';
+import { useAppDataContext } from '@/modules/context/AppDataContext';
 
 const IdeaChoose: FC<{
   ideas: IdeasData;
-  onChoose: (
-    id: string,
-    ratings: { [key: string]: { [key: string]: number } },
-  ) => void;
+  onChoose: (id: string) => void;
 }> = ({ ideas, onChoose }) => {
   const { t } = useTranslation();
-  const ideasIds = useMemo(() => ideas.map((i) => i.id).toSet(), [ideas]);
+  const { appData, isSuccess, isLoading } = useAppDataContext();
+  const { memberId } = useLocalContext();
+  const numberOfIdeasToShow = NUMBER_OF_IDEAS_TO_SHOW;
   const [completeIdeas, setCompleteIdeas] = useState(Set<string>([]));
+  const [selectedIdeas, setSelectedIdeas] = useState<IdeasData>();
+  const ideasIds = useMemo(
+    () => selectedIdeas?.map((i) => i.id).toSet(),
+    [selectedIdeas],
+  );
 
-  const [ratings, setRatings] = useState<{
-    [key: string]: { [key: string]: number };
-  }>();
+  const ownIdeasIds = useMemo(
+    () =>
+      appData
+        .filter(({ creator }) => creator?.id === memberId)
+        .map(({ id }) => id),
+    [appData, memberId],
+  );
+
+  useEffect(() => {
+    if (isSuccess && typeof selectedIdeas === 'undefined') {
+      const ratings = appData.filter(
+        ({ type, creator }) => type === 'ratings' && creator?.id === memberId,
+      ) as List<RatingsAppData<NoveltyRelevanceRatings>> | undefined;
+      const ideasNotRated = ideas.filterNot(
+        ({ id }) =>
+          Boolean(ratings?.find(({ data }) => data.ideaRef === id)) ||
+          ownIdeasIds.includes(id),
+      );
+      if (ideasNotRated.size > 0) {
+        const ideasToShow = ideasNotRated.slice(0, numberOfIdeasToShow - 1);
+        setSelectedIdeas(ideasToShow);
+      }
+    }
+  }, [
+    isSuccess,
+    selectedIdeas,
+    appData,
+    ideas,
+    memberId,
+    numberOfIdeasToShow,
+    ownIdeasIds,
+  ]);
+
   const [ready, setReady] = useState(false);
-
-  // const collectedIdeas = appData.filter(
-  //   (i) => ideas.includes(i.id) && i.type === 'idea',
-  // ) as List<IdeaAppData>;
 
   const handleRatingsChange = useCallback(
     (
@@ -35,27 +70,21 @@ const IdeaChoose: FC<{
       ideaRatings: { [key: string]: number },
       isComplete?: boolean,
     ): void => {
-      const newRatings = {
-        ...ratings,
-        [id]: ideaRatings,
-      };
-      setRatings(newRatings);
-
       const newCompleteIdeasSet = isComplete
         ? completeIdeas.add(id)
         : completeIdeas;
 
-      if (ideasIds.equals(newCompleteIdeasSet)) {
+      if (ideasIds?.equals(newCompleteIdeasSet)) {
         setReady(true);
       }
       setCompleteIdeas(newCompleteIdeasSet);
     },
-    [completeIdeas, ideasIds, ratings],
+    [completeIdeas, ideasIds],
   );
 
   const handleChoose = (id: string): void => {
-    if (ratings) {
-      onChoose(id, ratings);
+    if (ready) {
+      onChoose(id);
     } else {
       // TODO: Show alert.
       // eslint-disable-next-line no-console
@@ -63,22 +92,33 @@ const IdeaChoose: FC<{
     }
   };
 
+  const renderPlaceHolderForNoIdeas = (): JSX.Element => {
+    if (isLoading) {
+      return <Loader />;
+    }
+    return <Alert severity="info">{t('NO_IDEAS_TO_SHOW_TEXT')}</Alert>;
+  };
+
   return (
     <>
       <Typography variant="body1">{t('CHOOSE_IDEA_HEADER_TEXT')}</Typography>
-      <Stack direction="row" spacing={4}>
-        {ideas.map((idea) => (
-          <Idea
-            key={idea.id}
-            idea={idea}
-            onSelect={handleChoose}
-            onRatingsChange={(newRatings, isComplete) =>
-              handleRatingsChange(idea.id, newRatings, isComplete)
-            }
-            enableBuildAction={ready}
-          />
-        ))}
-      </Stack>
+      <Grid container spacing={4}>
+        {selectedIdeas
+          ? selectedIdeas.map((idea) => (
+              <Grid key={idea.id} item>
+                <Idea
+                  key={idea.id}
+                  idea={idea}
+                  onSelect={handleChoose}
+                  onRatingsChange={(newRatings, isComplete) =>
+                    handleRatingsChange(idea.id, newRatings, isComplete)
+                  }
+                  enableBuildAction={ready}
+                />
+              </Grid>
+            ))
+          : renderPlaceHolderForNoIdeas()}
+      </Grid>
     </>
   );
 };

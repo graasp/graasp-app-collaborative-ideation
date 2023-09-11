@@ -17,10 +17,11 @@ import { IDEA_MAXIMUM_LENGTH } from '@/config/constants';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
 const IdeaInput: FC<{
-  currentRound: number;
+  currentRound?: number;
   parent?: AnonymousIdeaData;
   onSubmitted?: (id: string) => void;
-}> = ({ parent, currentRound, onSubmitted }) => {
+  actAsBot?: boolean;
+}> = ({ parent, currentRound, onSubmitted, actAsBot }) => {
   const { t } = useTranslation();
   const initialIdea = parent?.idea || '';
   const [idea, setIdea] = useState<string>(initialIdea);
@@ -33,6 +34,7 @@ const IdeaInput: FC<{
       idea,
       parentId: parent?.id,
       round: currentRound,
+      bot: actAsBot,
     };
 
     const promise = postAppDataAsync({
@@ -42,6 +44,7 @@ const IdeaInput: FC<{
     })?.then((postedIdea) => {
       if (typeof onSubmitted !== 'undefined') onSubmitted(postedIdea.id);
       setPromisePostIdea(undefined);
+      setIdea('');
       return postedIdea;
     });
     setPromisePostIdea(promise);
@@ -73,7 +76,7 @@ const IdeaInput: FC<{
         }}
       />
       <Button onClick={submit} disabled={disableSubmission}>
-        Submit
+        {t('SUBMIT')}
       </Button>
       {isPosting ?? <Loader />}
     </>

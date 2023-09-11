@@ -6,7 +6,7 @@ import {
 
 import { mockContext } from '@/mocks/db';
 
-import { GRAASP_APP_KEY, MOCK_API, WS_HOST } from './env';
+import { API_HOST, GRAASP_APP_KEY, MOCK_API, WS_HOST } from './env';
 
 const {
   queryClient,
@@ -33,6 +33,7 @@ const {
     : window.parent,
   enableWebsocket: Boolean(WS_HOST),
   WS_HOST,
+  API_HOST, // Technically, this is useless as the API_HOST is given by the parent window
 });
 
 export {

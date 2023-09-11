@@ -25,6 +25,7 @@ import { hooks } from '@/config/queryClient';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
 import Synchronizer from '../common/Synchronizer';
+import IdeaInput from './ideationView/IdeaInput';
 
 interface AdminControlProps {
   width?: string;
@@ -34,7 +35,7 @@ const AdminControl: FC<AdminControlProps> = ({ width }): JSX.Element => {
   const { t } = useTranslation();
   const { postAppData, appData } = useAppDataContext();
   const [currentState, setCurrentState] = useState<CurrentStateAppData>();
-  const [sync, setSync] = useState<boolean>(false);
+  const [sync, setSync] = useState<boolean>(true);
   const initState = (): void => {
     postAppData(INITIAL_STATE);
   };
@@ -115,6 +116,14 @@ const AdminControl: FC<AdminControlProps> = ({ width }): JSX.Element => {
         <Collapse in={sync} mountOnEnter unmountOnExit>
           <Synchronizer sync={sync} />
         </Collapse>
+        <Typography variant="h4" fontSize="14pt">
+          Act as a bot
+        </Typography>
+        <Typography>
+          With the following field, you can insert new ideas in the ideation
+          process under the identity of the virtual agent.
+        </Typography>
+        <IdeaInput actAsBot />
       </Stack>
     </Paper>
   );

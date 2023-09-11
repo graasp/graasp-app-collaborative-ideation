@@ -20,7 +20,6 @@ import { ChoosePhase, IdeationPhases, InputPhase } from '@/interfaces/ideation';
 import Prompt from '@/modules/common/Prompt';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
-import { showNewIdeas } from '@/utils/ideas';
 
 import IdeaChoose from './IdeaChoose';
 import IdeaInput from './IdeaInput';
@@ -84,11 +83,11 @@ const IdeationView: FC = () => {
     setPhase(IdeationPhases.Choose);
   };
 
-  const getIdeasToShow = (i: IdeasData): IdeasData => {
-    const ideasToShow = showNewIdeas(i, 3, listOfSeenIdeas, 1);
-    // setSeenIdeas(ideasToShow);
-    return ideasToShow;
-  };
+  // const getIdeasToShow = (i: IdeasData): IdeasData => {
+  //   const ideasToShow = showNewIdeas(i, 3, listOfSeenIdeas, 1);
+  //   // setSeenIdeas(ideasToShow);
+  //   return ideasToShow;
+  // };
 
   const renderPhaseOfIdeation = (): React.JSX.Element | null => {
     if (phase === IdeationPhases.Input)
@@ -101,9 +100,7 @@ const IdeationView: FC = () => {
       );
     if (phase === IdeationPhases.Choose)
       if (typeof ideas !== 'undefined')
-        return (
-          <IdeaChoose ideas={getIdeasToShow(ideas)} onChoose={handleChoose} />
-        );
+        return <IdeaChoose ideas={ideas} onChoose={handleChoose} />;
       else setPhase(IdeationPhases.Input);
     if (phase === IdeationPhases.Wait) return <Loader />;
 

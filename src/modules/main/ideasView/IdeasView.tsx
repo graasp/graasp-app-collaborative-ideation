@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Container from '@mui/material/Container';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
@@ -9,6 +10,7 @@ import { IdeaAppData } from '@/config/appDataTypes';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
 const IdeasView = (): JSX.Element => {
+  const { t } = useTranslation();
   const { appData } = useAppDataContext();
   const ideasTable = useMemo(() => {
     const ideas = appData.filter(({ type }) => type === 'idea') as RecordOf<
@@ -17,11 +19,11 @@ const IdeasView = (): JSX.Element => {
     return ideas.map((i) => ({
       id: i.id,
       idea: i.data.idea,
-      author: i.creator?.name,
+      author: i.data.bot ? t('BOT_NAME') : i.creator?.name,
       parentId: i.data.parentId,
       bot: i.data.bot,
     }));
-  }, [appData]);
+  }, [appData, t]);
   const columns: GridColDef[] = [
     { field: 'idea', headerName: 'Idea', width: 400, resizable: true },
     { field: 'author', headerName: 'Author', width: 130, resizable: true },
