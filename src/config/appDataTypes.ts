@@ -1,3 +1,4 @@
+import { AppDataVisibility } from '@graasp/sdk';
 import { AppDataRecord } from '@graasp/sdk/frontend';
 
 import { List } from 'immutable';
@@ -35,9 +36,13 @@ export type CurrentStateAppData = AppDataRecord & {
   data: CurrentStateData;
 };
 
-export type RatingsData = {
+export type RatingsData<T> = {
   ideaRef: string;
-  ratings: {
-    [key: string]: number;
-  };
+  ratings: T;
+};
+
+export type RatingsAppData<T> = AppDataRecord & {
+  type: 'ratings';
+  data: RatingsData<T>;
+  visibility: AppDataVisibility.Member;
 };

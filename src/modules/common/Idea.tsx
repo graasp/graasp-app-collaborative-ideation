@@ -10,34 +10,49 @@ import {
 } from '@mui/material';
 import green from '@mui/material/colors/green';
 
+import { AppDataVisibility } from '@graasp/sdk';
 import { Button } from '@graasp/ui';
 
-import { AnonymousIdeaData } from '@/config/appDataTypes';
-import { Ratings } from '@/interfaces/ratings';
+import {
+  AnonymousIdeaData,
+  RatingsAppData,
+  RatingsData,
+} from '@/config/appDataTypes';
+import { NoveltyRelevanceRatings } from '@/interfaces/ratings';
 
+import { useAppDataContext } from '../context/AppDataContext';
 import LikertScale from './LikertScale';
+
+type RatingName = 'novelty' | 'relevance';
 
 const Idea: FC<{
   idea: AnonymousIdeaData;
   onSelect?: (id: string) => void;
-  ratings?: Ratings;
   onRatingsChange?: (
     newRatings: { [key: string]: number },
     complete?: boolean,
   ) => void;
   enableBuildAction?: boolean;
-}> = ({
-  idea,
-  onSelect,
-  // Will be required in future versions
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  ratings,
-  onRatingsChange,
-  enableBuildAction = true,
-}) => {
+}> = ({ idea, onSelect, onRatingsChange, enableBuildAction = true }) => {
   const { t } = useTranslation();
+  const { appData, patchAppData, postAppData } = useAppDataContext();
+  const ratings = appData.find(
+    ({ data, type }) => data?.ideaRef === idea.id && type === 'ratings',
+  ) as RatingsAppData<NoveltyRelevanceRatings> | undefined;
   const [noveltyRating, setNoveltyRating] = useState<number>();
   const [relevanceRating, setRelevanceRating] = useState<number>();
+
+  useEffect(() => {
+    if (ratings) {
+      const { novelty, relevance } = ratings.data.ratings;
+      if (novelty) {
+        setNoveltyRating(novelty);
+      }
+      if (relevance) {
+        setRelevanceRating(relevance);
+      }
+    }
+  }, [ratings]);
 
   useEffect(() => {
     if (onRatingsChange) {
@@ -50,6 +65,42 @@ const Idea: FC<{
       );
     }
   }, [noveltyRating, onRatingsChange, relevanceRating]);
+
+  const updateRatings = (
+    novelty: number | undefined,
+    relevance: number | undefined,
+  ): void => {
+    const ratingsData: RatingsData<NoveltyRelevanceRatings> = {
+      ideaRef: idea.id,
+      ratings: {
+        novelty,
+        relevance,
+      },
+    };
+    if (ratings?.id) {
+      patchAppData({
+        id: ratings.id,
+        data: ratingsData,
+      });
+    } else {
+      postAppData({
+        data: ratingsData,
+        type: 'ratings',
+        visibility: AppDataVisibility.Member,
+      });
+    }
+  };
+
+  const handleRatingChange = (rating: RatingName, value: number): void => {
+    if (rating === 'novelty') {
+      setNoveltyRating(value);
+      updateRatings(value, relevanceRating);
+    } else if (rating === 'relevance') {
+      setRelevanceRating(value);
+      updateRatings(noveltyRating, value);
+    }
+  };
+
   return (
     <Card
       variant="outlined"
@@ -71,7 +122,7 @@ const Idea: FC<{
         }}
       >
         <LikertScale
-          onChange={(rating) => setNoveltyRating(rating)}
+          onChange={(rating) => handleRatingChange('novelty', rating)}
           minLabel="Common"
           maxLabel="Novel"
           levels={7}
@@ -84,9 +135,10 @@ const Idea: FC<{
             'Somewhat novel',
             'Novel',
           ]}
+          value={noveltyRating}
         />
         <LikertScale
-          onChange={(rating) => setRelevanceRating(rating)}
+          onChange={(rating) => handleRatingChange('relevance', rating)}
           minLabel="Irrelevant"
           maxLabel="Relevant"
           levelsLabels={[
@@ -99,6 +151,7 @@ const Idea: FC<{
             'Very relevant',
           ]}
           levels={7}
+          value={relevanceRating}
         />
       </CardActions>
       <CardActions>

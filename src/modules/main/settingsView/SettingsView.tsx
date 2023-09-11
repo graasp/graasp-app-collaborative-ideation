@@ -40,7 +40,9 @@ const SettingsView: FC<SettingsViewProps> = () => {
 
   return (
     <Stack width="100%" spacing={4} direction="column">
-      <Typography variant="h1">{t('SETTINGS_TITLE')}</Typography>
+      <Typography variant="h3" fontSize="16pt">
+        {t('SETTINGS_TITLE')}
+      </Typography>
       <FormGroup>
         <TextField
           value={promptContent}

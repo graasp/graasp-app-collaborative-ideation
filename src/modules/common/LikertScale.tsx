@@ -8,22 +8,28 @@ interface LikertScaleProps {
   levels: number;
   onChange?: (rating: number) => void;
   levelsLabels?: string[];
+  value: number | undefined;
 }
 
 const LikertScale = (props: LikertScaleProps): JSX.Element => {
-  const { minLabel, maxLabel, levels, onChange, levelsLabels } = props;
+  const { minLabel, maxLabel, levels, onChange, levelsLabels, value } = props;
   if (levels <= 1) {
     throw Error('The `levels` prop should be striclty higher than 1.');
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const displayValue = (value: number, _index: number): JSX.Element => {
+  const displayValue = (
+    valueToDisplay: number,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _index: number,
+  ): JSX.Element => {
     if (levelsLabels) {
       return (
-        <Typography variant="caption">{levelsLabels[value - 1]}</Typography>
+        <Typography variant="caption">
+          {levelsLabels[valueToDisplay - 1]}
+        </Typography>
       );
     }
-    return <Typography variant="caption">{value}</Typography>;
+    return <Typography variant="caption">{valueToDisplay}</Typography>;
   };
 
   const handleChange = (
@@ -57,6 +63,7 @@ const LikertScale = (props: LikertScaleProps): JSX.Element => {
         defaultValue={Math.ceil(levels / 2)}
         valueLabelDisplay="auto"
         valueLabelFormat={displayValue}
+        value={value || Math.ceil(levels / 2)}
       />
       <Typography variant="caption">{maxLabel}</Typography>
     </Stack>

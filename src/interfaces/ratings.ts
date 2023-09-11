@@ -13,3 +13,8 @@ export interface LikertScale extends Rating {
   min: 1;
   step: 1;
 }
+
+export type NoveltyRelevanceRatings = {
+  novelty: number | undefined;
+  relevance: number | undefined;
+};

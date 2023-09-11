@@ -1,5 +1,7 @@
 import { FC, useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
+import { Typography } from '@mui/material';
 import Stack from '@mui/material/Stack';
 
 import { Set } from 'immutable';
@@ -14,6 +16,7 @@ const IdeaChoose: FC<{
     ratings: { [key: string]: { [key: string]: number } },
   ) => void;
 }> = ({ ideas, onChoose }) => {
+  const { t } = useTranslation();
   const ideasIds = useMemo(() => ideas.map((i) => i.id).toSet(), [ideas]);
   const [completeIdeas, setCompleteIdeas] = useState(Set<string>([]));
 
@@ -61,19 +64,22 @@ const IdeaChoose: FC<{
   };
 
   return (
-    <Stack direction="row" spacing={4}>
-      {ideas.map((idea) => (
-        <Idea
-          key={idea.id}
-          idea={idea}
-          onSelect={handleChoose}
-          onRatingsChange={(newRatings, isComplete) =>
-            handleRatingsChange(idea.id, newRatings, isComplete)
-          }
-          enableBuildAction={ready}
-        />
-      ))}
-    </Stack>
+    <>
+      <Typography variant="body1">{t('CHOOSE_IDEA_HEADER_TEXT')}</Typography>
+      <Stack direction="row" spacing={4}>
+        {ideas.map((idea) => (
+          <Idea
+            key={idea.id}
+            idea={idea}
+            onSelect={handleChoose}
+            onRatingsChange={(newRatings, isComplete) =>
+              handleRatingsChange(idea.id, newRatings, isComplete)
+            }
+            enableBuildAction={ready}
+          />
+        ))}
+      </Stack>
+    </>
   );
 };
 
