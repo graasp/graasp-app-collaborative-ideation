@@ -3108,14 +3108,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graasp/apps-query-client@npm:2.0.3":
-  version: 2.0.3
-  resolution: "@graasp/apps-query-client@npm:2.0.3"
+"@graasp/apps-query-client@npm:2.0.4":
+  version: 2.0.4
+  resolution: "@graasp/apps-query-client@npm:2.0.4"
   dependencies:
-    "@graasp/sdk": 1.2.0
+    "@graasp/sdk": 1.2.1
     axios: 1.4.0
     http-status-codes: 2.2.0
-    immutable: 4.3.1
+    immutable: 4.3.2
     miragejs: 0.1.47
     qs: 6.11.2
     uuid: 9.0.0
@@ -3124,7 +3124,7 @@ __metadata:
     "@tanstack/react-query-devtools": ^4.28.0
     react: ^18.0.0
     react-dom: ^18.0.0
-  checksum: 5386b53414eaf2cb1dfa834af7c6a6997a53d87100f235a188082fb82bbfc158ddc3720621da1c5678881c3caeaf0f9a98a216e18dbe66270dc29a09e6d0a254
+  checksum: 994451c6a0a3ed189f25abf6cc09902cfb653f585d1614e980b2046eb72721b9d0eca6a58572285bfc461cc0b2ebb696c2a90bd378d91adebcbd9e8f26e31703
   languageName: node
   linkType: hard
 
@@ -3141,22 +3141,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graasp/sdk@npm:1.2.0":
-  version: 1.2.0
-  resolution: "@graasp/sdk@npm:1.2.0"
+"@graasp/sdk@npm:1.2.1":
+  version: 1.2.1
+  resolution: "@graasp/sdk@npm:1.2.1"
   dependencies:
     "@aws-sdk/client-s3": 3.370.0
     "@fastify/secure-session": 6.1.0
     "@graasp/etherpad-api": 2.1.1
     fastify: 4.18.0
     fluent-json-schema: 4.1.0
-    immutable: 4.3.1
+    immutable: 4.3.2
     js-cookie: 3.0.5
     qs: 6.11.2
     typeorm: 0.3.17
     uuid: 9.0.0
-    validator: 13.9.0
-  checksum: 478eeff4f2c505876b6e555c64ab41176c636d971c2012ffbf7196d242ed04807286b34f281f5aa063e5cc82b14eb47a7fb6ba631073906ae78aea31807e53eb
+    validator: 13.11.0
+  checksum: 8507f3157e77a1cf0fb9e01a32c72cbfdb8bd3fd5a960a5fa299dbe36eba4a6f28f5f094a5d09214599e54a1fd91b95e945f80525a6165e4caf96ca9822544b7
   languageName: node
   linkType: hard
 
@@ -8202,7 +8202,7 @@ __metadata:
     "@cypress/code-coverage": 3.11.0
     "@emotion/react": 11.11.1
     "@emotion/styled": 11.11.0
-    "@graasp/apps-query-client": 2.0.3
+    "@graasp/apps-query-client": 2.0.4
     "@graasp/sdk": 1.5.0
     "@graasp/ui": 3.4.0
     "@mui/icons-material": 5.14.8
@@ -12764,13 +12764,6 @@ __metadata:
   version: 13.11.0
   resolution: "validator@npm:13.11.0"
   checksum: d1e0c27022681420756da25bc03eb08d5f0c66fb008f8ff02ebc95812b77c6be6e03d3bd05cf80ca702e23eeb73dadd66b4b3683173ea2a0bc7cc72820bee131
-  languageName: node
-  linkType: hard
-
-"validator@npm:13.9.0":
-  version: 13.9.0
-  resolution: "validator@npm:13.9.0"
-  checksum: e2c936f041f61faa42bafd17c6faddf939498666cd82e88d733621c286893730b008959f4cb12ab3e236148a4f3805c30b85e3dcf5e0efd8b0cbcd36c02bfc0c
   languageName: node
   linkType: hard
 
