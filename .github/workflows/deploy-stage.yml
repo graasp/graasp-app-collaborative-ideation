@@ -38,7 +38,7 @@ jobs:
         with:
           # Replace input build-folder or version if needed
           build-folder: 'build'
-          graasp-app-id: ${{ secrets.APP_ID }}
+          graasp-app-id: ${{ vars.APP_ID }}
           version: 'latest'
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_STAGE }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_STAGE }}
