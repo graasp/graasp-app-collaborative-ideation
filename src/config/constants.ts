@@ -10,3 +10,4 @@ export const INITIAL_STATE = {
 
 export const IDEA_MAXIMUM_LENGTH = 500;
 export const NUMBER_OF_IDEAS_TO_SHOW = 3;
+export const REFRESH_INTERVAL_MS = 5000;

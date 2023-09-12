@@ -6,6 +6,7 @@ import {
   AlertTitle,
   Collapse,
   InputAdornment,
+  Stack,
   TextField,
   Typography,
 } from '@mui/material';
@@ -14,7 +15,7 @@ import { AppData } from '@graasp/sdk';
 import { Button, Loader } from '@graasp/ui';
 
 import { AnonymousIdeaData, IdeaData } from '@/config/appDataTypes';
-import { IDEA_MAXIMUM_LENGTH } from '@/config/constants';
+import { IDEA_MAXIMUM_LENGTH, REFRESH_INTERVAL_MS } from '@/config/constants';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
 const IdeaInput: FC<{
@@ -26,7 +27,7 @@ const IdeaInput: FC<{
   const { t } = useTranslation();
   // const initialIdea = parent?.idea || '';
   const [idea, setIdea] = useState<string>('');
-  const { postAppDataAsync } = useAppDataContext();
+  const { postAppDataAsync, invalidateAppData } = useAppDataContext();
   const [promisePostIdea, setPromisePostIdea] = useState<
     Promise<AppData> | undefined
   >();
@@ -43,9 +44,13 @@ const IdeaInput: FC<{
       visibility: 'member',
       data: newIdeaData,
     })?.then((postedIdea) => {
-      if (typeof onSubmitted !== 'undefined') onSubmitted(postedIdea.id);
-      setPromisePostIdea(undefined);
-      setIdea('');
+      setTimeout(() => {
+        if (typeof onSubmitted !== 'undefined') onSubmitted(postedIdea.id);
+        setPromisePostIdea(undefined);
+        setIdea('');
+        invalidateAppData();
+      }, REFRESH_INTERVAL_MS);
+
       return postedIdea;
     });
     setPromisePostIdea(promise);
@@ -85,7 +90,12 @@ const IdeaInput: FC<{
       <Button onClick={submit} disabled={disableSubmission}>
         {t('SUBMIT')}
       </Button>
-      {isPosting ?? <Loader />}
+      <Collapse in={isPosting}>
+        <Stack direction="row" spacing={1}>
+          <Alert severity="info">{t('IDEA_BEING_SUBMITTED_ALERT')}</Alert>
+          <Loader />
+        </Stack>
+      </Collapse>
     </>
   );
 };

@@ -3,7 +3,12 @@ import { useTranslation } from 'react-i18next';
 
 import {
   Autocomplete,
+  FormControl,
+  FormControlLabel,
   FormGroup,
+  FormLabel,
+  Radio,
+  RadioGroup,
   Stack,
   TextField,
   Typography,
@@ -12,6 +17,7 @@ import {
 import { Button } from '@graasp/ui';
 
 import { hooks } from '@/config/queryClient';
+import { IdeationMode } from '@/interfaces/ideation';
 import { useMembersContext } from '@/modules/context/MembersContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 
@@ -21,13 +27,14 @@ interface SettingsViewProps {}
 const SettingsView: FC<SettingsViewProps> = () => {
   const { t } = useTranslation();
   const { data: appContext } = hooks.useAppContext();
-  const { saveSettings, prompt, orchestrator } = useSettings();
+  const { saveSettings, prompt, orchestrator, mode } = useSettings();
 
   const members = useMembersContext();
   const [promptContent, setPromptContent] = useState(prompt.content);
   const [orchestratorId, setOrchestratorId] = useState(
     orchestrator.id.length === 0 ? appContext?.creator?.id : orchestrator.id,
   );
+  const [modeState, setModeState] = useState(mode.mode);
   const handleSave = (): void => {
     saveSettings('prompt', {
       content: promptContent,
@@ -35,6 +42,9 @@ const SettingsView: FC<SettingsViewProps> = () => {
     });
     saveSettings('orchestrator', {
       id: orchestratorId || '',
+    });
+    saveSettings('mode', {
+      mode: modeState,
     });
   };
 
@@ -69,6 +79,37 @@ const SettingsView: FC<SettingsViewProps> = () => {
           onChange={(_e, value) => setOrchestratorId(value || '')}
         />
       </FormGroup>
+      <FormControl>
+        <FormLabel>Ideation mode</FormLabel>
+        <RadioGroup
+          aria-labelledby="ideation-mode-radio-button"
+          defaultValue={IdeationMode.Open}
+          value={modeState}
+          name="radio-buttons-group"
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            setModeState(
+              (event.target as HTMLInputElement).value as IdeationMode,
+            );
+          }}
+        >
+          <FormControlLabel
+            value={IdeationMode.Open}
+            control={<Radio />}
+            label="Open (brainstorming)"
+          />
+          <FormControlLabel
+            value={IdeationMode.PartiallyBlind}
+            control={<Radio />}
+            label="Partially blind (brainwriting)"
+          />
+          <FormControlLabel
+            value={IdeationMode.FullyBlind}
+            control={<Radio />}
+            label="Fully blind (individual ideation)"
+            disabled
+          />
+        </RadioGroup>
+      </FormControl>
       <Button onClick={handleSave}>{t('SAVE')}</Button>
     </Stack>
   );

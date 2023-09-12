@@ -21,3 +21,9 @@ export const ChoosePhase: Phase = {
   phase: IdeationPhases.Choose,
   label: t('READ_IDEAS_STEP_TITLE'),
 };
+
+export enum IdeationMode {
+  FullyBlind = 'fully-blind',
+  PartiallyBlind = 'partially-blind',
+  Open = 'open',
+}

@@ -9,6 +9,7 @@ import { AppDataVisibility } from '@graasp/sdk';
 import { List } from 'immutable';
 
 import { IdeaAppData } from '@/config/appDataTypes';
+import { REFRESH_INTERVAL_MS } from '@/config/constants';
 import { anonymizeIdeas } from '@/utils/ideas';
 
 import { useAppDataContext } from '../context/AppDataContext';
@@ -78,7 +79,7 @@ const Synchronizer: FC<SynchronizerProps> = ({ sync }) => {
       <Alert severity="success">{t('SYNC_ALERT_SUCCESS')}</Alert>
       <Countdown
         start={isExpirationTimerRunning}
-        time={5000}
+        time={REFRESH_INTERVAL_MS}
         onTimeOut={handleDataExpiration}
       />
     </Stack>

@@ -19,6 +19,8 @@
     "SUBMIT": "Submit",
     "BOT_NAME": "GraaspBot",
     "SYNC_ALERT_SUCCESS": "All ideas are sync.",
-    "CUE_PARENT_IDEA_TITLE": "Previous idea"
+    "CUE_PARENT_IDEA_TITLE": "Previous idea",
+    "IDEA_BEING_SUBMITTED_ALERT": "Your idea is being submitted, please wait for a few seconds.",
+    "CHECK_FOR_NEW_IDEAS": "Check for new ideas"
   }
 }

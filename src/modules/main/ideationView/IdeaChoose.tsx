@@ -4,23 +4,28 @@ import { useTranslation } from 'react-i18next';
 import { Alert, Grid, Typography } from '@mui/material';
 
 import { useLocalContext } from '@graasp/apps-query-client';
-import { Loader } from '@graasp/ui';
+import { Button, Loader } from '@graasp/ui';
 
 import { List, Set } from 'immutable';
 
 import { IdeasData, RatingsAppData } from '@/config/appDataTypes';
 import { NUMBER_OF_IDEAS_TO_SHOW } from '@/config/constants';
+import { IdeationMode } from '@/interfaces/ideation';
 import { NoveltyRelevanceRatings } from '@/interfaces/ratings';
 import Idea from '@/modules/common/Idea';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
+import { useSettings } from '@/modules/context/SettingsContext';
 
 const IdeaChoose: FC<{
   ideas: IdeasData;
   onChoose: (id: string) => void;
 }> = ({ ideas, onChoose }) => {
   const { t } = useTranslation();
-  const { appData, isSuccess, isLoading } = useAppDataContext();
+  const { appData, isSuccess, isLoading, invalidateAppData } =
+    useAppDataContext();
   const { memberId } = useLocalContext();
+  const { mode: ideationMode } = useSettings();
+  const { mode } = ideationMode;
   const numberOfIdeasToShow = NUMBER_OF_IDEAS_TO_SHOW;
   const [completeIdeas, setCompleteIdeas] = useState(Set<string>([]));
   const [selectedIdeas, setSelectedIdeas] = useState<IdeasData>();
@@ -39,17 +44,21 @@ const IdeaChoose: FC<{
 
   useEffect(() => {
     if (isSuccess && typeof selectedIdeas === 'undefined') {
-      const ratings = appData.filter(
-        ({ type, creator }) => type === 'ratings' && creator?.id === memberId,
-      ) as List<RatingsAppData<NoveltyRelevanceRatings>> | undefined;
-      const ideasNotRated = ideas.filterNot(
-        ({ id }) =>
-          Boolean(ratings?.find(({ data }) => data.ideaRef === id)) ||
-          ownIdeasIds.includes(id),
-      );
-      if (ideasNotRated.size > 0) {
-        const ideasToShow = ideasNotRated.slice(0, numberOfIdeasToShow - 1);
-        setSelectedIdeas(ideasToShow);
+      if (mode === IdeationMode.PartiallyBlind) {
+        const ratings = appData.filter(
+          ({ type, creator }) => type === 'ratings' && creator?.id === memberId,
+        ) as List<RatingsAppData<NoveltyRelevanceRatings>> | undefined;
+        const ideasNotRated = ideas.filterNot(
+          ({ id }) =>
+            Boolean(ratings?.find(({ data }) => data.ideaRef === id)) ||
+            ownIdeasIds.includes(id),
+        );
+        if (ideasNotRated.size > 0) {
+          const ideasToShow = ideasNotRated.slice(0, numberOfIdeasToShow - 1);
+          setSelectedIdeas(ideasToShow);
+        }
+      } else {
+        setSelectedIdeas(ideas);
       }
     }
   }, [
@@ -60,6 +69,7 @@ const IdeaChoose: FC<{
     memberId,
     numberOfIdeasToShow,
     ownIdeasIds,
+    mode,
   ]);
 
   const [ready, setReady] = useState(false);
@@ -96,7 +106,16 @@ const IdeaChoose: FC<{
     if (isLoading) {
       return <Loader />;
     }
-    return <Alert severity="info">{t('NO_IDEAS_TO_SHOW_TEXT')}</Alert>;
+    return (
+      <>
+        <Alert sx={{ m: 1 }} severity="info">
+          {t('NO_IDEAS_TO_SHOW_TEXT')}
+        </Alert>
+        <Button onClick={() => invalidateAppData()}>
+          {t('CHECK_FOR_NEW_IDEAS')}
+        </Button>
+      </>
+    );
   };
 
   return (

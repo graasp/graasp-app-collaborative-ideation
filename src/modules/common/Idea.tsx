@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import green from '@mui/material/colors/green';
 
+import { useLocalContext } from '@graasp/apps-query-client';
 import { AppDataVisibility } from '@graasp/sdk';
 import { Button } from '@graasp/ui';
 
@@ -36,9 +37,17 @@ const Idea: FC<{
 }> = ({ idea, onSelect, onRatingsChange, enableBuildAction = true }) => {
   const { t } = useTranslation();
   const { appData, patchAppData, postAppData } = useAppDataContext();
-  const ratings = appData.find(
-    ({ data, type }) => data?.ideaRef === idea.id && type === 'ratings',
-  ) as RatingsAppData<NoveltyRelevanceRatings> | undefined;
+  const { memberId } = useLocalContext();
+  const ratings = useMemo(
+    () =>
+      appData.find(
+        ({ data, type, creator }) =>
+          data?.ideaRef === idea.id &&
+          type === 'ratings' &&
+          creator?.id === memberId,
+      ) as RatingsAppData<NoveltyRelevanceRatings> | undefined,
+    [appData, idea.id, memberId],
+  );
   const [noveltyRating, setNoveltyRating] = useState<number>();
   const [relevanceRating, setRelevanceRating] = useState<number>();
 
