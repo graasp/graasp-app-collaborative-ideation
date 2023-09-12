@@ -1,5 +1,26 @@
 {
   "translations": {
-    "Welcome to the Graasp App Starter Kit": "Welcome to the Graasp App Starter Kit"
+    "Welcome to the Graasp App Starter Kit": "Welcome to the Graasp App Starter Kit",
+    "IDEATION_TAB": "Ideation",
+    "IDEAS_VIEW_TAB": "Ideas view",
+    "SETTINGS_TAB": "Settings",
+    "BUILD_ON_THIS_IDEA": "Build on this idea",
+    "IDEA_TOO_LONG_ALERT": "Your idea is too long. Please, try to be more concise.",
+    "IDEA_SUBMITTED_SUCCESS": "Your idea was successfully submitted.",
+    "SUBMIT_NEW_IDEA_STEP_TITLE": "Submit a new idea",
+    "READ_IDEAS_STEP_TITLE": "Find inspiration",
+    "ADMIN_PANE_TITLE": "Admin Panel",
+    "SETTINGS_TITLE": "Settings",
+    "HELPER_PROMPT_SETTING": "Provide a prompt to be shown in your activity.",
+    "LABEL_PROMPT_SETTING": "Prompt",
+    "SAVE": "Save",
+    "CHOOSE_IDEA_HEADER_TEXT": "Read and rate these ideas that have been proposed by other participants. If you find some inspiration, choose one to build upon or propose a brand new idea.",
+    "NO_IDEAS_TO_SHOW_TEXT": "The other participants have not submitted enough ideas yet. Once they have, these ideas will appear here.",
+    "SUBMIT": "Submit",
+    "BOT_NAME": "GraaspBot",
+    "SYNC_ALERT_SUCCESS": "All ideas are sync.",
+    "CUE_PARENT_IDEA_TITLE": "Previous idea",
+    "IDEA_BEING_SUBMITTED_ALERT": "Your idea is being submitted, please wait for a few seconds.",
+    "CHECK_FOR_NEW_IDEAS": "Check for new ideas"
   }
 }

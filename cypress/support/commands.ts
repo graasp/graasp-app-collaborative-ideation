@@ -40,6 +40,7 @@ Cypress.Commands.add(
         ...database,
         items: [MOCK_SERVER_ITEM],
       };
+
       // eslint-disable-next-line no-param-reassign
       win.appContext = {
         memberId: currentMember.id,
@@ -47,6 +48,13 @@ Cypress.Commands.add(
         apiHost: Cypress.env('VITE_API_HOST'),
         ...appContext,
       };
+      // eslint-disable-next-line no-param-reassign
+      // win.appContext = {
+      //   memberId: currentMember.id,
+      //   itemId: MOCK_SERVER_ITEM.id,
+      //   apiHost: Cypress.env('VITE_API_HOST'),
+      //   ...appContext,
+      // };
     });
 
     // setup mocks here

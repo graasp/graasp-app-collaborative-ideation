@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { I18nextProvider } from 'react-i18next';
 
 import { CssBaseline, ThemeProvider, createTheme, styled } from '@mui/material';
-import { grey, orange, pink } from '@mui/material/colors';
+import { grey, orange } from '@mui/material/colors';
 import { StyledEngineProvider } from '@mui/material/styles';
 
 import { withContext, withToken } from '@graasp/apps-query-client';
@@ -41,9 +41,12 @@ declare module '@mui/material/styles' {
 const theme = createTheme({
   palette: {
     primary: {
+      light: '#5091d2',
       main: '#5050d2',
     },
-    secondary: pink,
+    secondary: {
+      main: '#d250d2',
+    },
     default: grey['500'],
     background: {
       paper: '#fff',
@@ -60,6 +63,7 @@ const theme = createTheme({
 const RootDiv = styled('div')({
   flexGrow: 1,
   height: '100%',
+  width: '100%',
 });
 
 const Root: FC = () => {

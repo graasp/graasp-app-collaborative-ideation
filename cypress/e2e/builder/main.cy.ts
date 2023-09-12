@@ -13,7 +13,7 @@ describe('Builder View', () => {
     cy.visit('/');
   });
 
-  it('App', () => {
+  it('loads the view', () => {
     cy.get(buildDataCy(BUILDER_VIEW_CY));
   });
 });

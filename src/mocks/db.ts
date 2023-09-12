@@ -1,5 +1,12 @@
 import type { Database, LocalContext } from '@graasp/apps-query-client';
-import { Member, PermissionLevel } from '@graasp/sdk';
+import {
+  AppData,
+  AppDataVisibility,
+  Item,
+  ItemSettings,
+  Member,
+  PermissionLevel,
+} from '@graasp/sdk';
 
 import { API_HOST } from '@/config/env';
 
@@ -32,26 +39,85 @@ export const mockMembers: Member[] = [
   },
 ];
 
+const mockItem: Item<ItemSettings> = {
+  id: mockContext.itemId,
+  name: 'app-brainwriting',
+  description: null,
+  path: '',
+  settings: {},
+  creator: mockMembers[0],
+  createdAt: new Date(),
+  updatedAt: new Date(),
+};
+
+const mockAppData: AppData[] = [
+  {
+    id: '0',
+    item: mockItem,
+    creator: mockMembers[0],
+    type: 'idea',
+    member: mockMembers[0],
+    visibility: AppDataVisibility.Member,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    data: {
+      idea: 'A giant spaceship.',
+      round: 0,
+    },
+  },
+  {
+    id: '1',
+    item: mockItem,
+    creator: mockMembers[0],
+    type: 'idea',
+    member: mockMembers[0],
+    visibility: AppDataVisibility.Member,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    data: {
+      idea: 'A small spaceship.',
+      round: 0,
+    },
+  },
+  {
+    id: '2',
+    item: mockItem,
+    creator: mockMembers[0],
+    type: 'idea',
+    member: mockMembers[0],
+    visibility: AppDataVisibility.Member,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    data: {
+      idea: 'Drilling into the Earth.',
+      round: 0,
+    },
+  },
+  {
+    id: '3',
+    item: mockItem,
+    creator: mockMembers[0],
+    type: 'idea-set',
+    member: mockMembers[0],
+    visibility: AppDataVisibility.Member,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    data: {
+      ideas: ['0', '1', '2'],
+      round: 1,
+    },
+  },
+];
+
 const buildDatabase = (
   appContext: Partial<LocalContext>,
   members?: Member[],
 ): Database => ({
-  appData: [],
+  appData: mockAppData,
   appActions: [],
   members: members ?? mockMembers,
   appSettings: [],
-  items: [
-    {
-      id: mockContext.itemId,
-      name: 'app-starter-ts-vite',
-      description: null,
-      path: '',
-      settings: {},
-      creator: mockMembers[0],
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-  ],
+  items: [mockItem],
 });
 
 export default buildDatabase;

@@ -24,8 +24,12 @@ module.exports = (on, config) => {
       ...config.env,
       VITE_API_HOST: process.env.VITE_API_HOST,
       VITE_MOCK_API: process.env.VITE_MOCK_API,
-      VITE_GRAASP_APP_ID: process.env.VITE_GRAASP_APP_ID,
+      VITE_GRAASP_APP_KEY: process.env.VITE_GRAASP_APP_KEY,
       VITE_VERSION: process.env.VITE_VERSION,
+      VITE_SENTRY_ENV: process.env.VITE_SENTRY_ENV,
+      VITE_SENTRY_DSN: process.env.VITE_SENTRY_DSN,
+      VITE_REFETCH_INTERVAL_SETTING: process.env.VITE_REFETCH_INTERVAL_SETTING,
+      VITE_WS_HOST: process.env.VITE_WS_HOST,
     },
   };
   require('@cypress/code-coverage/task')(on, newConfig);
