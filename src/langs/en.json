@@ -17,6 +17,8 @@
     "CHOOSE_IDEA_HEADER_TEXT": "Read and rate these ideas that have been proposed by other participants. If you find some inspiration, choose one to build upon or propose a brand new idea.",
     "NO_IDEAS_TO_SHOW_TEXT": "The other participants have not submitted enough ideas yet. Once they have, these ideas will appear here.",
     "SUBMIT": "Submit",
-    "BOT_NAME": "GraaspBot"
+    "BOT_NAME": "GraaspBot",
+    "SYNC_ALERT_SUCCESS": "All ideas are sync.",
+    "CUE_PARENT_IDEA_TITLE": "Previous idea"
   }
 }

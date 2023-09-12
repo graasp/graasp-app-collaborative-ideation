@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import {
   Alert,
+  AlertTitle,
   Collapse,
   InputAdornment,
   TextField,
@@ -23,8 +24,8 @@ const IdeaInput: FC<{
   actAsBot?: boolean;
 }> = ({ parent, currentRound, onSubmitted, actAsBot }) => {
   const { t } = useTranslation();
-  const initialIdea = parent?.idea || '';
-  const [idea, setIdea] = useState<string>(initialIdea);
+  // const initialIdea = parent?.idea || '';
+  const [idea, setIdea] = useState<string>('');
   const { postAppDataAsync } = useAppDataContext();
   const [promisePostIdea, setPromisePostIdea] = useState<
     Promise<AppData> | undefined
@@ -57,6 +58,12 @@ const IdeaInput: FC<{
       <Collapse in={tooLong}>
         <Alert severity="error">{t('IDEA_TOO_LONG_ALERT')}</Alert>
       </Collapse>
+      {parent && (
+        <Alert severity="info">
+          <AlertTitle>{t('CUE_PARENT_IDEA_TITLE')}</AlertTitle>
+          <q>{parent.idea}</q>
+        </Alert>
+      )}
       <TextField
         multiline
         fullWidth

@@ -1,11 +1,18 @@
 import React, { createContext, useMemo } from 'react';
 
+import { useLocalContext } from '@graasp/apps-query-client';
 import { AppData } from '@graasp/sdk';
 import { AppDataRecord } from '@graasp/sdk/frontend';
 
 import { List } from 'immutable';
 
-import { MUTATION_KEYS, hooks, useMutation } from '../../config/queryClient';
+import {
+  MUTATION_KEYS,
+  QUERY_KEYS,
+  hooks,
+  queryClient,
+  useMutation,
+} from '../../config/queryClient';
 import Loader from '../common/Loader';
 
 type PostAppDataType = {
@@ -31,6 +38,7 @@ export type AppDataContextType = {
   appData: List<AppDataRecord>;
   isSuccess: boolean;
   isLoading: boolean;
+  invalidateAppData: () => Promise<void>;
 };
 
 const defaultContextValue = {
@@ -41,6 +49,7 @@ const defaultContextValue = {
   appData: List([]),
   isSuccess: false,
   isLoading: true,
+  invalidateAppData: () => Promise.resolve(),
 };
 
 const AppDataContext = createContext<AppDataContextType>(defaultContextValue);
@@ -51,6 +60,12 @@ type Props = {
 
 export const AppDataProvider = ({ children }: Props): JSX.Element => {
   const { data: appData, isLoading, isSuccess } = hooks.useAppData();
+  const { itemId } = useLocalContext();
+  const invalidateAppData = useMemo(
+    () => () =>
+      queryClient.invalidateQueries(QUERY_KEYS.buildAppDataKey(itemId)),
+    [itemId],
+  );
 
   const { mutate: postAppData, mutateAsync: postAppDataAsync } = useMutation<
     AppData,
@@ -77,6 +92,7 @@ export const AppDataProvider = ({ children }: Props): JSX.Element => {
       appData: appData || List<AppDataRecord>([]),
       isSuccess,
       isLoading,
+      invalidateAppData,
     }),
     [
       patchAppData,
@@ -86,6 +102,7 @@ export const AppDataProvider = ({ children }: Props): JSX.Element => {
       appData,
       isSuccess,
       isLoading,
+      invalidateAppData,
     ],
   );
 
