@@ -6,8 +6,14 @@ import Container from '@mui/material/Container';
 import Snackbar from '@mui/material/Snackbar';
 import Stack from '@mui/material/Stack';
 
+import { useLocalContext } from '@graasp/apps-query-client';
+
+import { List } from 'immutable';
+
 import {
   AnonymousIdeaData,
+  AppDataTypes,
+  IdeaAppData,
   IdeaSetAppData,
   IdeasData,
 } from '@/config/appDataTypes';
@@ -24,9 +30,11 @@ import PhasesStepper from './PhaseStepper';
 const IdeationProcess: FC = () => {
   const { t } = useTranslation();
   const { appData, isSuccess } = useAppDataContext();
+  const { memberId } = useLocalContext();
   const { orchestrator } = useSettings();
   const [chosenIdea, setChosenIdea] = useState<AnonymousIdeaData>();
-  const [ideas, setIdeas] = useState<IdeasData>();
+  const [ideas, setIdeas] = useState<IdeasData>(List([]));
+  const [ownIdeas, setOwnIdeas] = useState<List<IdeaAppData>>(List([]));
   // TODO: Implement round counting
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [round, setRound] = useState<number>(1);
@@ -47,13 +55,19 @@ const IdeationProcess: FC = () => {
   useEffect(() => {
     if (isSuccess) {
       const currentIdeaSet = appData.find(
-        (a) => a.type === 'idea-set' && a.member.id === orchestrator.id,
+        (a) =>
+          a.type === AppDataTypes.IdeaSet && a.member.id === orchestrator.id,
       ) as IdeaSetAppData;
+      const ownIdeasTmp = appData.filter(
+        ({ type, creator }) =>
+          creator?.id === memberId && type === AppDataTypes.Idea,
+      ) as List<IdeaAppData>;
+      setOwnIdeas(ownIdeasTmp);
       if (typeof currentIdeaSet !== 'undefined') {
         setIdeas(currentIdeaSet.data.ideas);
       }
     }
-  }, [appData, isSuccess, orchestrator]);
+  }, [appData, isSuccess, memberId, orchestrator]);
 
   const handleChoose = (id?: string): void => {
     const idea = ideas?.find((i) => i.id === id) as
@@ -71,27 +85,17 @@ const IdeationProcess: FC = () => {
     setPhase(IdeationPhases.Choose);
   };
 
-  // const getIdeasToShow = (i: IdeasData): IdeasData => {
-  //   const ideasToShow = showNewIdeas(i, 3, listOfSeenIdeas, 1);
-  //   // setSeenIdeas(ideasToShow);
-  //   return ideasToShow;
-  // };
-
   const renderPhaseOfIdeation = (): React.JSX.Element | null => {
-    if (phase === IdeationPhases.Input)
-      return (
-        <IdeaInput
-          currentRound={round}
-          parent={chosenIdea}
-          onSubmitted={handleSubmission}
-        />
-      );
-    if (phase === IdeationPhases.Choose)
-      if (typeof ideas !== 'undefined')
-        return <IdeaChoose ideas={ideas} onChoose={handleChoose} />;
-      else setPhase(IdeationPhases.Input);
-
-    return null;
+    if (phase === IdeationPhases.Choose && ownIdeas.size > 0) {
+      return <IdeaChoose ideas={ideas} onChoose={handleChoose} />;
+    }
+    return (
+      <IdeaInput
+        currentRound={round}
+        parent={chosenIdea}
+        onSubmitted={handleSubmission}
+      />
+    );
   };
 
   return (

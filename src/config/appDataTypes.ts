@@ -5,6 +5,13 @@ import { List } from 'immutable';
 
 import { IdeationState } from '@/interfaces/ideation';
 
+export enum AppDataTypes {
+  Idea = 'idea',
+  IdeaSet = 'idea-set',
+  CurrentState = 'current-state',
+  Ratings = 'ratings',
+}
+
 export type IdeaData = {
   idea: string;
   round?: number;
@@ -18,12 +25,12 @@ export type AnonymousIdeaData = IdeaData & { id: string };
 export type IdeasData = List<AnonymousIdeaData>;
 
 export type IdeaAppData = AppDataRecord & {
-  type: 'idea';
+  type: AppDataTypes.Idea;
   data: IdeaData;
 };
 
 export type IdeaSetAppData = AppDataRecord & {
-  type: 'idea-set';
+  type: AppDataTypes.IdeaSet;
   data: {
     ideas: IdeasData;
   };
@@ -35,7 +42,7 @@ export type CurrentStateData = {
 };
 
 export type CurrentStateAppData = AppDataRecord & {
-  type: 'current-state';
+  type: AppDataTypes.CurrentState;
   data: CurrentStateData;
 };
 
@@ -45,7 +52,7 @@ export type RatingsData<T> = {
 };
 
 export type RatingsAppData<T> = AppDataRecord & {
-  type: 'ratings';
+  type: AppDataTypes.Ratings;
   data: RatingsData<T>;
   visibility: AppDataVisibility.Member;
 };
