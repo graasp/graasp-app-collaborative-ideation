@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.1.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v1.0.0...v1.1.0) (2023-09-13)
+
+
+### Features
+
+* add final anonymous ideas view ([82d9f7c](https://github.com/graasp/graasp-app-collaborative-ideation/commit/82d9f7cb0121efe5fcc4d2d4c19e87647600e1e2))
+* add new idea button ([82d9f7c](https://github.com/graasp/graasp-app-collaborative-ideation/commit/82d9f7cb0121efe5fcc4d2d4c19e87647600e1e2))
+* state control ([82d9f7c](https://github.com/graasp/graasp-app-collaborative-ideation/commit/82d9f7cb0121efe5fcc4d2d4c19e87647600e1e2))
+* state management and waiting screen ([82d9f7c](https://github.com/graasp/graasp-app-collaborative-ideation/commit/82d9f7cb0121efe5fcc4d2d4c19e87647600e1e2))
+
+
+### Bug Fixes
+
+* change ratings nomenclature ([82d9f7c](https://github.com/graasp/graasp-app-collaborative-ideation/commit/82d9f7cb0121efe5fcc4d2d4c19e87647600e1e2))
+* grid layout for ideas ([82d9f7c](https://github.com/graasp/graasp-app-collaborative-ideation/commit/82d9f7cb0121efe5fcc4d2d4c19e87647600e1e2))
+* provide data to sentry only in dev and stage ([82d9f7c](https://github.com/graasp/graasp-app-collaborative-ideation/commit/82d9f7cb0121efe5fcc4d2d4c19e87647600e1e2))
+* validation when all ideas are rated ([82d9f7c](https://github.com/graasp/graasp-app-collaborative-ideation/commit/82d9f7cb0121efe5fcc4d2d4c19e87647600e1e2))
+
 ## 1.0.0 (2023-09-12)
 
 
