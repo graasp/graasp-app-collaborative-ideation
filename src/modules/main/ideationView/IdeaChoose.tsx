@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -30,8 +30,9 @@ const IdeaChoose: FC<IdeaChooseProps> = ({ ideas, onChoose }) => {
   const { mode: ideationMode } = useSettings();
   const { mode } = ideationMode;
   const numberOfIdeasToShow = NUMBER_OF_IDEAS_TO_SHOW;
-  const [completeIdeas, setCompleteIdeas] = useState(Set<string>([]));
+  // const [completeIdeas, setCompleteIdeas] = useState(Set<string>([]));
   const [selectedIdeas, setSelectedIdeas] = useState<IdeasData>();
+  const [ready, setReady] = useState(false);
   const ideasIds = useMemo(
     () => selectedIdeas?.map((i) => i.id).toSet(),
     [selectedIdeas],
@@ -40,17 +41,40 @@ const IdeaChoose: FC<IdeaChooseProps> = ({ ideas, onChoose }) => {
   const ownIdeasIds = useMemo(
     () =>
       appData
-        .filter(({ creator }) => creator?.id === memberId)
+        .filter(
+          ({ creator, type }) => creator?.id === memberId && type === 'idea',
+        )
         .map(({ id }) => id),
     [appData, memberId],
   );
 
+  const ratings = useMemo(
+    () =>
+      appData.filter(
+        ({ type, creator }) => type === 'ratings' && creator?.id === memberId,
+      ) as List<RatingsAppData<NoveltyRelevanceRatings>> | undefined,
+    [appData, memberId],
+  );
+
+  useEffect(() => {
+    const newCompleteIdeasSet =
+      ratings
+        ?.filter(
+          ({ data }) =>
+            typeof data.ratings.novelty === 'number' &&
+            typeof data.ratings.relevance === 'number',
+        )
+        .map(({ data }) => data.ideaRef)
+        .toSet() || Set<string>([]);
+    if (ideasIds?.equals(newCompleteIdeasSet)) {
+      setReady(true);
+    }
+    // setCompleteIdeas(newCompleteIdeasSet);
+  }, [ideasIds, ratings]);
+
   useEffect(() => {
     if (isSuccess && typeof selectedIdeas === 'undefined') {
       if (mode === IdeationMode.PartiallyBlind) {
-        const ratings = appData.filter(
-          ({ type, creator }) => type === 'ratings' && creator?.id === memberId,
-        ) as List<RatingsAppData<NoveltyRelevanceRatings>> | undefined;
         const ideasNotRated = ideas.filterNot(
           ({ id }) =>
             Boolean(ratings?.find(({ data }) => data.ideaRef === id)) ||
@@ -73,27 +97,26 @@ const IdeaChoose: FC<IdeaChooseProps> = ({ ideas, onChoose }) => {
     numberOfIdeasToShow,
     ownIdeasIds,
     mode,
+    ratings,
   ]);
 
-  const [ready, setReady] = useState(false);
+  // const handleRatingsChange = useCallback(
+  //   (
+  //     id: string,
+  //     ideaRatings: { [key: string]: number },
+  //     isComplete?: boolean,
+  //   ): void => {
+  //     const newCompleteIdeasSet = isComplete
+  //       ? completeIdeas.add(id)
+  //       : completeIdeas;
 
-  const handleRatingsChange = useCallback(
-    (
-      id: string,
-      ideaRatings: { [key: string]: number },
-      isComplete?: boolean,
-    ): void => {
-      const newCompleteIdeasSet = isComplete
-        ? completeIdeas.add(id)
-        : completeIdeas;
-
-      if (ideasIds?.equals(newCompleteIdeasSet)) {
-        setReady(true);
-      }
-      setCompleteIdeas(newCompleteIdeasSet);
-    },
-    [completeIdeas, ideasIds],
-  );
+  //     if (ideasIds?.equals(newCompleteIdeasSet)) {
+  //       setReady(true);
+  //     }
+  //     setCompleteIdeas(newCompleteIdeasSet);
+  //   },
+  //   [completeIdeas, ideasIds],
+  // );
 
   const handleChoose = (id?: string): void => {
     if (ready) {
@@ -124,17 +147,17 @@ const IdeaChoose: FC<IdeaChooseProps> = ({ ideas, onChoose }) => {
   return (
     <>
       <Typography variant="body1">{t('CHOOSE_IDEA_HEADER_TEXT')}</Typography>
-      <Grid container spacing={4}>
+      <Grid container spacing={2}>
         {selectedIdeas
           ? selectedIdeas.map((idea) => (
-              <Grid key={idea.id} item>
+              <Grid key={idea.id} item md={4} sm={6} xs={12}>
                 <Idea
                   key={idea.id}
                   idea={idea}
                   onSelect={handleChoose}
-                  onRatingsChange={(newRatings, isComplete) =>
-                    handleRatingsChange(idea.id, newRatings, isComplete)
-                  }
+                  // onRatingsChange={(newRatings, isComplete) =>
+                  //   handleRatingsChange(idea.id, newRatings, isComplete)
+                  // }
                   enableBuildAction={ready}
                 />
               </Grid>

@@ -57,7 +57,7 @@ const IdeaInput: FC<{
   };
   const isPosting = typeof promisePostIdea !== 'undefined';
   const tooLong = idea.length > IDEA_MAXIMUM_LENGTH;
-  const disableSubmission = isPosting || tooLong;
+  const disableSubmission = isPosting || tooLong || idea.length === 0;
   return (
     <>
       <Collapse in={tooLong}>

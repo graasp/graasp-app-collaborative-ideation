@@ -63,8 +63,8 @@ const IdeationView: FC = () => {
       | undefined;
     if (typeof idea !== 'undefined') {
       setChosenIdea(idea);
-      setPhase(IdeationPhases.Input);
     }
+    setPhase(IdeationPhases.Input);
   };
 
   const handleSubmission = (): void => {
