@@ -114,8 +114,8 @@ const Idea: FC<{
     <Card
       variant="outlined"
       sx={{
-        // maxWidth: '25%',
-        minWidth: '200pt',
+        maxWidth: '30%',
+        minWidth: '160pt',
         backgroundColor:
           noveltyRating && relevanceRating ? green[100] : 'white',
         borderColor: noveltyRating && relevanceRating ? green[700] : 'default',
