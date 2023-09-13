@@ -1,6 +1,7 @@
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Alert, Grid, Typography } from '@mui/material';
 
 import { useLocalContext } from '@graasp/apps-query-client';
@@ -16,10 +17,12 @@ import Idea from '@/modules/common/Idea';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 
-const IdeaChoose: FC<{
+interface IdeaChooseProps {
   ideas: IdeasData;
-  onChoose: (id: string) => void;
-}> = ({ ideas, onChoose }) => {
+  onChoose: (id?: string) => void;
+}
+
+const IdeaChoose: FC<IdeaChooseProps> = ({ ideas, onChoose }) => {
   const { t } = useTranslation();
   const { appData, isSuccess, isLoading, invalidateAppData } =
     useAppDataContext();
@@ -92,7 +95,7 @@ const IdeaChoose: FC<{
     [completeIdeas, ideasIds],
   );
 
-  const handleChoose = (id: string): void => {
+  const handleChoose = (id?: string): void => {
     if (ready) {
       onChoose(id);
     } else {
@@ -138,6 +141,13 @@ const IdeaChoose: FC<{
             ))
           : renderPlaceHolderForNoIdeas()}
       </Grid>
+      <Button
+        startIcon={<AddCircleOutlineIcon />}
+        disabled={!ready}
+        onClick={() => handleChoose()}
+      >
+        {t('PROPOSE_NEW_IDEA')}
+      </Button>
     </>
   );
 };

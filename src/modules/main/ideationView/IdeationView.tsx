@@ -8,8 +8,6 @@ import Stack from '@mui/material/Stack';
 
 import { Loader } from '@graasp/ui';
 
-import { List } from 'immutable';
-
 import {
   AnonymousIdeaData,
   IdeaSetAppData,
@@ -35,12 +33,6 @@ const IdeationView: FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [round, setRound] = useState<number>(1);
   const [phase, setPhase] = useState<number>(IdeationPhases.Choose);
-  const [listOfSeenIdeas, setListOfSeenIdeas] = useState<List<string>>(
-    List([]),
-  );
-  // TODO: implement idea filtering
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [seenIdeas, setSeenIdeas] = useState<IdeasData>(List([]));
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const handleCloseSnackbar = (
@@ -65,7 +57,7 @@ const IdeationView: FC = () => {
     }
   }, [appData, isSuccess, orchestrator]);
 
-  const handleChoose = (id: string): void => {
+  const handleChoose = (id?: string): void => {
     const idea = ideas?.find((i) => i.id === id) as
       | AnonymousIdeaData
       | undefined;
@@ -73,8 +65,6 @@ const IdeationView: FC = () => {
       setChosenIdea(idea);
       setPhase(IdeationPhases.Input);
     }
-    const tmpSeenIds = seenIdeas.map(({ id: ID }) => ID);
-    setListOfSeenIdeas(listOfSeenIdeas.merge(tmpSeenIds));
   };
 
   const handleSubmission = (): void => {
@@ -129,6 +119,7 @@ const IdeationView: FC = () => {
           open={openSnackbar}
           autoHideDuration={6000}
           onClose={handleCloseSnackbar}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         >
           <Alert
             onClose={handleCloseSnackbar}
