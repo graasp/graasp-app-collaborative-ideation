@@ -11,10 +11,10 @@ import { PermissionLevel } from '@graasp/sdk';
 
 import { BUILDER_VIEW_CY } from '@/config/selectors';
 
+import AdminControl from '../admin-control/AdminControl';
 import TabPanel from '../common/TabPanel';
-import AdminControl from './AdminControl';
 import IdeasView from './ideasView/IdeasView';
-import IdeationView from './ideationView/IdeationView';
+import Ideation from './ideation/Ideation';
 import SettingsView from './settingsView/SettingsView';
 
 interface TabType {
@@ -38,7 +38,7 @@ const BuilderView = (): JSX.Element => {
   const ideationTab = useMemo(
     () => ({
       tabLabel: t('IDEATION_TAB'),
-      tabChild: <IdeationView />,
+      tabChild: <Ideation />,
     }),
     [t],
   );

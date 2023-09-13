@@ -30,7 +30,6 @@ const IdeaChoose: FC<IdeaChooseProps> = ({ ideas, onChoose }) => {
   const { mode: ideationMode } = useSettings();
   const { mode } = ideationMode;
   const numberOfIdeasToShow = NUMBER_OF_IDEAS_TO_SHOW;
-  // const [completeIdeas, setCompleteIdeas] = useState(Set<string>([]));
   const [selectedIdeas, setSelectedIdeas] = useState<IdeasData>();
   const [ready, setReady] = useState(false);
   const ideasIds = useMemo(
@@ -100,24 +99,6 @@ const IdeaChoose: FC<IdeaChooseProps> = ({ ideas, onChoose }) => {
     ratings,
   ]);
 
-  // const handleRatingsChange = useCallback(
-  //   (
-  //     id: string,
-  //     ideaRatings: { [key: string]: number },
-  //     isComplete?: boolean,
-  //   ): void => {
-  //     const newCompleteIdeasSet = isComplete
-  //       ? completeIdeas.add(id)
-  //       : completeIdeas;
-
-  //     if (ideasIds?.equals(newCompleteIdeasSet)) {
-  //       setReady(true);
-  //     }
-  //     setCompleteIdeas(newCompleteIdeasSet);
-  //   },
-  //   [completeIdeas, ideasIds],
-  // );
-
   const handleChoose = (id?: string): void => {
     if (ready) {
       onChoose(id);
@@ -155,9 +136,6 @@ const IdeaChoose: FC<IdeaChooseProps> = ({ ideas, onChoose }) => {
                   key={idea.id}
                   idea={idea}
                   onSelect={handleChoose}
-                  // onRatingsChange={(newRatings, isComplete) =>
-                  //   handleRatingsChange(idea.id, newRatings, isComplete)
-                  // }
                   enableBuildAction={ready}
                 />
               </Grid>

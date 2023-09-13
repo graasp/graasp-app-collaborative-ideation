@@ -1,10 +1,10 @@
 import { PLAYER_VIEW_CY } from '@/config/selectors';
 
-import IdeationView from './ideationView/IdeationView';
+import Ideation from './ideation/Ideation';
 
 const PlayerView = (): JSX.Element => (
   <div data-cy={PLAYER_VIEW_CY}>
-    <IdeationView />
+    <Ideation />
   </div>
 );
 

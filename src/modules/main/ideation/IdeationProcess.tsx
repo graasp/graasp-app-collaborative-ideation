@@ -6,8 +6,6 @@ import Container from '@mui/material/Container';
 import Snackbar from '@mui/material/Snackbar';
 import Stack from '@mui/material/Stack';
 
-import { Loader } from '@graasp/ui';
-
 import {
   AnonymousIdeaData,
   IdeaSetAppData,
@@ -23,7 +21,7 @@ import IdeaChoose from './IdeaChoose';
 import IdeaInput from './IdeaInput';
 import PhasesStepper from './PhaseStepper';
 
-const IdeationView: FC = () => {
+const IdeationProcess: FC = () => {
   const { t } = useTranslation();
   const { appData, isSuccess } = useAppDataContext();
   const { orchestrator } = useSettings();
@@ -92,7 +90,6 @@ const IdeationView: FC = () => {
       if (typeof ideas !== 'undefined')
         return <IdeaChoose ideas={ideas} onChoose={handleChoose} />;
       else setPhase(IdeationPhases.Input);
-    if (phase === IdeationPhases.Wait) return <Loader />;
 
     return null;
   };
@@ -134,4 +131,4 @@ const IdeationView: FC = () => {
   );
 };
 
-export default IdeationView;
+export default IdeationProcess;
