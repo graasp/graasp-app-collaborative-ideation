@@ -22,6 +22,7 @@
     "CUE_PARENT_IDEA_TITLE": "Previous idea",
     "IDEA_BEING_SUBMITTED_ALERT": "Your idea is being submitted, please wait for a few seconds.",
     "CHECK_FOR_NEW_IDEAS": "Check for new ideas",
-    "PROPOSE_NEW_IDEA": "Propose a new idea"
+    "PROPOSE_NEW_IDEA": "Propose a new idea",
+    "STATE_CONTROL_TITLE": "Controls"
   }
 }

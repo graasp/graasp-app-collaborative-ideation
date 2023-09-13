@@ -3,6 +3,8 @@ import { AppDataRecord } from '@graasp/sdk/frontend';
 
 import { List } from 'immutable';
 
+import { IdeationState } from '@/interfaces/ideation';
+
 export type IdeaData = {
   idea: string;
   round?: number;
@@ -28,7 +30,8 @@ export type IdeaSetAppData = AppDataRecord & {
 };
 
 export type CurrentStateData = {
-  round: number;
+  // round: number;
+  state: IdeationState;
 };
 
 export type CurrentStateAppData = AppDataRecord & {
