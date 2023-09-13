@@ -5,6 +5,7 @@ import { Context, DEFAULT_LANG } from '@graasp/sdk';
 
 import * as Sentry from '@sentry/react';
 
+import { SENTRY_ENV } from '@/config/env';
 import { hooks } from '@/config/queryClient';
 
 import i18n from '../../config/i18n';
@@ -20,20 +21,24 @@ const App = (): JSX.Element => {
   const { data: appContext, isSuccess } = hooks.useAppContext();
 
   useEffect(() => {
-    if (isSuccess) {
-      const m = appContext?.members?.find(({ id }) => id === context.memberId);
-      if (m) {
-        Sentry.setUser({
-          id: m.id,
-          email: m.email,
-          username: m.name,
+    if (['development', 'staging'].includes(SENTRY_ENV)) {
+      if (isSuccess) {
+        const m = appContext?.members?.find(
+          ({ id }) => id === context.memberId,
+        );
+        if (m) {
+          Sentry.setUser({
+            id: m.id,
+            email: m.email,
+            username: m.name,
+          });
+        }
+        Sentry.setContext('app-context', {
+          itemId: appContext.id,
+          name: appContext.name,
+          path: appContext.path,
         });
       }
-      Sentry.setContext('app-context', {
-        itemId: appContext.id,
-        name: appContext.name,
-        path: appContext.path,
-      });
     }
   });
 

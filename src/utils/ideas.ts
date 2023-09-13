@@ -1,6 +1,13 @@
+import { AppDataRecord } from '@graasp/sdk/frontend';
+
 import { List } from 'immutable';
 
-import { IdeaAppData, IdeasData } from '@/config/appDataTypes';
+import {
+  AppDataTypes,
+  CurrentStateAppData,
+  IdeaAppData,
+  IdeasData,
+} from '@/config/appDataTypes';
 
 export const anonymizeIdeas = (ideas: List<IdeaAppData>): IdeasData =>
   List(
@@ -44,3 +51,12 @@ export const showNewIdeas = (
 
   return ideasToShow;
 };
+
+export const getCurrentState = (
+  appData: List<AppDataRecord>,
+  orchestratorId: string,
+): CurrentStateAppData | undefined =>
+  appData.find(
+    ({ type, creator }) =>
+      type === AppDataTypes.CurrentState && creator?.id === orchestratorId,
+  ) as CurrentStateAppData;

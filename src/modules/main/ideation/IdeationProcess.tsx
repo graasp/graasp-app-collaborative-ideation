@@ -6,12 +6,14 @@ import Container from '@mui/material/Container';
 import Snackbar from '@mui/material/Snackbar';
 import Stack from '@mui/material/Stack';
 
-import { Loader } from '@graasp/ui';
+import { useLocalContext } from '@graasp/apps-query-client';
 
 import { List } from 'immutable';
 
 import {
   AnonymousIdeaData,
+  AppDataTypes,
+  IdeaAppData,
   IdeaSetAppData,
   IdeasData,
 } from '@/config/appDataTypes';
@@ -25,22 +27,18 @@ import IdeaChoose from './IdeaChoose';
 import IdeaInput from './IdeaInput';
 import PhasesStepper from './PhaseStepper';
 
-const IdeationView: FC = () => {
+const IdeationProcess: FC = () => {
   const { t } = useTranslation();
   const { appData, isSuccess } = useAppDataContext();
+  const { memberId } = useLocalContext();
   const { orchestrator } = useSettings();
   const [chosenIdea, setChosenIdea] = useState<AnonymousIdeaData>();
-  const [ideas, setIdeas] = useState<IdeasData>();
+  const [ideas, setIdeas] = useState<IdeasData>(List([]));
+  const [ownIdeas, setOwnIdeas] = useState<List<IdeaAppData>>(List([]));
   // TODO: Implement round counting
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [round, setRound] = useState<number>(1);
   const [phase, setPhase] = useState<number>(IdeationPhases.Choose);
-  const [listOfSeenIdeas, setListOfSeenIdeas] = useState<List<string>>(
-    List([]),
-  );
-  // TODO: implement idea filtering
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [seenIdeas, setSeenIdeas] = useState<IdeasData>(List([]));
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const handleCloseSnackbar = (
@@ -57,24 +55,28 @@ const IdeationView: FC = () => {
   useEffect(() => {
     if (isSuccess) {
       const currentIdeaSet = appData.find(
-        (a) => a.type === 'idea-set' && a.member.id === orchestrator.id,
+        (a) =>
+          a.type === AppDataTypes.IdeaSet && a.member.id === orchestrator.id,
       ) as IdeaSetAppData;
+      const ownIdeasTmp = appData.filter(
+        ({ type, creator }) =>
+          creator?.id === memberId && type === AppDataTypes.Idea,
+      ) as List<IdeaAppData>;
+      setOwnIdeas(ownIdeasTmp);
       if (typeof currentIdeaSet !== 'undefined') {
         setIdeas(currentIdeaSet.data.ideas);
       }
     }
-  }, [appData, isSuccess, orchestrator]);
+  }, [appData, isSuccess, memberId, orchestrator]);
 
-  const handleChoose = (id: string): void => {
+  const handleChoose = (id?: string): void => {
     const idea = ideas?.find((i) => i.id === id) as
       | AnonymousIdeaData
       | undefined;
     if (typeof idea !== 'undefined') {
       setChosenIdea(idea);
-      setPhase(IdeationPhases.Input);
     }
-    const tmpSeenIds = seenIdeas.map(({ id: ID }) => ID);
-    setListOfSeenIdeas(listOfSeenIdeas.merge(tmpSeenIds));
+    setPhase(IdeationPhases.Input);
   };
 
   const handleSubmission = (): void => {
@@ -83,28 +85,17 @@ const IdeationView: FC = () => {
     setPhase(IdeationPhases.Choose);
   };
 
-  // const getIdeasToShow = (i: IdeasData): IdeasData => {
-  //   const ideasToShow = showNewIdeas(i, 3, listOfSeenIdeas, 1);
-  //   // setSeenIdeas(ideasToShow);
-  //   return ideasToShow;
-  // };
-
   const renderPhaseOfIdeation = (): React.JSX.Element | null => {
-    if (phase === IdeationPhases.Input)
-      return (
-        <IdeaInput
-          currentRound={round}
-          parent={chosenIdea}
-          onSubmitted={handleSubmission}
-        />
-      );
-    if (phase === IdeationPhases.Choose)
-      if (typeof ideas !== 'undefined')
-        return <IdeaChoose ideas={ideas} onChoose={handleChoose} />;
-      else setPhase(IdeationPhases.Input);
-    if (phase === IdeationPhases.Wait) return <Loader />;
-
-    return null;
+    if (phase === IdeationPhases.Choose && ownIdeas.size > 0) {
+      return <IdeaChoose ideas={ideas} onChoose={handleChoose} />;
+    }
+    return (
+      <IdeaInput
+        currentRound={round}
+        parent={chosenIdea}
+        onSubmitted={handleSubmission}
+      />
+    );
   };
 
   return (
@@ -129,6 +120,7 @@ const IdeationView: FC = () => {
           open={openSnackbar}
           autoHideDuration={6000}
           onClose={handleCloseSnackbar}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         >
           <Alert
             onClose={handleCloseSnackbar}
@@ -143,4 +135,4 @@ const IdeationView: FC = () => {
   );
 };
 
-export default IdeationView;
+export default IdeationProcess;

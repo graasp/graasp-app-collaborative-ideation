@@ -16,5 +16,5 @@ export interface LikertScale extends Rating {
 
 export type NoveltyRelevanceRatings = {
   novelty: number | undefined;
-  relevance: number | undefined;
+  usefulness: number | undefined;
 };

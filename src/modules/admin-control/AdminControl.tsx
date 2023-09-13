@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -25,7 +25,9 @@ import { hooks } from '@/config/queryClient';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
 import Synchronizer from '../common/Synchronizer';
-import IdeaInput from './ideationView/IdeaInput';
+import IdeaInput from '../main/ideation/IdeaInput';
+import SectionTitle from './SectionTitle';
+import StateControl from './StateControl';
 
 interface AdminControlProps {
   width?: string;
@@ -40,6 +42,16 @@ const AdminControl: FC<AdminControlProps> = ({ width }): JSX.Element => {
     postAppData(INITIAL_STATE);
   };
   const { data: appContext } = hooks.useAppContext();
+  const getNumberOfIdeas = useCallback(
+    (member: Member): number => {
+      const ideasForMember = appData.filter(
+        ({ type, member: memberData }) =>
+          type === 'idea' && memberData.id === member.id,
+      );
+      return ideasForMember.size;
+    },
+    [appData],
+  );
 
   useEffect(() => {
     const state = appData.find(
@@ -51,14 +63,6 @@ const AdminControl: FC<AdminControlProps> = ({ width }): JSX.Element => {
     return <Button onClick={initState}>Initialize</Button>;
   }
   const members = appContext?.members;
-
-  const getNumberOfIdeas = (member: Member): number => {
-    const ideasForMember = appData.filter(
-      ({ type, member: memberData }) =>
-        type === 'idea' && memberData.id === member.id,
-    );
-    return ideasForMember.size;
-  };
 
   const handleSyncChange = (
     _event: React.ChangeEvent,
@@ -86,9 +90,8 @@ const AdminControl: FC<AdminControlProps> = ({ width }): JSX.Element => {
           {t('ADMIN_PANE_TITLE')}
         </Typography>
         <Divider />
-        <Typography variant="h4" fontSize="14pt">
-          Participants
-        </Typography>
+        <StateControl />
+        <SectionTitle>Participants</SectionTitle>
         <Stack sx={{ m: 1 }} direction="row" spacing={2}>
           {members?.map((member) => (
             <Badge
@@ -100,9 +103,7 @@ const AdminControl: FC<AdminControlProps> = ({ width }): JSX.Element => {
             </Badge>
           ))}
         </Stack>
-        <Typography variant="h4" fontSize="14pt">
-          Orchestration
-        </Typography>
+        <SectionTitle>Orchestration</SectionTitle>
         <FormGroup>
           <FormHelperText>
             When enabled, the applications distribute ideas to the participants
@@ -116,9 +117,7 @@ const AdminControl: FC<AdminControlProps> = ({ width }): JSX.Element => {
         <Collapse in={sync} mountOnEnter unmountOnExit>
           <Synchronizer sync={sync} />
         </Collapse>
-        <Typography variant="h4" fontSize="14pt">
-          Act as a bot
-        </Typography>
+        <SectionTitle>Act as a bot</SectionTitle>
         <Typography>
           With the following field, you can insert new ideas in the ideation
           process under the identity of the virtual agent.

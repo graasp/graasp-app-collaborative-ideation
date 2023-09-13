@@ -53,12 +53,12 @@ const Idea: FC<{
 
   useEffect(() => {
     if (ratings) {
-      const { novelty, relevance } = ratings.data.ratings;
+      const { novelty, usefulness } = ratings.data.ratings;
       if (novelty) {
         setNoveltyRating(novelty);
       }
-      if (relevance) {
-        setRelevanceRating(relevance);
+      if (usefulness) {
+        setRelevanceRating(usefulness);
       }
     }
   }, [ratings]);
@@ -83,7 +83,7 @@ const Idea: FC<{
       ideaRef: idea.id,
       ratings: {
         novelty,
-        relevance,
+        usefulness: relevance,
       },
     };
     if (ratings?.id) {
@@ -114,8 +114,8 @@ const Idea: FC<{
     <Card
       variant="outlined"
       sx={{
-        width: '30%',
-        minWidth: '200pt',
+        maxWidth: '30%',
+        minWidth: '160pt',
         backgroundColor:
           noveltyRating && relevanceRating ? green[100] : 'white',
         borderColor: noveltyRating && relevanceRating ? green[700] : 'default',
@@ -135,30 +135,12 @@ const Idea: FC<{
           minLabel="Common"
           maxLabel="Novel"
           levels={7}
-          levelsLabels={[
-            'Common',
-            'Somewhat common',
-            'Familiar',
-            'Not common nor novel',
-            'Unfamiliar',
-            'Somewhat novel',
-            'Novel',
-          ]}
           value={noveltyRating}
         />
         <LikertScale
           onChange={(rating) => handleRatingChange('relevance', rating)}
-          minLabel="Irrelevant"
-          maxLabel="Relevant"
-          levelsLabels={[
-            'Very irrelevant',
-            'Irrelevant',
-            'Not very relevant',
-            'Not relevant nor irrelevant',
-            'Slightly relevant',
-            'Relevant',
-            'Very relevant',
-          ]}
+          minLabel="Useless"
+          maxLabel="Useful"
           levels={7}
           value={relevanceRating}
         />

@@ -4,7 +4,13 @@ export enum IdeationPhases {
   Input = 1,
   Choose = 0,
   // Add = 1,
-  Wait = 3,
+}
+
+export enum IdeationState {
+  WaitingForStart = 'waiting-for-start',
+  End = 'end',
+  Pause = 'pause',
+  Play = 'play',
 }
 
 export type Phase = {

@@ -1,5 +1,18 @@
 {
   "translations": {
-    "Welcome to the Graasp App Starter Kit": "Bienvenue dans le kit de démarrage de l'application Graasp"
+    "Welcome to the Graasp App Starter Kit": "Bienvenue dans le kit de démarrage de l'application Graasp",
+    "IDEATION_TAB": "Idéation",
+    "IDEAS_VIEW_TAB": "Vue des idées",
+    "SETTINGS_TAB": "Paramètres",
+    "BUILD_ON_THIS_IDEA": "Élaborer cette idée",
+    "IDEA_TOO_LONG_ALERT": "Votre idée est trop longue. Veuillez essayer d'être plus concis.",
+    "IDEA_SUBMITTED_SUCCESS": "Votre idée a été enregistrée avec succés",
+    "SUBMIT_NEW_IDEA_STEP_TITLE": "Soumettre une nouvelle idée",
+    "READ_IDEAS_STEP_TITLE": "Trouver de l'inspiration",
+    "ADMIN_PANE_TITLE": "Panneau d'aministration",
+    "SETTINGS_TITLE": "Paramètres",
+    "SAVE": "Sauvegarder",
+    "SYNC_ALERT_SUCCESS": "Toutes les idées ont été synchronisées",
+    "CUE_PARENT_IDEA_TITLE": "Idée précédente"
   }
 }
