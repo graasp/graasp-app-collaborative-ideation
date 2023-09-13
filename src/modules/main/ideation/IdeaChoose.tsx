@@ -61,7 +61,7 @@ const IdeaChoose: FC<IdeaChooseProps> = ({ ideas, onChoose }) => {
         ?.filter(
           ({ data }) =>
             typeof data.ratings.novelty === 'number' &&
-            typeof data.ratings.relevance === 'number',
+            typeof data.ratings.usefulness === 'number',
         )
         .map(({ data }) => data.ideaRef)
         .toSet() || Set<string>([]);

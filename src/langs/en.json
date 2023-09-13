@@ -27,6 +27,6 @@
     "PAUSE_MESSAGE": "The process has been paused by the admin. Please, wait for a moment.",
     "WAIT_TO_START_SCREEN_MAIN_INSTRUCTION": "The ideation will start soon. In the meantime, please, read the following instructions:",
     "WAIT_TO_START_SCREEN_STEP1": "At the beginning, you will be presented with a generative design question and asked to provide an answer to it.",
-    "WAIT_TO_START_SCREEN_STEP2": "After submitting a first answer, you will see some ideas provided by the other participants. Rate <strong>all</strong> of them and then propose a new idea, either by choosing one to build upon or by proposing a completely new one."
+    "WAIT_TO_START_SCREEN_STEP2": "After submitting a first answer, you will see some ideas provided by the other participants. Rate all of them and then propose a new idea, either by choosing one to build upon or by proposing a completely new one."
   }
 }
