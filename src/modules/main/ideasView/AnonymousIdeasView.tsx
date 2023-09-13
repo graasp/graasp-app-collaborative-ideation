@@ -7,6 +7,8 @@ import { AppDataTypes, IdeaSetAppData } from '@/config/appDataTypes';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 
+import RatingsPlot from './RatingsPlot';
+
 const AnonymousIdeasView = (): JSX.Element => {
   // const { t } = useTranslation();
   const { appData } = useAppDataContext();
@@ -47,6 +49,7 @@ const AnonymousIdeasView = (): JSX.Element => {
   return (
     <Container>
       <DataGrid columns={columns} rows={ideasTable.toArray()} />
+      <RatingsPlot />
     </Container>
   );
 };

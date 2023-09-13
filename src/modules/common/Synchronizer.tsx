@@ -8,8 +8,13 @@ import { AppDataVisibility } from '@graasp/sdk';
 
 import { List } from 'immutable';
 
-import { IdeaAppData } from '@/config/appDataTypes';
+import {
+  AppDataTypes,
+  IdeaAppData,
+  RatingsAppData,
+} from '@/config/appDataTypes';
 import { REFRESH_INTERVAL_MS } from '@/config/constants';
+import { NoveltyRelevanceRatings } from '@/interfaces/ratings';
 import { anonymizeIdeas } from '@/utils/ideas';
 
 import { useAppDataContext } from '../context/AppDataContext';
@@ -43,7 +48,18 @@ const Synchronizer: FC<SynchronizerProps> = ({ sync }) => {
   );
 
   const ideas = useMemo(
-    () => appData.filter(({ type }) => type === 'idea') as List<IdeaAppData>,
+    () =>
+      appData.filter(
+        ({ type }) => type === AppDataTypes.Idea,
+      ) as List<IdeaAppData>,
+    [appData],
+  );
+
+  const ratings = useMemo(
+    () =>
+      appData.filter(({ type }) => type === AppDataTypes.Ratings) as List<
+        RatingsAppData<NoveltyRelevanceRatings>
+      >,
     [appData],
   );
 
@@ -53,7 +69,7 @@ const Synchronizer: FC<SynchronizerProps> = ({ sync }) => {
       const newIdeasIds = ideas.map(({ id }) => id).sort();
       if (ideas && !ideasIds.equals(newIdeasIds)) {
         setIdeasIds(newIdeasIds);
-        const anonymousIdeas = anonymizeIdeas(ideas);
+        const anonymousIdeas = anonymizeIdeas(ideas, ratings);
         if (setId) {
           patchAppData({
             id: setId,
@@ -72,7 +88,7 @@ const Synchronizer: FC<SynchronizerProps> = ({ sync }) => {
         }
       }
     }
-  }, [ideas, ideasIds, patchAppData, postAppData, setId, sync]);
+  }, [ideas, ideasIds, patchAppData, postAppData, ratings, setId, sync]);
 
   return (
     <Stack width="100%" direction="row" spacing={1}>
