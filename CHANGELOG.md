@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v1.1.0...v1.2.0) (2023-09-14)
+
+
+### Features
+
+* plot of idea ratings ([#25](https://github.com/graasp/graasp-app-collaborative-ideation/issues/25)) ([ae5b967](https://github.com/graasp/graasp-app-collaborative-ideation/commit/ae5b967c71e2fe850135feecc8d72ef17c2bacb9))
+
 ## [1.1.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v1.0.0...v1.1.0) (2023-09-13)
 
 
