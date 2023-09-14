@@ -9,6 +9,8 @@ import { List, RecordOf } from 'immutable';
 import { IdeaAppData } from '@/config/appDataTypes';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
+import RatingsPlot from './RatingsPlot';
+
 const IdeasView = (): JSX.Element => {
   const { t } = useTranslation();
   const { appData } = useAppDataContext();
@@ -45,6 +47,7 @@ const IdeasView = (): JSX.Element => {
   return (
     <Container>
       <DataGrid columns={columns} rows={ideasTable.toArray()} />
+      <RatingsPlot />
     </Container>
   );
 };

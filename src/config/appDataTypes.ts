@@ -4,6 +4,7 @@ import { AppDataRecord } from '@graasp/sdk/frontend';
 import { List } from 'immutable';
 
 import { IdeationState } from '@/interfaces/ideation';
+import { NoveltyRelevanceRatings } from '@/interfaces/ratings';
 
 export enum AppDataTypes {
   Idea = 'idea',
@@ -12,17 +13,21 @@ export enum AppDataTypes {
   Ratings = 'ratings',
 }
 
-export type IdeaData = {
+export type IdeaData<T = NoveltyRelevanceRatings> = {
   idea: string;
   round?: number;
   bot?: boolean;
   parentId?: string;
   encoding?: 'text' | 'markdown';
+  ratings?: T;
 };
 
-export type AnonymousIdeaData = IdeaData & { id: string };
+export type AnonymousIdeaData<RatingsT = NoveltyRelevanceRatings> =
+  IdeaData<RatingsT> & { id: string };
 
-export type IdeasData = List<AnonymousIdeaData>;
+export type IdeasData<RatingsT = NoveltyRelevanceRatings> = List<
+  AnonymousIdeaData<RatingsT>
+>;
 
 export type IdeaAppData = AppDataRecord & {
   type: AppDataTypes.Idea;
