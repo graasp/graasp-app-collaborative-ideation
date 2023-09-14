@@ -126,7 +126,7 @@
     ]
   },
   "resolutions": {
-    "immutable": "4.3.0"
+    "immutable": "4.3.4"
   },
   "packageManager": "yarn@3.6.3"
 }
