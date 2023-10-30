@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 
-import { IdeationState } from '@/interfaces/ideation';
+import { ProcessState } from '@/interfaces/interactionProcess';
 import WaitingScreen from '@/modules/common/WaitingScreen';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
@@ -11,20 +11,20 @@ import IdeationProcess from './IdeationProcess';
 
 const Ideation: FC = () => {
   const { appData } = useAppDataContext();
-  const [state, setState] = useState(IdeationState.WaitingForStart);
+  const [state, setState] = useState(ProcessState.WaitingForStart);
   const { orchestrator } = useSettings();
 
   useEffect(() => {
     setState(
       getCurrentState(appData, orchestrator.id)?.data.state ||
-        IdeationState.WaitingForStart,
+        ProcessState.WaitingForStart,
     );
   }, [appData, orchestrator.id]);
 
-  if (state === IdeationState.Play) {
+  if (state === ProcessState.Play) {
     return <IdeationProcess />;
   }
-  if (state === IdeationState.End) {
+  if (state === ProcessState.End) {
     return <AnonymousIdeasView />;
   }
   return <WaitingScreen state={state} />;

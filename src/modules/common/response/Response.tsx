@@ -21,12 +21,12 @@ import {
 } from '@/config/appDataTypes';
 import { NoveltyRelevanceRatings } from '@/interfaces/ratings';
 
-import { useAppDataContext } from '../context/AppDataContext';
-import LikertScale from './LikertScale';
+import { useAppDataContext } from '../../context/AppDataContext';
+import LikertScale from '../LikertScale';
 
 type RatingName = 'novelty' | 'relevance';
 
-const Idea: FC<{
+const Response: FC<{
   idea: AnonymousIdeaData;
   onSelect?: (id: string) => void;
   onRatingsChange?: (
@@ -159,4 +159,4 @@ const Idea: FC<{
   );
 };
 
-export default Idea;
+export default Response;

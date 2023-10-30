@@ -11,9 +11,9 @@ import { List, Set } from 'immutable';
 
 import { IdeasData, RatingsAppData } from '@/config/appDataTypes';
 import { NUMBER_OF_IDEAS_TO_SHOW } from '@/config/constants';
-import { IdeationMode } from '@/interfaces/ideation';
+import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
 import { NoveltyRelevanceRatings } from '@/interfaces/ratings';
-import Idea from '@/modules/common/Idea';
+import Idea from '@/modules/common/response/Response';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 
@@ -73,7 +73,7 @@ const IdeaChoose: FC<IdeaChooseProps> = ({ ideas, onChoose }) => {
 
   useEffect(() => {
     if (isSuccess && typeof selectedIdeas === 'undefined') {
-      if (mode === IdeationMode.PartiallyBlind) {
+      if (mode === ResponseVisibilityMode.PartiallyBlind) {
         const ideasNotRated = ideas.filterNot(
           ({ id }) =>
             Boolean(ratings?.find(({ data }) => data.ideaRef === id)) ||

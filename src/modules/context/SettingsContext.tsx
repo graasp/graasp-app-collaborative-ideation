@@ -2,7 +2,7 @@ import { FC, ReactElement, createContext, useContext } from 'react';
 
 import { AppSetting } from '@graasp/sdk';
 
-import { IdeationMode } from '@/interfaces/ideation';
+import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
 
 import { MUTATION_KEYS, hooks, useMutation } from '../../config/queryClient';
 import Loader from '../common/Loader';
@@ -15,7 +15,7 @@ type AllSettingsType = {
     type: 'html' | 'markdown' | 'plain-text';
   };
   orchestrator: { id: string };
-  mode: { mode: IdeationMode };
+  mode: { mode: ResponseVisibilityMode };
 };
 
 // default values for the data property of settings by name
@@ -27,7 +27,7 @@ const defaultSettingsValues: AllSettingsType = {
   orchestrator: {
     id: '',
   },
-  mode: { mode: IdeationMode.Open },
+  mode: { mode: ResponseVisibilityMode.Open },
 };
 
 // list of the settings names

@@ -3,7 +3,7 @@ import { AppDataRecord } from '@graasp/sdk/frontend';
 
 import { List } from 'immutable';
 
-import { IdeationState } from '@/interfaces/ideation';
+import { ProcessState } from '@/interfaces/interactionProcess';
 import { NoveltyRelevanceRatings } from '@/interfaces/ratings';
 
 export enum AppDataTypes {
@@ -43,7 +43,7 @@ export type IdeaSetAppData = AppDataRecord & {
 
 export type CurrentStateData = {
   // round: number;
-  state: IdeationState;
+  state: ProcessState;
 };
 
 export type CurrentStateAppData = AppDataRecord & {

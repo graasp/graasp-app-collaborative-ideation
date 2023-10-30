@@ -17,7 +17,7 @@ import {
 import { Button } from '@graasp/ui';
 
 import { hooks } from '@/config/queryClient';
-import { IdeationMode } from '@/interfaces/ideation';
+import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
 import { useMembersContext } from '@/modules/context/MembersContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 
@@ -83,27 +83,28 @@ const SettingsView: FC<SettingsViewProps> = () => {
         <FormLabel>Ideation mode</FormLabel>
         <RadioGroup
           aria-labelledby="ideation-mode-radio-button"
-          defaultValue={IdeationMode.Open}
+          defaultValue={ResponseVisibilityMode.Open}
           value={modeState}
           name="radio-buttons-group"
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             setModeState(
-              (event.target as HTMLInputElement).value as IdeationMode,
+              (event.target as HTMLInputElement)
+                .value as ResponseVisibilityMode,
             );
           }}
         >
           <FormControlLabel
-            value={IdeationMode.Open}
+            value={ResponseVisibilityMode.Open}
             control={<Radio />}
             label="Open (brainstorming)"
           />
           <FormControlLabel
-            value={IdeationMode.PartiallyBlind}
+            value={ResponseVisibilityMode.PartiallyBlind}
             control={<Radio />}
             label="Partially blind (brainwriting)"
           />
           <FormControlLabel
-            value={IdeationMode.FullyBlind}
+            value={ResponseVisibilityMode.FullyBlind}
             control={<Radio />}
             label="Fully blind (individual ideation)"
             disabled

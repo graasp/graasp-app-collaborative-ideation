@@ -18,7 +18,11 @@ import {
   IdeasData,
 } from '@/config/appDataTypes';
 import { IDEATION_VIEW_CY } from '@/config/selectors';
-import { ChoosePhase, IdeationPhases, InputPhase } from '@/interfaces/ideation';
+import {
+  ChoosePhase,
+  IdeationPhases,
+  InputPhase,
+} from '@/interfaces/interactionProcess';
 import Prompt from '@/modules/common/Prompt';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';

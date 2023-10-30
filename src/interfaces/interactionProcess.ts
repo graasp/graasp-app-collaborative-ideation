@@ -6,11 +6,14 @@ export enum IdeationPhases {
   // Add = 1,
 }
 
-export enum IdeationState {
+export enum ProcessState {
   WaitingForStart = 'waiting-for-start',
   End = 'end',
   Pause = 'pause',
   Play = 'play',
+  Input = 'input',
+  Evaluate = 'evaluate',
+  ShowSummary = 'show-summary',
 }
 
 export type Phase = {
@@ -28,7 +31,7 @@ export const ChoosePhase: Phase = {
   label: t('READ_IDEAS_STEP_TITLE'),
 };
 
-export enum IdeationMode {
+export enum ResponseVisibilityMode {
   FullyBlind = 'fully-blind',
   PartiallyBlind = 'partially-blind',
   Open = 'open',

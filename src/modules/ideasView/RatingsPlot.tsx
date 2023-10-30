@@ -29,6 +29,9 @@ const RatingsPlot: FC = () => {
 
   return (
     <Container>
+      {/* Temporary workaround until react-plotly is upgraded to react 18
+      see https://github.com/plotly/react-plotly.js/issues/280 */}
+      {/* @ts-ignore */}
       <Plot
         data={[
           {

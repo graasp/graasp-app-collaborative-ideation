@@ -9,7 +9,7 @@ import { IconButton, Stack } from '@mui/material';
 
 import { CurrentStateAppData } from '@/config/appDataTypes';
 import { INITIAL_STATE } from '@/config/constants';
-import { IdeationState } from '@/interfaces/ideation';
+import { ProcessState } from '@/interfaces/interactionProcess';
 import { getCurrentState } from '@/utils/ideas';
 
 import { useAppDataContext } from '../context/AppDataContext';
@@ -17,7 +17,7 @@ import { useSettings } from '../context/SettingsContext';
 import SectionTitle from './SectionTitle';
 
 interface StateControlProps {
-  onChange?: (state: IdeationState) => void;
+  onChange?: (state: ProcessState) => void;
 }
 
 const StateControl: FC<StateControlProps> = ({ onChange }) => {
@@ -25,7 +25,7 @@ const StateControl: FC<StateControlProps> = ({ onChange }) => {
   const { appData, postAppData, patchAppData } = useAppDataContext();
   const { orchestrator } = useSettings();
   const [currentState, setCurrentState] = useState<CurrentStateAppData>();
-  const [processState, setProcessState] = useState<IdeationState>();
+  const [processState, setProcessState] = useState<ProcessState>();
 
   useEffect(() => {
     const tmpCurrentState = getCurrentState(appData, orchestrator.id);
@@ -33,9 +33,7 @@ const StateControl: FC<StateControlProps> = ({ onChange }) => {
     setProcessState(tmpCurrentState?.data.state);
   }, [appData, orchestrator.id]);
 
-  const updateState = async (
-    newProcessState?: IdeationState,
-  ): Promise<void> => {
+  const updateState = async (newProcessState?: ProcessState): Promise<void> => {
     if (currentState?.id) {
       patchAppData({
         id: currentState.id,
@@ -54,7 +52,7 @@ const StateControl: FC<StateControlProps> = ({ onChange }) => {
       });
     }
   };
-  const handleChange = (newState: IdeationState): void => {
+  const handleChange = (newState: ProcessState): void => {
     setProcessState(newState);
     updateState(newState);
     if (onChange) {
@@ -65,21 +63,21 @@ const StateControl: FC<StateControlProps> = ({ onChange }) => {
     <>
       <SectionTitle>{t('STATE_CONTROL_TITLE')}</SectionTitle>
       <Stack direction="row" spacing={1}>
-        {processState === IdeationState.Play ? (
-          <IconButton onClick={() => handleChange(IdeationState.Pause)}>
+        {processState === ProcessState.Play ? (
+          <IconButton onClick={() => handleChange(ProcessState.Pause)}>
             <PauseCircleOutlineIcon />
           </IconButton>
         ) : (
-          <IconButton onClick={() => handleChange(IdeationState.Play)}>
+          <IconButton onClick={() => handleChange(ProcessState.Play)}>
             <PlayCircleOutlineIcon />
           </IconButton>
         )}
-        <IconButton onClick={() => handleChange(IdeationState.End)}>
+        <IconButton onClick={() => handleChange(ProcessState.End)}>
           <StopCircleOutlinedIcon />
         </IconButton>
-        {processState === IdeationState.End && (
+        {processState === ProcessState.End && (
           <IconButton
-            onClick={() => handleChange(IdeationState.WaitingForStart)}
+            onClick={() => handleChange(ProcessState.WaitingForStart)}
           >
             <ReplayOutlinedIcon />
           </IconButton>

@@ -11,11 +11,11 @@ import { PermissionLevel } from '@graasp/sdk';
 
 import { BUILDER_VIEW_CY } from '@/config/selectors';
 
-import AdminControl from '../admin-control/AdminControl';
+import AdminControl from '../adminControl/AdminControl';
 import TabPanel from '../common/TabPanel';
-import IdeasView from './ideasView/IdeasView';
-import Ideation from './ideation/Ideation';
-import SettingsView from './settingsView/SettingsView';
+import IdeasView from '../ideasView/IdeasView';
+import Ideation from '../inputResponse/Ideation';
+import SettingsView from '../settingsView/SettingsView';
 
 interface TabType {
   tabLabel: string;
