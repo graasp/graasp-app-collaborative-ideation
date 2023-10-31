@@ -29,11 +29,11 @@ import IdeaInput from '../inputResponse/IdeaInput';
 import SectionTitle from './SectionTitle';
 import StateControl from './StateControl';
 
-interface AdminControlProps {
+interface AdminPanelProps {
   width?: string;
 }
 
-const AdminControl: FC<AdminControlProps> = ({ width }): JSX.Element => {
+const AdminPanel: FC<AdminPanelProps> = ({ width }): JSX.Element => {
   const { t } = useTranslation();
   const { postAppData, appData } = useAppDataContext();
   const [currentState, setCurrentState] = useState<CurrentStateAppData>();
@@ -91,7 +91,7 @@ const AdminControl: FC<AdminControlProps> = ({ width }): JSX.Element => {
         </Typography>
         <Divider />
         <StateControl />
-        <SectionTitle>Participants</SectionTitle>
+        <SectionTitle>{t('PARTICIPANTS')}</SectionTitle>
         <Stack sx={{ m: 1 }} direction="row" spacing={2}>
           {members?.map((member) => (
             <Badge
@@ -103,7 +103,7 @@ const AdminControl: FC<AdminControlProps> = ({ width }): JSX.Element => {
             </Badge>
           ))}
         </Stack>
-        <SectionTitle>Orchestration</SectionTitle>
+        <SectionTitle>{t('ORCHESTRATION')}</SectionTitle>
         <FormGroup>
           <FormHelperText>
             When enabled, the applications distribute ideas to the participants
@@ -118,14 +118,11 @@ const AdminControl: FC<AdminControlProps> = ({ width }): JSX.Element => {
           <Synchronizer sync={sync} />
         </Collapse>
         <SectionTitle>Act as a bot</SectionTitle>
-        <Typography>
-          With the following field, you can insert new ideas in the ideation
-          process under the identity of the virtual agent.
-        </Typography>
+        <Typography>{t('ADMIN_PANEL.BOT.HELPER')}</Typography>
         <IdeaInput actAsBot />
       </Stack>
     </Paper>
   );
 };
 
-export default AdminControl;
+export default AdminPanel;

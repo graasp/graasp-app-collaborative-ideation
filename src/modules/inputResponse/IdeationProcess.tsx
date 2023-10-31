@@ -29,6 +29,7 @@ import { useSettings } from '@/modules/context/SettingsContext';
 
 import IdeaChoose from './IdeaChoose';
 import IdeaInput from './IdeaInput';
+import MyResponses from './MyResponses';
 import PhasesStepper from './PhaseStepper';
 
 const IdeationProcess: FC = () => {
@@ -120,6 +121,7 @@ const IdeationProcess: FC = () => {
         )}
         <Prompt />
         {renderPhaseOfIdeation()}
+        <MyResponses />
         <Snackbar
           open={openSnackbar}
           autoHideDuration={6000}

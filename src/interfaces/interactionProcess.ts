@@ -6,6 +6,12 @@ export enum IdeationPhases {
   // Add = 1,
 }
 
+export enum ActivityType {
+  ResponseCollection = 'response-collection',
+  Evaluation = 'evaluation',
+  Results = 'results',
+}
+
 export enum ProcessState {
   WaitingForStart = 'waiting-for-start',
   End = 'end',

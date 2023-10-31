@@ -42,7 +42,7 @@ export type IdeaSetAppData = AppDataRecord & {
 };
 
 export type CurrentStateData = {
-  // round: number;
+  round?: number;
   state: ProcessState;
 };
 

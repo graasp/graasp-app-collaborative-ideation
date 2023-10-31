@@ -7,7 +7,7 @@ import { Alert, Grid, Typography } from '@mui/material';
 import { useLocalContext } from '@graasp/apps-query-client';
 import { Button, Loader } from '@graasp/ui';
 
-import { List, Set } from 'immutable';
+import { List } from 'immutable';
 
 import { IdeasData, RatingsAppData } from '@/config/appDataTypes';
 import { NUMBER_OF_IDEAS_TO_SHOW } from '@/config/constants';
@@ -16,6 +16,7 @@ import { NoveltyRelevanceRatings } from '@/interfaces/ratings';
 import Idea from '@/modules/common/response/Response';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
+import { getMyResponses } from '@/utils/responses';
 
 interface IdeaChooseProps {
   ideas: IdeasData;
@@ -31,19 +32,9 @@ const IdeaChoose: FC<IdeaChooseProps> = ({ ideas, onChoose }) => {
   const { mode } = ideationMode;
   const numberOfIdeasToShow = NUMBER_OF_IDEAS_TO_SHOW;
   const [selectedIdeas, setSelectedIdeas] = useState<IdeasData>();
-  const [ready, setReady] = useState(false);
-  const ideasIds = useMemo(
-    () => selectedIdeas?.map((i) => i.id).toSet(),
-    [selectedIdeas],
-  );
 
   const ownIdeasIds = useMemo(
-    () =>
-      appData
-        .filter(
-          ({ creator, type }) => creator?.id === memberId && type === 'idea',
-        )
-        .map(({ id }) => id),
+    () => getMyResponses(appData, memberId).map(({ id }) => id),
     [appData, memberId],
   );
 
@@ -54,22 +45,6 @@ const IdeaChoose: FC<IdeaChooseProps> = ({ ideas, onChoose }) => {
       ) as List<RatingsAppData<NoveltyRelevanceRatings>> | undefined,
     [appData, memberId],
   );
-
-  useEffect(() => {
-    const newCompleteIdeasSet =
-      ratings
-        ?.filter(
-          ({ data }) =>
-            typeof data.ratings.novelty === 'number' &&
-            typeof data.ratings.usefulness === 'number',
-        )
-        .map(({ data }) => data.ideaRef)
-        .toSet() || Set<string>([]);
-    if (ideasIds?.equals(newCompleteIdeasSet)) {
-      setReady(true);
-    }
-    // setCompleteIdeas(newCompleteIdeasSet);
-  }, [ideasIds, ratings]);
 
   useEffect(() => {
     if (isSuccess && typeof selectedIdeas === 'undefined') {
@@ -100,13 +75,7 @@ const IdeaChoose: FC<IdeaChooseProps> = ({ ideas, onChoose }) => {
   ]);
 
   const handleChoose = (id?: string): void => {
-    if (ready) {
-      onChoose(id);
-    } else {
-      // TODO: Show alert.
-      // eslint-disable-next-line no-console
-      console.warn('No ratings were provided.');
-    }
+    onChoose(id);
   };
 
   const renderPlaceHolderForNoIdeas = (): JSX.Element => {
@@ -134,9 +103,9 @@ const IdeaChoose: FC<IdeaChooseProps> = ({ ideas, onChoose }) => {
               <Grid key={idea.id} item md={4} sm={6} xs={12}>
                 <Idea
                   key={idea.id}
-                  idea={idea}
+                  response={idea}
+                  responseId={idea.id}
                   onSelect={handleChoose}
-                  enableBuildAction={ready}
                 />
               </Grid>
             ))
@@ -144,7 +113,6 @@ const IdeaChoose: FC<IdeaChooseProps> = ({ ideas, onChoose }) => {
       </Grid>
       <Button
         startIcon={<AddCircleOutlineIcon />}
-        disabled={!ready}
         onClick={() => handleChoose()}
       >
         {t('PROPOSE_NEW_IDEA')}

@@ -27,6 +27,24 @@
     "PAUSE_MESSAGE": "The process has been paused by the admin. Please, wait for a moment.",
     "WAIT_TO_START_SCREEN_MAIN_INSTRUCTION": "The ideation will start soon. In the meantime, please, read the following instructions:",
     "WAIT_TO_START_SCREEN_STEP1": "At the beginning, you will be presented with a generative design question and asked to provide an answer to it.",
-    "WAIT_TO_START_SCREEN_STEP2": "After submitting a first answer, you will see some ideas provided by the other participants. Rate all of them and then propose a new idea, either by choosing one to build upon or by proposing a completely new one."
+    "WAIT_TO_START_SCREEN_STEP2": "After submitting a first answer, you will see some ideas provided by the other participants. Rate all of them and then propose a new idea, either by choosing one to build upon or by proposing a completely new one.",
+    "ROUND": "Round {{round}}",
+    "PARTICIPANTS": "Participants",
+    "ORCHESTRATION": "Orchestration",
+    "ADMIN_PANEL": {
+      "CONTROLS": {
+        "TITLE": "Controls",
+        "ROUND_HELPER": "Round {{round}}",
+        "RESPONSE_COLLECTION_BUTTON": "Response collection",
+        "EVALUATION_BUTTON": "Evaluation",
+        "RESULTS_BUTTON": "Results",
+        "PREVIOUS_ROUND_TOOLTIP": "Go back to previous round",
+        "NEXT_ROUND_TOOLTIP": "Start next round"
+      },
+      "BOT": {
+        "TITLE": "Act as a bot",
+        "HELPER": "With the following field, you can insert new ideas in the ideation process under the identity of the virtual agent."
+      }
+    }
   }
 }

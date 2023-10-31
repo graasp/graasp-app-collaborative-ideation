@@ -11,7 +11,7 @@ import { PermissionLevel } from '@graasp/sdk';
 
 import { BUILDER_VIEW_CY } from '@/config/selectors';
 
-import AdminControl from '../adminControl/AdminControl';
+import AdminControl from '../adminPanel/AdminPanel';
 import TabPanel from '../common/TabPanel';
 import IdeasView from '../ideasView/IdeasView';
 import Ideation from '../inputResponse/Ideation';
