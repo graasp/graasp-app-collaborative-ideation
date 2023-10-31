@@ -7,9 +7,9 @@ import { useSettings } from '@/modules/context/SettingsContext';
 import { getCurrentState } from '@/utils/ideas';
 
 import AnonymousIdeasView from '../ideasView/AnonymousIdeasView';
-import IdeationProcess from './IdeationProcess';
+import IdeationProcess from './ResponseCollectionProcess';
 
-const Ideation: FC = () => {
+const ResponseCollection: FC = () => {
   const { appData } = useAppDataContext();
   const [state, setState] = useState(ProcessState.WaitingForStart);
   const { orchestrator } = useSettings();
@@ -30,4 +30,4 @@ const Ideation: FC = () => {
   return <WaitingScreen state={state} />;
 };
 
-export default Ideation;
+export default ResponseCollection;

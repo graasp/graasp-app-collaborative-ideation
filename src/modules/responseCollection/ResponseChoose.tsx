@@ -18,12 +18,12 @@ import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { getMyResponses } from '@/utils/responses';
 
-interface IdeaChooseProps {
+interface ResponseChooseProps {
   ideas: IdeasData;
   onChoose: (id?: string) => void;
 }
 
-const IdeaChoose: FC<IdeaChooseProps> = ({ ideas, onChoose }) => {
+const ResponseChoose: FC<ResponseChooseProps> = ({ ideas, onChoose }) => {
   const { t } = useTranslation();
   const { appData, isSuccess, isLoading, invalidateAppData } =
     useAppDataContext();
@@ -121,4 +121,4 @@ const IdeaChoose: FC<IdeaChooseProps> = ({ ideas, onChoose }) => {
   );
 };
 
-export default IdeaChoose;
+export default ResponseChoose;

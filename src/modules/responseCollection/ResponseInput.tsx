@@ -18,7 +18,7 @@ import { AnonymousIdeaData, IdeaData } from '@/config/appDataTypes';
 import { IDEA_MAXIMUM_LENGTH, REFRESH_INTERVAL_MS } from '@/config/constants';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
-const IdeaInput: FC<{
+const ResponseInput: FC<{
   currentRound?: number;
   parent?: AnonymousIdeaData;
   onSubmitted?: (id: string) => void;
@@ -100,4 +100,4 @@ const IdeaInput: FC<{
   );
 };
 
-export default IdeaInput;
+export default ResponseInput;

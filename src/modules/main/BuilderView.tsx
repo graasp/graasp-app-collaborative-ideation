@@ -14,7 +14,7 @@ import { BUILDER_VIEW_CY } from '@/config/selectors';
 import AdminControl from '../adminPanel/AdminPanel';
 import TabPanel from '../common/TabPanel';
 import IdeasView from '../ideasView/IdeasView';
-import Ideation from '../inputResponse/Ideation';
+import Ideation from '../responseCollection/ResponseCollection';
 import SettingsView from '../settingsView/SettingsView';
 
 interface TabType {
@@ -37,7 +37,7 @@ const BuilderView = (): JSX.Element => {
 
   const ideationTab = useMemo(
     () => ({
-      tabLabel: t('IDEATION_TAB'),
+      tabLabel: t('ACTIVITY_TAB'),
       tabChild: <Ideation />,
     }),
     [t],

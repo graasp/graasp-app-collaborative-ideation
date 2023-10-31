@@ -25,7 +25,7 @@ import { hooks } from '@/config/queryClient';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
 import Synchronizer from '../common/Synchronizer';
-import IdeaInput from '../inputResponse/IdeaInput';
+import IdeaInput from '../responseCollection/ResponseInput';
 import SectionTitle from './SectionTitle';
 import StateControl from './StateControl';
 

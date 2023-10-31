@@ -27,12 +27,12 @@ import Prompt from '@/modules/common/Prompt';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 
-import IdeaChoose from './IdeaChoose';
-import IdeaInput from './IdeaInput';
 import MyResponses from './MyResponses';
 import PhasesStepper from './PhaseStepper';
+import IdeaChoose from './ResponseChoose';
+import IdeaInput from './ResponseInput';
 
-const IdeationProcess: FC = () => {
+const ResponseCollectionProcess: FC = () => {
   const { t } = useTranslation();
   const { appData, isSuccess } = useAppDataContext();
   const { memberId } = useLocalContext();
@@ -141,4 +141,4 @@ const IdeationProcess: FC = () => {
   );
 };
 
-export default IdeationProcess;
+export default ResponseCollectionProcess;
