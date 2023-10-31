@@ -12,7 +12,7 @@ export enum ActivityType {
   Results = 'results',
 }
 
-export enum ProcessStatus {
+export enum ActivityStatus {
   WaitingForStart = 'waiting-for-start',
   End = 'end',
   Pause = 'pause',

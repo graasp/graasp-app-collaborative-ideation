@@ -3,7 +3,7 @@ import { AppDataRecord } from '@graasp/sdk/frontend';
 import { List } from 'immutable';
 
 import { AppDataTypes, CurrentStateAppData } from '@/config/appDataTypes';
-import { ProcessStatus } from '@/interfaces/interactionProcess';
+import { ActivityStatus } from '@/interfaces/interactionProcess';
 
 export const getCurrentState = (
   appData: List<AppDataRecord>,
@@ -17,11 +17,11 @@ export const getCurrentState = (
 export const getCurrentStatus = (
   appData: List<AppDataRecord>,
   orchestratorId: string,
-): ProcessStatus | undefined =>
+): ActivityStatus | undefined =>
   appData.find(
     ({ type, creator }) =>
       type === AppDataTypes.CurrentState && creator?.id === orchestratorId,
-  )?.data?.status as ProcessStatus;
+  )?.data?.status as ActivityStatus;
 
 export const getCurrentActivity = (
   appData: List<AppDataRecord>,

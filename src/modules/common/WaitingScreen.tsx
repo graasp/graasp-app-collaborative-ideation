@@ -11,17 +11,17 @@ import {
 
 import { GraaspLogo } from '@graasp/ui';
 
-import { ProcessStatus } from '@/interfaces/interactionProcess';
+import { ActivityStatus } from '@/interfaces/interactionProcess';
 
 interface WaitingScreenProps {
-  state: ProcessStatus;
+  state: ActivityStatus;
 }
 
 const WaitingScreen: FC<WaitingScreenProps> = ({ state }) => {
   const { t } = useTranslation();
   const theme = useTheme();
 
-  if (state === ProcessStatus.Pause) {
+  if (state === ActivityStatus.Pause) {
     return (
       <Stack direction="column" justifyItems="center" spacing={4}>
         <GraaspLogo height={90} sx={{ fill: theme.palette.primary.main }} />
