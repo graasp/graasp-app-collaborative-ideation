@@ -1,14 +1,6 @@
-import { AppDataRecord } from '@graasp/sdk/frontend';
-
 import { List } from 'immutable';
 
-import {
-  AppDataTypes,
-  CurrentStateAppData,
-  IdeaAppData,
-  IdeasData,
-  RatingsAppData,
-} from '@/config/appDataTypes';
+import { IdeaAppData, IdeasData, RatingsAppData } from '@/config/appDataTypes';
 import { NoveltyRelevanceRatings } from '@/interfaces/ratings';
 
 const average = (array: number[]): number => {
@@ -79,12 +71,3 @@ export const showNewIdeas = (
 
   return ideasToShow;
 };
-
-export const getCurrentState = (
-  appData: List<AppDataRecord>,
-  orchestratorId: string,
-): CurrentStateAppData | undefined =>
-  appData.find(
-    ({ type, creator }) =>
-      type === AppDataTypes.CurrentState && creator?.id === orchestratorId,
-  ) as CurrentStateAppData;

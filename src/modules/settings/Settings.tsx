@@ -22,9 +22,9 @@ import { useMembersContext } from '@/modules/context/MembersContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface SettingsViewProps {}
+interface SettingsProps {}
 
-const SettingsView: FC<SettingsViewProps> = () => {
+const Settings: FC<SettingsProps> = () => {
   const { t } = useTranslation();
   const { data: appContext } = hooks.useAppContext();
   const { saveSettings, prompt, orchestrator, mode } = useSettings();
@@ -116,4 +116,4 @@ const SettingsView: FC<SettingsViewProps> = () => {
   );
 };
 
-export default SettingsView;
+export default Settings;

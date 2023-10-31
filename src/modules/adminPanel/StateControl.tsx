@@ -20,15 +20,15 @@ import {
 
 import { CurrentStateAppData } from '@/config/appDataTypes';
 import { INITIAL_STATE } from '@/config/constants';
-import { ActivityType, ProcessState } from '@/interfaces/interactionProcess';
-import { getCurrentState } from '@/utils/ideas';
+import { ActivityType, ProcessStatus } from '@/interfaces/interactionProcess';
+import { getCurrentState } from '@/utils/state';
 
 import { useAppDataContext } from '../context/AppDataContext';
 import { useSettings } from '../context/SettingsContext';
 import SectionTitle from './SectionTitle';
 
 interface StateControlProps {
-  onChange?: (state: ProcessState) => void;
+  onChange?: (state: ProcessStatus) => void;
 }
 
 const StateControl: FC<StateControlProps> = ({ onChange }) => {
@@ -36,7 +36,7 @@ const StateControl: FC<StateControlProps> = ({ onChange }) => {
   const { appData, postAppData, patchAppData } = useAppDataContext();
   const { orchestrator } = useSettings();
   const [currentState, setCurrentState] = useState<CurrentStateAppData>();
-  const [processState, setProcessState] = useState<ProcessState>();
+  const [processStatus, setProcessStatus] = useState<ProcessStatus>();
   const [round, setRound] = useState<number>(0);
   const [activity, setActivity] = useState<ActivityType>(
     ActivityType.ResponseCollection,
@@ -45,19 +45,19 @@ const StateControl: FC<StateControlProps> = ({ onChange }) => {
   useEffect(() => {
     const tmpCurrentState = getCurrentState(appData, orchestrator.id);
     setCurrentState(tmpCurrentState);
-    setProcessState(tmpCurrentState?.data.state);
+    setProcessStatus(tmpCurrentState?.data.status);
   }, [appData, orchestrator.id]);
 
   const updateState = async ({
     newProcessState,
     newRound,
   }: {
-    newProcessState?: ProcessState;
+    newProcessState?: ProcessStatus;
     newRound?: number;
   }): Promise<void> => {
     if (currentState?.id) {
       const { state: previousState, round: previousRound } =
-        currentState.data.toJS() as { state: ProcessState; round: number };
+        currentState.data.toJS() as { state: ProcessStatus; round: number };
       const newData = {
         state: newProcessState ?? previousState,
         round: newRound ?? previousRound,
@@ -67,7 +67,8 @@ const StateControl: FC<StateControlProps> = ({ onChange }) => {
         data: newData,
       });
     } else {
-      const { state: previousState, round: previousRound } = INITIAL_STATE.data;
+      const { status: previousState, round: previousRound } =
+        INITIAL_STATE.data;
       const newData = {
         state: newProcessState ?? previousState,
         round: newRound ?? previousRound,
@@ -82,11 +83,11 @@ const StateControl: FC<StateControlProps> = ({ onChange }) => {
     newProcessState,
     newRound,
   }: {
-    newProcessState?: ProcessState;
+    newProcessState?: ProcessStatus;
     newRound?: number;
   }): void => {
     if (newProcessState) {
-      setProcessState(newProcessState);
+      setProcessStatus(newProcessState);
     }
     if (newRound) {
       setRound(newRound);
@@ -145,10 +146,10 @@ const StateControl: FC<StateControlProps> = ({ onChange }) => {
           </ToggleButton>
         </ToggleButtonGroup>
         <Paper variant="outlined" elevation={1} sx={{ p: 1 }}>
-          {processState === ProcessState.Play ? (
+          {processStatus === ProcessStatus.Play ? (
             <IconButton
               onClick={() =>
-                handleChange({ newProcessState: ProcessState.Pause })
+                handleChange({ newProcessState: ProcessStatus.Pause })
               }
             >
               <PauseCircleOutlineIcon />
@@ -156,7 +157,7 @@ const StateControl: FC<StateControlProps> = ({ onChange }) => {
           ) : (
             <IconButton
               onClick={() =>
-                handleChange({ newProcessState: ProcessState.Play })
+                handleChange({ newProcessState: ProcessStatus.Play })
               }
             >
               <PlayCircleOutlineIcon />

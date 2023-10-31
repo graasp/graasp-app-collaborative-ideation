@@ -1,6 +1,6 @@
 import { AppDataVisibility } from '@graasp/sdk';
 
-import { ProcessState } from '@/interfaces/interactionProcess';
+import { ActivityType, ProcessStatus } from '@/interfaces/interactionProcess';
 
 import { CurrentStateData } from './appDataTypes';
 
@@ -11,7 +11,8 @@ export const INITIAL_STATE: {
 } = {
   type: 'current-state',
   data: {
-    state: ProcessState.WaitingForStart,
+    status: ProcessStatus.WaitingForStart,
+    activity: ActivityType.ResponseCollection,
   },
   visibility: AppDataVisibility.Item,
 };

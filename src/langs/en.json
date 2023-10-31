@@ -31,6 +31,9 @@
     "ROUND": "Round {{round}}",
     "PARTICIPANTS": "Participants",
     "ORCHESTRATION": "Orchestration",
+    "RESPONSE_EVALUATION": {
+      "TITLE": "Response Evaluation"
+    },
     "ADMIN_PANEL": {
       "CONTROLS": {
         "TITLE": "Controls",

@@ -15,7 +15,7 @@ import AdminControl from '../adminPanel/AdminPanel';
 import TabPanel from '../common/TabPanel';
 import IdeasView from '../ideasView/IdeasView';
 import Ideation from '../responseCollection/ResponseCollection';
-import SettingsView from '../settingsView/SettingsView';
+import SettingsView from '../settings/Settings';
 
 interface TabType {
   tabLabel: string;
