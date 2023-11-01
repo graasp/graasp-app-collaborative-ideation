@@ -18,7 +18,7 @@ import {
   Typography,
 } from '@mui/material';
 
-import { CurrentStateAppData } from '@/config/appDataTypes';
+import { CurrentStateAppData, CurrentStateData } from '@/config/appDataTypes';
 import { INITIAL_STATE } from '@/config/constants';
 import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
 import { getCurrentState } from '@/utils/state';
@@ -39,39 +39,53 @@ const StateControl: FC<StateControlProps> = ({ onChange }) => {
   const [processStatus, setActivityStatus] = useState<ActivityStatus>();
   const [round, setRound] = useState<number>(0);
   const [activity, setActivity] = useState<ActivityType>(
-    ActivityType.ResponseCollection,
+    ActivityType.Collection,
   );
 
   useEffect(() => {
     const tmpCurrentState = getCurrentState(appData, orchestrator.id);
     setCurrentState(tmpCurrentState);
     setActivityStatus(tmpCurrentState?.data.status);
+    const tmpRound = tmpCurrentState?.data?.round;
+    if (tmpRound) {
+      setRound(tmpRound);
+    }
   }, [appData, orchestrator.id]);
 
   const updateState = async ({
     newProcessState,
     newRound,
+    newActivity,
   }: {
     newProcessState?: ActivityStatus;
     newRound?: number;
+    newActivity?: ActivityType;
   }): Promise<void> => {
     if (currentState?.id) {
-      const { state: previousState, round: previousRound } =
-        currentState.data.toJS() as { state: ActivityStatus; round: number };
-      const newData = {
-        state: newProcessState ?? previousState,
+      const {
+        status: previousState,
+        round: previousRound,
+        activity: previousActivity,
+      } = currentState.data.toJS() as CurrentStateData;
+      const newData: CurrentStateData = {
+        status: newProcessState ?? previousState,
         round: newRound ?? previousRound,
+        activity: newActivity ?? previousActivity,
       };
       patchAppData({
         id: currentState.id,
         data: newData,
       });
     } else {
-      const { status: previousState, round: previousRound } =
-        INITIAL_STATE.data;
-      const newData = {
-        state: newProcessState ?? previousState,
+      const {
+        status: previousState,
+        round: previousRound,
+        activity: previousActivity,
+      } = INITIAL_STATE.data;
+      const newData: CurrentStateData = {
+        status: newProcessState ?? previousState,
         round: newRound ?? previousRound,
+        activity: newActivity ?? previousActivity,
       };
       postAppData({
         ...INITIAL_STATE,
@@ -103,6 +117,7 @@ const StateControl: FC<StateControlProps> = ({ onChange }) => {
     value: ActivityType,
   ): void => {
     setActivity(value);
+    updateState({ newActivity: value });
   };
   return (
     <>
@@ -121,7 +136,7 @@ const StateControl: FC<StateControlProps> = ({ onChange }) => {
           onChange={handleActivityChange}
         >
           <ToggleButton
-            value={ActivityType.ResponseCollection}
+            value={ActivityType.Collection}
             aria-label={t('ADMIN_PANEL.CONTROLS.RESPONSE_COLLECTION_BUTTON')}
           >
             <InputIcon sx={{ mr: 1 }} />

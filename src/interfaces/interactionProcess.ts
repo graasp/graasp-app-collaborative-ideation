@@ -7,7 +7,7 @@ export enum IdeationPhases {
 }
 
 export enum ActivityType {
-  ResponseCollection = 'response-collection',
+  Collection = 'collection',
   Evaluation = 'evaluation',
   Results = 'results',
 }

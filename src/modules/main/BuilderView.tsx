@@ -14,8 +14,8 @@ import { BUILDER_VIEW_CY } from '@/config/selectors';
 import AdminControl from '../adminPanel/AdminPanel';
 import TabPanel from '../common/TabPanel';
 import IdeasView from '../ideasView/IdeasView';
-import Ideation from '../responseCollection/ResponseCollection';
 import SettingsView from '../settings/Settings';
+import Activity from './Activity';
 
 interface TabType {
   tabLabel: string;
@@ -35,10 +35,10 @@ const BuilderView = (): JSX.Element => {
     [permission],
   );
 
-  const ideationTab = useMemo(
+  const activityTab = useMemo(
     () => ({
       tabLabel: t('ACTIVITY_TAB'),
-      tabChild: <Ideation />,
+      tabChild: <Activity />,
     }),
     [t],
   );
@@ -60,8 +60,8 @@ const BuilderView = (): JSX.Element => {
   );
 
   const tabs: TabType[] = useMemo(
-    () => (isAdmin ? [ideationTab, ideasViewTab, settingsTab] : [ideationTab]),
-    [isAdmin, ideationTab, ideasViewTab, settingsTab],
+    () => (isAdmin ? [activityTab, ideasViewTab, settingsTab] : [activityTab]),
+    [isAdmin, activityTab, ideasViewTab, settingsTab],
   );
 
   return (

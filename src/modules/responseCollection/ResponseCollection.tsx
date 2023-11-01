@@ -27,6 +27,7 @@ import Pausable from '@/modules/common/Pausable';
 import Prompt from '@/modules/common/Prompt';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
+import { getCurrentRound } from '@/utils/state';
 
 import MyResponses from './MyResponses';
 import PhasesStepper from './PhaseStepper';
@@ -41,9 +42,7 @@ const ResponseCollection: FC = () => {
   const [chosenIdea, setChosenIdea] = useState<AnonymousIdeaData>();
   const [ideas, setIdeas] = useState<IdeasData>(List([]));
   const [ownIdeas, setOwnIdeas] = useState<List<IdeaAppData>>(List([]));
-  // TODO: Implement round counting
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [round, setRound] = useState<number>(1);
+  const [round, setRound] = useState<number>(0);
   const [phase, setPhase] = useState<number>(IdeationPhases.Choose);
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -71,6 +70,10 @@ const ResponseCollection: FC = () => {
       setOwnIdeas(ownIdeasTmp);
       if (typeof currentIdeaSet !== 'undefined') {
         setIdeas(currentIdeaSet.data.ideas);
+      }
+      const r = getCurrentRound(appData, orchestrator.id);
+      if (r) {
+        setRound(r);
       }
     }
   }, [appData, isSuccess, memberId, orchestrator]);

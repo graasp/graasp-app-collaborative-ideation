@@ -12,7 +12,7 @@ export const INITIAL_STATE: {
   type: 'current-state',
   data: {
     status: ActivityStatus.WaitingForStart,
-    activity: ActivityType.ResponseCollection,
+    activity: ActivityType.Collection,
   },
   visibility: AppDataVisibility.Item,
 };
