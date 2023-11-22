@@ -9584,6 +9584,7 @@ __metadata:
   dependencies:
     "@commitlint/cli": "npm:18.4.3"
     "@commitlint/config-conventional": "npm:18.4.3"
+    "@commitlint/types": "npm:^18.4.3"
     "@cypress/code-coverage": "npm:3.12.11"
     "@emotion/react": "npm:11.11.1"
     "@emotion/styled": "npm:11.11.0"
