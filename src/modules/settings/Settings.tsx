@@ -1,20 +1,17 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import {
-  Autocomplete,
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  FormLabel,
-  Radio,
-  RadioGroup,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
-
-import { Button } from '@graasp/ui';
+import { Radio } from '@mui/icons-material';
+import Autocomplete from '@mui/material/Autocomplete';
+import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
+import FormLabel from '@mui/material/FormLabel';
+import RadioGroup from '@mui/material/RadioGroup';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 
 import { hooks } from '@/config/queryClient';
 import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';

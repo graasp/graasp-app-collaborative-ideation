@@ -14,10 +14,10 @@ import {
   Switch,
   Typography,
 } from '@mui/material';
+import Button from '@mui/material/Button';
 import grey from '@mui/material/colors/grey';
 
 import { Member } from '@graasp/sdk';
-import { Button } from '@graasp/ui';
 
 import { CurrentStateAppData } from '@/config/appDataTypes';
 import { INITIAL_STATE } from '@/config/constants';

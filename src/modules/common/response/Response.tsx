@@ -1,15 +1,12 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import {
-  Card,
-  CardActions,
-  CardContent,
-  Divider,
-  Typography,
-} from '@mui/material';
-
-import { Button } from '@graasp/ui';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
 
 import { IdeaData } from '@/config/appDataTypes';
 

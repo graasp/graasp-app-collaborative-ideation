@@ -10,13 +10,15 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import Button from '@mui/material/Button';
 
 import { AppData } from '@graasp/sdk';
-import { Button, Loader } from '@graasp/ui';
 
 import { AnonymousIdeaData, IdeaData } from '@/config/appDataTypes';
 import { IDEA_MAXIMUM_LENGTH, REFRESH_INTERVAL_MS } from '@/config/constants';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
+
+import Loader from '../common/Loader';
 
 const ResponseInput: FC<{
   currentRound?: number;

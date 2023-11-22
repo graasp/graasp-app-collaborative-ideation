@@ -1,15 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import {
-  Alert,
-  LinearProgress,
-  Stack,
-  Typography,
-  useTheme,
-} from '@mui/material';
-
-import { GraaspLogo } from '@graasp/ui';
+import { Alert, LinearProgress, Stack, Typography } from '@mui/material';
 
 import { ActivityStatus } from '@/interfaces/interactionProcess';
 
@@ -19,12 +11,10 @@ interface WaitingScreenProps {
 
 const WaitingScreen: FC<WaitingScreenProps> = ({ state }) => {
   const { t } = useTranslation();
-  const theme = useTheme();
 
   if (state === ActivityStatus.Pause) {
     return (
       <Stack direction="column" justifyItems="center" spacing={4}>
-        <GraaspLogo height={90} sx={{ fill: theme.palette.primary.main }} />
         <LinearProgress />
         <Alert severity="info">{t('PAUSE_MESSAGE')}</Alert>
       </Stack>
@@ -32,7 +22,6 @@ const WaitingScreen: FC<WaitingScreenProps> = ({ state }) => {
   }
   return (
     <Stack direction="column" justifyItems="center" spacing={4}>
-      <GraaspLogo height={90} sx={{ fill: theme.palette.primary.main }} />
       <Typography>
         {t('WAIT_TO_START_SCREEN_MAIN_INSTRUCTION')}
         <ul>

@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next';
 
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Alert, Grid, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
 
 import { useLocalContext } from '@graasp/apps-query-client';
-import { Button, Loader } from '@graasp/ui';
 
 import { List } from 'immutable';
 
@@ -17,6 +17,8 @@ import Idea from '@/modules/common/response/Response';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { getMyResponses } from '@/utils/responses';
+
+import Loader from '../common/Loader';
 
 interface ResponseChooseProps {
   ideas: IdeasData;
