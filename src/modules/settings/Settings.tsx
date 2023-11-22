@@ -61,7 +61,7 @@ const Settings: FC<SettingsProps> = () => {
       </FormGroup>
       <FormGroup>
         <Autocomplete
-          options={members.map((member) => member.id).toArray()}
+          options={members.map((member) => member.id)}
           getOptionLabel={(option) =>
             members.find(({ id }) => id === option)?.name || ''
           }

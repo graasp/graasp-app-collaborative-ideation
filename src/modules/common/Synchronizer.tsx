@@ -6,7 +6,7 @@ import { Alert, Stack } from '@mui/material';
 import { useLocalContext } from '@graasp/apps-query-client';
 import { AppDataVisibility } from '@graasp/sdk';
 
-import { List } from 'immutable';
+import isEqual from 'lodash.isequal';
 
 import {
   AppDataTypes,
@@ -32,7 +32,7 @@ const Synchronizer: FC<SynchronizerProps> = ({ sync }) => {
     useAppDataContext();
   const { memberId } = useLocalContext();
 
-  const [ideasIds, setIdeasIds] = useState<List<string>>(List([]));
+  const [ideasIds, setIdeasIds] = useState<string[]>([]);
 
   const handleDataExpiration = (): void => {
     setIsExpirationTimerRunning(false);
@@ -49,17 +49,15 @@ const Synchronizer: FC<SynchronizerProps> = ({ sync }) => {
 
   const ideas = useMemo(
     () =>
-      appData.filter(
-        ({ type }) => type === AppDataTypes.Idea,
-      ) as List<IdeaAppData>,
+      appData.filter(({ type }) => type === AppDataTypes.Idea) as IdeaAppData[],
     [appData],
   );
 
   const ratings = useMemo(
     () =>
-      appData.filter(({ type }) => type === AppDataTypes.Ratings) as List<
-        RatingsAppData<NoveltyRelevanceRatings>
-      >,
+      appData.filter(
+        ({ type }) => type === AppDataTypes.Ratings,
+      ) as RatingsAppData<NoveltyRelevanceRatings>[],
     [appData],
   );
 
@@ -67,14 +65,14 @@ const Synchronizer: FC<SynchronizerProps> = ({ sync }) => {
   useEffect(() => {
     if (sync) {
       const newIdeasIds = ideas.map(({ id }) => id).sort();
-      if (ideas && !ideasIds.equals(newIdeasIds)) {
+      if (ideas && !isEqual(ideasIds, newIdeasIds)) {
         setIdeasIds(newIdeasIds);
         const anonymousIdeas = anonymizeIdeas(ideas, ratings);
         if (setId) {
           patchAppData({
             id: setId,
             data: {
-              ideas: anonymousIdeas.toJS(),
+              ideas: anonymousIdeas,
             },
           });
         } else {

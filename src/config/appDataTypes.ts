@@ -1,7 +1,4 @@
-import { AppDataVisibility } from '@graasp/sdk';
-import { AppDataRecord } from '@graasp/sdk/frontend';
-
-import { List } from 'immutable';
+import { AppData, AppDataVisibility } from '@graasp/sdk';
 
 import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
 import { NoveltyRelevanceRatings } from '@/interfaces/ratings';
@@ -25,16 +22,15 @@ export type IdeaData<T = NoveltyRelevanceRatings> = {
 export type AnonymousIdeaData<RatingsT = NoveltyRelevanceRatings> =
   IdeaData<RatingsT> & { id: string };
 
-export type IdeasData<RatingsT = NoveltyRelevanceRatings> = List<
-  AnonymousIdeaData<RatingsT>
->;
+export type IdeasData<RatingsT = NoveltyRelevanceRatings> =
+  AnonymousIdeaData<RatingsT>[];
 
-export type IdeaAppData = AppDataRecord & {
+export type IdeaAppData = AppData & {
   type: AppDataTypes.Idea;
   data: IdeaData;
 };
 
-export type IdeaSetAppData = AppDataRecord & {
+export type IdeaSetAppData = AppData & {
   type: AppDataTypes.IdeaSet;
   data: {
     ideas: IdeasData;
@@ -47,7 +43,7 @@ export type CurrentStateData = {
   activity: ActivityType;
 };
 
-export type CurrentStateAppData = AppDataRecord & {
+export type CurrentStateAppData = AppData & {
   type: AppDataTypes.CurrentState;
   data: CurrentStateData;
 };
@@ -57,7 +53,7 @@ export type RatingsData<T> = {
   ratings: T;
 };
 
-export type RatingsAppData<T> = AppDataRecord & {
+export type RatingsAppData<T> = AppData & {
   type: AppDataTypes.Ratings;
   data: RatingsData<T>;
   visibility: AppDataVisibility.Member;

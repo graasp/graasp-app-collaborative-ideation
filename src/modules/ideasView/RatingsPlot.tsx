@@ -23,9 +23,9 @@ const RatingsPlot: FC = () => {
     [appData, orchestrator.id],
   );
 
-  const x = ideas.map(({ ratings }) => ratings?.novelty || 0).toArray();
-  const y = ideas.map(({ ratings }) => ratings?.usefulness || 0).toArray();
-  const labels = ideas.map(({ idea }) => idea).toArray();
+  const x = ideas.map(({ ratings }) => ratings?.novelty || 0);
+  const y = ideas.map(({ ratings }) => ratings?.usefulness || 0);
+  const labels = ideas.map(({ idea }) => idea);
 
   return (
     <Container>

@@ -1,12 +1,10 @@
-import { AppDataRecord } from '@graasp/sdk/frontend';
-
-import { List } from 'immutable';
+import { AppData } from '@graasp/sdk';
 
 import { AppDataTypes, CurrentStateAppData } from '@/config/appDataTypes';
 import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
 
 export const getCurrentState = (
-  appData: List<AppDataRecord>,
+  appData: AppData[],
   orchestratorId: string,
 ): CurrentStateAppData | undefined =>
   appData.find(
@@ -15,7 +13,7 @@ export const getCurrentState = (
   ) as CurrentStateAppData;
 
 export const getCurrentStatus = (
-  appData: List<AppDataRecord>,
+  appData: AppData[],
   orchestratorId: string,
 ): ActivityStatus | undefined =>
   appData.find(
@@ -24,7 +22,7 @@ export const getCurrentStatus = (
   )?.data?.status as ActivityStatus;
 
 export const getCurrentActivity = (
-  appData: List<AppDataRecord>,
+  appData: AppData[],
   orchestratorId: string,
 ): ActivityType | undefined =>
   appData.find(
@@ -33,6 +31,6 @@ export const getCurrentActivity = (
   )?.data?.activity as ActivityType;
 
 export const getCurrentRound = (
-  appData: List<AppDataRecord>,
+  appData: AppData[],
   orchestratorId: string,
 ): number | undefined => getCurrentState(appData, orchestratorId)?.data?.round;

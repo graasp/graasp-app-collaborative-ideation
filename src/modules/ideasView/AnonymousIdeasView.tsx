@@ -48,7 +48,7 @@ const AnonymousIdeasView = (): JSX.Element => {
 
   return (
     <Container>
-      <DataGrid columns={columns} rows={ideasTable.toArray()} />
+      <DataGrid columns={columns} rows={ideasTable} />
       <RatingsPlot />
     </Container>
   );

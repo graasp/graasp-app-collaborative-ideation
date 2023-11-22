@@ -66,7 +66,7 @@ const StateControl: FC<StateControlProps> = ({ onChange }) => {
         status: previousState,
         round: previousRound,
         activity: previousActivity,
-      } = currentState.data.toJS() as CurrentStateData;
+      } = currentState.data as CurrentStateData;
       const newData: CurrentStateData = {
         status: newProcessState ?? previousState,
         round: newRound ?? previousRound,

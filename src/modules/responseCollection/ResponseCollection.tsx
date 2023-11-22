@@ -8,8 +8,6 @@ import Stack from '@mui/material/Stack';
 
 import { useLocalContext } from '@graasp/apps-query-client';
 
-import { List } from 'immutable';
-
 import {
   AnonymousIdeaData,
   AppDataTypes,
@@ -40,8 +38,8 @@ const ResponseCollection: FC = () => {
   const { memberId } = useLocalContext();
   const { orchestrator } = useSettings();
   const [chosenIdea, setChosenIdea] = useState<AnonymousIdeaData>();
-  const [ideas, setIdeas] = useState<IdeasData>(List([]));
-  const [ownIdeas, setOwnIdeas] = useState<List<IdeaAppData>>(List([]));
+  const [ideas, setIdeas] = useState<IdeasData>([]);
+  const [ownIdeas, setOwnIdeas] = useState<IdeaAppData[]>([]);
   const [round, setRound] = useState<number>(0);
   const [phase, setPhase] = useState<number>(IdeationPhases.Choose);
 
@@ -66,7 +64,7 @@ const ResponseCollection: FC = () => {
       const ownIdeasTmp = appData.filter(
         ({ type, creator }) =>
           creator?.id === memberId && type === AppDataTypes.Idea,
-      ) as List<IdeaAppData>;
+      ) as IdeaAppData[];
       setOwnIdeas(ownIdeasTmp);
       if (typeof currentIdeaSet !== 'undefined') {
         setIdeas(currentIdeaSet.data.ideas);
@@ -95,7 +93,7 @@ const ResponseCollection: FC = () => {
   };
 
   const renderPhaseOfIdeation = (): React.JSX.Element | null => {
-    if (phase === IdeationPhases.Choose && ownIdeas.size > 0) {
+    if (phase === IdeationPhases.Choose && ownIdeas.length > 0) {
       return <IdeaChoose ideas={ideas} onChoose={handleChoose} />;
     }
     return (
@@ -117,7 +115,7 @@ const ResponseCollection: FC = () => {
           height="100%"
           spacing={4}
         >
-          {ideas && ideas.size > 1 && (
+          {ideas && ideas.length > 1 && (
             <PhasesStepper
               activeStep={phase}
               steps={[InputPhase, ChoosePhase]}

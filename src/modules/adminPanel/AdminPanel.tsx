@@ -48,7 +48,7 @@ const AdminPanel: FC<AdminPanelProps> = ({ width }): JSX.Element => {
         ({ type, member: memberData }) =>
           type === 'idea' && memberData.id === member.id,
       );
-      return ideasForMember.size;
+      return ideasForMember.length;
     },
     [appData],
   );

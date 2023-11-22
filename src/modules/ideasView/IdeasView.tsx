@@ -4,8 +4,6 @@ import { useTranslation } from 'react-i18next';
 import Container from '@mui/material/Container';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
-import { List, RecordOf } from 'immutable';
-
 import { IdeaAppData } from '@/config/appDataTypes';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
@@ -15,9 +13,9 @@ const IdeasView = (): JSX.Element => {
   const { t } = useTranslation();
   const { appData } = useAppDataContext();
   const ideasTable = useMemo(() => {
-    const ideas = appData.filter(({ type }) => type === 'idea') as RecordOf<
-      List<IdeaAppData>
-    >;
+    const ideas = appData.filter(
+      ({ type }) => type === 'idea',
+    ) as IdeaAppData[];
     return ideas.map((i) => ({
       id: i.id,
       idea: i.data.idea,
@@ -46,7 +44,7 @@ const IdeasView = (): JSX.Element => {
 
   return (
     <Container>
-      <DataGrid columns={columns} rows={ideasTable.toArray()} />
+      <DataGrid columns={columns} rows={ideasTable} />
       <RatingsPlot />
     </Container>
   );

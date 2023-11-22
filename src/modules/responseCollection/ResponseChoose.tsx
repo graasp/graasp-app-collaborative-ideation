@@ -7,8 +7,6 @@ import Button from '@mui/material/Button';
 
 import { useLocalContext } from '@graasp/apps-query-client';
 
-import { List } from 'immutable';
-
 import { IdeasData, RatingsAppData } from '@/config/appDataTypes';
 import { NUMBER_OF_IDEAS_TO_SHOW } from '@/config/constants';
 import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
@@ -44,19 +42,19 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ ideas, onChoose }) => {
     () =>
       appData.filter(
         ({ type, creator }) => type === 'ratings' && creator?.id === memberId,
-      ) as List<RatingsAppData<NoveltyRelevanceRatings>> | undefined,
+      ) as RatingsAppData<NoveltyRelevanceRatings>[] | undefined,
     [appData, memberId],
   );
 
   useEffect(() => {
     if (isSuccess && typeof selectedIdeas === 'undefined') {
       if (mode === ResponseVisibilityMode.PartiallyBlind) {
-        const ideasNotRated = ideas.filterNot(
+        const ideasNotRated = ideas.filter(
           ({ id }) =>
-            Boolean(ratings?.find(({ data }) => data.ideaRef === id)) ||
+            Boolean(ratings?.find(({ data }) => data.ideaRef !== id)) ||
             ownIdeasIds.includes(id),
         );
-        if (ideasNotRated.size > 0) {
+        if (ideasNotRated.length > 0) {
           const ideasToShow = ideasNotRated.slice(0, numberOfIdeasToShow - 1);
           setSelectedIdeas(ideasToShow);
         }
