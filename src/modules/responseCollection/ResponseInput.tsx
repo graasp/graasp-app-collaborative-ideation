@@ -12,9 +12,13 @@ import {
 } from '@mui/material';
 import Button from '@mui/material/Button';
 
-import { AppData } from '@graasp/sdk';
+import { AppData, AppDataVisibility } from '@graasp/sdk';
 
-import { AnonymousResponseData, ResponseData } from '@/config/appDataTypes';
+import {
+  AnonymousResponseData,
+  AppDataTypes,
+  ResponseData,
+} from '@/config/appDataTypes';
 import { IDEA_MAXIMUM_LENGTH, REFRESH_INTERVAL_MS } from '@/config/constants';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
@@ -42,8 +46,8 @@ const ResponseInput: FC<{
     };
 
     const promise = postAppDataAsync({
-      type: 'idea',
-      visibility: 'member',
+      type: AppDataTypes.Response,
+      visibility: AppDataVisibility.Member,
       data: newIdeaData,
     })?.then((postedIdea) => {
       setTimeout(() => {

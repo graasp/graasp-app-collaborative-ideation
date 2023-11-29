@@ -20,7 +20,7 @@ export const getMyResponses = (
 export const getAllVisibleResponses = (
   appData: AppData[],
   orchestratorId: string,
-): ResponsesSetAppData => {
+): ResponsesSetAppData | undefined => {
   const responses = appData.find(
     ({ creator, type }) =>
       creator?.id === orchestratorId && type === AppDataTypes.Response,

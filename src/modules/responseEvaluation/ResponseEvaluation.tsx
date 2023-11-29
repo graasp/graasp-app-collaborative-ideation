@@ -17,18 +17,22 @@ const ResponseEvaluation: FC = () => {
   const { t } = useTranslation();
   const [responses, setResponses] = useState<ResponsesData>([]);
   const { orchestrator } = useSettings();
-  const renderPlaceHolderForNoIdeas = (): ReactNode => {
-    throw new Error('Function not implemented.');
-  };
   const { appData } = useAppDataContext();
 
   useEffect(() => {
     const r = getAllVisibleResponses(appData, orchestrator.id);
-    setResponses(r.data.responses);
+    if (r) {
+      setResponses(r.data.responses);
+    } else {
+      setResponses([]);
+    }
   }, [appData, orchestrator.id]);
 
   const handleChoose = (id: string): void => {
     throw new Error(`Function not implemented. Chose ${id}`);
+  };
+  const renderPlaceHolderForNoIdeas = (): ReactNode => {
+    throw new Error('Function not implemented.');
   };
 
   return (
