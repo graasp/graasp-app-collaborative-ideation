@@ -2,12 +2,14 @@ import { FC, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { Alert, Grid, Typography } from '@mui/material';
+import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Unstable_Grid2';
 
 import { useLocalContext } from '@graasp/apps-query-client';
 
-import { IdeasData, RatingsAppData } from '@/config/appDataTypes';
+import { RatingsAppData, ResponsesData } from '@/config/appDataTypes';
 import { NUMBER_OF_IDEAS_TO_SHOW } from '@/config/constants';
 import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
 import { NoveltyRelevanceRatings } from '@/interfaces/ratings';
@@ -19,7 +21,7 @@ import { getMyResponses } from '@/utils/responses';
 import Loader from '../common/Loader';
 
 interface ResponseChooseProps {
-  ideas: IdeasData;
+  ideas: ResponsesData;
   onChoose: (id?: string) => void;
 }
 
@@ -31,7 +33,7 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ ideas, onChoose }) => {
   const { mode: ideationMode } = useSettings();
   const { mode } = ideationMode;
   const numberOfIdeasToShow = NUMBER_OF_IDEAS_TO_SHOW;
-  const [selectedIdeas, setSelectedIdeas] = useState<IdeasData>();
+  const [selectedIdeas, setSelectedIdeas] = useState<ResponsesData>();
 
   const ownIdeasIds = useMemo(
     () => getMyResponses(appData, memberId).map(({ id }) => id),
@@ -100,7 +102,7 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ ideas, onChoose }) => {
       <Grid container spacing={2}>
         {selectedIdeas
           ? selectedIdeas.map((idea) => (
-              <Grid key={idea.id} item md={4} sm={6} xs={12}>
+              <Grid key={idea.id} md={4} sm={6} xs={12}>
                 <Idea
                   key={idea.id}
                   response={idea}

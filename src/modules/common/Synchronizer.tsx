@@ -10,8 +10,8 @@ import isEqual from 'lodash.isequal';
 
 import {
   AppDataTypes,
-  IdeaAppData,
   RatingsAppData,
+  ResponseAppData,
 } from '@/config/appDataTypes';
 import { REFRESH_INTERVAL_MS } from '@/config/constants';
 import { NoveltyRelevanceRatings } from '@/interfaces/ratings';
@@ -49,7 +49,9 @@ const Synchronizer: FC<SynchronizerProps> = ({ sync }) => {
 
   const ideas = useMemo(
     () =>
-      appData.filter(({ type }) => type === AppDataTypes.Idea) as IdeaAppData[],
+      appData.filter(
+        ({ type }) => type === AppDataTypes.Response,
+      ) as ResponseAppData[],
     [appData],
   );
 

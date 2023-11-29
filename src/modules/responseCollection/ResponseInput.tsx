@@ -14,7 +14,7 @@ import Button from '@mui/material/Button';
 
 import { AppData } from '@graasp/sdk';
 
-import { AnonymousIdeaData, IdeaData } from '@/config/appDataTypes';
+import { AnonymousResponseData, ResponseData } from '@/config/appDataTypes';
 import { IDEA_MAXIMUM_LENGTH, REFRESH_INTERVAL_MS } from '@/config/constants';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
@@ -22,20 +22,20 @@ import Loader from '../common/Loader';
 
 const ResponseInput: FC<{
   currentRound?: number;
-  parent?: AnonymousIdeaData;
+  parent?: AnonymousResponseData;
   onSubmitted?: (id: string) => void;
   actAsBot?: boolean;
 }> = ({ parent, currentRound, onSubmitted, actAsBot }) => {
   const { t } = useTranslation();
   // const initialIdea = parent?.idea || '';
-  const [idea, setIdea] = useState<string>('');
+  const [response, setResponse] = useState<string>('');
   const { postAppDataAsync, invalidateAppData } = useAppDataContext();
   const [promisePostIdea, setPromisePostIdea] = useState<
     Promise<AppData> | undefined
   >();
   const submit = (): void => {
-    const newIdeaData: IdeaData = {
-      idea,
+    const newIdeaData: ResponseData = {
+      response,
       parentId: parent?.id,
       round: currentRound,
       bot: actAsBot,
@@ -49,7 +49,7 @@ const ResponseInput: FC<{
       setTimeout(() => {
         if (typeof onSubmitted !== 'undefined') onSubmitted(postedIdea.id);
         setPromisePostIdea(undefined);
-        setIdea('');
+        setResponse('');
         invalidateAppData();
       }, REFRESH_INTERVAL_MS);
 
@@ -58,8 +58,8 @@ const ResponseInput: FC<{
     setPromisePostIdea(promise);
   };
   const isPosting = typeof promisePostIdea !== 'undefined';
-  const tooLong = idea.length > IDEA_MAXIMUM_LENGTH;
-  const disableSubmission = isPosting || tooLong || idea.length === 0;
+  const tooLong = response.length > IDEA_MAXIMUM_LENGTH;
+  const disableSubmission = isPosting || tooLong || response.length === 0;
   return (
     <>
       <Collapse in={tooLong}>
@@ -68,22 +68,22 @@ const ResponseInput: FC<{
       {parent && (
         <Alert severity="info">
           <AlertTitle>{t('CUE_PARENT_IDEA_TITLE')}</AlertTitle>
-          <q>{parent.idea}</q>
+          <q>{parent.response}</q>
         </Alert>
       )}
       <TextField
         multiline
         fullWidth
         variant="outlined"
-        value={idea}
-        onChange={(e) => setIdea(e.target.value)}
+        value={response}
+        onChange={(e) => setResponse(e.target.value)}
         disabled={isPosting}
         color={tooLong ? 'error' : 'primary'}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
               <Typography variant="caption">
-                {idea.length}/{IDEA_MAXIMUM_LENGTH}
+                {response.length}/{IDEA_MAXIMUM_LENGTH}
               </Typography>
             </InputAdornment>
           ),

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Container from '@mui/material/Container';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
-import { IdeaAppData } from '@/config/appDataTypes';
+import { ResponseAppData } from '@/config/appDataTypes';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
 import RatingsPlot from './RatingsPlot';
@@ -15,7 +15,7 @@ const IdeasView = (): JSX.Element => {
   const ideasTable = useMemo(() => {
     const ideas = appData.filter(
       ({ type }) => type === 'idea',
-    ) as IdeaAppData[];
+    ) as ResponseAppData[];
     return ideas.map((i) => ({
       id: i.id,
       idea: i.data.idea,

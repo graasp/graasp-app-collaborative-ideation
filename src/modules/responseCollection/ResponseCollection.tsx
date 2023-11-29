@@ -9,11 +9,11 @@ import Stack from '@mui/material/Stack';
 import { useLocalContext } from '@graasp/apps-query-client';
 
 import {
-  AnonymousIdeaData,
+  AnonymousResponseData,
   AppDataTypes,
-  IdeaAppData,
-  IdeaSetAppData,
-  IdeasData,
+  ResponseAppData,
+  ResponsesData,
+  ResponsesSetAppData,
 } from '@/config/appDataTypes';
 import { IDEATION_VIEW_CY } from '@/config/selectors';
 import {
@@ -37,9 +37,9 @@ const ResponseCollection: FC = () => {
   const { appData, isSuccess } = useAppDataContext();
   const { memberId } = useLocalContext();
   const { orchestrator } = useSettings();
-  const [chosenIdea, setChosenIdea] = useState<AnonymousIdeaData>();
-  const [ideas, setIdeas] = useState<IdeasData>([]);
-  const [ownIdeas, setOwnIdeas] = useState<IdeaAppData[]>([]);
+  const [chosenIdea, setChosenIdea] = useState<AnonymousResponseData>();
+  const [ideas, setIdeas] = useState<ResponsesData>([]);
+  const [ownIdeas, setOwnIdeas] = useState<ResponseAppData[]>([]);
   const [round, setRound] = useState<number>(0);
   const [phase, setPhase] = useState<number>(IdeationPhases.Choose);
 
@@ -59,15 +59,16 @@ const ResponseCollection: FC = () => {
     if (isSuccess) {
       const currentIdeaSet = appData.find(
         (a) =>
-          a.type === AppDataTypes.IdeaSet && a.member.id === orchestrator.id,
-      ) as IdeaSetAppData;
+          a.type === AppDataTypes.ResponsesSet &&
+          a.member.id === orchestrator.id,
+      ) as ResponsesSetAppData;
       const ownIdeasTmp = appData.filter(
         ({ type, creator }) =>
-          creator?.id === memberId && type === AppDataTypes.Idea,
-      ) as IdeaAppData[];
+          creator?.id === memberId && type === AppDataTypes.Response,
+      ) as ResponseAppData[];
       setOwnIdeas(ownIdeasTmp);
       if (typeof currentIdeaSet !== 'undefined') {
-        setIdeas(currentIdeaSet.data.ideas);
+        setIdeas(currentIdeaSet.data.responses);
       }
       const r = getCurrentRound(appData, orchestrator.id);
       if (r) {
@@ -78,7 +79,7 @@ const ResponseCollection: FC = () => {
 
   const handleChoose = (id?: string): void => {
     const idea = ideas?.find((i) => i.id === id) as
-      | AnonymousIdeaData
+      | AnonymousResponseData
       | undefined;
     if (typeof idea !== 'undefined') {
       setChosenIdea(idea);

@@ -8,11 +8,11 @@ import CardContent from '@mui/material/CardContent';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 
-import { IdeaData } from '@/config/appDataTypes';
+import { ResponseData } from '@/config/appDataTypes';
 
 const Response: FC<{
   responseId: string;
-  response: IdeaData;
+  response: ResponseData;
   onSelect?: (id: string) => void;
   enableBuildAction?: boolean;
 }> = ({ responseId, response, onSelect, enableBuildAction = true }) => {
@@ -32,7 +32,7 @@ const Response: FC<{
       }}
     >
       <CardContent sx={{ minHeight: '32pt' }}>
-        <Typography variant="body1">{response.idea}</Typography>
+        <Typography variant="body1">{response.response}</Typography>
         <Typography variant="body2">
           {t('ROUND', { round: response.round })}
         </Typography>

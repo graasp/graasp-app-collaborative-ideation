@@ -4,14 +4,14 @@ import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
 import { NoveltyRelevanceRatings } from '@/interfaces/ratings';
 
 export enum AppDataTypes {
-  Idea = 'idea',
-  IdeaSet = 'idea-set',
+  Response = 'response',
+  ResponsesSet = 'responses-set',
   CurrentState = 'current-state',
   Ratings = 'ratings',
 }
 
-export type IdeaData<T = NoveltyRelevanceRatings> = {
-  idea: string;
+export type ResponseData<T = NoveltyRelevanceRatings> = {
+  response: string;
   round?: number;
   bot?: boolean;
   parentId?: string;
@@ -19,21 +19,21 @@ export type IdeaData<T = NoveltyRelevanceRatings> = {
   ratings?: T;
 };
 
-export type AnonymousIdeaData<RatingsT = NoveltyRelevanceRatings> =
-  IdeaData<RatingsT> & { id: string };
+export type AnonymousResponseData<RatingsT = NoveltyRelevanceRatings> =
+  ResponseData<RatingsT> & { id: string };
 
-export type IdeasData<RatingsT = NoveltyRelevanceRatings> =
-  AnonymousIdeaData<RatingsT>[];
+export type ResponsesData<RatingsT = NoveltyRelevanceRatings> =
+  AnonymousResponseData<RatingsT>[];
 
-export type IdeaAppData = AppData & {
-  type: AppDataTypes.Idea;
-  data: IdeaData;
+export type ResponseAppData = AppData & {
+  type: AppDataTypes.Response;
+  data: ResponseData;
 };
 
-export type IdeaSetAppData = AppData & {
-  type: AppDataTypes.IdeaSet;
+export type ResponsesSetAppData = AppData & {
+  type: AppDataTypes.ResponsesSet;
   data: {
-    ideas: IdeasData;
+    responses: ResponsesData;
   };
 };
 

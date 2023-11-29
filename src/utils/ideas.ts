@@ -1,5 +1,13 @@
-import { IdeaAppData, IdeasData, RatingsAppData } from '@/config/appDataTypes';
+import {
+  RatingsAppData,
+  ResponseAppData,
+  ResponsesData,
+} from '@/config/appDataTypes';
 import { NoveltyRelevanceRatings } from '@/interfaces/ratings';
+
+/** ************************
+ * TODO: Complete refactor *
+ ************************* */
 
 const average = (array: number[]): number => {
   if (array.length > 0) {
@@ -9,11 +17,11 @@ const average = (array: number[]): number => {
 };
 
 export const anonymizeIdeas = (
-  ideas: IdeaAppData[],
+  ideas: ResponseAppData[],
   ratings?: RatingsAppData<NoveltyRelevanceRatings>[],
-): IdeasData =>
+): ResponsesData =>
   ideas.map((ideaData) => {
-    const { idea, round, parentId, encoding } = ideaData.data;
+    const { response, round, parentId, encoding } = ideaData.data;
     let r: NoveltyRelevanceRatings | undefined;
     if (ratings) {
       const listOfRatings = ratings
@@ -31,7 +39,7 @@ export const anonymizeIdeas = (
     }
     return {
       id: ideaData.id,
-      idea,
+      response,
       round,
       parentId,
       encoding,
@@ -41,11 +49,11 @@ export const anonymizeIdeas = (
 
 // TODO: Rethink mechanism to select ideas.
 export const showNewIdeas = (
-  ideas: IdeasData,
+  ideas: ResponsesData,
   numberOfIdeasToShow: number,
   listOfSeenIdeas?: string[],
   minimumBotIdea?: number,
-): IdeasData => {
+): ResponsesData => {
   let ideasToChooseFrom = ideas;
   if (listOfSeenIdeas) {
     ideasToChooseFrom = ideas.filter(({ id }) => !listOfSeenIdeas.includes(id));
@@ -56,7 +64,7 @@ export const showNewIdeas = (
   if (botIdeas.length < 0 && minimumBotIdea && minimumBotIdea > 0) {
     botIdeas = ideas.filter((i) => Boolean(i?.bot));
   }
-  let botIdeasToShow: IdeasData = botIdeas;
+  let botIdeasToShow: ResponsesData = botIdeas;
   if (minimumBotIdea) {
     botIdeasToShow = botIdeas.slice(0, minimumBotIdea - 1);
   }

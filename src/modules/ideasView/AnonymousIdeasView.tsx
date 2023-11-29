@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import Container from '@mui/material/Container';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
-import { AppDataTypes, IdeaSetAppData } from '@/config/appDataTypes';
+import { AppDataTypes, ResponsesSetAppData } from '@/config/appDataTypes';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 
@@ -17,19 +17,20 @@ const AnonymousIdeasView = (): JSX.Element => {
     const ideaSet = (
       appData.find(
         (a) =>
-          a.type === AppDataTypes.IdeaSet && a.member.id === orchestrator.id,
-      ) as IdeaSetAppData
-    )?.data.ideas;
+          a.type === AppDataTypes.ResponsesSet &&
+          a.member.id === orchestrator.id,
+      ) as ResponsesSetAppData
+    )?.data.responses;
     return ideaSet.map((i) => ({
       id: i.id,
-      idea: i.idea,
+      response: i.response,
       parentId: i.parentId,
-      parentIdea: ideaSet.find(({ id }) => i.parentId === id)?.idea,
+      parentIdea: ideaSet.find(({ id }) => i.parentId === id)?.response,
       bot: i.bot,
     }));
   }, [appData, orchestrator.id]);
   const columns: GridColDef[] = [
-    { field: 'idea', headerName: 'Idea', width: 600, resizable: true },
+    { field: 'response', headerName: 'Response', width: 600, resizable: true },
     {
       field: 'bot',
       headerName: 'Agent',
