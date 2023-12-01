@@ -4,16 +4,13 @@ import { Grid, Typography } from '@mui/material';
 
 import { useLocalContext } from '@graasp/apps-query-client';
 
+import useResponses from '@/hooks/useResponses';
 import Response from '@/modules/common/response/Response';
-import { getMyResponses } from '@/utils/responses';
-
-import { useAppDataContext } from '../context/AppDataContext';
 
 const MyResponses: FC = () => {
   const { memberId } = useLocalContext();
-  const { appData } = useAppDataContext();
+  const { myResponses } = useResponses();
   if (memberId) {
-    const myResponses = getMyResponses(appData, memberId);
     return (
       <>
         <Typography sx={{ fontSize: '18pt' }} variant="h4">

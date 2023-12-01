@@ -27,11 +27,11 @@ import { useAppDataContext } from '../context/AppDataContext';
 import { useSettings } from '../context/SettingsContext';
 import SectionTitle from './SectionTitle';
 
-interface StateControlProps {
+interface OrchestrationProps {
   onChange?: (state: ActivityStatus) => void;
 }
 
-const StateControl: FC<StateControlProps> = ({ onChange }) => {
+const Orchestration: FC<OrchestrationProps> = ({ onChange }) => {
   const { t } = useTranslation();
   const { appData, postAppData, patchAppData } = useAppDataContext();
   const { orchestrator } = useSettings();
@@ -123,7 +123,7 @@ const StateControl: FC<StateControlProps> = ({ onChange }) => {
     <>
       <SectionTitle>{t('ADMIN_PANEL.CONTROLS.TITLE')}</SectionTitle>
       <Stack
-        direction="row"
+        direction="column"
         alignItems="center"
         justifyContent="flex-start"
         spacing={1}
@@ -200,4 +200,4 @@ const StateControl: FC<StateControlProps> = ({ onChange }) => {
   );
 };
 
-export default StateControl;
+export default Orchestration;

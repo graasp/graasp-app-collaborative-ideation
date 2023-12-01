@@ -16,6 +16,7 @@ import {
   ResponsesSetAppData,
 } from '@/config/appDataTypes';
 import { IDEATION_VIEW_CY } from '@/config/selectors';
+import useActivityState from '@/hooks/useActivityState';
 import {
   ChoosePhase,
   IdeationPhases,
@@ -25,7 +26,6 @@ import Pausable from '@/modules/common/Pausable';
 import Prompt from '@/modules/common/Prompt';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
-import { getCurrentRound } from '@/utils/state';
 
 import MyResponses from './MyResponses';
 import PhasesStepper from './PhaseStepper';
@@ -40,7 +40,7 @@ const ResponseCollection: FC = () => {
   const [chosenIdea, setChosenIdea] = useState<AnonymousResponseData>();
   const [ideas, setIdeas] = useState<ResponsesData>([]);
   const [ownIdeas, setOwnIdeas] = useState<ResponseAppData[]>([]);
-  const [round, setRound] = useState<number>(0);
+  const { round } = useActivityState();
   const [phase, setPhase] = useState<number>(IdeationPhases.Choose);
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -69,10 +69,6 @@ const ResponseCollection: FC = () => {
       setOwnIdeas(ownIdeasTmp);
       if (typeof currentIdeaSet !== 'undefined') {
         setIdeas(currentIdeaSet.data.responses);
-      }
-      const r = getCurrentRound(appData, orchestrator.id);
-      if (r) {
-        setRound(r);
       }
     }
   }, [appData, isSuccess, memberId, orchestrator]);

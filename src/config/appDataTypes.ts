@@ -33,6 +33,7 @@ export type ResponseAppData = AppData & {
 export type ResponsesSetAppData = AppData & {
   type: AppDataTypes.ResponsesSet;
   data: {
+    round: number;
     responses: ResponsesData;
   };
 };

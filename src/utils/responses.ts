@@ -1,29 +1,24 @@
-import { AppData } from '@graasp/sdk';
+import { Member } from '@graasp/sdk';
 
-import {
-  AppDataTypes,
-  ResponseAppData,
-  ResponsesSetAppData,
-} from '@/config/appDataTypes';
+import { ResponseAppData } from '@/config/appDataTypes';
 
-export const getMyResponses = (
-  appData: AppData[],
-  memberId: string | undefined,
-): ResponseAppData[] => {
-  const responses = appData.filter(
-    ({ creator, type }) =>
-      creator?.id === memberId && type === AppDataTypes.Response,
-  ) as ResponseAppData[];
-  return responses;
-};
+export const extractNResponsesThatDontHaveMemberAsCreator = (
+  responses: Map<string, ResponseAppData>,
+  n: number,
+  memberId: Member['id'],
+): [ResponseAppData[], Map<string, ResponseAppData>] => {
+  const responsesIterator = responses.entries();
+  const toDelete: string[] = [];
+  const responsesArray = [];
+  for (let i = 0; i < n; ) {
+    const [id, response] = responsesIterator.next().value;
+    if (response.creator.id !== memberId) {
+      toDelete.push(id);
+      responsesArray.push(response);
+      i += 1;
+    }
+  }
+  toDelete.forEach((id) => responses.delete(id));
 
-export const getAllVisibleResponses = (
-  appData: AppData[],
-  orchestratorId: string,
-): ResponsesSetAppData | undefined => {
-  const responses = appData.find(
-    ({ creator, type }) =>
-      creator?.id === orchestratorId && type === AppDataTypes.Response,
-  ) as ResponsesSetAppData;
-  return responses;
+  return [responsesArray, responses];
 };

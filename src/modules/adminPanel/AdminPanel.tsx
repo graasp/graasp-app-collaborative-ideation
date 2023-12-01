@@ -1,20 +1,13 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import {
-  Avatar,
-  Badge,
-  Collapse,
-  Divider,
-  FormControlLabel,
-  FormGroup,
-  FormHelperText,
-  Paper,
-  Stack,
-  Switch,
-  Typography,
-} from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import Badge from '@mui/material/Badge';
 import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 import grey from '@mui/material/colors/grey';
 
 import { Member } from '@graasp/sdk';
@@ -24,10 +17,9 @@ import { INITIAL_STATE } from '@/config/constants';
 import { hooks } from '@/config/queryClient';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
-import Synchronizer from '../common/Synchronizer';
 import IdeaInput from '../responseCollection/ResponseInput';
+import Orchestration from './Orchestration';
 import SectionTitle from './SectionTitle';
-import StateControl from './StateControl';
 
 interface AdminPanelProps {
   width?: string;
@@ -37,7 +29,7 @@ const AdminPanel: FC<AdminPanelProps> = ({ width }): JSX.Element => {
   const { t } = useTranslation();
   const { postAppData, appData } = useAppDataContext();
   const [currentState, setCurrentState] = useState<CurrentStateAppData>();
-  const [sync, setSync] = useState<boolean>(true);
+  // const [sync, setSync] = useState<boolean>(true);
   const initState = (): void => {
     postAppData(INITIAL_STATE);
   };
@@ -64,12 +56,12 @@ const AdminPanel: FC<AdminPanelProps> = ({ width }): JSX.Element => {
   }
   const members = appContext?.members;
 
-  const handleSyncChange = (
-    _event: React.ChangeEvent,
-    checked: boolean,
-  ): void => {
-    setSync(checked);
-  };
+  // const handleSyncChange = (
+  //   _event: React.ChangeEvent,
+  //   checked: boolean,
+  // ): void => {
+  //   setSync(checked);
+  // };
 
   return (
     <Paper
@@ -90,7 +82,7 @@ const AdminPanel: FC<AdminPanelProps> = ({ width }): JSX.Element => {
           {t('ADMIN_PANE_TITLE')}
         </Typography>
         <Divider />
-        <StateControl />
+        <Orchestration />
         <SectionTitle>{t('PARTICIPANTS')}</SectionTitle>
         <Stack sx={{ m: 1 }} direction="row" spacing={2}>
           {members?.map((member) => (
@@ -103,7 +95,7 @@ const AdminPanel: FC<AdminPanelProps> = ({ width }): JSX.Element => {
             </Badge>
           ))}
         </Stack>
-        <SectionTitle>{t('ORCHESTRATION')}</SectionTitle>
+        {/* <SectionTitle>{t('ORCHESTRATION')}</SectionTitle>
         <FormGroup>
           <FormHelperText>
             When enabled, the applications distribute ideas to the participants
@@ -116,7 +108,7 @@ const AdminPanel: FC<AdminPanelProps> = ({ width }): JSX.Element => {
         </FormGroup>
         <Collapse in={sync} mountOnEnter unmountOnExit>
           <Synchronizer sync={sync} />
-        </Collapse>
+        </Collapse> */}
         <SectionTitle>Act as a bot</SectionTitle>
         <Typography>{t('ADMIN_PANEL.BOT.HELPER')}</Typography>
         <IdeaInput actAsBot />

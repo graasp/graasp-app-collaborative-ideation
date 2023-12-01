@@ -1,38 +1,45 @@
-import { FC, ReactNode, useEffect, useState } from 'react';
+import { FC, ReactNode, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 
-import { ResponsesData } from '@/config/appDataTypes';
 import { RESPONSE_EVALUATION_VIEW_CY } from '@/config/selectors';
+import useResponses from '@/hooks/useResponses';
 import Pausable from '@/modules/common/Pausable';
 import Response from '@/modules/common/response/Response';
-import { getAllVisibleResponses } from '@/utils/responses';
 
+import Loader from '../common/Loader';
 import { useAppDataContext } from '../context/AppDataContext';
-import { useSettings } from '../context/SettingsContext';
 
 const ResponseEvaluation: FC = () => {
   const { t } = useTranslation();
-  const [responses, setResponses] = useState<ResponsesData>([]);
-  const { orchestrator } = useSettings();
-  const { appData } = useAppDataContext();
-
-  useEffect(() => {
-    const r = getAllVisibleResponses(appData, orchestrator.id);
-    if (r) {
-      setResponses(r.data.responses);
-    } else {
-      setResponses([]);
-    }
-  }, [appData, orchestrator.id]);
+  const { myResponsesSets } = useResponses();
+  const responses = useMemo(
+    () => myResponsesSets[0].data.responses, // TODO: fix this sh**
+    [myResponsesSets],
+  );
+  const { invalidateAppData, isLoading } = useAppDataContext();
 
   const handleChoose = (id: string): void => {
     throw new Error(`Function not implemented. Chose ${id}`);
   };
-  const renderPlaceHolderForNoIdeas = (): ReactNode => {
-    throw new Error('Function not implemented.');
+  const renderPlaceHolderForNoResponses = (): ReactNode => {
+    if (isLoading) {
+      return <Loader />;
+    }
+    return (
+      <>
+        <Alert sx={{ m: 1 }} severity="info">
+          {t('NO_IDEAS_TO_SHOW_TEXT')}
+        </Alert>
+        <Button onClick={() => invalidateAppData()}>
+          {t('CHECK_FOR_NEW_IDEAS')}
+        </Button>
+      </>
+    );
   };
 
   return (
@@ -51,7 +58,7 @@ const ResponseEvaluation: FC = () => {
                   />
                 </Grid>
               ))
-            : renderPlaceHolderForNoIdeas()}
+            : renderPlaceHolderForNoResponses()}
         </Grid>
       </Container>
     </Pausable>

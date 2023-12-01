@@ -11,12 +11,12 @@ import { useLocalContext } from '@graasp/apps-query-client';
 
 import { RatingsAppData, ResponsesData } from '@/config/appDataTypes';
 import { NUMBER_OF_IDEAS_TO_SHOW } from '@/config/constants';
+import useResponses from '@/hooks/useResponses';
 import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
 import { NoveltyRelevanceRatings } from '@/interfaces/ratings';
 import Idea from '@/modules/common/response/Response';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
-import { getMyResponses } from '@/utils/responses';
 
 import Loader from '../common/Loader';
 
@@ -34,10 +34,11 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ ideas, onChoose }) => {
   const { mode } = ideationMode;
   const numberOfIdeasToShow = NUMBER_OF_IDEAS_TO_SHOW;
   const [selectedIdeas, setSelectedIdeas] = useState<ResponsesData>();
+  const { myResponses } = useResponses();
 
   const ownIdeasIds = useMemo(
-    () => getMyResponses(appData, memberId).map(({ id }) => id),
-    [appData, memberId],
+    () => myResponses.map(({ id }) => id),
+    [myResponses],
   );
 
   const ratings = useMemo(

@@ -13,7 +13,12 @@ type AllSettingsType = {
     type: 'html' | 'markdown' | 'plain-text';
   };
   orchestrator: { id: string };
-  mode: { mode: ResponseVisibilityMode };
+  mode: {
+    mode: ResponseVisibilityMode;
+    numberOfResponsesPerSet: number;
+    numberOfBotResponsesPerSet: number;
+  };
+  notParticipating: { ids: string[] };
 };
 
 // default values for the data property of settings by name
@@ -25,7 +30,12 @@ const defaultSettingsValues: AllSettingsType = {
   orchestrator: {
     id: '',
   },
-  mode: { mode: ResponseVisibilityMode.Open },
+  mode: {
+    mode: ResponseVisibilityMode.Open,
+    numberOfResponsesPerSet: 3,
+    numberOfBotResponsesPerSet: 1,
+  },
+  notParticipating: { ids: [] },
 };
 
 // list of the settings names
@@ -34,6 +44,7 @@ const ALL_SETTING_NAMES = [
   'prompt',
   'orchestrator',
   'mode',
+  'notParticipating',
 ] as const;
 
 // automatically generated types

@@ -12,8 +12,10 @@ import {
   AppDataTypes,
   RatingsAppData,
   ResponseAppData,
+  ResponsesSetAppData,
 } from '@/config/appDataTypes';
 import { REFRESH_INTERVAL_MS } from '@/config/constants';
+import useActivityState from '@/hooks/useActivityState';
 import { NoveltyRelevanceRatings } from '@/interfaces/ratings';
 import { anonymizeIdeas } from '@/utils/ideas';
 
@@ -31,6 +33,7 @@ const Synchronizer: FC<SynchronizerProps> = ({ sync }) => {
   const { postAppData, patchAppData, appData, invalidateAppData } =
     useAppDataContext();
   const { memberId } = useLocalContext();
+  const { round } = useActivityState();
 
   const [ideasIds, setIdeasIds] = useState<string[]>([]);
 
@@ -42,7 +45,8 @@ const Synchronizer: FC<SynchronizerProps> = ({ sync }) => {
   const setId = useMemo(
     () =>
       appData.find(
-        ({ type, creator }) => type === 'idea-set' && creator?.id === memberId,
+        ({ type, creator }) =>
+          type === AppDataTypes.ResponsesSet && creator?.id === memberId,
       )?.id,
     [appData, memberId],
   );
@@ -70,25 +74,24 @@ const Synchronizer: FC<SynchronizerProps> = ({ sync }) => {
       if (ideas && !isEqual(ideasIds, newIdeasIds)) {
         setIdeasIds(newIdeasIds);
         const anonymousIdeas = anonymizeIdeas(ideas, ratings);
+        const newData: { data: ResponsesSetAppData['data'] } = {
+          data: { round, responses: anonymousIdeas },
+        };
         if (setId) {
           patchAppData({
+            ...newData,
             id: setId,
-            data: {
-              ideas: anonymousIdeas,
-            },
           });
         } else {
           postAppData({
-            type: 'idea-set',
+            ...newData,
+            type: AppDataTypes.ResponsesSet,
             visibility: AppDataVisibility.Item,
-            data: {
-              ideas: anonymousIdeas,
-            },
           });
         }
       }
     }
-  }, [ideas, ideasIds, patchAppData, postAppData, ratings, setId, sync]);
+  }, [ideas, ideasIds, patchAppData, postAppData, ratings, round, setId, sync]);
 
   return (
     <Stack width="100%" direction="row" spacing={1}>

@@ -42,6 +42,8 @@ const Settings: FC<SettingsProps> = () => {
     });
     saveSettings('mode', {
       mode: modeState,
+      numberOfResponsesPerSet: 3, // TODO: implement setting
+      numberOfBotResponsesPerSet: 3, // TODO: implement setting
     });
   };
 
