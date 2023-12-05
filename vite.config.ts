@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 /// <reference types="./src/env"/>
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
@@ -45,6 +46,10 @@ export default ({ mode }: { mode: string }): UserConfigExport => {
     },
     define: {
       'process.env.REACT_APP_GRAASP_ASSETS_URL': `"${process.env.VITE_GRAASP_ASSETS_URL}"`,
+    },
+    test: {
+      environment: 'jsdom',
+      // other options...
     },
   });
 };

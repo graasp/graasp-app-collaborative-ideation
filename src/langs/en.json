@@ -2,7 +2,7 @@
   "translations": {
     "Welcome to the Graasp App Starter Kit": "Welcome to the Graasp App Starter Kit",
     "ACTIVITY_TAB": "Activity",
-    "IDEAS_VIEW_TAB": "Ideas view",
+    "RESPONSES_VIEW_TAB": "Responses view",
     "SETTINGS_TAB": "Settings",
     "BUILD_ON_THIS_IDEA": "Build on this idea",
     "IDEA_TOO_LONG_ALERT": "Your idea is too long. Please, try to be more concise.",

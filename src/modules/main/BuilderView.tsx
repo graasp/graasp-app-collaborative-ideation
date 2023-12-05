@@ -13,7 +13,7 @@ import { BUILDER_VIEW_CY } from '@/config/selectors';
 
 import AdminControl from '../adminPanel/AdminPanel';
 import TabPanel from '../common/TabPanel';
-import IdeasView from '../ideasView/IdeasView';
+import ResponsesView from '../responsesView/ResponsesView';
 import SettingsView from '../settings/Settings';
 import Activity from './Activity';
 
@@ -53,8 +53,8 @@ const BuilderView = (): JSX.Element => {
 
   const ideasViewTab = useMemo(
     () => ({
-      tabLabel: t('IDEAS_VIEW_TAB'),
-      tabChild: <IdeasView />,
+      tabLabel: t('RESPONSES_VIEW_TAB'),
+      tabChild: <ResponsesView />,
     }),
     [t],
   );

@@ -27,11 +27,11 @@
     "@emotion/styled": "11.11.0",
     "@graasp/apps-query-client": "3.1.0",
     "@graasp/sdk": "3.0.1",
-    "@mui/icons-material": "5.14.18",
-    "@mui/lab": "5.0.0-alpha.153",
-    "@mui/material": "5.14.18",
-    "@mui/x-data-grid": "^6.18.2",
-    "@sentry/react": "7.83.0",
+    "@mui/icons-material": "5.14.19",
+    "@mui/lab": "5.0.0-alpha.155",
+    "@mui/material": "5.14.20",
+    "@mui/x-data-grid": "^6.18.3",
+    "@sentry/react": "7.85.0",
     "@tanstack/react-query": "^4.36.1",
     "@tanstack/react-query-devtools": "^4.36.1",
     "i18next": "23.7.7",
@@ -64,6 +64,7 @@
     "cypress:open": "env-cmd -f ./.env.test cypress open",
     "test": "concurrently -k -s first \"yarn start:test\" \"yarn test:ci\" ",
     "test:ci": "env-cmd -f ./.env.test cypress run --browser chrome --headless && nyc report --reporter=text --reporter=text-summary",
+    "unit-tests": "vitest",
     "cov:report": "open ./coverage/lcov-report/index.html"
   },
   "devDependencies": {
@@ -74,6 +75,7 @@
     "@trivago/prettier-plugin-sort-imports": "4.3.0",
     "@types/d3": "^7.4.3",
     "@types/i18n": "0.13.10",
+    "@types/lodash.clonedeep": "^4.5.9",
     "@types/lodash.isequal": "^4.5.8",
     "@types/lodash.shuffle": "^4.2.9",
     "@types/node": "20.10.0",
@@ -84,6 +86,7 @@
     "@typescript-eslint/eslint-plugin": "6.13.1",
     "@typescript-eslint/parser": "6.13.1",
     "@vitejs/plugin-react": "^4.2.0",
+    "@vitest/browser": "^1.0.1",
     "concurrently": "8.2.2",
     "cypress": "13.6.0",
     "env-cmd": "10.1.0",
@@ -99,7 +102,8 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "4.6.0",
     "husky": "8.0.3",
-    "jest": "^29.7.0",
+    "jsdom": "^23.0.1",
+    "lodash.clonedeep": "^4.5.0",
     "nyc": "15.1.0",
     "prettier": "2.8.8",
     "pretty-quick": "3.1.3",
@@ -107,7 +111,8 @@
     "uuid": "9.0.1",
     "vite": "^5.0.3",
     "vite-plugin-checker": "^0.6.2",
-    "vite-plugin-istanbul": "^5.0.0"
+    "vite-plugin-istanbul": "^5.0.0",
+    "vitest": "^1.0.1"
   },
   "browserslist": {
     "production": [
@@ -127,7 +132,8 @@
       "src/**/*.{js,ts,jsx,tsx}"
     ],
     "exclude": [
-      "src/**/*.d.ts"
+      "src/**/*.d.ts",
+      "src/**/*.test.ts"
     ]
   },
   "packageManager": "yarn@4.0.1"

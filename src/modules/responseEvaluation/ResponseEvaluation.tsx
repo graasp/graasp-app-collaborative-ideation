@@ -18,13 +18,14 @@ const ResponseEvaluation: FC = () => {
   const { t } = useTranslation();
   const { myResponsesSets } = useResponses();
   const responses = useMemo(
-    () => myResponsesSets[0].data.responses, // TODO: fix this sh**
+    () => myResponsesSets.find(({ data }) => data.round)?.data.responses,
     [myResponsesSets],
   );
+
   const { invalidateAppData, isLoading } = useAppDataContext();
 
   const handleChoose = (id: string): void => {
-    throw new Error(`Function not implemented. Chose ${id}`);
+    throw new Error(`Function not implemented. Chose ${id}.`);
   };
   const renderPlaceHolderForNoResponses = (): ReactNode => {
     if (isLoading) {

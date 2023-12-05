@@ -5,18 +5,13 @@ import InputIcon from '@mui/icons-material/Input';
 import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import PollIcon from '@mui/icons-material/Poll';
-import SkipNextIcon from '@mui/icons-material/SkipNext';
-import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
-import {
-  IconButton,
-  Paper,
-  Stack,
-  ToggleButton,
-  ToggleButtonGroup,
-  Tooltip,
-  Typography,
-} from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import Typography from '@mui/material/Typography';
 
 import { CurrentStateAppData, CurrentStateData } from '@/config/appDataTypes';
 import { INITIAL_STATE } from '@/config/constants';
@@ -25,6 +20,7 @@ import { getCurrentState } from '@/utils/state';
 
 import { useAppDataContext } from '../context/AppDataContext';
 import { useSettings } from '../context/SettingsContext';
+import NextRoundButton from './NextRoundButton';
 import SectionTitle from './SectionTitle';
 
 interface OrchestrationProps {
@@ -178,22 +174,23 @@ const Orchestration: FC<OrchestrationProps> = ({ onChange }) => {
               <PlayCircleOutlineIcon />
             </IconButton>
           )}
-          <Tooltip title={t('ADMIN_PANEL.CONTROLS.PREVIOUS_ROUND_TOOLTIP')}>
+          {/* <Tooltip title={t('ADMIN_PANEL.CONTROLS.PREVIOUS_ROUND_TOOLTIP')}>
             <IconButton
               // enabled={round >= 0}
               onClick={() => handleChange({ newRound: round - 1 })}
             >
               <SkipPreviousIcon />
             </IconButton>
-          </Tooltip>
+          </Tooltip> */}
           <Typography variant="caption">
             {t('ADMIN_PANEL.CONTROLS.ROUND_HELPER', { round })}
           </Typography>
-          <Tooltip title={t('ADMIN_PANEL.CONTROLS.NEXT_ROUND_TOOLTIP')}>
+          <NextRoundButton enable />
+          {/* <Tooltip title={t('ADMIN_PANEL.CONTROLS.NEXT_ROUND_TOOLTIP')}>
             <IconButton onClick={() => handleChange({ newRound: round + 1 })}>
               <SkipNextIcon />
             </IconButton>
-          </Tooltip>
+          </Tooltip> */}
         </Paper>
       </Stack>
     </>

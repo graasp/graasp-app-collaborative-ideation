@@ -11,14 +11,22 @@ export const extractNResponsesThatDontHaveMemberAsCreator = (
   const toDelete: string[] = [];
   const responsesArray = [];
   for (let i = 0; i < n; ) {
-    const [id, response] = responsesIterator.next().value;
-    if (response.creator.id !== memberId) {
-      toDelete.push(id);
-      responsesArray.push(response);
-      i += 1;
+    const iterResult = responsesIterator.next();
+    if (iterResult.done) {
+      break;
+    } else {
+      const [id, response] = iterResult.value;
+      if (response.creator?.id !== memberId) {
+        toDelete.push(id);
+        responsesArray.push(response);
+        i += 1;
+      }
     }
   }
-  toDelete.forEach((id) => responses.delete(id));
+  const checkDeletion = toDelete.map((id) => responses.delete(id));
+  if (!checkDeletion.every(Boolean)) {
+    throw new Error('Problem in deleting elements from the map.');
+  }
 
   return [responsesArray, responses];
 };

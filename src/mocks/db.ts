@@ -3,6 +3,7 @@ import {
   AppData,
   AppDataVisibility,
   CompleteMember,
+  Context,
   DiscriminatedItem,
   ItemSettings,
   ItemType,
@@ -11,17 +12,11 @@ import {
 
 import { API_HOST, PORT } from '@/config/env';
 
-export const defaultMockContext: LocalContext = {
-  apiHost: API_HOST,
-  permission: PermissionLevel.Admin,
-  context: 'builder',
-  itemId: '1234-1234-123456-8123-123456',
-  memberId: 'mock-member-id',
-};
+import { buildMockResponses } from './mockResponses';
 
 export const mockMembers: CompleteMember[] = [
   {
-    id: defaultMockContext.memberId || '',
+    id: 'mock-member-id-1',
     name: 'current-member',
     email: '',
     extra: {},
@@ -40,8 +35,8 @@ export const mockMembers: CompleteMember[] = [
   },
 ];
 
-const mockItem: DiscriminatedItem<ItemSettings> = {
-  id: defaultMockContext.itemId,
+export const mockItem: DiscriminatedItem<ItemSettings> = {
+  id: '1234-1234-1234-5678',
   name: 'app-brainwriting',
   description: null,
   path: '',
@@ -57,49 +52,10 @@ const mockItem: DiscriminatedItem<ItemSettings> = {
   },
 };
 
+const mockResponses = buildMockResponses(mockItem, mockMembers);
+
 const mockAppData: AppData[] = [
-  {
-    id: '0',
-    item: mockItem,
-    creator: mockMembers[0],
-    type: 'idea',
-    member: mockMembers[0],
-    visibility: AppDataVisibility.Member,
-    createdAt: new Date().toDateString(),
-    updatedAt: new Date().toISOString(),
-    data: {
-      idea: 'A giant spaceship.',
-      round: 0,
-    },
-  },
-  {
-    id: '1',
-    item: mockItem,
-    creator: mockMembers[0],
-    type: 'idea',
-    member: mockMembers[0],
-    visibility: AppDataVisibility.Member,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-    data: {
-      idea: 'A small spaceship.',
-      round: 0,
-    },
-  },
-  {
-    id: '2',
-    item: mockItem,
-    creator: mockMembers[0],
-    type: 'idea',
-    member: mockMembers[0],
-    visibility: AppDataVisibility.Member,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-    data: {
-      idea: 'Drilling into the Earth.',
-      round: 0,
-    },
-  },
+  ...mockResponses,
   {
     id: '3',
     item: mockItem,
@@ -115,6 +71,14 @@ const mockAppData: AppData[] = [
     },
   },
 ];
+
+export const defaultMockContext: LocalContext = {
+  apiHost: API_HOST,
+  permission: PermissionLevel.Admin,
+  context: Context.Builder,
+  itemId: mockItem.id,
+  memberId: mockMembers[0].id,
+};
 
 const buildDatabase = (
   appContext: Partial<LocalContext>,
