@@ -45,7 +45,14 @@
         "NEXT_ROUND_TOOLTIP": "Start next round"
       },
       "ORCHESTRATION": {
-        "NEXT_ROUND_BTN": "Next round"
+        "NEXT_ROUND_BTN": "Next round",
+        "RESET_SETS_BTN": "Reset sets",
+        "RESET_SETS_DIALOG": {
+          "TITLE": "Do you really want to reset all the responses sets?",
+          "HELPER_TEXT": "This action is definitive and will result in the loss of all the sets created in this activity.",
+          "CANCEL": "Cancel",
+          "CONFIRM": "Confirm"
+        }
       },
       "BOT": {
         "TITLE": "Act as a bot",

@@ -4,9 +4,13 @@ import { afterAll, beforeAll, expect, test, vi } from 'vitest';
 
 import { ResponseAppData } from '@/config/appDataTypes';
 
-import { mockItem, mockMembers } from '../mocks/db';
-import { buildMockResponses } from '../mocks/mockResponses';
-import { extractNResponsesThatDontHaveMemberAsCreator } from './responses';
+import { mockItem, mockMembers } from '../../mocks/db';
+import { buildMockResponses } from '../../mocks/mockResponses';
+import {
+  extractNResponsesThatDontHaveMemberAsCreator,
+  filterBotResponses,
+  recursivelyCreateAllSets,
+} from './responses';
 
 const getMapResponses = (): Map<string, ResponseAppData> => {
   const mockResponses = buildMockResponses(mockItem, mockMembers);
@@ -81,4 +85,57 @@ test('extracting more responses than available gives all available', () => {
   expect(r.map(({ creator }) => creator?.id !== memberId))
     .to.be.an('array')
     .that.does.not.include(false);
+});
+
+test('recursively create all sets', () => {
+  const mapResponses = getMapResponses();
+  const participantIterator = mockMembers.entries();
+  const sets = recursivelyCreateAllSets(
+    participantIterator,
+    mapResponses,
+    new Map(),
+    3,
+    1,
+  );
+  expect(sets).not.to.be.empty;
+  expect(sets).to.have.keys(mockMembers.map(({ id }) => id));
+});
+
+test('filtering bot responses', () => {
+  const responsesMap = getMapResponses();
+  const vals = responsesMap.values();
+  const r1 = vals.next().value;
+  const r2 = vals.next().value;
+  const r3 = vals.next().value;
+  const responses: ResponseAppData[] = [
+    {
+      ...r1,
+      data: {
+        ...r1.data,
+        bot: false,
+      },
+    },
+    {
+      ...r2,
+      data: {
+        ...r2.data,
+      },
+    },
+    {
+      ...r3,
+      data: {
+        ...r3.data,
+        bot: true,
+      },
+    },
+  ];
+
+  expect(filterBotResponses(responses))
+    .to.be.an('array')
+    .that.has.length(2)
+    .that.contain.oneOf(responses);
+  expect(filterBotResponses(responses, true))
+    .to.be.an('array')
+    .that.has.length(1)
+    .that.contain.oneOf(responses);
 });

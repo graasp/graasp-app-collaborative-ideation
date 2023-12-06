@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Unstable_Grid2';
+import Grid from '@mui/material/Grid';
 
 import { RESPONSE_EVALUATION_VIEW_CY } from '@/config/selectors';
 import useResponses from '@/hooks/useResponses';
@@ -50,7 +50,7 @@ const ResponseEvaluation: FC = () => {
         <Grid container spacing={2}>
           {responses
             ? responses.map((response) => (
-                <Grid key={response.id} md={4} sm={6} xs={12}>
+                <Grid item key={response.id} md={4} sm={6} xs={12}>
                   <Response
                     key={response.id}
                     response={response}

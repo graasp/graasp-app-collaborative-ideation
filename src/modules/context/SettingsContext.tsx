@@ -17,6 +17,7 @@ type AllSettingsType = {
     mode: ResponseVisibilityMode;
     numberOfResponsesPerSet: number;
     numberOfBotResponsesPerSet: number;
+    exclusiveResponseDistribution: boolean;
   };
   notParticipating: { ids: string[] };
 };
@@ -34,6 +35,7 @@ const defaultSettingsValues: AllSettingsType = {
     mode: ResponseVisibilityMode.Open,
     numberOfResponsesPerSet: 3,
     numberOfBotResponsesPerSet: 1,
+    exclusiveResponseDistribution: true,
   },
   notParticipating: { ids: [] },
 };

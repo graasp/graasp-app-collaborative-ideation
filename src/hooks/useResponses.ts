@@ -13,24 +13,33 @@ import {
 } from '@/config/appDataTypes';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
-import { extractNResponsesThatDontHaveMemberAsCreator } from '@/utils/responses';
 import { appDataArrayToMap } from '@/utils/utils';
 
 import useActivityState from './useActivityState';
 import useParticipants from './useParticipants';
+import {
+  filterBotResponses,
+  recursivelyCreateAllSets,
+} from './utils/responses';
 
 interface UseResponsesValues {
   myResponses: ResponseAppData[];
   myResponsesSets: ResponsesSetAppData[];
   createAllResponsesSet: () => Promise<void>;
+  deleteAllResponsesSet: () => Promise<void>;
 }
 
 const useResponses = (): UseResponsesValues => {
-  const { appData, postAppDataAsync } = useAppDataContext();
+  const { appData, postAppDataAsync, deleteAppData } = useAppDataContext();
   const { memberId, permission } = useLocalContext();
   const { orchestrator, mode } = useSettings();
   const participants = useParticipants();
-  const { numberOfResponsesPerSet, numberOfBotResponsesPerSet } = mode;
+  console.log('Participants: ', participants);
+  const {
+    numberOfResponsesPerSet,
+    numberOfBotResponsesPerSet,
+    exclusiveResponseDistribution,
+  } = mode;
 
   const myResponses = useMemo((): ResponseAppData[] => {
     const responses = appData.filter(
@@ -74,6 +83,7 @@ const useResponses = (): UseResponsesValues => {
         round,
         responses: responsesSet,
       },
+      member: { id: member },
       type: AppDataTypes.ResponsesSet,
       visibility: AppDataVisibility.Item,
     };
@@ -87,55 +97,23 @@ const useResponses = (): UseResponsesValues => {
   const createAllResponsesSet = async (): Promise<void> => {
     if (permission !== PermissionLevel.Admin) throw Error('You are not admin.');
     const participantsRepsonses = appDataArrayToMap(
-      shuffle(roundResponses.filter(({ data }) => !data.bot)),
+      shuffle(filterBotResponses(roundResponses, false)),
     );
+    console.log('🏡 Participant responses: ', participantsRepsonses);
     const botResponses = appDataArrayToMap(
-      shuffle(roundResponses.filter(({ data }) => data?.bot)),
+      shuffle(filterBotResponses(roundResponses, true)),
     );
-
-    const sets = new Map<string, ResponseAppData[]>();
     const participantIterator = participants.entries();
 
-    const recursivelyCreateAllSets = (
-      participantIteratorLocal: IterableIterator<[number, Member]>,
-      participantsRepsonsesLocal: Map<string, ResponseAppData>,
-      botResponsesLocal: Map<string, ResponseAppData>,
-    ): void => {
-      const iterRes = participantIteratorLocal.next();
-      if (!iterRes.done) {
-        const [, participant] = iterRes.value;
-        const { id: participantId } = participant;
-        const [botResponsesForMember, newBotResponses] =
-          extractNResponsesThatDontHaveMemberAsCreator(
-            botResponsesLocal,
-            numberOfBotResponsesPerSet,
-            participantId,
-          );
-        const [participantsResponsesForMember, newParticipantsResponses] =
-          extractNResponsesThatDontHaveMemberAsCreator(
-            participantsRepsonsesLocal,
-            numberOfResponsesPerSet,
-            participantId,
-          );
-
-        const mergedResponsesForMember = shuffle(
-          participantsResponsesForMember.concat(botResponsesForMember),
-        );
-        sets.set(memberId, mergedResponsesForMember);
-        recursivelyCreateAllSets(
-          participantIteratorLocal,
-          newParticipantsResponses,
-          newBotResponses,
-        );
-      }
-    };
-
-    recursivelyCreateAllSets(
+    const sets = recursivelyCreateAllSets(
       participantIterator,
       participantsRepsonses,
       botResponses,
+      numberOfResponsesPerSet,
+      numberOfBotResponsesPerSet,
+      exclusiveResponseDistribution,
     );
-
+    console.log('Sets: ', sets);
     sets.forEach((responsesSet, participantId) => {
       const responsesSetDataWithId = responsesSet.map(({ id, data }) => ({
         id,
@@ -145,7 +123,18 @@ const useResponses = (): UseResponsesValues => {
     });
   };
 
-  return { myResponses, myResponsesSets, createAllResponsesSet };
+  const deleteAllResponsesSet = async (): Promise<void> => {
+    myResponsesSets.forEach(({ id }) => {
+      deleteAppData({ id });
+    });
+  };
+
+  return {
+    myResponses,
+    myResponsesSets,
+    createAllResponsesSet,
+    deleteAllResponsesSet,
+  };
 };
 
 export default useResponses;

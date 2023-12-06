@@ -15,6 +15,7 @@ import { Member } from '@graasp/sdk';
 import { CurrentStateAppData } from '@/config/appDataTypes';
 import { INITIAL_STATE } from '@/config/constants';
 import { hooks } from '@/config/queryClient';
+import { ADMIN_PANEL_CY, INITIALIZE_BTN_CY } from '@/config/selectors';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
 import IdeaInput from '../responseCollection/ResponseInput';
@@ -52,7 +53,11 @@ const AdminPanel: FC<AdminPanelProps> = ({ width }): JSX.Element => {
     setCurrentState(state);
   }, [appData]);
   if (!currentState) {
-    return <Button onClick={initState}>Initialize</Button>;
+    return (
+      <Button data-cy={INITIALIZE_BTN_CY} onClick={initState}>
+        Initialize
+      </Button>
+    );
   }
   const members = appContext?.members;
 
@@ -76,6 +81,7 @@ const AdminPanel: FC<AdminPanelProps> = ({ width }): JSX.Element => {
         m: 1,
         // borderRadius: 2,
       }}
+      data-cy={ADMIN_PANEL_CY}
     >
       <Stack spacing={2} direction="column">
         <Typography variant="h3" fontSize="16pt">

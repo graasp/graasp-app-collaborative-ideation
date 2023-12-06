@@ -15,6 +15,7 @@ import Typography from '@mui/material/Typography';
 
 import { CurrentStateAppData, CurrentStateData } from '@/config/appDataTypes';
 import { INITIAL_STATE } from '@/config/constants';
+import useActivityState from '@/hooks/useActivityState';
 import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
 import { getCurrentState } from '@/utils/state';
 
@@ -33,7 +34,7 @@ const Orchestration: FC<OrchestrationProps> = ({ onChange }) => {
   const { orchestrator } = useSettings();
   const [currentState, setCurrentState] = useState<CurrentStateAppData>();
   const [processStatus, setActivityStatus] = useState<ActivityStatus>();
-  const [round, setRound] = useState<number>(0);
+  const { round } = useActivityState();
   const [activity, setActivity] = useState<ActivityType>(
     ActivityType.Collection,
   );
@@ -42,10 +43,6 @@ const Orchestration: FC<OrchestrationProps> = ({ onChange }) => {
     const tmpCurrentState = getCurrentState(appData, orchestrator.id);
     setCurrentState(tmpCurrentState);
     setActivityStatus(tmpCurrentState?.data.status);
-    const tmpRound = tmpCurrentState?.data?.round;
-    if (tmpRound) {
-      setRound(tmpRound);
-    }
   }, [appData, orchestrator.id]);
 
   const updateState = async ({
@@ -98,9 +95,6 @@ const Orchestration: FC<OrchestrationProps> = ({ onChange }) => {
   }): void => {
     if (newProcessState) {
       setActivityStatus(newProcessState);
-    }
-    if (newRound) {
-      setRound(newRound);
     }
     updateState({ newProcessState, newRound });
     if (onChange && newProcessState) {

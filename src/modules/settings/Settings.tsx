@@ -18,6 +18,8 @@ import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
 import { useMembersContext } from '@/modules/context/MembersContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 
+import ResetSetsButton from '../common/ResetSetsButton';
+
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface SettingsProps {}
 
@@ -44,6 +46,7 @@ const Settings: FC<SettingsProps> = () => {
       mode: modeState,
       numberOfResponsesPerSet: 3, // TODO: implement setting
       numberOfBotResponsesPerSet: 3, // TODO: implement setting
+      exclusiveResponseDistribution: true, // TODO: implement setting
     });
   };
 
@@ -111,6 +114,7 @@ const Settings: FC<SettingsProps> = () => {
         </RadioGroup>
       </FormControl>
       <Button onClick={handleSave}>{t('SAVE')}</Button>
+      <ResetSetsButton enable />
     </Stack>
   );
 };
