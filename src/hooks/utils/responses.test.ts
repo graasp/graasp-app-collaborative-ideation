@@ -9,7 +9,7 @@ import { buildMockResponses } from '../../mocks/mockResponses';
 import {
   extractNResponsesThatDontHaveMemberAsCreator,
   filterBotResponses,
-  recursivelyCreateAllSets,
+  recursivelyCreateAllPartiallyBlindSets,
 } from './responses';
 
 const getMapResponses = (): Map<string, ResponseAppData> => {
@@ -90,7 +90,7 @@ test('extracting more responses than available gives all available', () => {
 test('recursively create all sets', () => {
   const mapResponses = getMapResponses();
   const participantIterator = mockMembers.entries();
-  const sets = recursivelyCreateAllSets(
+  const sets = recursivelyCreateAllPartiallyBlindSets(
     participantIterator,
     mapResponses,
     new Map(),

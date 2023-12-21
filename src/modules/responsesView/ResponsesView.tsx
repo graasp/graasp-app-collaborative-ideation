@@ -4,26 +4,25 @@ import { useTranslation } from 'react-i18next';
 import Container from '@mui/material/Container';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
-import { ResponseAppData } from '@/config/appDataTypes';
-import { useAppDataContext } from '@/modules/context/AppDataContext';
+import useResponses from '@/hooks/useResponses';
 
-import RatingsPlot from './RatingsPlot';
+import ResponsesSetsView from './ResponsesSetsView';
 
-const IdeasView = (): JSX.Element => {
+const ResponsesView = (): JSX.Element => {
   const { t } = useTranslation();
-  const { appData } = useAppDataContext();
-  const ideasTable = useMemo(() => {
-    const ideas = appData.filter(
-      ({ type }) => type === 'idea',
-    ) as ResponseAppData[];
-    return ideas.map((i) => ({
-      id: i.id,
-      idea: i.data.idea,
-      author: i.data.bot ? t('BOT_NAME') : i.creator?.name,
-      parentId: i.data.parentId,
-      bot: i.data.bot,
-    }));
-  }, [appData, t]);
+  const { allResponses } = useResponses();
+  const ideasTable = useMemo(
+    () =>
+      allResponses.map((i) => ({
+        id: i.id,
+        idea: i.data.response,
+        round: i.data.round,
+        author: i.data.bot ? t('BOT_NAME') : i.creator?.name,
+        parentId: i.data.parentId,
+        bot: i.data.bot,
+      })),
+    [allResponses, t],
+  );
   const columns: GridColDef[] = [
     { field: 'idea', headerName: 'Idea', width: 400, resizable: true },
     { field: 'author', headerName: 'Author', width: 130, resizable: true },
@@ -39,15 +38,17 @@ const IdeasView = (): JSX.Element => {
       },
       width: 40,
     },
+    { field: 'round', headerName: 'Round', width: 40 },
     { field: 'parentId', headerName: 'Parent', width: 60 },
   ];
 
   return (
     <Container>
       <DataGrid columns={columns} rows={ideasTable} />
-      <RatingsPlot />
+      <ResponsesSetsView />
+      {/* <RatingsPlot /> */}
     </Container>
   );
 };
 
-export default IdeasView;
+export default ResponsesView;

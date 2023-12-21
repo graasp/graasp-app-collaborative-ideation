@@ -21,6 +21,7 @@ Sentry.init({
 if (MOCK_API) {
   mockApi(
     {
+      // TODO: Check text-input to configure mock correctly
       externalUrls: [],
       dbName: window.Cypress ? 'graasp-app-cypress' : undefined,
       appContext: window.Cypress ? window.appContext : defaultMockContext,

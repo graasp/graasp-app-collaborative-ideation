@@ -11,6 +11,7 @@ import {
   ResponsesData,
   ResponsesSetAppData,
 } from '@/config/appDataTypes';
+import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { appDataArrayToMap } from '@/utils/utils';
@@ -19,11 +20,14 @@ import useActivityState from './useActivityState';
 import useParticipants from './useParticipants';
 import {
   filterBotResponses,
-  recursivelyCreateAllSets,
+  recursivelyCreateAllOpenSets,
+  recursivelyCreateAllPartiallyBlindSets,
 } from './utils/responses';
 
 interface UseResponsesValues {
+  allResponses: ResponseAppData[];
   myResponses: ResponseAppData[];
+  allResponsesSets: ResponsesSetAppData[];
   myResponsesSets: ResponsesSetAppData[];
   createAllResponsesSet: () => Promise<void>;
   deleteAllResponsesSet: () => Promise<void>;
@@ -36,6 +40,7 @@ const useResponses = (): UseResponsesValues => {
   const participants = useParticipants();
   console.log('Participants: ', participants);
   const {
+    mode: visibilityMode,
     numberOfResponsesPerSet,
     numberOfBotResponsesPerSet,
     exclusiveResponseDistribution,
@@ -64,6 +69,14 @@ const useResponses = (): UseResponsesValues => {
     [allResponses, round],
   );
 
+  const allResponsesSets = useMemo((): ResponsesSetAppData[] => {
+    const responses = appData.filter(
+      ({ creator, type }) =>
+        creator?.id === orchestrator.id && type === AppDataTypes.ResponsesSet,
+    ) as ResponsesSetAppData[];
+    return responses;
+  }, [appData, orchestrator]);
+
   const myResponsesSets = useMemo((): ResponsesSetAppData[] => {
     const responses = appData.filter(
       ({ creator, type, member }) =>
@@ -72,7 +85,7 @@ const useResponses = (): UseResponsesValues => {
         member.id === memberId,
     ) as ResponsesSetAppData[];
     return responses;
-  }, [appData, memberId, orchestrator.id]);
+  }, [appData, memberId, orchestrator]);
 
   const postResponsesSet = async (
     member: Member['id'],
@@ -96,23 +109,29 @@ const useResponses = (): UseResponsesValues => {
 
   const createAllResponsesSet = async (): Promise<void> => {
     if (permission !== PermissionLevel.Admin) throw Error('You are not admin.');
-    const participantsRepsonses = appDataArrayToMap(
-      shuffle(filterBotResponses(roundResponses, false)),
-    );
-    console.log('🏡 Participant responses: ', participantsRepsonses);
-    const botResponses = appDataArrayToMap(
-      shuffle(filterBotResponses(roundResponses, true)),
-    );
+    let sets: Map<string, ResponseAppData[]>;
     const participantIterator = participants.entries();
+    if (visibilityMode === ResponseVisibilityMode.PartiallyBlind) {
+      const participantsRepsonses = appDataArrayToMap(
+        shuffle(filterBotResponses(roundResponses, false)),
+      );
+      console.log('🏡 Participant responses: ', participantsRepsonses);
+      const botResponses = appDataArrayToMap(
+        shuffle(filterBotResponses(roundResponses, true)),
+      );
 
-    const sets = recursivelyCreateAllSets(
-      participantIterator,
-      participantsRepsonses,
-      botResponses,
-      numberOfResponsesPerSet,
-      numberOfBotResponsesPerSet,
-      exclusiveResponseDistribution,
-    );
+      sets = recursivelyCreateAllPartiallyBlindSets(
+        participantIterator,
+        participantsRepsonses,
+        botResponses,
+        numberOfResponsesPerSet,
+        numberOfBotResponsesPerSet,
+        exclusiveResponseDistribution,
+      );
+    } else {
+      const responses = appDataArrayToMap(shuffle(roundResponses));
+      sets = recursivelyCreateAllOpenSets(participantIterator, responses);
+    }
     console.log('Sets: ', sets);
     sets.forEach((responsesSet, participantId) => {
       const responsesSetDataWithId = responsesSet.map(({ id, data }) => ({
@@ -130,7 +149,9 @@ const useResponses = (): UseResponsesValues => {
   };
 
   return {
+    allResponses,
     myResponses,
+    allResponsesSets,
     myResponsesSets,
     createAllResponsesSet,
     deleteAllResponsesSet,

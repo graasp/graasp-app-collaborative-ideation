@@ -39,7 +39,7 @@ export const extractNResponsesThatDontHaveMemberAsCreator = (
   return [responsesArray, responses];
 };
 
-export const recursivelyCreateAllSets = (
+export const recursivelyCreateAllPartiallyBlindSets = (
   participantIteratorLocal: IterableIterator<[number, Member]>,
   participantsRepsonsesLocal: Map<string, ResponseAppData>,
   botResponsesLocal: Map<string, ResponseAppData>,
@@ -75,7 +75,7 @@ export const recursivelyCreateAllSets = (
     );
     return new Map([
       [participantId, mergedResponsesForMember],
-      ...recursivelyCreateAllSets(
+      ...recursivelyCreateAllPartiallyBlindSets(
         participantIteratorLocal,
         newParticipantsResponses,
         newBotResponses,
@@ -83,6 +83,24 @@ export const recursivelyCreateAllSets = (
         numberOfBotResponsesPerSet,
         exclusiveResponseDistribution,
       ),
+    ]);
+  }
+  return new Map();
+};
+
+export const recursivelyCreateAllOpenSets = (
+  participantIteratorLocal: IterableIterator<[number, Member]>,
+  responsesLocal: Map<string, ResponseAppData>,
+): Map<string, ResponseAppData[]> => {
+  const iterRes = participantIteratorLocal.next();
+  if (!iterRes.done) {
+    const [, participant] = iterRes.value;
+    console.log('Preparing for: ', participant);
+    const { id: participantId } = participant;
+    const r = Array.from(responsesLocal.values());
+    return new Map([
+      [participantId, r],
+      ...recursivelyCreateAllOpenSets(participantIteratorLocal, responsesLocal),
     ]);
   }
   return new Map();
