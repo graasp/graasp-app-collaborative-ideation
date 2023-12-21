@@ -19,7 +19,7 @@ import {
   AppDataTypes,
   ResponseData,
 } from '@/config/appDataTypes';
-import { IDEA_MAXIMUM_LENGTH, REFRESH_INTERVAL_MS } from '@/config/constants';
+import { IDEA_MAXIMUM_LENGTH } from '@/config/constants';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
 import Loader from '../common/Loader';
@@ -50,13 +50,10 @@ const ResponseInput: FC<{
       visibility: AppDataVisibility.Member,
       data: newIdeaData,
     })?.then((postedIdea) => {
-      setTimeout(() => {
-        if (typeof onSubmitted !== 'undefined') onSubmitted(postedIdea.id);
-        setPromisePostIdea(undefined);
-        setResponse('');
-        invalidateAppData();
-      }, REFRESH_INTERVAL_MS);
-
+      if (typeof onSubmitted !== 'undefined') onSubmitted(postedIdea.id);
+      setPromisePostIdea(undefined);
+      setResponse('');
+      invalidateAppData();
       return postedIdea;
     });
     setPromisePostIdea(promise);
