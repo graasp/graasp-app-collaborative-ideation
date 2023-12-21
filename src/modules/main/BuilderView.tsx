@@ -11,11 +11,11 @@ import { PermissionLevel } from '@graasp/sdk';
 
 import { BUILDER_VIEW_CY } from '@/config/selectors';
 
-import AdminControl from '../admin-control/AdminControl';
+import AdminControl from '../adminPanel/AdminPanel';
 import TabPanel from '../common/TabPanel';
-import IdeasView from './ideasView/IdeasView';
-import Ideation from './ideation/Ideation';
-import SettingsView from './settingsView/SettingsView';
+import ResponsesView from '../responsesView/ResponsesView';
+import SettingsView from '../settings/Settings';
+import Activity from './Activity';
 
 interface TabType {
   tabLabel: string;
@@ -35,10 +35,10 @@ const BuilderView = (): JSX.Element => {
     [permission],
   );
 
-  const ideationTab = useMemo(
+  const activityTab = useMemo(
     () => ({
-      tabLabel: t('IDEATION_TAB'),
-      tabChild: <Ideation />,
+      tabLabel: t('ACTIVITY_TAB'),
+      tabChild: <Activity />,
     }),
     [t],
   );
@@ -53,15 +53,15 @@ const BuilderView = (): JSX.Element => {
 
   const ideasViewTab = useMemo(
     () => ({
-      tabLabel: t('IDEAS_VIEW_TAB'),
-      tabChild: <IdeasView />,
+      tabLabel: t('RESPONSES_VIEW_TAB'),
+      tabChild: <ResponsesView />,
     }),
     [t],
   );
 
   const tabs: TabType[] = useMemo(
-    () => (isAdmin ? [ideationTab, ideasViewTab, settingsTab] : [ideationTab]),
-    [isAdmin, ideationTab, ideasViewTab, settingsTab],
+    () => (isAdmin ? [activityTab, ideasViewTab, settingsTab] : [activityTab]),
+    [isAdmin, activityTab, ideasViewTab, settingsTab],
   );
 
   return (

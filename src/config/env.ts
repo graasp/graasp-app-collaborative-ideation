@@ -1,4 +1,5 @@
 const {
+  VITE_PORT,
   VITE_GRAASP_APP_KEY,
   VITE_VERSION,
   VITE_SENTRY_ENV,
@@ -16,4 +17,5 @@ export const VERSION = VITE_VERSION || 'latest';
 export const GRAASP_APP_KEY = VITE_GRAASP_APP_KEY;
 export const SENTRY_ENV = VITE_SENTRY_ENV;
 export const SENTRY_DSN = VITE_SENTRY_DSN;
+export const PORT = parseInt(VITE_PORT, 10);
 export const WS_HOST: string | undefined = VITE_WS_HOST;

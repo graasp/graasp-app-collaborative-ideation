@@ -1,49 +1,34 @@
-import {
-  buildMockLocalContext,
-  buildMockParentWindow,
-  configureQueryClient,
-} from '@graasp/apps-query-client';
+import { configureQueryClient } from '@graasp/apps-query-client';
 
-import { mockContext } from '@/mocks/db';
+import notifier from '@/utils/notifier';
 
-import { API_HOST, GRAASP_APP_KEY, MOCK_API, WS_HOST } from './env';
+import { API_HOST, GRAASP_APP_KEY, MOCK_API } from './env';
 
 const {
   queryClient,
   QueryClientProvider,
   hooks,
-  useMutation,
-  ReactQueryDevtools,
   API_ROUTES,
-  MUTATION_KEYS,
+  mutations,
+  ReactQueryDevtools,
   QUERY_KEYS,
 } = configureQueryClient({
-  notifier: (data) => {
-    // eslint-disable-next-line no-console
-    console.log('notifier: ', data);
-  },
+  API_HOST,
+  notifier,
+  refetchOnWindowFocus: !import.meta.env.DEV,
   keepPreviousData: true,
   // avoid refetching when same data are closely fetched
   staleTime: 1000, // ms
   GRAASP_APP_KEY,
-  targetWindow: MOCK_API
-    ? // build mock parent window given cypress (app) context or mock data
-      (buildMockParentWindow(
-        buildMockLocalContext(window.Cypress ? window.appContext : mockContext),
-      ) as Window)
-    : window.parent,
-  enableWebsocket: Boolean(WS_HOST),
-  WS_HOST,
-  API_HOST, // Technically, this is useless as the API_HOST is given by the parent window
+  isStandalone: MOCK_API,
 });
 
 export {
+  ReactQueryDevtools,
   queryClient,
   QueryClientProvider,
   hooks,
-  useMutation,
-  ReactQueryDevtools,
+  mutations,
   API_ROUTES,
-  MUTATION_KEYS,
   QUERY_KEYS,
 };
