@@ -1,15 +1,20 @@
 import { useEffect, useState } from 'react';
 
 import { useLocalContext } from '@graasp/apps-query-client';
-import { AppDataVisibility, PermissionLevel } from '@graasp/sdk';
+import { PermissionLevel } from '@graasp/sdk';
 
-import { AppDataTypes, CurrentStateAppData } from '@/config/appDataTypes';
-import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
+import { CurrentStateAppData, CurrentStateData } from '@/config/appDataTypes';
+import { INITIAL_STATE } from '@/config/constants';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { getCurrentRound, getCurrentState } from '@/utils/state';
 
 interface UseActivityStateValues {
+  activityState: {
+    [key: string]: unknown;
+    type: string;
+    data: CurrentStateData;
+  };
   round: number;
   nextRound: () => void;
 }
@@ -31,15 +36,7 @@ const useActivityState = (): UseActivityStateValues => {
 
   const postDefaultActivityState = (): void => {
     if (permission === PermissionLevel.Admin) {
-      postAppData({
-        type: AppDataTypes.CurrentState,
-        visibility: AppDataVisibility.Member,
-        data: {
-          round: 0,
-          status: ActivityStatus.WaitingForStart,
-          activity: ActivityType.Collection,
-        },
-      });
+      postAppData(INITIAL_STATE);
     }
   };
 
@@ -57,7 +54,7 @@ const useActivityState = (): UseActivityStateValues => {
       postDefaultActivityState();
     }
   };
-  return { round, nextRound };
+  return { activityState: activityState || INITIAL_STATE, round, nextRound };
 };
 
 export default useActivityState;

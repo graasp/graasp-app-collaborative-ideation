@@ -7,6 +7,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
+import grey from '@mui/material/colors/grey';
 
 import { ResponseData } from '@/config/appDataTypes';
 
@@ -19,6 +20,11 @@ const Response: FC<{
   const { t } = useTranslation();
 
   const showSelectButton = typeof onSelect !== 'undefined';
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const renderEvaluationComponent = (): JSX.Element => {
+    throw new Error('Not implemented');
+  };
 
   return (
     <Card
@@ -33,7 +39,7 @@ const Response: FC<{
     >
       <CardContent sx={{ minHeight: '32pt' }}>
         <Typography variant="body1">{response.response}</Typography>
-        <Typography variant="body2">
+        <Typography variant="body2" sx={{ color: grey.A700 }}>
           {t('ROUND', { round: response.round })}
         </Typography>
       </CardContent>

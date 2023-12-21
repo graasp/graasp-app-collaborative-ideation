@@ -64,6 +64,13 @@ const theme = createTheme({
       color: '#fff',
     },
   },
+  components: {
+    MuiButton: {
+      defaultProps: {
+        variant: 'contained',
+      },
+    },
+  },
 });
 
 const RootDiv = styled('div')({

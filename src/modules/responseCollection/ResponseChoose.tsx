@@ -45,6 +45,12 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ ideas, onChoose }) => {
   return (
     <>
       <Typography variant="body1">{t('CHOOSE_IDEA_HEADER_TEXT')}</Typography>
+      <Button
+        startIcon={<AddCircleOutlineIcon />}
+        onClick={() => handleChoose()}
+      >
+        {t('PROPOSE_NEW_IDEA')}
+      </Button>
       <Grid container spacing={2}>
         {ideas
           ? ideas.map((idea) => (
@@ -59,12 +65,6 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ ideas, onChoose }) => {
             ))
           : renderPlaceHolderForNoIdeas()}
       </Grid>
-      <Button
-        startIcon={<AddCircleOutlineIcon />}
-        onClick={() => handleChoose()}
-      >
-        {t('PROPOSE_NEW_IDEA')}
-      </Button>
     </>
   );
 };

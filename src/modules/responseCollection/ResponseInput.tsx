@@ -73,14 +73,15 @@ const ResponseInput: FC<{
         </Alert>
       )}
       <TextField
+        sx={{ width: { md: '75ch', sm: '100%' }, maxWidth: '100%' }}
         multiline
-        fullWidth
         variant="outlined"
         value={response}
         onChange={(e) => setResponse(e.target.value)}
         disabled={isPosting}
         color={tooLong ? 'error' : 'primary'}
         InputProps={{
+          minRows: 3,
           endAdornment: (
             <InputAdornment position="end">
               <Typography variant="caption">

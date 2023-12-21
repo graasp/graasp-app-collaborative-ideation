@@ -29,7 +29,8 @@ if (MOCK_API) {
         ? window.database
         : buildDatabase(defaultMockContext, mockMembers),
     },
-    window.Cypress ? MockSolution.MirageJS : MockSolution.ServiceWorker,
+    MockSolution.MirageJS,
+    // window.Cypress ? MockSolution.MirageJS : MockSolution.ServiceWorker, // Why service worker?
   );
 }
 
