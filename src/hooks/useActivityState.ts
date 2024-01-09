@@ -17,6 +17,7 @@ interface UseActivityStateValues {
   };
   round: number;
   nextRound: () => void;
+  resetActivityState: () => void;
 }
 
 const useActivityState = (): UseActivityStateValues => {
@@ -41,20 +42,37 @@ const useActivityState = (): UseActivityStateValues => {
   };
 
   const nextRound = (): void => {
-    setRound(round + 1);
+    const newRound = round + 1;
+    setRound(newRound);
     if (activityState?.id) {
       patchAppData({
         ...activityState,
         data: {
           ...activityState.data,
-          round,
+          round: newRound,
         },
       });
     } else {
       postDefaultActivityState();
     }
   };
-  return { activityState: activityState || INITIAL_STATE, round, nextRound };
+  const resetActivityState = (): void => {
+    if (activityState?.id) {
+      patchAppData({
+        ...INITIAL_STATE,
+        id: activityState?.id,
+      });
+    } else {
+      postDefaultActivityState();
+    }
+    setRound(0);
+  };
+  return {
+    activityState: activityState || INITIAL_STATE,
+    round,
+    nextRound,
+    resetActivityState,
+  };
 };
 
 export default useActivityState;

@@ -8,6 +8,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
+import useActivityState from '@/hooks/useActivityState';
 import useResponses from '@/hooks/useResponses';
 
 interface ResetSetsButtonProps {
@@ -20,11 +21,12 @@ const ResetSetsButton: FC<ResetSetsButtonProps> = (
   const { t } = useTranslation();
   const [dialogOpen, setDialogOpen] = useState(false);
   const { deleteAllResponsesSet } = useResponses();
+  const { resetActivityState } = useActivityState();
   const promise = useRef<Promise<void>>();
 
   const handleConfirmation = async (): Promise<void> => {
     setDialogOpen(false);
-    promise.current = deleteAllResponsesSet();
+    promise.current = deleteAllResponsesSet().then(() => resetActivityState());
   };
 
   return (
