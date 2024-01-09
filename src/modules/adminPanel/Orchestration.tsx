@@ -106,8 +106,10 @@ const Orchestration: FC<OrchestrationProps> = ({ onChange }) => {
     _event: MouseEvent,
     value: ActivityType,
   ): void => {
-    setActivity(value);
-    updateState({ newActivity: value });
+    if (value !== null) {
+      setActivity(value);
+      updateState({ newActivity: value });
+    }
   };
   return (
     <>
