@@ -11,6 +11,16 @@
     "READ_IDEAS_STEP_TITLE": "Find inspiration",
     "ADMIN_PANE_TITLE": "Admin Panel",
     "SETTINGS_TITLE": "Settings",
+    "SETTINGS": {
+      "TITLE": "Settings",
+      "EVALUATION_TYPE_SELECTION": {
+        "TITLE": "Evaluation type",
+        "NONE_BTN": "Do not evaluate the responses.",
+        "VOTE_BTN": "Evaluate the responses by votes.",
+        "NOV_REL_RATINGS_BTN": "Evaluate the responses by rating the relevance and novelty.",
+        "USE_NOV_RATINGS_BTN": "Evaluate the responses by rating the usefulness and novelty."
+      }
+    },
     "HELPER_PROMPT_SETTING": "Provide a prompt to be shown in your activity.",
     "LABEL_PROMPT_SETTING": "Prompt",
     "SAVE": "Save",

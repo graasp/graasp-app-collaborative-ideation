@@ -10,27 +10,39 @@ import Typography from '@mui/material/Typography';
 import grey from '@mui/material/colors/grey';
 
 import { ResponseData } from '@/config/appDataTypes';
+import { EvaluationType } from '@/interfaces/evaluationType';
+
+import UsefulnessNoveltyRating from './evaluation/UsefulnessNoveltyRating';
 
 const Response: FC<{
   responseId: string;
   response: ResponseData;
   onSelect?: (id: string) => void;
   enableBuildAction?: boolean;
-}> = ({ responseId, response, onSelect, enableBuildAction = true }) => {
+  evaluationType?: EvaluationType;
+}> = ({
+  responseId,
+  response,
+  onSelect,
+  enableBuildAction = true,
+  evaluationType = EvaluationType.None,
+}) => {
   const { t } = useTranslation();
 
   const showSelectButton = typeof onSelect !== 'undefined';
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const renderEvaluationComponent = (): JSX.Element => {
-    throw new Error('Not implemented');
+    if (evaluationType === EvaluationType.UsefulnessNoveltyRating) {
+      return <UsefulnessNoveltyRating responseId={responseId} />;
+    }
+    return <p>Vote</p>; // TODO: implement
   };
 
   return (
     <Card
       variant="outlined"
       sx={{
-        maxWidth: '30%',
+        // maxWidth: '30%',
         minWidth: '160pt',
         // backgroundColor:
         //   noveltyRating && relevanceRating ? green[100] : 'white',
@@ -38,11 +50,14 @@ const Response: FC<{
       }}
     >
       <CardContent sx={{ minHeight: '32pt' }}>
-        <Typography variant="body1">{response.response}</Typography>
+        <Typography variant="body1" sx={{ overflowWrap: 'break-word' }}>
+          {response.response}
+        </Typography>
         <Typography variant="body2" sx={{ color: grey.A700 }}>
           {t('ROUND', { round: response.round })}
         </Typography>
       </CardContent>
+      {evaluationType !== EvaluationType.None && renderEvaluationComponent()}
       {showSelectButton && (
         <>
           <Divider />

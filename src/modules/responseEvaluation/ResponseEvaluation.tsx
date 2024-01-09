@@ -13,20 +13,24 @@ import Response from '@/modules/common/response/Response';
 
 import Loader from '../common/Loader';
 import { useAppDataContext } from '../context/AppDataContext';
+import { useSettings } from '../context/SettingsContext';
 
 const ResponseEvaluation: FC = () => {
   const { t } = useTranslation();
   const { myResponsesSets } = useResponses();
+  console.debug('My responses sets:', myResponsesSets);
+  // const responses = useMemo(
+  //   () => myResponsesSets.find(({ data }) => data.round)?.data.responses,
+  //   [myResponsesSets],
+  // );
+  const { evaluation } = useSettings();
   const responses = useMemo(
-    () => myResponsesSets.find(({ data }) => data.round)?.data.responses,
+    () => myResponsesSets.flatMap((set) => set.data.responses),
     [myResponsesSets],
   );
 
   const { invalidateAppData, isLoading } = useAppDataContext();
 
-  const handleChoose = (id: string): void => {
-    throw new Error(`Function not implemented. Chose ${id}.`);
-  };
   const renderPlaceHolderForNoResponses = (): ReactNode => {
     if (isLoading) {
       return <Loader />;
@@ -50,12 +54,12 @@ const ResponseEvaluation: FC = () => {
         <Grid container spacing={2}>
           {responses
             ? responses.map((response) => (
-                <Grid item key={response.id} md={4} sm={6} xs={12}>
+                <Grid item key={response.id} md={6} sm={12} xs={12}>
                   <Response
                     key={response.id}
                     response={response}
                     responseId={response.id}
-                    onSelect={handleChoose}
+                    evaluationType={evaluation.type}
                   />
                 </Grid>
               ))

@@ -1,5 +1,6 @@
 import { FC, ReactElement, createContext, useContext } from 'react';
 
+import { EvaluationType } from '@/interfaces/evaluationType';
 import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
 
 import { hooks, mutations } from '../../config/queryClient';
@@ -20,6 +21,9 @@ type AllSettingsType = {
     exclusiveResponseDistribution: boolean;
   };
   notParticipating: { ids: string[] };
+  evaluation: {
+    type: EvaluationType;
+  };
 };
 
 // default values for the data property of settings by name
@@ -38,6 +42,9 @@ const defaultSettingsValues: AllSettingsType = {
     exclusiveResponseDistribution: true,
   },
   notParticipating: { ids: [] },
+  evaluation: {
+    type: EvaluationType.NoveltyRelevanceRatings,
+  },
 };
 
 // list of the settings names
@@ -47,6 +54,7 @@ const ALL_SETTING_NAMES = [
   'orchestrator',
   'mode',
   'notParticipating',
+  'evaluation',
 ] as const;
 
 // automatically generated types

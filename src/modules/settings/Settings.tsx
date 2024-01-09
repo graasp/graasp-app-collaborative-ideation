@@ -19,6 +19,7 @@ import { useMembersContext } from '@/modules/context/MembersContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 
 import ResetSetsButton from '../common/ResetSetsButton';
+import EvaluationTypeSelection from './EvaluationTypeSelection';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface SettingsProps {}
@@ -113,6 +114,7 @@ const Settings: FC<SettingsProps> = () => {
           />
         </RadioGroup>
       </FormControl>
+      <EvaluationTypeSelection />
       <Button onClick={handleSave}>{t('SAVE')}</Button>
       <ResetSetsButton enable />
     </Stack>
