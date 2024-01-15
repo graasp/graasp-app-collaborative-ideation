@@ -1,54 +1,47 @@
-name: cypress tests
+name: Cypress UI tests
 
 on:
   push:
-    branches-ignore:
-      - 'release-please-**'
 
 jobs:
   cypress-run:
     concurrency: cypress-${{ github.head_ref || github.ref }}
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
-        uses: actions/checkout@v3
-
-      - name: set up node
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Yarn Install and Cache
         uses: graasp/graasp-deploy/.github/actions/yarn-install-and-cache@v1
         with:
           cypress: true
 
-      - name: cypress run
+      - name: Build App
+        run: yarn build:test
+        shell: bash
+        env:
+          VITE_PORT: 3000
+          VITE_API_HOST: http://localhost:3636
+          VITE_GRAASP_APP_KEY: id-1234567890
+          VITE_ENABLE_MOCK_API: true
+          VITE_VERSION: cypress-tests
+
+      - name: Cypress Run
         uses: cypress-io/github-action@v5
         env:
           VITE_PORT: 3000
           VITE_API_HOST: http://localhost:3636
-          VITE_GRAASP_APP_ID: id-1234567890
-          VITE_MOCK_API: true
+          VITE_GRAASP_APP_KEY: id-1234567890
+          VITE_ENABLE_MOCK_API: true
           VITE_VERSION: cypress-tests
-          VITE_WS_HOST: ws://localhost:3636/ws
         with:
           install: false
-          build: yarn build
           config: baseUrl=http://localhost:3000
-          start: yarn dev
+          start: yarn preview:test
           browser: chrome
           quiet: true
           # point to new cypress@10 config file
           config-file: cypress.config.ts
-
-      # - name: Run Component tests 🧪
-      #   uses: cypress-io/github-action@v5
-      #   with:
-      #     # we have already installed everything
-      #     install: false
-      #     # to run component tests we need to use "component: true"
-      #     component: true
 
       - uses: actions/upload-artifact@v3
         if: failure()

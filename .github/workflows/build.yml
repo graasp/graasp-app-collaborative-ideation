@@ -1,0 +1,21 @@
+name: Build and Check
+
+on:
+  push:
+
+jobs:
+  build:
+    concurrency: build-${{ github.head_ref || github.ref }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: Yarn Install and Cache
+        uses: graasp/graasp-deploy/.github/actions/yarn-install-and-cache@v1
+
+      - name: Lint
+        run: yarn check
+
+      - name: Build
+        run: yarn build
