@@ -32,7 +32,6 @@ const useActivityState = (): UseActivityStateValues => {
     const r = getCurrentRound(appData, orchestrator.id);
     if (r) {
       setRound(r);
-      console.log('(2) Round: ', round);
     }
   }, [appData, orchestrator.id, round]);
 
@@ -67,7 +66,6 @@ const useActivityState = (): UseActivityStateValues => {
       postDefaultActivityState();
     }
     setRound(0);
-    console.log('(1) Round: ', round);
   };
   return {
     activityState: activityState || INITIAL_STATE,

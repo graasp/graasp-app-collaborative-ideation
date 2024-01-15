@@ -38,7 +38,6 @@ const useResponses = (): UseResponsesValues => {
   const { memberId, permission } = useLocalContext();
   const { orchestrator, mode } = useSettings();
   const participants = useParticipants();
-  console.log('Participants: ', participants);
   const {
     mode: visibilityMode,
     numberOfResponsesPerSet,
@@ -115,7 +114,6 @@ const useResponses = (): UseResponsesValues => {
       const participantsRepsonses = appDataArrayToMap(
         shuffle(filterBotResponses(roundResponses, false)),
       );
-      console.log('🏡 Participant responses: ', participantsRepsonses);
       const botResponses = appDataArrayToMap(
         shuffle(filterBotResponses(roundResponses, true)),
       );
@@ -132,7 +130,6 @@ const useResponses = (): UseResponsesValues => {
       const responses = appDataArrayToMap(shuffle(roundResponses));
       sets = recursivelyCreateAllOpenSets(participantIterator, responses);
     }
-    console.log('Sets: ', sets);
     sets.forEach((responsesSet, participantId) => {
       const responsesSetDataWithId = responsesSet.map(({ id, data }) => ({
         id,

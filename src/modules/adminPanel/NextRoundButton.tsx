@@ -19,10 +19,8 @@ const NextRoundButton: FC<NextRoundButtonProps> = ({ enable }) => {
 
   const prepareNextRound = async (): Promise<void> => {
     if (!isPreparingNextRound) {
-      console.debug('Prepare next round.');
       setIsPreparingNextRound(true);
       promise.current = createAllResponsesSet().then(() => {
-        console.debug('The next round has been prepared.');
         nextRound();
         setIsPreparingNextRound(false);
       });

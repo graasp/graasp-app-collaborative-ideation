@@ -50,8 +50,6 @@ export const recursivelyCreateAllPartiallyBlindSets = (
   const iterRes = participantIteratorLocal.next();
   if (!iterRes.done) {
     const [, participant] = iterRes.value;
-    console.log('Preparing for: ', participant);
-    console.log('With responses:', participantsRepsonsesLocal);
     const { id: participantId } = participant;
     const [botResponsesForMember, newBotResponses] =
       extractNResponsesThatDontHaveMemberAsCreator(
@@ -67,8 +65,6 @@ export const recursivelyCreateAllPartiallyBlindSets = (
         participantId,
         !exclusiveResponseDistribution,
       );
-    console.log('Bot responses: ', botResponsesForMember);
-    console.log('Participants responses:', participantsResponsesForMember);
 
     const mergedResponsesForMember = shuffle(
       participantsResponsesForMember.concat(botResponsesForMember),
@@ -95,7 +91,6 @@ export const recursivelyCreateAllOpenSets = (
   const iterRes = participantIteratorLocal.next();
   if (!iterRes.done) {
     const [, participant] = iterRes.value;
-    console.log('Preparing for: ', participant);
     const { id: participantId } = participant;
     const r = Array.from(responsesLocal.values());
     return new Map([

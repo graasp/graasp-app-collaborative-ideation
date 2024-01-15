@@ -18,11 +18,6 @@ import { useSettings } from '../context/SettingsContext';
 const ResponseEvaluation: FC = () => {
   const { t } = useTranslation();
   const { myResponsesSets } = useResponses();
-  console.debug('My responses sets:', myResponsesSets);
-  // const responses = useMemo(
-  //   () => myResponsesSets.find(({ data }) => data.round)?.data.responses,
-  //   [myResponsesSets],
-  // );
   const { evaluation } = useSettings();
   const responses = useMemo(
     () => myResponsesSets.flatMap((set) => set.data.responses),

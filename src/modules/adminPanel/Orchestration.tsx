@@ -38,11 +38,16 @@ const Orchestration: FC<OrchestrationProps> = ({ onChange }) => {
   const [activity, setActivity] = useState<ActivityType>(
     ActivityType.Collection,
   );
+  // TODO: Refactor this component
 
   useEffect(() => {
     const tmpCurrentState = getCurrentState(appData, orchestrator.id);
     setCurrentState(tmpCurrentState);
     setActivityStatus(tmpCurrentState?.data.status);
+    const currentActivity = tmpCurrentState?.data.activity;
+    if (currentActivity) {
+      setActivity(tmpCurrentState?.data.activity); // TODO: Check that toggle button is now well set when refreshing
+    }
   }, [appData, orchestrator.id]);
 
   const updateState = async ({
