@@ -1,6 +1,5 @@
 import React, { createContext, useMemo } from 'react';
 
-import { useLocalContext } from '@graasp/apps-query-client';
 import { AppData } from '@graasp/sdk';
 
 import {
@@ -56,11 +55,9 @@ type Props = {
 
 export const AppDataProvider = ({ children }: Props): JSX.Element => {
   const { data: appData, isLoading, isSuccess } = hooks.useAppData();
-  const { itemId } = useLocalContext();
   const invalidateAppData = useMemo(
-    () => () =>
-      queryClient.invalidateQueries(QUERY_KEYS.buildAppDataKey(itemId)),
-    [itemId],
+    () => () => queryClient.invalidateQueries(QUERY_KEYS.appDataKeys.all),
+    [],
   );
 
   const { mutate: postAppData, mutateAsync: postAppDataAsync } =
