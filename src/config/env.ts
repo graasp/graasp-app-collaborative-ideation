@@ -5,12 +5,12 @@ const {
   VITE_SENTRY_ENV,
   VITE_SENTRY_DSN,
   VITE_GA_MEASUREMENT_ID,
-  VITE_MOCK_API,
+  VITE_ENABLE_MOCK_API,
   VITE_API_HOST,
   VITE_WS_HOST,
 } = window.Cypress ? Cypress.env() : import.meta.env;
 
-export const MOCK_API = VITE_MOCK_API === 'true';
+export const MOCK_API = VITE_ENABLE_MOCK_API === 'true';
 export const GA_MEASUREMENT_ID = VITE_GA_MEASUREMENT_ID;
 export const API_HOST = VITE_API_HOST;
 export const VERSION = VITE_VERSION || 'latest';

@@ -16,21 +16,20 @@ Sentry.init({
   ...generateSentryConfig(),
 });
 
+// eslint-disable-next-line no-console
+console.log('MOCK_API', MOCK_API);
+
 // setup mocked api for cypress or standalone app
 /* istanbul ignore next */
 if (MOCK_API) {
   mockApi(
     {
-      // TODO: Check text-input to configure mock correctly
       externalUrls: [],
       dbName: window.Cypress ? 'graasp-app-cypress' : undefined,
       appContext: window.Cypress ? window.appContext : defaultMockContext,
-      database: window.Cypress
-        ? window.database
-        : buildDatabase(defaultMockContext, mockMembers),
+      database: window.Cypress ? window.database : buildDatabase(mockMembers),
     },
-    MockSolution.MirageJS,
-    // window.Cypress ? MockSolution.MirageJS : MockSolution.ServiceWorker, // Why service worker?
+    window.Cypress ? MockSolution.MirageJS : MockSolution.ServiceWorker,
   );
 }
 

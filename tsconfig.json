@@ -16,12 +16,16 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "typeRoots": ["node_modules", "node_modules/@types", "./src/@types"],
-    "types": ["vite/client", "cypress", "node"],
+    "types": ["vite/client", "cypress"],
     "baseUrl": "./src",
     "paths": {
       "@/*": ["./*"]
     }
   },
   "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }

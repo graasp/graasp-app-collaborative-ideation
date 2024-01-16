@@ -8436,6 +8436,7 @@ __metadata:
     lodash.clonedeep: "npm:^4.5.0"
     lodash.isequal: "npm:^4.5.0"
     lodash.shuffle: "npm:^4.2.0"
+    miragejs: "npm:^0.1.48"
     nyc: "npm:15.1.0"
     plotly.js: "npm:^2.28.0"
     prettier: "npm:2.8.8"
@@ -10312,7 +10313,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"miragejs@npm:0.1.48":
+"miragejs@npm:0.1.48, miragejs@npm:^0.1.48":
   version: 0.1.48
   resolution: "miragejs@npm:0.1.48"
   dependencies:

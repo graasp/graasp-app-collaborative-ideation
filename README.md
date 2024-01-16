@@ -21,7 +21,7 @@ Create a `.env.development` file with the following content:
 ```bash
 VITE_PORT=3333
 VITE_API_HOST=http://localhost:3000
-VITE_MOCK_API=false
+VITE_ENABLE_MOCK_API=false
 VITE_GRAASP_APP_KEY=02052cf4-cc45-45c6-b0b8-61102244ed11
 VITE_VERSION=latest
 VITE_WS_HOST=ws://localhost:3000/ws

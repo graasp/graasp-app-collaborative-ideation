@@ -17,8 +17,8 @@ import { buildMockResponses } from './mockResponses';
 export const mockMembers: CompleteMember[] = [
   {
     id: 'mock-member-id-1',
-    name: 'current-member',
-    email: '',
+    name: 'I (current member)',
+    email: 'i@graasp.org',
     extra: {},
     type: 'individual',
     createdAt: new Date('1996-09-08T19:00:00').toISOString(),
@@ -26,8 +26,8 @@ export const mockMembers: CompleteMember[] = [
   },
   {
     id: 'mock-member-id-2',
-    name: 'mock-member-2',
-    email: '',
+    name: 'You',
+    email: 'you@graasp.org',
     extra: {},
     type: 'individual',
     createdAt: new Date('1995-02-02T15:00:00').toISOString(),
@@ -80,10 +80,7 @@ export const defaultMockContext: LocalContext = {
   memberId: mockMembers[0].id,
 };
 
-const buildDatabase = (
-  appContext: Partial<LocalContext>,
-  members?: CompleteMember[],
-): Database => ({
+const buildDatabase = (members?: CompleteMember[]): Database => ({
   appData: mockAppData,
   appActions: [],
   members: members ?? mockMembers,

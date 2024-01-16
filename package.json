@@ -48,7 +48,7 @@
   },
   "scripts": {
     "dev": "yarn vite",
-    "dev:mock": "VITE_MOCK_API=true && yarn vite",
+    "dev:mock": "VITE_ENABLE_MOCK_API=true && yarn vite",
     "start:test": "yarn vite --mode test",
     "build": "yarn vite build",
     "build:test": "yarn vite build --mode test",
@@ -106,6 +106,7 @@
     "husky": "8.0.3",
     "jsdom": "^23.2.0",
     "lodash.clonedeep": "^4.5.0",
+    "miragejs": "^0.1.48",
     "nyc": "15.1.0",
     "prettier": "2.8.8",
     "pretty-quick": "3.1.3",
