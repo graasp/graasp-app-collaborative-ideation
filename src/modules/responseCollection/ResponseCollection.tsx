@@ -15,7 +15,7 @@ import {
   ResponsesData,
   ResponsesSetAppData,
 } from '@/config/appDataTypes';
-import { IDEATION_VIEW_CY } from '@/config/selectors';
+import { RESPONSE_COLLECTION_VIEW_CY } from '@/config/selectors';
 import useActivityState from '@/hooks/useActivityState';
 import {
   ChoosePhase,
@@ -104,7 +104,7 @@ const ResponseCollection: FC = () => {
 
   return (
     <Pausable>
-      <Container data-cy={IDEATION_VIEW_CY}>
+      <Container data-cy={RESPONSE_COLLECTION_VIEW_CY}>
         <Stack
           direction="column"
           alignItems="flex-start"

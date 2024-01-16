@@ -15,6 +15,7 @@ import Typography from '@mui/material/Typography';
 
 import { CurrentStateAppData, CurrentStateData } from '@/config/appDataTypes';
 import { INITIAL_STATE } from '@/config/constants';
+import { PLAY_PAUSE_BUTTON_CY } from '@/config/selectors';
 import useActivityState from '@/hooks/useActivityState';
 import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
 import { getCurrentState } from '@/utils/state';
@@ -171,6 +172,7 @@ const Orchestration: FC<OrchestrationProps> = ({ onChange }) => {
               onClick={() =>
                 handleChange({ newProcessState: ActivityStatus.Play })
               }
+              data-cy={PLAY_PAUSE_BUTTON_CY}
             >
               <PlayCircleOutlineIcon />
             </IconButton>
