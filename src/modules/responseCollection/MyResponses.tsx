@@ -20,7 +20,7 @@ const MyResponses: FC = () => {
         <Grid container spacing={2}>
           {myResponses ? (
             myResponses.map((response) => (
-              <Grid key={response.id} item md={4} sm={6} xs={12}>
+              <Grid key={response.id} item xl={6} sm={6} xs={12}>
                 <Response
                   key={response.id}
                   response={response.data}

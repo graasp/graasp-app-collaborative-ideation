@@ -54,7 +54,7 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ ideas, onChoose }) => {
       <Grid container spacing={2}>
         {ideas
           ? ideas.map((idea) => (
-              <Grid key={idea.id} md={4} sm={6} xs={12}>
+              <Grid key={idea.id} item xl={6} lg={6} xs={12}>
                 <Idea
                   key={idea.id}
                   response={idea}
