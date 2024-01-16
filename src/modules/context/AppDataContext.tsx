@@ -1,17 +1,12 @@
 import React, { createContext, useMemo } from 'react';
 
-import { useLocalContext } from '@graasp/apps-query-client';
 import { AppData } from '@graasp/sdk';
-import { AppDataRecord } from '@graasp/sdk/frontend';
-
-import { List } from 'immutable';
 
 import {
-  MUTATION_KEYS,
   QUERY_KEYS,
   hooks,
+  mutations,
   queryClient,
-  useMutation,
 } from '../../config/queryClient';
 import Loader from '../common/Loader';
 
@@ -35,7 +30,7 @@ export type AppDataContextType = {
   postAppDataAsync: (payload: PostAppDataType) => Promise<AppData> | undefined;
   patchAppData: (payload: PatchAppDataType) => void;
   deleteAppData: (payload: DeleteAppDataType) => void;
-  appData: List<AppDataRecord>;
+  appData: AppData[];
   isSuccess: boolean;
   isLoading: boolean;
   invalidateAppData: () => Promise<void>;
@@ -46,7 +41,7 @@ const defaultContextValue = {
   postAppDataAsync: () => undefined,
   patchAppData: () => null,
   deleteAppData: () => null,
-  appData: List([]),
+  appData: [],
   isSuccess: false,
   isLoading: true,
   invalidateAppData: () => Promise.resolve(),
@@ -60,28 +55,15 @@ type Props = {
 
 export const AppDataProvider = ({ children }: Props): JSX.Element => {
   const { data: appData, isLoading, isSuccess } = hooks.useAppData();
-  const { itemId } = useLocalContext();
   const invalidateAppData = useMemo(
-    () => () =>
-      queryClient.invalidateQueries(QUERY_KEYS.buildAppDataKey(itemId)),
-    [itemId],
+    () => () => queryClient.invalidateQueries(QUERY_KEYS.appDataKeys.all),
+    [],
   );
 
-  const { mutate: postAppData, mutateAsync: postAppDataAsync } = useMutation<
-    AppData,
-    unknown,
-    PostAppDataType
-  >(MUTATION_KEYS.POST_APP_DATA);
-  const { mutate: patchAppData } = useMutation<
-    unknown,
-    unknown,
-    PatchAppDataType
-  >(MUTATION_KEYS.PATCH_APP_DATA);
-  const { mutate: deleteAppData } = useMutation<
-    unknown,
-    unknown,
-    DeleteAppDataType
-  >(MUTATION_KEYS.DELETE_APP_DATA);
+  const { mutate: postAppData, mutateAsync: postAppDataAsync } =
+    mutations.usePostAppData();
+  const { mutate: patchAppData } = mutations.usePatchAppData();
+  const { mutate: deleteAppData } = mutations.useDeleteAppData();
 
   const contextValue = useMemo(
     () => ({
@@ -89,7 +71,7 @@ export const AppDataProvider = ({ children }: Props): JSX.Element => {
       postAppData,
       postAppDataAsync,
       deleteAppData,
-      appData: appData || List<AppDataRecord>([]),
+      appData: appData || [],
       isSuccess,
       isLoading,
       invalidateAppData,

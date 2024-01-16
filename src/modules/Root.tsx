@@ -5,8 +5,14 @@ import { CssBaseline, ThemeProvider, createTheme, styled } from '@mui/material';
 import { grey, orange } from '@mui/material/colors';
 import { StyledEngineProvider } from '@mui/material/styles';
 
-import { withContext, withToken } from '@graasp/apps-query-client';
+import {
+  GraaspContextDevTool,
+  WithLocalContext,
+  WithTokenContext,
+  useObjectState,
+} from '@graasp/apps-query-client';
 
+import { defaultMockContext, mockMembers } from '@/mocks/db';
 import Loader from '@/modules/common/Loader';
 
 import i18nConfig from '../config/i18n';
@@ -58,6 +64,13 @@ const theme = createTheme({
       color: '#fff',
     },
   },
+  components: {
+    MuiButton: {
+      defaultProps: {
+        variant: 'contained',
+      },
+    },
+  },
 });
 
 const RootDiv = styled('div')({
@@ -67,27 +80,8 @@ const RootDiv = styled('div')({
 });
 
 const Root: FC = () => {
-  const AppWithContext = withToken(App, {
-    LoadingComponent: <Loader />,
-    useAuthToken: hooks.useAuthToken,
-    onError:
-      /* istanbul ignore next */
-      () => {
-        // eslint-disable-next-line no-console
-        console.error('An error occurred while requesting the token.');
-      },
-  });
-  const AppWithContextAndToken = withContext(AppWithContext, {
-    LoadingComponent: <Loader />,
-    useGetLocalContext: hooks.useGetLocalContext,
-    useAutoResize: hooks.useAutoResize,
-    onError:
-      /* istanbul ignore next */
-      () => {
-        // eslint-disable-next-line no-console
-        console.error('An error occurred while fetching the context.');
-      },
-  });
+  const [mockContext, setMockContext] = useObjectState(defaultMockContext);
+
   return (
     <RootDiv>
       {/* Used to define the order of injected properties between JSS and emotion */}
@@ -96,8 +90,39 @@ const Root: FC = () => {
           <CssBaseline enableColorScheme />
           <I18nextProvider i18n={i18nConfig}>
             <QueryClientProvider client={queryClient}>
-              <AppWithContextAndToken />
-              {import.meta.env.MODE === 'development' && (
+              <WithLocalContext
+                defaultValue={window.Cypress ? window.appContext : mockContext}
+                LoadingComponent={<Loader />}
+                useGetLocalContext={hooks.useGetLocalContext}
+                useAutoResize={hooks.useAutoResize}
+                onError={() => {
+                  // eslint-disable-next-line no-console
+                  console.error(
+                    'An error occurred while fetching the context.',
+                  );
+                }}
+              >
+                <WithTokenContext
+                  LoadingComponent={<Loader />}
+                  useAuthToken={hooks.useAuthToken}
+                  onError={() => {
+                    // eslint-disable-next-line no-console
+                    console.error(
+                      'An error occurred while requesting the token.',
+                    );
+                  }}
+                >
+                  <App />
+                  {import.meta.env.DEV && (
+                    <GraaspContextDevTool
+                      members={mockMembers}
+                      context={mockContext}
+                      setContext={setMockContext}
+                    />
+                  )}
+                </WithTokenContext>
+              </WithLocalContext>
+              {import.meta.env.DEV && (
                 <ReactQueryDevtools position="bottom-left" />
               )}
             </QueryClientProvider>

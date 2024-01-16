@@ -44,11 +44,11 @@ const LikertScale = (props: LikertScaleProps): JSX.Element => {
   };
   return (
     <Stack
-      spacing={1}
+      spacing={2}
       alignItems="center"
       direction="row"
       justifyContent="center"
-      sx={{ width: '100%', p: 1 }}
+      sx={{ width: '100%', pl: 1, pr: 1 }}
     >
       <Typography variant="caption">{minLabel}</Typography>
       <Slider

@@ -1,8 +1,8 @@
 {
   "translations": {
     "Welcome to the Graasp App Starter Kit": "Welcome to the Graasp App Starter Kit",
-    "IDEATION_TAB": "Ideation",
-    "IDEAS_VIEW_TAB": "Ideas view",
+    "ACTIVITY_TAB": "Activity",
+    "RESPONSES_VIEW_TAB": "Responses view",
     "SETTINGS_TAB": "Settings",
     "BUILD_ON_THIS_IDEA": "Build on this idea",
     "IDEA_TOO_LONG_ALERT": "Your idea is too long. Please, try to be more concise.",
@@ -11,6 +11,16 @@
     "READ_IDEAS_STEP_TITLE": "Find inspiration",
     "ADMIN_PANE_TITLE": "Admin Panel",
     "SETTINGS_TITLE": "Settings",
+    "SETTINGS": {
+      "TITLE": "Settings",
+      "EVALUATION_TYPE_SELECTION": {
+        "TITLE": "Evaluation type",
+        "NONE_BTN": "Do not evaluate the responses.",
+        "VOTE_BTN": "Evaluate the responses by votes.",
+        "NOV_REL_RATINGS_BTN": "Evaluate the responses by rating the relevance and novelty.",
+        "USE_NOV_RATINGS_BTN": "Evaluate the responses by rating the usefulness and novelty."
+      }
+    },
     "HELPER_PROMPT_SETTING": "Provide a prompt to be shown in your activity.",
     "LABEL_PROMPT_SETTING": "Prompt",
     "SAVE": "Save",
@@ -27,6 +37,37 @@
     "PAUSE_MESSAGE": "The process has been paused by the admin. Please, wait for a moment.",
     "WAIT_TO_START_SCREEN_MAIN_INSTRUCTION": "The ideation will start soon. In the meantime, please, read the following instructions:",
     "WAIT_TO_START_SCREEN_STEP1": "At the beginning, you will be presented with a generative design question and asked to provide an answer to it.",
-    "WAIT_TO_START_SCREEN_STEP2": "After submitting a first answer, you will see some ideas provided by the other participants. Rate all of them and then propose a new idea, either by choosing one to build upon or by proposing a completely new one."
+    "WAIT_TO_START_SCREEN_STEP2": "After submitting a first answer, you will see some ideas provided by the other participants. Rate all of them and then propose a new idea, either by choosing one to build upon or by proposing a completely new one.",
+    "ROUND": "Round {{round}}",
+    "PARTICIPANTS": "Participants",
+    "ORCHESTRATION": "Orchestration",
+    "RESPONSE_EVALUATION": {
+      "TITLE": "Response Evaluation"
+    },
+    "ADMIN_PANEL": {
+      "CONTROLS": {
+        "TITLE": "Controls",
+        "ROUND_HELPER": "Round {{round}}",
+        "RESPONSE_COLLECTION_BUTTON": "Response collection",
+        "EVALUATION_BUTTON": "Evaluation",
+        "RESULTS_BUTTON": "Results",
+        "PREVIOUS_ROUND_TOOLTIP": "Go back to previous round",
+        "NEXT_ROUND_TOOLTIP": "Start next round"
+      },
+      "ORCHESTRATION": {
+        "NEXT_ROUND_BTN": "Next round",
+        "RESET_SETS_BTN": "Reset activity",
+        "RESET_SETS_DIALOG": {
+          "TITLE": "Do you really want to reset the activity?",
+          "HELPER_TEXT": "This action is definitive and will result in the loss of all the sets created in this activity.",
+          "CANCEL": "Cancel",
+          "CONFIRM": "Confirm"
+        }
+      },
+      "BOT": {
+        "TITLE": "Act as a bot",
+        "HELPER": "With the following field, you can insert new ideas in the ideation process under the identity of the virtual agent."
+      }
+    }
   }
 }

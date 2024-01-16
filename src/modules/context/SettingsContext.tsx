@@ -1,10 +1,9 @@
 import { FC, ReactElement, createContext, useContext } from 'react';
 
-import { AppSetting } from '@graasp/sdk';
+import { EvaluationType } from '@/interfaces/evaluationType';
+import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
 
-import { IdeationMode } from '@/interfaces/ideation';
-
-import { MUTATION_KEYS, hooks, useMutation } from '../../config/queryClient';
+import { hooks, mutations } from '../../config/queryClient';
 import Loader from '../common/Loader';
 
 // mapping between Setting names and their data type
@@ -15,7 +14,16 @@ type AllSettingsType = {
     type: 'html' | 'markdown' | 'plain-text';
   };
   orchestrator: { id: string };
-  mode: { mode: IdeationMode };
+  mode: {
+    mode: ResponseVisibilityMode;
+    numberOfResponsesPerSet: number;
+    numberOfBotResponsesPerSet: number;
+    exclusiveResponseDistribution: boolean;
+  };
+  notParticipating: { ids: string[] };
+  evaluation: {
+    type: EvaluationType;
+  };
 };
 
 // default values for the data property of settings by name
@@ -27,7 +35,16 @@ const defaultSettingsValues: AllSettingsType = {
   orchestrator: {
     id: '',
   },
-  mode: { mode: IdeationMode.Open },
+  mode: {
+    mode: ResponseVisibilityMode.Open,
+    numberOfResponsesPerSet: 3,
+    numberOfBotResponsesPerSet: 1,
+    exclusiveResponseDistribution: true,
+  },
+  notParticipating: { ids: [] },
+  evaluation: {
+    type: EvaluationType.NoveltyRelevanceRatings,
+  },
 };
 
 // list of the settings names
@@ -36,6 +53,8 @@ const ALL_SETTING_NAMES = [
   'prompt',
   'orchestrator',
   'mode',
+  'notParticipating',
+  'evaluation',
 ] as const;
 
 // automatically generated types
@@ -61,16 +80,8 @@ type Prop = {
 };
 
 export const SettingsProvider: FC<Prop> = ({ children }) => {
-  const { mutate: postAppSetting } = useMutation<
-    unknown,
-    unknown,
-    Partial<AppSetting>
-  >(MUTATION_KEYS.POST_APP_SETTING);
-  const { mutate: patchAppSetting } = useMutation<
-    unknown,
-    unknown,
-    Partial<AppSetting>
-  >(MUTATION_KEYS.PATCH_APP_SETTING);
+  const { mutate: postAppSetting } = mutations.usePostAppSetting();
+  const { mutate: patchAppSetting } = mutations.usePatchAppSetting();
   const {
     data: appSettingsList,
     isLoading,
