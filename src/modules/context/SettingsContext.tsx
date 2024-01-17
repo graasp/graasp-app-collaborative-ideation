@@ -1,5 +1,6 @@
 import { FC, ReactElement, createContext, useContext } from 'react';
 
+import { DEFAULT_SYSTEM_PROMPT } from '@/config/chatbot';
 import { EvaluationType } from '@/interfaces/evaluationType';
 import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
 
@@ -24,6 +25,9 @@ type AllSettingsType = {
   evaluation: {
     type: EvaluationType;
   };
+  chatbot: {
+    systemPrompt: string;
+  };
 };
 
 // default values for the data property of settings by name
@@ -45,6 +49,9 @@ const defaultSettingsValues: AllSettingsType = {
   evaluation: {
     type: EvaluationType.NoveltyRelevanceRatings,
   },
+  chatbot: {
+    systemPrompt: DEFAULT_SYSTEM_PROMPT,
+  },
 };
 
 // list of the settings names
@@ -55,6 +62,7 @@ const ALL_SETTING_NAMES = [
   'mode',
   'notParticipating',
   'evaluation',
+  'chatbot',
 ] as const;
 
 // automatically generated types

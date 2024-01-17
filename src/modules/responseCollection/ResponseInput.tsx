@@ -1,6 +1,7 @@
-import { FC, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { LoadingButton } from '@mui/lab';
 import {
   Alert,
   AlertTitle,
@@ -20,6 +21,7 @@ import {
   ResponseData,
 } from '@/config/appDataTypes';
 import { IDEA_MAXIMUM_LENGTH } from '@/config/constants';
+import useChatbot from '@/hooks/useChatbot';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
 import Loader from '../common/Loader';
@@ -31,12 +33,32 @@ const ResponseInput: FC<{
   actAsBot?: boolean;
 }> = ({ parent, currentRound, onSubmitted, actAsBot }) => {
   const { t } = useTranslation();
-  // const initialIdea = parent?.idea || '';
+  const [isWaitingOnBot, setIsWaitingOnBot] = useState<boolean>(false);
   const [response, setResponse] = useState<string>('');
   const { postAppDataAsync, invalidateAppData } = useAppDataContext();
   const [promisePostIdea, setPromisePostIdea] = useState<
     Promise<AppData> | undefined
   >();
+  const { generateSingleResponse } = useChatbot();
+  const promiseBotRequest = useRef<Promise<void>>();
+
+  const askBot = (): void => {
+    setIsWaitingOnBot(true);
+    promiseBotRequest.current = generateSingleResponse().then(
+      (ans) => {
+        if (ans) {
+          setResponse(ans.data.completion);
+          setIsWaitingOnBot(false);
+        }
+      },
+      (reason: unknown) => {
+        // eslint-disable-next-line no-console
+        console.warn(reason);
+        setIsWaitingOnBot(false);
+      },
+    );
+  };
+
   const submit = (): void => {
     const newIdeaData: ResponseData = {
       response,
@@ -60,7 +82,8 @@ const ResponseInput: FC<{
   };
   const isPosting = typeof promisePostIdea !== 'undefined';
   const tooLong = response.length > IDEA_MAXIMUM_LENGTH;
-  const disableSubmission = isPosting || tooLong || response.length === 0;
+  const disableSubmission =
+    isPosting || tooLong || response.length === 0 || isWaitingOnBot;
   return (
     <>
       <Collapse in={tooLong}>
@@ -94,6 +117,12 @@ const ResponseInput: FC<{
       <Button onClick={submit} disabled={disableSubmission}>
         {t('SUBMIT')}
       </Button>
+      {isWaitingOnBot ? (
+        <LoadingButton>Waiting for the bot to reply.</LoadingButton>
+      ) : (
+        // Todo: Improve
+        <Button onClick={askBot}>Ask the bot</Button>
+      )}
       <Collapse in={isPosting}>
         <Stack direction="row" spacing={1}>
           <Alert severity="info">{t('IDEA_BEING_SUBMITTED_ALERT')}</Alert>
