@@ -95,7 +95,7 @@ const useResponses = (): UseResponsesValues => {
         round,
         responses: responsesSet,
       },
-      member: { id: member },
+      memberId: member,
       type: AppDataTypes.ResponsesSet,
       visibility: AppDataVisibility.Item,
     };
