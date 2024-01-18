@@ -117,12 +117,13 @@ const ResponseInput: FC<{
       <Button onClick={submit} disabled={disableSubmission}>
         {t('SUBMIT')}
       </Button>
-      {isWaitingOnBot ? (
-        <LoadingButton>Waiting for the bot to reply.</LoadingButton>
-      ) : (
-        // Todo: Improve
-        <Button onClick={askBot}>Ask the bot</Button>
-      )}
+      <LoadingButton
+        loadingIndicator="Waiting for the bot to reply."
+        loading={isWaitingOnBot}
+        onClick={askBot}
+      >
+        Ask the bot
+      </LoadingButton>
       <Collapse in={isPosting}>
         <Stack direction="row" spacing={1}>
           <Alert severity="info">{t('IDEA_BEING_SUBMITTED_ALERT')}</Alert>
