@@ -8,6 +8,8 @@ import {
   CurrentStateData,
 } from './appDataTypes';
 
+export const SMALL_BORDER_RADIUS = 4;
+
 export const INITIAL_STATE: {
   [key: string]: unknown;
   type: string;
@@ -38,3 +40,5 @@ export const DEFAULT_CHATBOT_RESPONSE_APP_DATA: Pick<
     model: '',
   },
 };
+
+export const DEFAULT_BOT_USERNAME = 'GraaspBot';

@@ -39,8 +39,10 @@ export const extractNResponsesThatDontHaveMemberAsCreator = (
   return [responsesArray, responses];
 };
 
-export const recursivelyCreateAllPartiallyBlindSets = (
-  participantIteratorLocal: IterableIterator<[number, Member]>,
+export const recursivelyCreateAllPartiallyBlindSets = <
+  T extends { id: string },
+>(
+  participantIteratorLocal: IterableIterator<[number, T]>,
   participantsRepsonsesLocal: Map<string, ResponseAppData>,
   botResponsesLocal: Map<string, ResponseAppData>,
   numberOfResponsesPerSet: number,
@@ -84,8 +86,8 @@ export const recursivelyCreateAllPartiallyBlindSets = (
   return new Map();
 };
 
-export const recursivelyCreateAllOpenSets = (
-  participantIteratorLocal: IterableIterator<[number, Member]>,
+export const recursivelyCreateAllOpenSets = <T extends { id: string }>(
+  participantIteratorLocal: IterableIterator<[number, T]>,
   responsesLocal: Map<string, ResponseAppData>,
 ): Map<string, ResponseAppData[]> => {
   const iterRes = participantIteratorLocal.next();
@@ -106,14 +108,3 @@ export const filterBotResponses = (
   bot: boolean = false,
 ): ResponseAppData[] =>
   responses.filter(({ data }) => (bot ? data.bot : !data?.bot));
-
-// export const transformMapOfResponseAppDataToResponseSets = (
-//   mapOfResponsesAppData: Map<string, ResponseAppData[]>,
-// ): { id: ResponsesSetAppData['id']; data: ResponsesSetAppData['data'] } => {
-//   mapOfResponsesAppData.forEach((responsesSet, participantId) => {
-//     const responsesSetDataWithId = responsesSet.map(({ id, data }) => ({
-//       id,
-//       ...data,
-//     }));
-//   });
-// };

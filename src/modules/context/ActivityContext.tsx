@@ -21,7 +21,7 @@ const defaultContextValue: ActivityContextType = {
   myResponsesSets: [],
   createAllResponsesSet: async () => undefined,
   deleteAllResponsesSet: async () => undefined,
-  participants: [],
+  participants: { members: [], assistants: [] },
 };
 
 const ActivityContext = createContext<ActivityContextType>(defaultContextValue);

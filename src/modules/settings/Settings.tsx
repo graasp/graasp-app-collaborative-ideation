@@ -20,6 +20,7 @@ import { useSettings } from '@/modules/context/SettingsContext';
 
 import ResetSetsButton from '../common/ResetSetsButton';
 import EvaluationTypeSelection from './EvaluationTypeSelection';
+import Assistant from './assistant/Assistant';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface SettingsProps {}
@@ -54,7 +55,7 @@ const Settings: FC<SettingsProps> = () => {
   return (
     <Stack width="100%" spacing={4} direction="column">
       <Typography variant="h3" fontSize="16pt">
-        {t('SETTINGS_TITLE')}
+        {t('SETTINGS.TITLE')}
       </Typography>
       <FormGroup>
         <TextField
@@ -115,6 +116,7 @@ const Settings: FC<SettingsProps> = () => {
         </RadioGroup>
       </FormControl>
       <EvaluationTypeSelection />
+      <Assistant />
       <Button onClick={handleSave}>{t('SAVE')}</Button>
       <ResetSetsButton enable />
     </Stack>

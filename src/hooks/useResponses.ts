@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { useLocalContext } from '@graasp/apps-query-client';
 import { AppDataVisibility, Member, PermissionLevel } from '@graasp/sdk';
 
+import cloneDeep from 'lodash.clonedeep';
 import shuffle from 'lodash.shuffle';
 
 import {
@@ -17,6 +18,7 @@ import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { appDataArrayToMap } from '@/utils/utils';
 
+import { UseParticipantsValue } from './useParticipants';
 import {
   filterBotResponses,
   recursivelyCreateAllOpenSets,
@@ -37,7 +39,7 @@ export interface UseResponsesValues {
 }
 
 interface UseResponsesProps {
-  participants: Member[];
+  participants: UseParticipantsValue;
   round: number;
 }
 
@@ -87,10 +89,11 @@ const useResponses = ({
 
   const myResponsesSets = useMemo((): ResponsesSetAppData[] => {
     const responses = appData.filter(
-      ({ creator, type, member }) =>
+      ({ creator, type, member, data }) =>
         creator?.id === orchestrator.id &&
         type === AppDataTypes.ResponsesSet &&
-        member.id === memberId,
+        member.id === memberId &&
+        typeof data?.assistant === 'undefined',
     ) as ResponsesSetAppData[];
     return responses;
   }, [appData, memberId, orchestrator]);
@@ -133,7 +136,9 @@ const useResponses = ({
   const createAllResponsesSet = async (): Promise<void> => {
     if (permission !== PermissionLevel.Admin) throw Error('You are not admin.');
     let sets: Map<string, ResponseAppData[]>;
-    const participantIterator = participants.entries();
+    let assistantSets: Map<string, ResponseAppData[]>;
+    const participantIterator = participants.members.entries();
+    const assistantsIterator = participants.assistants.entries();
     if (visibilityMode === ResponseVisibilityMode.PartiallyBlind) {
       const participantsRepsonses = appDataArrayToMap(
         shuffle(filterBotResponses(roundResponses, false)),
@@ -141,6 +146,9 @@ const useResponses = ({
       const botResponses = appDataArrayToMap(
         shuffle(filterBotResponses(roundResponses, true)),
       );
+
+      const participantRCopy = cloneDeep(participantsRepsonses);
+      const botRCopy = cloneDeep(botResponses);
 
       sets = recursivelyCreateAllPartiallyBlindSets(
         participantIterator,
@@ -150,11 +158,31 @@ const useResponses = ({
         numberOfBotResponsesPerSet,
         exclusiveResponseDistribution,
       );
+      assistantSets = recursivelyCreateAllPartiallyBlindSets(
+        assistantsIterator,
+        participantRCopy,
+        botRCopy,
+        numberOfResponsesPerSet,
+        numberOfBotResponsesPerSet,
+        exclusiveResponseDistribution,
+      );
     } else {
       const responses = appDataArrayToMap(shuffle(roundResponses));
+      const responsesCopy = cloneDeep(responses);
       sets = recursivelyCreateAllOpenSets(participantIterator, responses);
+      assistantSets = recursivelyCreateAllOpenSets(
+        assistantsIterator,
+        responsesCopy,
+      );
     }
     sets.forEach((responsesSet, participantId) => {
+      const responsesSetDataWithId = responsesSet.map(({ id, data }) => ({
+        id,
+        ...data,
+      }));
+      postResponsesSet(participantId, responsesSetDataWithId);
+    });
+    assistantSets.forEach((responsesSet, participantId) => {
       const responsesSetDataWithId = responsesSet.map(({ id, data }) => ({
         id,
         ...data,
@@ -164,7 +192,7 @@ const useResponses = ({
   };
 
   const deleteAllResponsesSet = async (): Promise<void> => {
-    myResponsesSets.forEach(({ id }) => {
+    allResponsesSets.forEach(({ id }) => {
       deleteAppData({ id });
     });
   };

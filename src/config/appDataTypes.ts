@@ -1,5 +1,6 @@
 import { AppData, AppDataVisibility } from '@graasp/sdk';
 
+import { AssistantId } from '@/interfaces/assistant';
 import { ChatbotResponseData } from '@/interfaces/chatbot';
 import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
 import { NoveltyRelevanceRatings } from '@/interfaces/ratings';
@@ -37,6 +38,7 @@ export type ResponsesSetAppData = AppData & {
   data: {
     round: number;
     responses: ResponsesData;
+    assistant?: AssistantId;
   };
 };
 

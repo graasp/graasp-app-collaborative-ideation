@@ -85,7 +85,7 @@ const AdminPanel: FC<AdminPanelProps> = ({ width }): JSX.Element => {
     >
       <Stack spacing={2} direction="column">
         <Typography variant="h3" fontSize="16pt">
-          {t('ADMIN_PANE_TITLE')}
+          {t('ADMIN_PANEL.TITLE')}
         </Typography>
         <Divider />
         <Orchestration />
