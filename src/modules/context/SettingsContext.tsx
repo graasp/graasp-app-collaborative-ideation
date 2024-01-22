@@ -1,6 +1,6 @@
 import { FC, ReactElement, createContext, useContext } from 'react';
 
-import { DEFAULT_SYSTEM_PROMPT } from '@/config/chatbot';
+import { DEFAULT_SYSTEM_PROMPT } from '@/config/prompts';
 import { AssistantPersona } from '@/interfaces/assistant';
 import { EvaluationType } from '@/interfaces/evaluationType';
 import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
@@ -29,7 +29,7 @@ type AllSettingsType = {
   chatbot: {
     systemPrompt: string;
   };
-  assistant: {
+  assistants: {
     personas: AssistantPersona[];
   };
 };
@@ -56,7 +56,7 @@ const defaultSettingsValues: AllSettingsType = {
   chatbot: {
     systemPrompt: DEFAULT_SYSTEM_PROMPT,
   },
-  assistant: {
+  assistants: {
     personas: [],
   },
 };
@@ -70,7 +70,7 @@ const ALL_SETTING_NAMES = [
   'notParticipating',
   'evaluation',
   'chatbot',
-  'assistant',
+  'assistants',
 ] as const;
 
 // automatically generated types

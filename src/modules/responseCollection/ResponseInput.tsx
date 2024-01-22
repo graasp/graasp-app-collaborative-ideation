@@ -16,7 +16,7 @@ import Button from '@mui/material/Button';
 import { AppData } from '@graasp/sdk';
 
 import { AnonymousResponseData, ResponseData } from '@/config/appDataTypes';
-import { IDEA_MAXIMUM_LENGTH } from '@/config/constants';
+import { RESPONSE_MAXIMUM_LENGTH } from '@/config/constants';
 import useChatbot from '@/hooks/useChatbot';
 
 import Loader from '../common/Loader';
@@ -78,7 +78,7 @@ const ResponseInput: FC<{
       },
     );
   };
-  const tooLong = response.length > IDEA_MAXIMUM_LENGTH;
+  const tooLong = response.length > RESPONSE_MAXIMUM_LENGTH;
   const disableSubmission =
     isPosting || tooLong || response.length === 0 || isWaitingOnBot;
   return (
@@ -105,7 +105,7 @@ const ResponseInput: FC<{
           endAdornment: (
             <InputAdornment position="end">
               <Typography variant="caption">
-                {response.length}/{IDEA_MAXIMUM_LENGTH}
+                {response.length}/{RESPONSE_MAXIMUM_LENGTH}
               </Typography>
             </InputAdornment>
           ),

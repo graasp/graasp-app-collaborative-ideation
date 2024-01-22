@@ -13,6 +13,7 @@ import {
   ResponsesData,
   ResponsesSetAppData,
 } from '@/config/appDataTypes';
+import { AssistantId } from '@/interfaces/assistant';
 import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
@@ -30,6 +31,7 @@ export interface UseResponsesValues {
   myResponses: ResponseAppData[];
   allResponsesSets: ResponsesSetAppData[];
   myResponsesSets: ResponsesSetAppData[];
+  assistantsResponsesSets: ResponsesSetAppData[];
   postResponse: (
     data: ResponseData,
     invalidateAll?: boolean,
@@ -98,6 +100,16 @@ const useResponses = ({
     return responses;
   }, [appData, memberId, orchestrator]);
 
+  const assistantsResponsesSets = useMemo((): ResponsesSetAppData[] => {
+    const responses = appData.filter(
+      ({ creator, type, data }) =>
+        creator?.id === orchestrator.id &&
+        type === AppDataTypes.ResponsesSet &&
+        typeof data?.assistant !== 'undefined',
+    ) as ResponsesSetAppData[];
+    return responses;
+  }, [appData, orchestrator]);
+
   const postResponse = (
     data: ResponseData,
     invalidateAll: boolean = false,
@@ -114,15 +126,17 @@ const useResponses = ({
     });
 
   const postResponsesSet = async (
-    member: Member['id'],
+    id: Member['id'] | AssistantId,
     responsesSet: ResponsesData,
+    forAssistant: boolean = false,
   ): Promise<ResponsesSetAppData> => {
     const payload = {
       data: {
         round,
         responses: responsesSet,
+        assistant: forAssistant ? id : undefined,
       },
-      memberId: member,
+      memberId: forAssistant ? memberId : id,
       type: AppDataTypes.ResponsesSet,
       visibility: AppDataVisibility.Item,
     };
@@ -182,12 +196,12 @@ const useResponses = ({
       }));
       postResponsesSet(participantId, responsesSetDataWithId);
     });
-    assistantSets.forEach((responsesSet, participantId) => {
+    assistantSets.forEach((responsesSet, assistantId) => {
       const responsesSetDataWithId = responsesSet.map(({ id, data }) => ({
         id,
         ...data,
       }));
-      postResponsesSet(participantId, responsesSetDataWithId);
+      postResponsesSet(assistantId, responsesSetDataWithId, true);
     });
   };
 
@@ -203,6 +217,7 @@ const useResponses = ({
     postResponse,
     allResponsesSets,
     myResponsesSets,
+    assistantsResponsesSets,
     createAllResponsesSet,
     deleteAllResponsesSet,
   };

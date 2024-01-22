@@ -94,6 +94,10 @@
         "TITLE": "Act as a bot",
         "HELPER": "With the following field, you can insert new ideas in the ideation process under the identity of the virtual agent."
       }
+    },
+    "PROMPTS": {
+      "SINGLE_RESPONSE": "We are given the following wicked problem:\n<problem>\n{{problemStatement}}\n</problem>\n\nGenerate a single solution to this challenge. Provide only the solution and limit it to {{maxChars}} characters.",
+      "SINGLE_RESPONSE_AND_PROVIDE_RESPONSES": "We are given the following wicked problem:\n<problem>\n{{problemStatement}}\n</problem>\n\nSo far, your teammates have proposed the following solutions to this problem:\n{{responses}}\nGenerate a single solution to this challenge. Provide only the solution and limit it to {{maxChars}} characters."
     }
   }
 }

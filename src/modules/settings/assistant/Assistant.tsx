@@ -18,8 +18,8 @@ const Assistant: FC = () => {
     keyPrefix: 'SETTINGS.ASSISTANT',
   });
   const [editedAssistant, setEditedAssistant] = useState<AssistantPersona>();
-  const { assistant, saveSettings } = useSettings();
-  const { personas } = assistant;
+  const { assistants, saveSettings } = useSettings();
+  const { personas } = assistants;
 
   const handleSave = (newAssistant: AssistantPersona): void => {
     const index = personas.findIndex((p) => p.id === newAssistant.id);
@@ -28,16 +28,16 @@ const Assistant: FC = () => {
     } else {
       personas[index] = newAssistant;
     }
-    saveSettings('assistant', {
-      ...assistant,
+    saveSettings('assistants', {
+      ...assistants,
       personas,
     });
     setEditedAssistant(undefined);
   };
 
   const deleteAssistant = (assistantToDelete: AssistantPersona): void => {
-    saveSettings('assistant', {
-      ...assistant,
+    saveSettings('assistants', {
+      ...assistants,
       personas: personas.filter((a) => a.id !== assistantToDelete.id),
     });
   };
