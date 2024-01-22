@@ -8,6 +8,7 @@ import shuffle from 'lodash.shuffle';
 import {
   AppDataTypes,
   ResponseAppData,
+  ResponseData,
   ResponsesData,
   ResponsesSetAppData,
 } from '@/config/appDataTypes';
@@ -16,28 +17,38 @@ import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { appDataArrayToMap } from '@/utils/utils';
 
-import useActivityState from './useActivityState';
-import useParticipants from './useParticipants';
 import {
   filterBotResponses,
   recursivelyCreateAllOpenSets,
   recursivelyCreateAllPartiallyBlindSets,
 } from './utils/responses';
 
-interface UseResponsesValues {
+export interface UseResponsesValues {
   allResponses: ResponseAppData[];
   myResponses: ResponseAppData[];
   allResponsesSets: ResponsesSetAppData[];
   myResponsesSets: ResponsesSetAppData[];
+  postResponse: (
+    data: ResponseData,
+    invalidateAll?: boolean,
+  ) => Promise<ResponseAppData> | undefined;
   createAllResponsesSet: () => Promise<void>;
   deleteAllResponsesSet: () => Promise<void>;
 }
 
-const useResponses = (): UseResponsesValues => {
-  const { appData, postAppDataAsync, deleteAppData } = useAppDataContext();
+interface UseResponsesProps {
+  participants: Member[];
+  round: number;
+}
+
+const useResponses = ({
+  participants,
+  round,
+}: UseResponsesProps): UseResponsesValues => {
+  const { appData, postAppDataAsync, deleteAppData, invalidateAppData } =
+    useAppDataContext();
   const { memberId, permission } = useLocalContext();
   const { orchestrator, mode } = useSettings();
-  const participants = useParticipants();
   const {
     mode: visibilityMode,
     numberOfResponsesPerSet,
@@ -52,8 +63,6 @@ const useResponses = (): UseResponsesValues => {
     ) as ResponseAppData[];
     return responses;
   }, [appData, memberId]);
-
-  const { round } = useActivityState();
 
   const allResponses = useMemo((): ResponseAppData[] => {
     const responses = appData.filter(
@@ -85,6 +94,21 @@ const useResponses = (): UseResponsesValues => {
     ) as ResponsesSetAppData[];
     return responses;
   }, [appData, memberId, orchestrator]);
+
+  const postResponse = (
+    data: ResponseData,
+    invalidateAll: boolean = false,
+  ): Promise<ResponseAppData> | undefined =>
+    postAppDataAsync({
+      type: AppDataTypes.Response,
+      visibility: AppDataVisibility.Member,
+      data,
+    })?.then((postedIdea) => {
+      if (invalidateAll) {
+        invalidateAppData();
+      }
+      return postedIdea as ResponseAppData;
+    });
 
   const postResponsesSet = async (
     member: Member['id'],
@@ -148,6 +172,7 @@ const useResponses = (): UseResponsesValues => {
   return {
     allResponses,
     myResponses,
+    postResponse,
     allResponsesSets,
     myResponsesSets,
     createAllResponsesSet,

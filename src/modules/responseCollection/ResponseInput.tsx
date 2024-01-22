@@ -13,18 +13,14 @@ import {
 } from '@mui/material';
 import Button from '@mui/material/Button';
 
-import { AppData, AppDataVisibility } from '@graasp/sdk';
+import { AppData } from '@graasp/sdk';
 
-import {
-  AnonymousResponseData,
-  AppDataTypes,
-  ResponseData,
-} from '@/config/appDataTypes';
+import { AnonymousResponseData, ResponseData } from '@/config/appDataTypes';
 import { IDEA_MAXIMUM_LENGTH } from '@/config/constants';
 import useChatbot from '@/hooks/useChatbot';
-import { useAppDataContext } from '@/modules/context/AppDataContext';
 
 import Loader from '../common/Loader';
+import { useActivityContext } from '../context/ActivityContext';
 
 const ResponseInput: FC<{
   currentRound?: number;
@@ -33,14 +29,13 @@ const ResponseInput: FC<{
   actAsBot?: boolean;
 }> = ({ parent, currentRound, onSubmitted, actAsBot }) => {
   const { t } = useTranslation();
+  const { postResponse } = useActivityContext();
   const [isWaitingOnBot, setIsWaitingOnBot] = useState<boolean>(false);
   const [response, setResponse] = useState<string>('');
-  const { postAppDataAsync, invalidateAppData } = useAppDataContext();
-  const [promisePostIdea, setPromisePostIdea] = useState<
-    Promise<AppData> | undefined
-  >();
+  const promisePostIdea = useRef<Promise<AppData>>();
   const { generateSingleResponse } = useChatbot();
   const promiseBotRequest = useRef<Promise<void>>();
+  const [isPosting, setIsPosting] = useState(false);
 
   const askBot = (): void => {
     setIsWaitingOnBot(true);
@@ -60,6 +55,7 @@ const ResponseInput: FC<{
   };
 
   const submit = (): void => {
+    setIsPosting(true);
     const newIdeaData: ResponseData = {
       response,
       parentId: parent?.id,
@@ -67,20 +63,21 @@ const ResponseInput: FC<{
       bot: actAsBot,
     };
 
-    const promise = postAppDataAsync({
-      type: AppDataTypes.Response,
-      visibility: AppDataVisibility.Member,
-      data: newIdeaData,
-    })?.then((postedIdea) => {
-      if (typeof onSubmitted !== 'undefined') onSubmitted(postedIdea.id);
-      setPromisePostIdea(undefined);
-      setResponse('');
-      invalidateAppData();
-      return postedIdea;
-    });
-    setPromisePostIdea(promise);
+    promisePostIdea.current = postResponse(newIdeaData, true)?.then(
+      (postedIdea) => {
+        if (typeof onSubmitted !== 'undefined') {
+          onSubmitted(postedIdea.id);
+        }
+        setResponse('');
+        setIsPosting(false);
+        return postedIdea;
+      },
+      (reason: unknown) => {
+        setIsPosting(false);
+        throw new Error(`Failed to submit the response.\n${reason}`);
+      },
+    );
   };
-  const isPosting = typeof promisePostIdea !== 'undefined';
   const tooLong = response.length > IDEA_MAXIMUM_LENGTH;
   const disableSubmission =
     isPosting || tooLong || response.length === 0 || isWaitingOnBot;

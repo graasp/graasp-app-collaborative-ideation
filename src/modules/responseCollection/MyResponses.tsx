@@ -5,12 +5,13 @@ import Typography from '@mui/material/Typography';
 
 import { useLocalContext } from '@graasp/apps-query-client';
 
-import useResponses from '@/hooks/useResponses';
 import Response from '@/modules/common/response/Response';
+
+import { useActivityContext } from '../context/ActivityContext';
 
 const MyResponses: FC = () => {
   const { memberId } = useLocalContext();
-  const { myResponses } = useResponses();
+  const { myResponses } = useActivityContext();
   if (memberId) {
     return (
       <>

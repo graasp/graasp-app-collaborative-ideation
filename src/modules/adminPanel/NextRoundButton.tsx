@@ -3,8 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import Button from '@mui/material/Button';
 
-import useActivityState from '@/hooks/useActivityState';
-import useResponses from '@/hooks/useResponses';
+import { useActivityContext } from '../context/ActivityContext';
 
 interface NextRoundButtonProps {
   enable: boolean;
@@ -13,8 +12,7 @@ interface NextRoundButtonProps {
 const NextRoundButton: FC<NextRoundButtonProps> = ({ enable }) => {
   const { t } = useTranslation();
   const [isPreparingNextRound, setIsPreparingNextRound] = useState(false);
-  const { createAllResponsesSet } = useResponses();
-  const { nextRound } = useActivityState();
+  const { createAllResponsesSet, nextRound } = useActivityContext();
   const promise = useRef<Promise<void>>();
 
   const prepareNextRound = async (): Promise<void> => {

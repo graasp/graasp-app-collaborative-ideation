@@ -9,6 +9,7 @@ import { SENTRY_ENV } from '@/config/env';
 import { hooks } from '@/config/queryClient';
 
 import i18n from '../../config/i18n';
+import { ActivityProvider } from '../context/ActivityContext';
 import { AppDataProvider } from '../context/AppDataContext';
 import { MembersProvider } from '../context/MembersContext';
 import { SettingsProvider } from '../context/SettingsContext';
@@ -67,7 +68,9 @@ const App = (): JSX.Element => {
   return (
     <MembersProvider>
       <SettingsProvider>
-        <AppDataProvider>{renderContent()}</AppDataProvider>
+        <AppDataProvider>
+          <ActivityProvider>{renderContent()}</ActivityProvider>
+        </AppDataProvider>
       </SettingsProvider>
     </MembersProvider>
   );

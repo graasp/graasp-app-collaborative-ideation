@@ -16,7 +16,6 @@ import {
   ResponsesSetAppData,
 } from '@/config/appDataTypes';
 import { RESPONSE_COLLECTION_VIEW_CY } from '@/config/selectors';
-import useActivityState from '@/hooks/useActivityState';
 import {
   ChoosePhase,
   IdeationPhases,
@@ -27,6 +26,7 @@ import Prompt from '@/modules/common/Prompt';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 
+import { useActivityContext } from '../context/ActivityContext';
 import MyResponses from './MyResponses';
 import PhasesStepper from './PhaseStepper';
 import IdeaChoose from './ResponseChoose';
@@ -40,7 +40,7 @@ const ResponseCollection: FC = () => {
   const [chosenIdea, setChosenIdea] = useState<AnonymousResponseData>();
   const [ideas, setIdeas] = useState<ResponsesData>([]);
   const [ownIdeas, setOwnIdeas] = useState<ResponseAppData[]>([]);
-  const { round } = useActivityState();
+  const { round } = useActivityContext();
   const [phase, setPhase] = useState<number>(IdeationPhases.Choose);
 
   const [openSnackbar, setOpenSnackbar] = useState(false);

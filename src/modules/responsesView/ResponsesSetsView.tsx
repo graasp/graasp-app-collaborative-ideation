@@ -2,10 +2,10 @@ import { Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 
-import useResponses from '@/hooks/useResponses';
+import { useActivityContext } from '../context/ActivityContext';
 
 const ResponsesSetsView = (): JSX.Element => {
-  const { allResponsesSets } = useResponses();
+  const { allResponsesSets } = useActivityContext();
 
   return (
     <Grid container spacing={2}>

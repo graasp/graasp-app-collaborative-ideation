@@ -15,10 +15,10 @@ import {
   ResponsesSetAppData,
 } from '@/config/appDataTypes';
 import { REFRESH_INTERVAL_MS } from '@/config/constants';
-import useActivityState from '@/hooks/useActivityState';
 import { NoveltyRelevanceRatings } from '@/interfaces/ratings';
 import { anonymizeIdeas } from '@/utils/ideas';
 
+import { useActivityContext } from '../context/ActivityContext';
 import { useAppDataContext } from '../context/AppDataContext';
 import Countdown from './Countdown';
 
@@ -33,7 +33,7 @@ const Synchronizer: FC<SynchronizerProps> = ({ sync }) => {
   const { postAppData, patchAppData, appData, invalidateAppData } =
     useAppDataContext();
   const { memberId } = useLocalContext();
-  const { round } = useActivityState();
+  const { round } = useActivityContext();
 
   const [ideasIds, setIdeasIds] = useState<string[]>([]);
 

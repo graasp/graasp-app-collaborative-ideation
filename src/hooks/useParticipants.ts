@@ -5,7 +5,7 @@ import { Member } from '@graasp/sdk';
 import { useMembersContext } from '@/modules/context/MembersContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 
-type UseParticipantsValue = Member[];
+export type UseParticipantsValue = Member[];
 
 const useParticipants = (): UseParticipantsValue => {
   const { notParticipating } = useSettings();
