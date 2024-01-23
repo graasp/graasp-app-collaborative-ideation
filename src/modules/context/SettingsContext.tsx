@@ -1,74 +1,20 @@
 import { FC, ReactElement, createContext, useContext } from 'react';
 
-import { DEFAULT_SYSTEM_PROMPT } from '@/config/prompts';
-import { AssistantPersona } from '@/interfaces/assistant';
-import { EvaluationType } from '@/interfaces/evaluationType';
-import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
+import {
+  AllSettingsType,
+  defaultSettingsValues,
+} from '@/config/appSettingsType';
 
 import { hooks, mutations } from '../../config/queryClient';
 import Loader from '../common/Loader';
 
-// mapping between Setting names and their data type
-// eslint-disable-next-line @typescript-eslint/ban-types
-type AllSettingsType = {
-  prompt: {
-    content: string;
-    type: 'html' | 'markdown' | 'plain-text';
-  };
-  orchestrator: { id: string };
-  mode: {
-    mode: ResponseVisibilityMode;
-    numberOfResponsesPerSet: number;
-    numberOfBotResponsesPerSet: number;
-    exclusiveResponseDistribution: boolean;
-  };
-  notParticipating: { ids: string[] };
-  evaluation: {
-    type: EvaluationType;
-  };
-  chatbot: {
-    systemPrompt: string;
-  };
-  assistants: {
-    personas: AssistantPersona[];
-  };
-};
-
-// default values for the data property of settings by name
-const defaultSettingsValues: AllSettingsType = {
-  prompt: {
-    content: '',
-    type: 'plain-text',
-  },
-  orchestrator: {
-    id: '',
-  },
-  mode: {
-    mode: ResponseVisibilityMode.Open,
-    numberOfResponsesPerSet: 3,
-    numberOfBotResponsesPerSet: 1,
-    exclusiveResponseDistribution: true,
-  },
-  notParticipating: { ids: [] },
-  evaluation: {
-    type: EvaluationType.NoveltyRelevanceRatings,
-  },
-  chatbot: {
-    systemPrompt: DEFAULT_SYSTEM_PROMPT,
-  },
-  assistants: {
-    personas: [],
-  },
-};
-
 // list of the settings names
 const ALL_SETTING_NAMES = [
   // name of your settings
-  'prompt',
+  'instructions',
   'orchestrator',
-  'mode',
+  'activity',
   'notParticipating',
-  'evaluation',
   'chatbot',
   'assistants',
 ] as const;

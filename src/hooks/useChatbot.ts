@@ -21,7 +21,7 @@ interface UseChatbotValues {
 
 const useChatbot = (): UseChatbotValues => {
   const { mutateAsync: postChatBot } = mutations.usePostChatBot();
-  const { chatbot, prompt: generalPrompt, assistants } = useSettings();
+  const { chatbot, instructions: generalPrompt, assistants } = useSettings();
   const { postAppDataAsync } = useAppDataContext();
 
   /**
@@ -38,7 +38,7 @@ const useChatbot = (): UseChatbotValues => {
       },
       {
         role: ChatbotRole.User,
-        content: getSingleResponsePrompt(generalPrompt.content),
+        content: getSingleResponsePrompt(generalPrompt.title.content),
       },
     ]).then((ans) => {
       const a = postAppDataAsync({
@@ -69,7 +69,7 @@ const useChatbot = (): UseChatbotValues => {
   const promptAllAssistants = async (
     prompt: string,
   ): Promise<Promise<ChatbotResponseAppData | undefined>[]> =>
-    assistants.personas.map((p) => promptAssistant(p, prompt));
+    assistants.assistants.map((p) => promptAssistant(p, prompt));
 
   return { generateSingleResponse, promptAssistant, promptAllAssistants };
 };

@@ -19,8 +19,8 @@ const Assistants: FC = () => {
   const { assistantsResponsesSets, round, postResponse } = useActivityContext();
   const { promptAssistant } = useChatbot();
 
-  const { assistants, prompt } = useSettings();
-  const { personas } = assistants;
+  const { assistants: assistantsSetting, instructions } = useSettings();
+  const { assistants } = assistantsSetting;
   const promiseGenerate =
     useRef<Promise<void | Promise<ResponseAppData | undefined>[]>>();
 
@@ -29,7 +29,7 @@ const Assistants: FC = () => {
   const promptAllAssistants = async (): Promise<
     Promise<ResponseAppData | undefined>[]
   > => {
-    const responsesAssistants = personas
+    const responsesAssistants = assistants
       .map((persona) => {
         const assistantSet = assistantsResponsesSets.find(
           (set) =>
@@ -40,7 +40,7 @@ const Assistants: FC = () => {
           return promptAssistant(
             persona,
             promptForSingleResponseAndProvideResponses(
-              prompt.content,
+              instructions.title.content,
               responses,
               t,
             ),
@@ -48,7 +48,7 @@ const Assistants: FC = () => {
         }
         return promptAssistant(
           persona,
-          promptForSingleResponse(prompt.content, t),
+          promptForSingleResponse(instructions.title.content, t),
         );
       })
       .map((promise) =>

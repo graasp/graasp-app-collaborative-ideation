@@ -18,7 +18,8 @@ import { useSettings } from '../context/SettingsContext';
 const ResponseEvaluation: FC = () => {
   const { t } = useTranslation();
   const { myResponsesSets } = useActivityContext();
-  const { evaluation } = useSettings();
+  const { activity } = useSettings();
+  const { evaluationType } = activity;
   const responses = useMemo(
     () => myResponsesSets.flatMap((set) => set.data.responses),
     [myResponsesSets],
@@ -54,7 +55,7 @@ const ResponseEvaluation: FC = () => {
                     key={response.id}
                     response={response}
                     responseId={response.id}
-                    evaluationType={evaluation.type}
+                    evaluationType={evaluationType}
                   />
                 </Grid>
               ))

@@ -11,8 +11,22 @@
     "READ_IDEAS_STEP_TITLE": "Find inspiration",
     "EDIT": "Edit",
     "DELETE": "Delete",
+    "COMING_SOON": "Coming soon!",
     "SETTINGS": {
       "TITLE": "Settings",
+      "INSTRUCTIONS": {
+        "TITLE": "Instructions",
+        "HELPER_TITLE": "Provide a title instruction to be shown in your activity.",
+        "LABEL_TITLE": "Title"
+      },
+      "ORCHESTRATOR": {
+        "TITLE": "Orchestrator",
+        "LABEL": "Select the orchestrator of the activity"
+      },
+      "ACTIVITY": {
+        "TITLE": "Activity",
+        "MODE_LABEL": "Visibility mode"
+      },
       "EVALUATION_TYPE_SELECTION": {
         "TITLE": "Evaluation type",
         "NONE_BTN": "Do not evaluate the responses.",
@@ -46,8 +60,6 @@
         }
       }
     },
-    "HELPER_PROMPT_SETTING": "Provide a prompt to be shown in your activity.",
-    "LABEL_PROMPT_SETTING": "Prompt",
     "SAVE": "Save",
     "CHOOSE_IDEA_HEADER_TEXT": "Read and rate these ideas that have been proposed by other participants. If you find some inspiration, choose one to build upon or propose a brand new idea.",
     "NO_IDEAS_TO_SHOW_TEXT": "The other participants have not submitted enough ideas yet. Once they have, these ideas will appear here.",

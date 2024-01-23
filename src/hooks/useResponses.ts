@@ -52,13 +52,13 @@ const useResponses = ({
   const { appData, postAppDataAsync, deleteAppData, invalidateAppData } =
     useAppDataContext();
   const { memberId, permission } = useLocalContext();
-  const { orchestrator, mode } = useSettings();
+  const { orchestrator, activity } = useSettings();
   const {
     mode: visibilityMode,
     numberOfResponsesPerSet,
     numberOfBotResponsesPerSet,
     exclusiveResponseDistribution,
-  } = mode;
+  } = activity;
 
   const myResponses = useMemo((): ResponseAppData[] => {
     const responses = appData.filter(

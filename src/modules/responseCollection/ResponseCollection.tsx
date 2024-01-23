@@ -19,8 +19,8 @@ import {
   IdeationPhases,
   InputPhase,
 } from '@/interfaces/interactionProcess';
+import Instructions from '@/modules/common/Instructions';
 import Pausable from '@/modules/common/Pausable';
-import Prompt from '@/modules/common/Prompt';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 
@@ -120,7 +120,7 @@ const ResponseCollection: FC = () => {
               // selectStep={(newPhase: number) => setPhase(newPhase)}
             />
           )}
-          <Prompt />
+          <Instructions />
           {renderPhaseOfIdeation()}
           <MyResponses />
           <Snackbar

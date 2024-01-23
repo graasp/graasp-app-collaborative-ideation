@@ -13,8 +13,8 @@ export type UseParticipantsValue = {
 };
 
 const useParticipants = (): UseParticipantsValue => {
-  const { notParticipating, assistants } = useSettings();
-  const { personas } = assistants;
+  const { notParticipating, assistants: assistantsSetting } = useSettings();
+  const { assistants } = assistantsSetting;
   const rawMembers = useMembersContext();
   const members: Participant<Member>[] = useMemo(
     () =>
@@ -24,8 +24,8 @@ const useParticipants = (): UseParticipantsValue => {
     [notParticipating, rawMembers],
   );
   const assistantsParticipants: Participant<AssistantPersona>[] = useMemo(
-    () => personas.map((a) => ({ type: ParticipantType.Bot, ...a })),
-    [personas],
+    () => assistants.map((a) => ({ type: ParticipantType.Bot, ...a })),
+    [assistants],
   );
   return { members, assistants: assistantsParticipants };
 };

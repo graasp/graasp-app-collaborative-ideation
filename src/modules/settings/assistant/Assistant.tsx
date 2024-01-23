@@ -6,39 +6,44 @@ import Grid from '@mui/material/Grid';
 
 import { v4 as uuidv4 } from 'uuid';
 
+import { AssistantsSetting } from '@/config/appSettingsType';
 import { AssistantPersona, makeEmptyAssistant } from '@/interfaces/assistant';
 import SectionTitle from '@/modules/adminPanel/SectionTitle';
-import { useSettings } from '@/modules/context/SettingsContext';
 
 import AssistantCard from './AssistantCard';
 import AssistantDialog from './AssistantDialog';
 
-const Assistant: FC = () => {
+interface AssistantProps {
+  assistants: AssistantsSetting;
+  onChange: (newAssistantsSetting: AssistantsSetting) => void;
+}
+
+const Assistant: FC<AssistantProps> = ({
+  assistants: assistantsSetting,
+  onChange,
+}) => {
   const { t } = useTranslation('translations', {
     keyPrefix: 'SETTINGS.ASSISTANT',
   });
   const [editedAssistant, setEditedAssistant] = useState<AssistantPersona>();
-  const { assistants, saveSettings } = useSettings();
-  const { personas } = assistants;
+  const { assistants } = assistantsSetting;
 
   const handleSave = (newAssistant: AssistantPersona): void => {
-    const index = personas.findIndex((p) => p.id === newAssistant.id);
+    const index = assistants.findIndex((p) => p.id === newAssistant.id);
     if (index === -1) {
-      personas.push(newAssistant);
+      assistants.push(newAssistant);
     } else {
-      personas[index] = newAssistant;
+      assistants[index] = newAssistant;
     }
-    saveSettings('assistants', {
-      ...assistants,
-      personas,
+    onChange({
+      assistants,
     });
     setEditedAssistant(undefined);
   };
 
   const deleteAssistant = (assistantToDelete: AssistantPersona): void => {
-    saveSettings('assistants', {
-      ...assistants,
-      personas: personas.filter((a) => a.id !== assistantToDelete.id),
+    onChange({
+      assistants: assistants.filter((a) => a.id !== assistantToDelete.id),
     });
   };
 
@@ -51,8 +56,8 @@ const Assistant: FC = () => {
   return (
     <>
       <SectionTitle>{t('TITLE')}</SectionTitle>
-      <Grid container spacing={2}>
-        {personas.map((persona) => (
+      <Grid container spacing={1}>
+        {assistants.map((persona) => (
           <Grid key={persona.id} item>
             <AssistantCard
               assistant={persona}

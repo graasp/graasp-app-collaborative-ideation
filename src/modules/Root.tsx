@@ -2,8 +2,11 @@ import { FC } from 'react';
 import { I18nextProvider } from 'react-i18next';
 
 import { CssBaseline, ThemeProvider, createTheme, styled } from '@mui/material';
-import { grey, orange } from '@mui/material/colors';
-import { StyledEngineProvider } from '@mui/material/styles';
+import { grey, orange, pink } from '@mui/material/colors';
+import {
+  StyledEngineProvider,
+  responsiveFontSizes,
+} from '@mui/material/styles';
 
 import {
   GraaspContextDevTool,
@@ -44,34 +47,54 @@ declare module '@mui/material/styles' {
   }
 }
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      light: '#5091d2',
-      main: '#5050d2',
-    },
-    secondary: {
-      main: '#d250d2',
-    },
-    default: grey['500'],
-    background: {
-      paper: '#fff',
-    },
-  },
-  status: {
-    danger: {
-      background: orange['400'],
-      color: '#fff',
-    },
-  },
-  components: {
-    MuiButton: {
-      defaultProps: {
-        variant: 'contained',
+const theme = responsiveFontSizes(
+  createTheme({
+    palette: {
+      primary: {
+        main: '#5050d2',
+      },
+      secondary: pink,
+      default: grey['500'],
+      background: {
+        paper: '#fff',
       },
     },
-  },
-});
+    status: {
+      danger: {
+        background: orange['400'],
+        color: '#fff',
+      },
+    },
+    components: {
+      MuiTypography: {
+        defaultProps: {
+          variantMapping: {
+            h1: 'h2',
+            h2: 'h3',
+            h3: 'h4',
+            h4: 'h5',
+            h5: 'h6',
+            h6: 'h6',
+            subtitle1: 'h3',
+            subtitle2: 'h3',
+          },
+        },
+      },
+    },
+    typography: {
+      h1: {
+        fontSize: '1.8rem',
+      },
+      h2: {
+        fontSize: '1.5rem',
+        fontWeight: 'bold',
+      },
+      h3: {
+        fontSize: '1.5rem',
+      },
+    },
+  }),
+);
 
 const RootDiv = styled('div')({
   flexGrow: 1,

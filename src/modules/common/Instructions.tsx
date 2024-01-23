@@ -5,15 +5,15 @@ import Typography from '@mui/material/Typography';
 import { useSettings } from '../context/SettingsContext';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface PromptProps {}
+interface InstructionsProps {}
 
-const Prompt: FC<PromptProps> = () => {
-  const { prompt } = useSettings();
+const Instructions: FC<InstructionsProps> = () => {
+  const { instructions } = useSettings();
   return (
     <Typography sx={{ fontSize: '18pt' }} variant="h4">
-      {prompt.content}
+      {instructions.title.content}
     </Typography>
   );
 };
 
-export default Prompt;
+export default Instructions;
