@@ -10,10 +10,8 @@ import { useLocalContext } from '@graasp/apps-query-client';
 
 import {
   AnonymousResponseData,
-  AppDataTypes,
   ResponseAppData,
   ResponsesData,
-  ResponsesSetAppData,
 } from '@/config/appDataTypes';
 import { RESPONSE_COLLECTION_VIEW_CY } from '@/config/selectors';
 import {
@@ -35,12 +33,12 @@ import IdeaInput from './ResponseInput';
 const ResponseCollection: FC = () => {
   const { t } = useTranslation();
   const { appData, isSuccess } = useAppDataContext();
+  const { myResponsesSets, myResponses, round } = useActivityContext();
   const { memberId } = useLocalContext();
   const { orchestrator } = useSettings();
   const [chosenIdea, setChosenIdea] = useState<AnonymousResponseData>();
   const [ideas, setIdeas] = useState<ResponsesData>([]);
   const [ownIdeas, setOwnIdeas] = useState<ResponseAppData[]>([]);
-  const { round } = useActivityContext();
   const [phase, setPhase] = useState<number>(IdeationPhases.Choose);
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -57,21 +55,24 @@ const ResponseCollection: FC = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      const currentIdeaSet = appData.find(
-        (a) =>
-          a.type === AppDataTypes.ResponsesSet &&
-          a.member.id === orchestrator.id,
-      ) as ResponsesSetAppData;
-      const ownIdeasTmp = appData.filter(
-        ({ type, creator }) =>
-          creator?.id === memberId && type === AppDataTypes.Response,
-      ) as ResponseAppData[];
+      const currentIdeaSet = myResponsesSets.find(
+        (a) => a.data.round === round - 1,
+      );
+      const ownIdeasTmp = myResponses;
       setOwnIdeas(ownIdeasTmp);
       if (typeof currentIdeaSet !== 'undefined') {
         setIdeas(currentIdeaSet.data.responses);
       }
     }
-  }, [appData, isSuccess, memberId, orchestrator]);
+  }, [
+    appData,
+    isSuccess,
+    memberId,
+    myResponses,
+    myResponsesSets,
+    orchestrator,
+    round,
+  ]);
 
   const handleChoose = (id?: string): void => {
     const idea = ideas?.find((i) => i.id === id) as
