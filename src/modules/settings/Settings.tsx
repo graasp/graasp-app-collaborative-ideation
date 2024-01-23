@@ -50,6 +50,7 @@ const Settings: FC<SettingsProps> = () => {
     saveSettings('instructions', instructions);
     saveSettings('orchestrator', orchestrator);
     saveSettings('activity', activity);
+    saveSettings('assistants', assistants);
   };
 
   const isSaved = useMemo(
