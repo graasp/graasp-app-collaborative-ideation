@@ -57,10 +57,13 @@ const Settings: FC<SettingsProps> = () => {
     () =>
       isEqual(instructions, instructionsSaved) &&
       isEqual(orchestrator, orchestratorSaved) &&
-      isEqual(activity, activitySaved),
+      isEqual(activity, activitySaved) &&
+      isEqual(assistants, assistantsSaved),
     [
       activity,
       activitySaved,
+      assistants,
+      assistantsSaved,
       instructions,
       instructionsSaved,
       orchestrator,
