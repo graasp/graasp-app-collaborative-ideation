@@ -1,6 +1,7 @@
 import { FC, useEffect, useMemo, useState } from 'react';
 
-import { CardActions } from '@mui/material';
+import CardActions from '@mui/material/CardActions';
+import Container from '@mui/material/Container';
 
 import { useLocalContext } from '@graasp/apps-query-client';
 import { AppDataVisibility } from '@graasp/sdk';
@@ -101,20 +102,22 @@ const UsefulnessNoveltyRating: FC<{
         flexDirection: 'column',
       }}
     >
-      <LikertScale
-        onChange={(rating) => handleRatingChange('novelty', rating)}
-        minLabel="Common"
-        maxLabel="Novel"
-        levels={7}
-        value={noveltyRating}
-      />
-      <LikertScale
-        onChange={(rating) => handleRatingChange('relevance', rating)}
-        minLabel="Useless"
-        maxLabel="Useful"
-        levels={7}
-        value={relevanceRating}
-      />
+      <Container>
+        <LikertScale
+          onChange={(rating) => handleRatingChange('novelty', rating)}
+          minLabel="Common"
+          maxLabel="Novel"
+          levels={7}
+          value={noveltyRating}
+        />
+        <LikertScale
+          onChange={(rating) => handleRatingChange('relevance', rating)}
+          minLabel="Useless"
+          maxLabel="Useful"
+          levels={7}
+          value={relevanceRating}
+        />
+      </Container>
     </CardActions>
   );
 };
