@@ -1,6 +1,7 @@
 {
   "translations": {
     "Welcome to the Graasp App Starter Kit": "Welcome to the Graasp App Starter Kit",
+    "VERSION": "version {{version}}",
     "ACTIVITY_TAB": "Activity",
     "RESPONSES_VIEW_TAB": "Responses view",
     "SETTINGS_TAB": "Settings",

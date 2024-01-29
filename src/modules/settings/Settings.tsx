@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 
 import isEqual from 'lodash.isequal';
 
+import { version } from '@/../package.json';
 import {
   ActivitySetting,
   AssistantsSetting,
@@ -76,6 +77,7 @@ const Settings: FC<SettingsProps> = () => {
       <Typography variant="h2" fontSize="16pt">
         {t('SETTINGS.TITLE')}
       </Typography>
+      <Typography variant="subtitle1">{t('VERSION', { version })}</Typography>
       <InstructionsSettings
         instructions={instructions}
         onChange={setInstructions}
