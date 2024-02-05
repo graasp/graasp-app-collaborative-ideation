@@ -87,7 +87,7 @@
       "TITLE": "Response Evaluation"
     },
     "RATINGS": {
-      "USEFULNESS_RELEVANCE": {
+      "USEFULNESS_NOVELTY": {
         "COMMON": "Common",
         "NOVEL": "Novel",
         "USELESS": "Useless",

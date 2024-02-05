@@ -60,7 +60,7 @@ export const defaultSettingsValues: AllSettingsType = {
     numberOfResponsesPerSet: 3,
     numberOfBotResponsesPerSet: 1,
     exclusiveResponseDistribution: true,
-    evaluationType: EvaluationType.NoveltyRelevanceRatings,
+    evaluationType: EvaluationType.UsefulnessNoveltyRating,
   },
   notParticipating: { ids: [] },
   chatbot: {

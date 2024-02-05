@@ -2,8 +2,9 @@ import { AppData, AppDataVisibility } from '@graasp/sdk';
 
 import { AssistantId } from '@/interfaces/assistant';
 import { ChatbotResponseData } from '@/interfaces/chatbot';
+import { EvaluationType } from '@/interfaces/evaluationType';
 import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
-import { NoveltyRelevanceRatings } from '@/interfaces/ratings';
+import { UsefulnessNoveltyRatings } from '@/interfaces/ratings';
 
 export enum AppDataTypes {
   Response = 'response',
@@ -13,7 +14,7 @@ export enum AppDataTypes {
   ChatbotResponse = 'chatbot-response',
 }
 
-export type ResponseData<T = NoveltyRelevanceRatings> = {
+export type ResponseData<T = UsefulnessNoveltyRatings> = {
   response: string;
   round?: number;
   bot?: boolean;
@@ -22,10 +23,10 @@ export type ResponseData<T = NoveltyRelevanceRatings> = {
   ratings?: T;
 };
 
-export type AnonymousResponseData<RatingsT = NoveltyRelevanceRatings> =
+export type AnonymousResponseData<RatingsT = UsefulnessNoveltyRatings> =
   ResponseData<RatingsT> & { id: string };
 
-export type ResponsesData<RatingsT = NoveltyRelevanceRatings> =
+export type ResponsesData<RatingsT = UsefulnessNoveltyRatings> =
   AnonymousResponseData<RatingsT>[];
 
 export type ResponseAppData = AppData & {
@@ -55,6 +56,7 @@ export type CurrentStateAppData = AppData & {
 
 export type RatingsData<T> = {
   ideaRef: string;
+  type: EvaluationType;
   ratings: T;
 };
 
