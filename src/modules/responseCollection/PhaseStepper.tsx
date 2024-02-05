@@ -1,4 +1,4 @@
-import { StepLabel } from '@mui/material';
+import { StepButton } from '@mui/material';
 import Step from '@mui/material/Step';
 import Stepper from '@mui/material/Stepper';
 
@@ -14,14 +14,14 @@ const PhasesStepper = (props: {
   const { activeStep, steps, selectStep } = props;
   const sortedSteps = steps.sort((a, b) => a.phase - b.phase);
   return (
-    <Stepper activeStep={activeStep}>
+    <Stepper nonLinear activeStep={activeStep}>
       {sortedSteps.map((step) => (
         <Step key={step.label}>
-          <StepLabel>{step.label}</StepLabel>
-          {/* TODO: Add interactivity to the stepper.
+          {/* <StepLabel>{step.label}</StepLabel> */}
+          {/* TODO: Add interactivity to the stepper. */}
           <StepButton onClick={() => selectStep && selectStep(step.phase)}>
             {step.label}
-          </StepButton> */}
+          </StepButton>
         </Step>
       ))}
     </Stepper>
