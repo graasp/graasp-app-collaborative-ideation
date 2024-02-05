@@ -1,5 +1,38 @@
 # Changelog
 
+## [2.0.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v1.2.0...v2.0.0) (2024-02-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* **settings:** settings definition has changed
+
+### Features
+
+* chatbot hook for generating single answer ([855214b](https://github.com/graasp/graasp-app-collaborative-ideation/commit/855214b5a2c1eff958e8f7a7f4b2dd3c4a2d096f))
+* display version in settings ([855214b](https://github.com/graasp/graasp-app-collaborative-ideation/commit/855214b5a2c1eff958e8f7a7f4b2dd3c4a2d096f))
+* generate responses with chatbot ([855214b](https://github.com/graasp/graasp-app-collaborative-ideation/commit/855214b5a2c1eff958e8f7a7f4b2dd3c4a2d096f))
+* implement virtual agent ([855214b](https://github.com/graasp/graasp-app-collaborative-ideation/commit/855214b5a2c1eff958e8f7a7f4b2dd3c4a2d096f))
+* **settings:** set assistants ([855214b](https://github.com/graasp/graasp-app-collaborative-ideation/commit/855214b5a2c1eff958e8f7a7f4b2dd3c4a2d096f))
+
+
+### Bug Fixes
+
+* **deps:** upgrade deps ([855214b](https://github.com/graasp/graasp-app-collaborative-ideation/commit/855214b5a2c1eff958e8f7a7f4b2dd3c4a2d096f))
+* improve chatbot config ([855214b](https://github.com/graasp/graasp-app-collaborative-ideation/commit/855214b5a2c1eff958e8f7a7f4b2dd3c4a2d096f))
+* likert scale ([855214b](https://github.com/graasp/graasp-app-collaborative-ideation/commit/855214b5a2c1eff958e8f7a7f4b2dd3c4a2d096f))
+* save assistants after edit ([855214b](https://github.com/graasp/graasp-app-collaborative-ideation/commit/855214b5a2c1eff958e8f7a7f4b2dd3c4a2d096f))
+* sending set to correct member ([855214b](https://github.com/graasp/graasp-app-collaborative-ideation/commit/855214b5a2c1eff958e8f7a7f4b2dd3c4a2d096f))
+* **settings:** check for assistants modifs ([855214b](https://github.com/graasp/graasp-app-collaborative-ideation/commit/855214b5a2c1eff958e8f7a7f4b2dd3c4a2d096f))
+* **settings:** save assistants ([855214b](https://github.com/graasp/graasp-app-collaborative-ideation/commit/855214b5a2c1eff958e8f7a7f4b2dd3c4a2d096f))
+* translate ratings ([855214b](https://github.com/graasp/graasp-app-collaborative-ideation/commit/855214b5a2c1eff958e8f7a7f4b2dd3c4a2d096f))
+* type problems with AppData ([855214b](https://github.com/graasp/graasp-app-collaborative-ideation/commit/855214b5a2c1eff958e8f7a7f4b2dd3c4a2d096f))
+
+
+### Code Refactoring
+
+* **settings:** all settings and corresponding view ([855214b](https://github.com/graasp/graasp-app-collaborative-ideation/commit/855214b5a2c1eff958e8f7a7f4b2dd3c4a2d096f))
+
 ## [1.2.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v1.1.0...v1.2.0) (2023-09-14)
 
 
