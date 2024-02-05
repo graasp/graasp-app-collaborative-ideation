@@ -10,10 +10,12 @@ import {
 } from '../../config/queryClient';
 import Loader from '../common/Loader';
 
+type AnyData = { [key: string]: unknown };
+
 type PostAppDataType = {
-  data: { [key: string]: unknown };
+  data: AnyData;
   type: string;
-  visibility?: AppData['visibility'];
+  visibility?: AppData<AnyData>['visibility'];
   memberId?: string;
 };
 
@@ -28,10 +30,12 @@ type DeleteAppDataType = {
 
 export type AppDataContextType = {
   postAppData: (payload: PostAppDataType) => void;
-  postAppDataAsync: (payload: PostAppDataType) => Promise<AppData> | undefined;
+  postAppDataAsync: (
+    payload: PostAppDataType,
+  ) => Promise<AppData<AnyData>> | undefined;
   patchAppData: (payload: PatchAppDataType) => void;
   deleteAppData: (payload: DeleteAppDataType) => void;
-  appData: AppData[];
+  appData: AppData<AnyData>[];
   isSuccess: boolean;
   isLoading: boolean;
   invalidateAppData: () => Promise<void>;
