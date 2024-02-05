@@ -1,6 +1,7 @@
 {
   "translations": {
     "Welcome to the Graasp App Starter Kit": "Welcome to the Graasp App Starter Kit",
+    "VERSION": "version {{version}}",
     "ACTIVITY_TAB": "Activity",
     "RESPONSES_VIEW_TAB": "Responses view",
     "SETTINGS_TAB": "Settings",
@@ -9,30 +10,67 @@
     "IDEA_SUBMITTED_SUCCESS": "Your idea was successfully submitted.",
     "SUBMIT_NEW_IDEA_STEP_TITLE": "Submit a new idea",
     "READ_IDEAS_STEP_TITLE": "Find inspiration",
-    "ADMIN_PANE_TITLE": "Admin Panel",
-    "SETTINGS_TITLE": "Settings",
+    "EDIT": "Edit",
+    "DELETE": "Delete",
+    "COMING_SOON": "Coming soon!",
     "SETTINGS": {
       "TITLE": "Settings",
+      "INSTRUCTIONS": {
+        "TITLE": "Instructions",
+        "HELPER_TITLE": "Provide a title instruction to be shown in your activity.",
+        "LABEL_TITLE": "Title"
+      },
+      "ORCHESTRATOR": {
+        "TITLE": "Orchestrator",
+        "LABEL": "Select the orchestrator of the activity"
+      },
+      "ACTIVITY": {
+        "TITLE": "Activity",
+        "MODE_LABEL": "Visibility mode"
+      },
       "EVALUATION_TYPE_SELECTION": {
         "TITLE": "Evaluation type",
         "NONE_BTN": "Do not evaluate the responses.",
         "VOTE_BTN": "Evaluate the responses by votes.",
         "NOV_REL_RATINGS_BTN": "Evaluate the responses by rating the relevance and novelty.",
         "USE_NOV_RATINGS_BTN": "Evaluate the responses by rating the usefulness and novelty."
+      },
+      "ASSISTANT": {
+        "TITLE": "Assistants",
+        "ADD": "Add an assistant",
+        "EDIT_DIALOG": {
+          "CHATBOT_NAME_LABEL": "Chatbot Name",
+          "CHATBOT_NAME_HELPER": "This is the name that users will see when they interact with the chatbot",
+          "CHATBOT_NAME_DEFAULT_MESSAGE": "by default",
+          "CHATBOT_PROMPT_LABEL": "Chatbot Prompt",
+          "CHATBOT_PROMPT_HELPER_LABEL": "In-depth technical description",
+          "CHATBOT_PROMPT_HELPER": "This is the name that users will see when they interact with the chatbot",
+          "CHATBOT_PROMPT_FORMAT_HELPER": "To describe the initial situation, create an object at the start of the array with 2 keys: 'role' and 'content'. For the initial description the role must be 'system'. Place your description of the initial situation in the 'content' key. Add interaction examples after that. Add one object per message with the role corresponding to either 'assistant' or 'user'.",
+          "CHATBOT_PROMPT_FORMAT_EXAMPLE": "Here is an example",
+          "CHATBOT_PROMPT_API_REFERENCE": "See the API reference",
+          "CHATBOT_CUE_LABEL": "Cue",
+          "CHATBOT_CUE_HELPER": "This defines the content of the first message of the chatbot. You can change it to better orient the conversation with the user.",
+          "CHATBOT_CUE_EMPTY_MESSAGE": "The cue is empty.",
+          "CHATBOT_CONFIGURATION_MISSING": "This chatbot has not been configured yet.",
+          "CANCEL_LABEL": "Cancel",
+          "EDIT_LABEL": "Edit",
+          "CHATBOT_SETTING_TITLE": "Chatbot",
+          "ERROR_PROMPT_NOT_IN_JSON_FORMAT": "Prompt has to be in JSON format.",
+          "SAVE_LABEL": "Save",
+          "SAVED_LABEL": "Saved"
+        }
       }
     },
-    "HELPER_PROMPT_SETTING": "Provide a prompt to be shown in your activity.",
-    "LABEL_PROMPT_SETTING": "Prompt",
     "SAVE": "Save",
-    "CHOOSE_IDEA_HEADER_TEXT": "Read and rate these ideas that have been proposed by other participants. If you find some inspiration, choose one to build upon or propose a brand new idea.",
+    "CHOOSE_RESPONSE_HEADER_TEXT": "Read these responses that have been proposed by other participants. Choose one to build upon or propose a new response.",
     "NO_IDEAS_TO_SHOW_TEXT": "The other participants have not submitted enough ideas yet. Once they have, these ideas will appear here.",
     "SUBMIT": "Submit",
     "BOT_NAME": "GraaspBot",
     "SYNC_ALERT_SUCCESS": "All ideas are sync.",
-    "CUE_PARENT_IDEA_TITLE": "Previous idea",
-    "IDEA_BEING_SUBMITTED_ALERT": "Your idea is being submitted, please wait for a few seconds.",
-    "CHECK_FOR_NEW_IDEAS": "Check for new ideas",
-    "PROPOSE_NEW_IDEA": "Propose a new idea",
+    "CUE_PARENT_IDEA_TITLE": "Previous response",
+    "IDEA_BEING_SUBMITTED_ALERT": "Your response is being submitted, please wait for a few seconds.",
+    "CHECK_FOR_NEW_IDEAS": "Check for new responses",
+    "PROPOSE_NEW_IDEA": "Propose a new response",
     "STATE_CONTROL_TITLE": "Controls",
     "PAUSE_MESSAGE": "The process has been paused by the admin. Please, wait for a moment.",
     "WAIT_TO_START_SCREEN_MAIN_INSTRUCTION": "The ideation will start soon. In the meantime, please, read the following instructions:",
@@ -44,7 +82,16 @@
     "RESPONSE_EVALUATION": {
       "TITLE": "Response Evaluation"
     },
+    "RATINGS": {
+      "USEFULNESS_RELEVANCE": {
+        "COMMON": "Common",
+        "NOVEL": "Novel",
+        "USELESS": "Useless",
+        "USEFUL": "Useful"
+      }
+    },
     "ADMIN_PANEL": {
+      "TITLE": "Admin panel",
       "CONTROLS": {
         "TITLE": "Controls",
         "ROUND_HELPER": "Round {{round}}",
@@ -68,6 +115,10 @@
         "TITLE": "Act as a bot",
         "HELPER": "With the following field, you can insert new ideas in the ideation process under the identity of the virtual agent."
       }
+    },
+    "PROMPTS": {
+      "SINGLE_RESPONSE": "We are given the following wicked problem:\n<problem>\n{{problemStatement}}\n</problem>\n\nGenerate a single solution to this challenge. Provide only the solution and limit it to {{maxChars}} characters.",
+      "SINGLE_RESPONSE_AND_PROVIDE_RESPONSES": "We are given the following wicked problem:\n<problem>\n{{problemStatement}}\n</problem>\n\nSo far, your teammates have proposed the following solutions to this problem:\n{{responses}}\nGenerate a single solution to this challenge. Provide only the solution and limit it to {{maxChars}} characters."
     }
   }
 }

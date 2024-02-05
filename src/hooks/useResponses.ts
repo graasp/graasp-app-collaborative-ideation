@@ -3,47 +3,62 @@ import { useMemo } from 'react';
 import { useLocalContext } from '@graasp/apps-query-client';
 import { AppDataVisibility, Member, PermissionLevel } from '@graasp/sdk';
 
+import cloneDeep from 'lodash.clonedeep';
 import shuffle from 'lodash.shuffle';
 
 import {
   AppDataTypes,
   ResponseAppData,
+  ResponseData,
   ResponsesData,
   ResponsesSetAppData,
 } from '@/config/appDataTypes';
+import { AssistantId } from '@/interfaces/assistant';
 import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { appDataArrayToMap } from '@/utils/utils';
 
-import useActivityState from './useActivityState';
-import useParticipants from './useParticipants';
+import { UseParticipantsValue } from './useParticipants';
 import {
   filterBotResponses,
   recursivelyCreateAllOpenSets,
   recursivelyCreateAllPartiallyBlindSets,
 } from './utils/responses';
 
-interface UseResponsesValues {
+export interface UseResponsesValues {
   allResponses: ResponseAppData[];
   myResponses: ResponseAppData[];
   allResponsesSets: ResponsesSetAppData[];
   myResponsesSets: ResponsesSetAppData[];
+  assistantsResponsesSets: ResponsesSetAppData[];
+  postResponse: (
+    data: ResponseData,
+    invalidateAll?: boolean,
+  ) => Promise<ResponseAppData> | undefined;
   createAllResponsesSet: () => Promise<void>;
   deleteAllResponsesSet: () => Promise<void>;
 }
 
-const useResponses = (): UseResponsesValues => {
-  const { appData, postAppDataAsync, deleteAppData } = useAppDataContext();
+interface UseResponsesProps {
+  participants: UseParticipantsValue;
+  round: number;
+}
+
+const useResponses = ({
+  participants,
+  round,
+}: UseResponsesProps): UseResponsesValues => {
+  const { appData, postAppDataAsync, deleteAppData, invalidateAppData } =
+    useAppDataContext();
   const { memberId, permission } = useLocalContext();
-  const { orchestrator, mode } = useSettings();
-  const participants = useParticipants();
+  const { orchestrator, activity } = useSettings();
   const {
     mode: visibilityMode,
     numberOfResponsesPerSet,
     numberOfBotResponsesPerSet,
     exclusiveResponseDistribution,
-  } = mode;
+  } = activity;
 
   const myResponses = useMemo((): ResponseAppData[] => {
     const responses = appData.filter(
@@ -52,8 +67,6 @@ const useResponses = (): UseResponsesValues => {
     ) as ResponseAppData[];
     return responses;
   }, [appData, memberId]);
-
-  const { round } = useActivityState();
 
   const allResponses = useMemo((): ResponseAppData[] => {
     const responses = appData.filter(
@@ -78,24 +91,52 @@ const useResponses = (): UseResponsesValues => {
 
   const myResponsesSets = useMemo((): ResponsesSetAppData[] => {
     const responses = appData.filter(
-      ({ creator, type, member }) =>
+      ({ creator, type, member, data }) =>
         creator?.id === orchestrator.id &&
         type === AppDataTypes.ResponsesSet &&
-        member.id === memberId,
+        member.id === memberId &&
+        typeof data?.assistant === 'undefined',
     ) as ResponsesSetAppData[];
     return responses;
   }, [appData, memberId, orchestrator]);
 
+  const assistantsResponsesSets = useMemo((): ResponsesSetAppData[] => {
+    const responses = appData.filter(
+      ({ creator, type, data }) =>
+        creator?.id === orchestrator.id &&
+        type === AppDataTypes.ResponsesSet &&
+        typeof data?.assistant !== 'undefined',
+    ) as ResponsesSetAppData[];
+    return responses;
+  }, [appData, orchestrator]);
+
+  const postResponse = (
+    data: ResponseData,
+    invalidateAll: boolean = false,
+  ): Promise<ResponseAppData> | undefined =>
+    postAppDataAsync({
+      type: AppDataTypes.Response,
+      visibility: AppDataVisibility.Member,
+      data,
+    })?.then((postedIdea) => {
+      if (invalidateAll) {
+        invalidateAppData();
+      }
+      return postedIdea as ResponseAppData;
+    });
+
   const postResponsesSet = async (
-    member: Member['id'],
+    id: Member['id'] | AssistantId,
     responsesSet: ResponsesData,
+    forAssistant: boolean = false,
   ): Promise<ResponsesSetAppData> => {
     const payload = {
       data: {
         round,
         responses: responsesSet,
+        assistant: forAssistant ? id : undefined,
       },
-      member: { id: member },
+      memberId: forAssistant ? memberId : id,
       type: AppDataTypes.ResponsesSet,
       visibility: AppDataVisibility.Item,
     };
@@ -109,7 +150,9 @@ const useResponses = (): UseResponsesValues => {
   const createAllResponsesSet = async (): Promise<void> => {
     if (permission !== PermissionLevel.Admin) throw Error('You are not admin.');
     let sets: Map<string, ResponseAppData[]>;
-    const participantIterator = participants.entries();
+    let assistantSets: Map<string, ResponseAppData[]>;
+    const participantIterator = participants.members.entries();
+    const assistantsIterator = participants.assistants.entries();
     if (visibilityMode === ResponseVisibilityMode.PartiallyBlind) {
       const participantsRepsonses = appDataArrayToMap(
         shuffle(filterBotResponses(roundResponses, false)),
@@ -117,6 +160,9 @@ const useResponses = (): UseResponsesValues => {
       const botResponses = appDataArrayToMap(
         shuffle(filterBotResponses(roundResponses, true)),
       );
+
+      const participantRCopy = cloneDeep(participantsRepsonses);
+      const botRCopy = cloneDeep(botResponses);
 
       sets = recursivelyCreateAllPartiallyBlindSets(
         participantIterator,
@@ -126,9 +172,22 @@ const useResponses = (): UseResponsesValues => {
         numberOfBotResponsesPerSet,
         exclusiveResponseDistribution,
       );
+      assistantSets = recursivelyCreateAllPartiallyBlindSets(
+        assistantsIterator,
+        participantRCopy,
+        botRCopy,
+        numberOfResponsesPerSet,
+        numberOfBotResponsesPerSet,
+        exclusiveResponseDistribution,
+      );
     } else {
       const responses = appDataArrayToMap(shuffle(roundResponses));
+      const responsesCopy = cloneDeep(responses);
       sets = recursivelyCreateAllOpenSets(participantIterator, responses);
+      assistantSets = recursivelyCreateAllOpenSets(
+        assistantsIterator,
+        responsesCopy,
+      );
     }
     sets.forEach((responsesSet, participantId) => {
       const responsesSetDataWithId = responsesSet.map(({ id, data }) => ({
@@ -137,10 +196,17 @@ const useResponses = (): UseResponsesValues => {
       }));
       postResponsesSet(participantId, responsesSetDataWithId);
     });
+    assistantSets.forEach((responsesSet, assistantId) => {
+      const responsesSetDataWithId = responsesSet.map(({ id, data }) => ({
+        id,
+        ...data,
+      }));
+      postResponsesSet(assistantId, responsesSetDataWithId, true);
+    });
   };
 
   const deleteAllResponsesSet = async (): Promise<void> => {
-    myResponsesSets.forEach(({ id }) => {
+    allResponsesSets.forEach(({ id }) => {
       deleteAppData({ id });
     });
   };
@@ -148,8 +214,10 @@ const useResponses = (): UseResponsesValues => {
   return {
     allResponses,
     myResponses,
+    postResponse,
     allResponsesSets,
     myResponsesSets,
+    assistantsResponsesSets,
     createAllResponsesSet,
     deleteAllResponsesSet,
   };

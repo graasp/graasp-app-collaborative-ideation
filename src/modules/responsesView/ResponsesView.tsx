@@ -4,13 +4,12 @@ import { useTranslation } from 'react-i18next';
 import Container from '@mui/material/Container';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
-import useResponses from '@/hooks/useResponses';
-
+import { useActivityContext } from '../context/ActivityContext';
 import ResponsesSetsView from './ResponsesSetsView';
 
 const ResponsesView = (): JSX.Element => {
   const { t } = useTranslation();
-  const { allResponses } = useResponses();
+  const { allResponses } = useActivityContext();
   const ideasTable = useMemo(
     () =>
       allResponses.map((i) => ({

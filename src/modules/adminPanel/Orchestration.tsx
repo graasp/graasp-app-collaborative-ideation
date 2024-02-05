@@ -16,10 +16,10 @@ import Typography from '@mui/material/Typography';
 import { CurrentStateAppData, CurrentStateData } from '@/config/appDataTypes';
 import { INITIAL_STATE } from '@/config/constants';
 import { PLAY_PAUSE_BUTTON_CY } from '@/config/selectors';
-import useActivityState from '@/hooks/useActivityState';
 import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
 import { getCurrentState } from '@/utils/state';
 
+import { useActivityContext } from '../context/ActivityContext';
 import { useAppDataContext } from '../context/AppDataContext';
 import { useSettings } from '../context/SettingsContext';
 import NextRoundButton from './NextRoundButton';
@@ -35,7 +35,7 @@ const Orchestration: FC<OrchestrationProps> = ({ onChange }) => {
   const { orchestrator } = useSettings();
   const [currentState, setCurrentState] = useState<CurrentStateAppData>();
   const [processStatus, setActivityStatus] = useState<ActivityStatus>();
-  const { round } = useActivityState();
+  const { round } = useActivityContext();
   const [activity, setActivity] = useState<ActivityType>(
     ActivityType.Collection,
   );

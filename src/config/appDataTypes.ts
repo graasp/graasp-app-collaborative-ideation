@@ -1,5 +1,7 @@
 import { AppData, AppDataVisibility } from '@graasp/sdk';
 
+import { AssistantId } from '@/interfaces/assistant';
+import { ChatbotResponseData } from '@/interfaces/chatbot';
 import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
 import { NoveltyRelevanceRatings } from '@/interfaces/ratings';
 
@@ -8,6 +10,7 @@ export enum AppDataTypes {
   ResponsesSet = 'responses-set',
   CurrentState = 'current-state',
   Ratings = 'ratings',
+  ChatbotResponse = 'chatbot-response',
 }
 
 export type ResponseData<T = NoveltyRelevanceRatings> = {
@@ -35,6 +38,7 @@ export type ResponsesSetAppData = AppData & {
   data: {
     round: number;
     responses: ResponsesData;
+    assistant?: AssistantId;
   };
 };
 
@@ -57,5 +61,11 @@ export type RatingsData<T> = {
 export type RatingsAppData<T> = AppData & {
   type: AppDataTypes.Ratings;
   data: RatingsData<T>;
+  visibility: AppDataVisibility.Member;
+};
+
+export type ChatbotResponseAppData = AppData & {
+  type: AppDataTypes.ChatbotResponse;
+  data: ChatbotResponseData;
   visibility: AppDataVisibility.Member;
 };

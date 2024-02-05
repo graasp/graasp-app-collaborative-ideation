@@ -2,7 +2,13 @@ import { AppDataVisibility } from '@graasp/sdk';
 
 import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
 
-import { AppDataTypes, CurrentStateData } from './appDataTypes';
+import {
+  AppDataTypes,
+  ChatbotResponseAppData,
+  CurrentStateData,
+} from './appDataTypes';
+
+export const SMALL_BORDER_RADIUS = 4;
 
 export const INITIAL_STATE: {
   [key: string]: unknown;
@@ -18,7 +24,21 @@ export const INITIAL_STATE: {
   visibility: AppDataVisibility.Item,
 };
 
-export const IDEA_MAXIMUM_LENGTH = 500;
+export const RESPONSE_MAXIMUM_LENGTH = 200;
 export const NUMBER_OF_IDEAS_TO_SHOW = 3;
 export const REFRESH_INTERVAL_MS = 5000;
 export const MAX_NUMBER_OF_CHARS_INPUT = 72;
+
+export const DEFAULT_CHATBOT_RESPONSE_APP_DATA: Pick<
+  ChatbotResponseAppData,
+  'type' | 'visibility' | 'data'
+> = {
+  type: AppDataTypes.ChatbotResponse,
+  visibility: AppDataVisibility.Member,
+  data: {
+    completion: '',
+    model: '',
+  },
+};
+
+export const DEFAULT_BOT_USERNAME = 'GraaspBot';

@@ -19,6 +19,7 @@ import { ADMIN_PANEL_CY, INITIALIZE_BTN_CY } from '@/config/selectors';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
 import IdeaInput from '../responseCollection/ResponseInput';
+import Assistants from './Assistants';
 import Orchestration from './Orchestration';
 import SectionTitle from './SectionTitle';
 
@@ -85,10 +86,11 @@ const AdminPanel: FC<AdminPanelProps> = ({ width }): JSX.Element => {
     >
       <Stack spacing={2} direction="column">
         <Typography variant="h3" fontSize="16pt">
-          {t('ADMIN_PANE_TITLE')}
+          {t('ADMIN_PANEL.TITLE')}
         </Typography>
         <Divider />
         <Orchestration />
+        <Assistants />
         <SectionTitle>{t('PARTICIPANTS')}</SectionTitle>
         <Stack sx={{ m: 1 }} direction="row" spacing={2}>
           {members?.map((member) => (
@@ -101,20 +103,6 @@ const AdminPanel: FC<AdminPanelProps> = ({ width }): JSX.Element => {
             </Badge>
           ))}
         </Stack>
-        {/* <SectionTitle>{t('ORCHESTRATION')}</SectionTitle>
-        <FormGroup>
-          <FormHelperText>
-            When enabled, the applications distribute ideas to the participants
-            in an anonymous way.
-          </FormHelperText>
-          <FormControlLabel
-            control={<Switch checked={sync} onChange={handleSyncChange} />}
-            label="Enable syncronisation"
-          />
-        </FormGroup>
-        <Collapse in={sync} mountOnEnter unmountOnExit>
-          <Synchronizer sync={sync} />
-        </Collapse> */}
         <SectionTitle>Act as a bot</SectionTitle>
         <Typography>{t('ADMIN_PANEL.BOT.HELPER')}</Typography>
         <IdeaInput actAsBot />

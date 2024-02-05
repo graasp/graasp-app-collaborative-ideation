@@ -8,6 +8,14 @@
 
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=graasp_graasp-app-collaborative-ideation&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=graasp_graasp-app-collaborative-ideation)
+
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=graasp_graasp-app-collaborative-ideation&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=graasp_graasp-app-collaborative-ideation)
+
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=graasp_graasp-app-collaborative-ideation&metric=bugs)](https://sonarcloud.io/summary/new_code?id=graasp_graasp-app-collaborative-ideation)
+
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=graasp_graasp-app-collaborative-ideation&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=graasp_graasp-app-collaborative-ideation)
+
 # Development
 
 ## Installation

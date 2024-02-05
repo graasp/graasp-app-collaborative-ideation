@@ -9,7 +9,7 @@ import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { getCurrentRound, getCurrentState } from '@/utils/state';
 
-interface UseActivityStateValues {
+export interface UseActivityStateValues {
   activityState: {
     [key: string]: unknown;
     type: string;

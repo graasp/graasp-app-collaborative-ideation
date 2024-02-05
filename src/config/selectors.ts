@@ -6,6 +6,9 @@ export const RESPONSE_EVALUATION_VIEW_CY = 'response-evaluation-view';
 export const ADMIN_PANEL_CY = 'admin-panel';
 export const PLAY_PAUSE_BUTTON_CY = 'play-pause-button';
 export const INITIALIZE_BTN_CY = 'initialize-button';
+export const CODE_EDITOR_ID_CY = 'code-editor-id';
+export const SETTING_CHATBOT_PROMPT_CODE_EDITOR_CY =
+  'setting-chatbot-prompt-code-editor';
 
 export const buildDataCy = (selector: string): string =>
   `[data-cy=${selector}]`;

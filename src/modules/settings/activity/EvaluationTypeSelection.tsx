@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Chip from '@mui/material/Chip';
@@ -8,19 +8,20 @@ import FormLabel from '@mui/material/FormLabel';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 
+import { ActivitySetting } from '@/config/appSettingsType';
 import { EvaluationType } from '@/interfaces/evaluationType';
 
-import { useSettings } from '../context/SettingsContext';
+interface EvaluationTypeSelectionProps {
+  evaluationType: ActivitySetting['evaluationType'];
+  onChange: (newEvaluationType: ActivitySetting['evaluationType']) => void;
+}
 
-const EvaluationTypeSelection: FC = () => {
+const EvaluationTypeSelection: FC<EvaluationTypeSelectionProps> = ({
+  evaluationType,
+  onChange,
+}) => {
   const { t } = useTranslation();
-  const { evaluation, saveSettings } = useSettings();
-  const evaluationType = useMemo(() => evaluation.type, [evaluation]);
-  const setEvaluationType = (type: EvaluationType): void => {
-    saveSettings('evaluation', {
-      type,
-    });
-  };
+
   return (
     <FormControl>
       <FormLabel>{t('SETTINGS.EVALUATION_TYPE_SELECTION.TITLE')}</FormLabel>
@@ -30,9 +31,7 @@ const EvaluationTypeSelection: FC = () => {
         value={evaluationType}
         name="radio-buttons-group"
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-          setEvaluationType(
-            (event.target as HTMLInputElement).value as EvaluationType,
-          );
+          onChange((event.target as HTMLInputElement).value as EvaluationType);
         }}
       >
         <FormControlLabel
@@ -54,7 +53,7 @@ const EvaluationTypeSelection: FC = () => {
               <Chip
                 color="info"
                 sx={{ m: 1 }}
-                label="Coming soon!"
+                label={t('COMING_SOON')}
                 variant="outlined"
               />
             </>

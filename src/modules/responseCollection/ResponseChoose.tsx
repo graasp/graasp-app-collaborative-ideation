@@ -44,7 +44,9 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ ideas, onChoose }) => {
 
   return (
     <>
-      <Typography variant="body1">{t('CHOOSE_IDEA_HEADER_TEXT')}</Typography>
+      <Typography variant="body1">
+        {t('CHOOSE_RESPONSE_HEADER_TEXT')}
+      </Typography>
       <Button
         startIcon={<AddCircleOutlineIcon />}
         onClick={() => handleChoose()}

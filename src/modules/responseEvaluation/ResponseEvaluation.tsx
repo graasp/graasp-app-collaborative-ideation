@@ -7,18 +7,19 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 
 import { RESPONSE_EVALUATION_VIEW_CY } from '@/config/selectors';
-import useResponses from '@/hooks/useResponses';
 import Pausable from '@/modules/common/Pausable';
 import Response from '@/modules/common/response/Response';
 
 import Loader from '../common/Loader';
+import { useActivityContext } from '../context/ActivityContext';
 import { useAppDataContext } from '../context/AppDataContext';
 import { useSettings } from '../context/SettingsContext';
 
 const ResponseEvaluation: FC = () => {
   const { t } = useTranslation();
-  const { myResponsesSets } = useResponses();
-  const { evaluation } = useSettings();
+  const { myResponsesSets } = useActivityContext();
+  const { activity } = useSettings();
+  const { evaluationType } = activity;
   const responses = useMemo(
     () => myResponsesSets.flatMap((set) => set.data.responses),
     [myResponsesSets],
@@ -54,7 +55,7 @@ const ResponseEvaluation: FC = () => {
                     key={response.id}
                     response={response}
                     responseId={response.id}
-                    evaluationType={evaluation.type}
+                    evaluationType={evaluationType}
                   />
                 </Grid>
               ))
