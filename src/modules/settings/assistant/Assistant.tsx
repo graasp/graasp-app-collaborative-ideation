@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 
+import cloneDeep from 'lodash.clonedeep';
 import { v4 as uuidv4 } from 'uuid';
 
 import { AssistantsSetting } from '@/config/appSettingsType';
@@ -29,14 +30,15 @@ const Assistant: FC<AssistantProps> = ({
   const { assistants } = assistantsSetting;
 
   const handleSave = (newAssistant: AssistantPersona): void => {
-    const index = assistants.findIndex((p) => p.id === newAssistant.id);
+    const newAssistants = cloneDeep(assistants);
+    const index = newAssistants.findIndex((p) => p.id === newAssistant.id);
     if (index === -1) {
-      assistants.push(newAssistant);
+      newAssistants.push(newAssistant);
     } else {
-      assistants[index] = newAssistant;
+      newAssistants[index] = newAssistant;
     }
     onChange({
-      assistants,
+      assistants: newAssistants,
     });
     setEditedAssistant(undefined);
   };
