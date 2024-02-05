@@ -54,6 +54,12 @@ const ResponseCollection: FC = () => {
   };
 
   useEffect(() => {
+    if (phase === IdeationPhases.Choose) {
+      setChosenIdea(undefined);
+    }
+  }, [phase]);
+
+  useEffect(() => {
     if (isSuccess) {
       const currentIdeaSet = myResponsesSets.find(
         (a) => a.data.round === round - 1,
@@ -113,13 +119,11 @@ const ResponseCollection: FC = () => {
           height="100%"
           spacing={4}
         >
-          {ideas && ideas.length > 1 && (
-            <PhasesStepper
-              activeStep={phase}
-              steps={[InputPhase, ChoosePhase]}
-              // selectStep={(newPhase: number) => setPhase(newPhase)}
-            />
-          )}
+          <PhasesStepper
+            activeStep={phase}
+            steps={[InputPhase, ChoosePhase]}
+            selectStep={(newPhase: number) => setPhase(newPhase)}
+          />
           <Instructions />
           {renderPhaseOfIdeation()}
           <MyResponses />

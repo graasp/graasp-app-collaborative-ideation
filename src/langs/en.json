@@ -8,8 +8,6 @@
     "BUILD_ON_THIS_IDEA": "Build on this idea",
     "IDEA_TOO_LONG_ALERT": "Your idea is too long. Please, try to be more concise.",
     "IDEA_SUBMITTED_SUCCESS": "Your idea was successfully submitted.",
-    "SUBMIT_NEW_IDEA_STEP_TITLE": "Submit a new idea",
-    "READ_IDEAS_STEP_TITLE": "Find inspiration",
     "EDIT": "Edit",
     "DELETE": "Delete",
     "COMING_SOON": "Coming soon!",
@@ -59,6 +57,12 @@
           "SAVE_LABEL": "Save",
           "SAVED_LABEL": "Saved"
         }
+      }
+    },
+    "RESPONSE_COLLECTION": {
+      "STEPPER": {
+        "INPUT_STEP_LABEL": "Submit your response",
+        "CHOOSE_STEP_LABEL": "Read the responses of other participants"
       }
     },
     "SAVE": "Save",

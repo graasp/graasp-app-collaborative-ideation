@@ -29,12 +29,12 @@ export type Phase = {
 
 export const InputPhase: Phase = {
   phase: IdeationPhases.Input,
-  label: t('SUBMIT_NEW_IDEA_STEP_TITLE'),
+  label: t('RESPONSE_COLLECTION.STEPPER.INPUT_STEP_LABEL'),
 };
 
 export const ChoosePhase: Phase = {
   phase: IdeationPhases.Choose,
-  label: t('READ_IDEAS_STEP_TITLE'),
+  label: t('RESPONSE_COLLECTION.STEPPER.CHOOSE_STEP_LABEL'),
 };
 
 export enum ResponseVisibilityMode {
