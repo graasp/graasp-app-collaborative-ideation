@@ -111,7 +111,7 @@
     "miragejs": "^0.1.48",
     "nyc": "15.1.0",
     "prettier": "2.8.8",
-    "pretty-quick": "3.3.1",
+    "pretty-quick": "4.0.0",
     "stylis-plugin-rtl": "^2.1.1",
     "uuid": "^9.0.1",
     "vite": "^5.0.12",
