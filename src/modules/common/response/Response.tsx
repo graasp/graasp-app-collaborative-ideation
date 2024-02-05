@@ -1,11 +1,13 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import grey from '@mui/material/colors/grey';
 
@@ -20,16 +22,20 @@ const Response: FC<{
   onSelect?: (id: string) => void;
   enableBuildAction?: boolean;
   evaluationType?: EvaluationType;
+  onDelete?: (id: string) => void;
 }> = ({
   responseId,
   response,
   onSelect,
+  onDelete,
   enableBuildAction = true,
   evaluationType = EvaluationType.None,
 }) => {
   const { t } = useTranslation();
 
   const showSelectButton = typeof onSelect !== 'undefined';
+  const showDeleteButton = typeof onDelete !== 'undefined';
+  const showActions = showDeleteButton || showSelectButton;
 
   const renderEvaluationComponent = (): JSX.Element => {
     if (evaluationType === EvaluationType.UsefulnessNoveltyRating) {
@@ -58,18 +64,28 @@ const Response: FC<{
         </Typography>
       </CardContent>
       {evaluationType !== EvaluationType.None && renderEvaluationComponent()}
-      {showSelectButton && (
+      {showActions && (
         <>
           <Divider />
           <CardActions>
-            <Button
-              disabled={!enableBuildAction}
-              onClick={() => {
-                if (typeof onSelect !== 'undefined') onSelect(responseId);
-              }}
-            >
-              {t('BUILD_ON_THIS_IDEA')}
-            </Button>
+            {showSelectButton && (
+              <Button
+                disabled={!enableBuildAction}
+                onClick={() => {
+                  if (typeof onSelect !== 'undefined') onSelect(responseId);
+                }}
+              >
+                {t('BUILD_ON_THIS_IDEA')}
+              </Button>
+            )}
+            {showDeleteButton && (
+              <IconButton
+                sx={{ marginLeft: 'auto' }}
+                onClick={() => onDelete(responseId)}
+              >
+                <DeleteIcon />
+              </IconButton>
+            )}
           </CardActions>
         </>
       )}
