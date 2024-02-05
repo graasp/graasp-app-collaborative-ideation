@@ -1,4 +1,5 @@
 import { FC, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import CardActions from '@mui/material/CardActions';
 import Container from '@mui/material/Container';
@@ -6,7 +7,11 @@ import Container from '@mui/material/Container';
 import { useLocalContext } from '@graasp/apps-query-client';
 import { AppDataVisibility } from '@graasp/sdk';
 
-import { RatingsAppData, RatingsData } from '@/config/appDataTypes';
+import {
+  AppDataTypes,
+  RatingsAppData,
+  RatingsData,
+} from '@/config/appDataTypes';
 import { NoveltyRelevanceRatings } from '@/interfaces/ratings';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
@@ -21,8 +26,11 @@ const UsefulnessNoveltyRating: FC<{
     complete?: boolean,
   ) => void;
 }> = ({ responseId, onRatingsChange }) => {
+  const { t } = useTranslation('translations', {
+    keyPrefix: 'RATINGS.USEFULNESS_RELEVANCE',
+  });
   const [noveltyRating, setNoveltyRating] = useState<number>();
-  const [relevanceRating, setRelevanceRating] = useState<number>();
+  const [usefulnessRating, setUsefulnessRating] = useState<number>();
   const { appData, patchAppData, postAppData } = useAppDataContext();
   const { memberId } = useLocalContext();
 
@@ -31,7 +39,7 @@ const UsefulnessNoveltyRating: FC<{
       appData.find(
         ({ data, type, creator }) =>
           data?.ideaRef === responseId &&
-          type === 'ratings' &&
+          type === AppDataTypes.Ratings &&
           creator?.id === memberId,
       ) as RatingsAppData<NoveltyRelevanceRatings> | undefined,
     [appData, responseId, memberId],
@@ -44,7 +52,7 @@ const UsefulnessNoveltyRating: FC<{
         setNoveltyRating(novelty);
       }
       if (usefulness) {
-        setRelevanceRating(usefulness);
+        setUsefulnessRating(usefulness);
       }
     }
   }, [ratings]);
@@ -53,12 +61,12 @@ const UsefulnessNoveltyRating: FC<{
       onRatingsChange(
         {
           ...(noveltyRating && { novelty: noveltyRating }),
-          ...(relevanceRating && { relevance: relevanceRating }),
+          ...(usefulnessRating && { relevance: usefulnessRating }),
         },
-        Boolean(noveltyRating) && Boolean(relevanceRating),
+        Boolean(noveltyRating) && Boolean(usefulnessRating),
       );
     }
-  }, [noveltyRating, onRatingsChange, relevanceRating]);
+  }, [noveltyRating, onRatingsChange, usefulnessRating]);
 
   const updateRatings = (
     novelty: number | undefined,
@@ -80,7 +88,7 @@ const UsefulnessNoveltyRating: FC<{
       } else {
         postAppData({
           data: ratingsData,
-          type: 'ratings',
+          type: AppDataTypes.Ratings,
           visibility: AppDataVisibility.Member,
         });
       }
@@ -90,9 +98,9 @@ const UsefulnessNoveltyRating: FC<{
   const handleRatingChange = (rating: RatingName, value: number): void => {
     if (rating === 'novelty') {
       setNoveltyRating(value);
-      updateRatings(value, relevanceRating);
+      updateRatings(value, usefulnessRating);
     } else if (rating === 'relevance') {
-      setRelevanceRating(value);
+      setUsefulnessRating(value);
       updateRatings(noveltyRating, value);
     }
   };
@@ -105,17 +113,17 @@ const UsefulnessNoveltyRating: FC<{
       <Container>
         <LikertScale
           onChange={(rating) => handleRatingChange('novelty', rating)}
-          minLabel="Common"
-          maxLabel="Novel"
+          minLabel={t('COMMON')}
+          maxLabel={t('NOVEL')}
           levels={7}
           value={noveltyRating}
         />
         <LikertScale
           onChange={(rating) => handleRatingChange('relevance', rating)}
-          minLabel="Useless"
-          maxLabel="Useful"
+          minLabel={t('USELESS')}
+          maxLabel={t('USEFUL')}
           levels={7}
-          value={relevanceRating}
+          value={usefulnessRating}
         />
       </Container>
     </CardActions>

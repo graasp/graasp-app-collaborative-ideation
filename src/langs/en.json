@@ -82,6 +82,14 @@
     "RESPONSE_EVALUATION": {
       "TITLE": "Response Evaluation"
     },
+    "RATINGS": {
+      "USEFULNESS_RELEVANCE": {
+        "COMMON": "Common",
+        "NOVEL": "Novel",
+        "USELESS": "Useless",
+        "USEFUL": "Useful"
+      }
+    },
     "ADMIN_PANEL": {
       "TITLE": "Admin panel",
       "CONTROLS": {

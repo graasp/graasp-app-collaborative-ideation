@@ -40,21 +40,6 @@ const LikertScale = (props: LikertScaleProps): JSX.Element => {
     throw Error('The `levels` prop should be striclty higher than 1.');
   }
 
-  // const displayValue = (
-  //   valueToDisplay: number,
-  //   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  //   _index: number,
-  // ): JSX.Element => {
-  //   if (levelsLabels) {
-  //     return (
-  //       <Typography variant="caption">
-  //         {levelsLabels[valueToDisplay - 1]}
-  //       </Typography>
-  //     );
-  //   }
-  //   return <Typography variant="caption">{valueToDisplay}</Typography>;
-  // };
-
   const handleChange = (
     _event: SyntheticEvent,
     rating: number | null,
@@ -74,20 +59,6 @@ const LikertScale = (props: LikertScaleProps): JSX.Element => {
       <Label variant="caption" textAlign="right">
         {minLabel}
       </Label>
-      {/* <Slider
-        // color={isSet ? 'success' : 'primary'} // TODO: fix this weird bug with typechecker
-        sx={{ width: '100pt' }}
-        onChange={handleChange}
-        step={1}
-        marks
-        min={1}
-        max={levels}
-        track={false}
-        defaultValue={Math.ceil(levels / 2)}
-        valueLabelDisplay="auto"
-        valueLabelFormat={displayValue}
-        value={value || Math.ceil(levels / 2)}
-      /> */}
       <LikertRating
         name="likert-rating"
         defaultValue={Math.ceil(levels / 2)}
