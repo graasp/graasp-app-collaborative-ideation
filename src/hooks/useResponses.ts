@@ -39,6 +39,7 @@ export interface UseResponsesValues {
   ) => Promise<ResponseAppData> | undefined;
   createAllResponsesSet: () => Promise<void>;
   deleteAllResponsesSet: () => Promise<void>;
+  deleteResponse: (id: ResponseAppData['id']) => Promise<void>;
 }
 
 interface UseResponsesProps {
@@ -50,11 +51,17 @@ const useResponses = ({
   participants,
   round,
 }: UseResponsesProps): UseResponsesValues => {
-  const { appData, postAppDataAsync, deleteAppData, invalidateAppData } =
-    useAppDataContext();
+  const {
+    appData,
+    postAppDataAsync,
+    deleteAppData,
+    deleteAppDataAsync,
+    invalidateAppData,
+  } = useAppDataContext();
   const { memberId, permission } = useLocalContext();
   const { orchestrator, activity } = useSettings();
-  const { postSubmitNewResponseAction } = useActions();
+  const { postSubmitNewResponseAction, postDeleteResponseAction } =
+    useActions();
   const {
     mode: visibilityMode,
     numberOfResponsesPerSet,
@@ -215,6 +222,11 @@ const useResponses = ({
     });
   };
 
+  const deleteResponse = async (id: ResponseAppData['id']): Promise<void> =>
+    deleteAppDataAsync({ id })?.then(() => {
+      postDeleteResponseAction(id);
+    });
+
   return {
     allResponses,
     myResponses,
@@ -224,6 +236,7 @@ const useResponses = ({
     assistantsResponsesSets,
     createAllResponsesSet,
     deleteAllResponsesSet,
+    deleteResponse,
   };
 };
 

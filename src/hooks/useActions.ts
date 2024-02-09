@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 
 import {
   AppActionTypes,
+  DeleteResponseAction,
   SubmitNewResponseAction,
 } from '@/config/appActionsTypes';
 import { ResponseAppData } from '@/config/appDataTypes';
@@ -9,6 +10,7 @@ import { mutations } from '@/config/queryClient';
 
 interface UseActionsValues {
   postSubmitNewResponseAction: (response: ResponseAppData) => void;
+  postDeleteResponseAction: (id: ResponseAppData['id']) => void;
 }
 
 const useActions = (): UseActionsValues => {
@@ -27,7 +29,21 @@ const useActions = (): UseActionsValues => {
     },
     [postAppAction],
   );
-  return { postSubmitNewResponseAction };
+
+  const postDeleteResponseAction = useMemo(
+    () => (id: ResponseAppData['id']) => {
+      const action: DeleteResponseAction = {
+        type: AppActionTypes.DeleteResponse,
+        data: {
+          id,
+        },
+      };
+      postAppAction(action);
+    },
+    [postAppAction],
+  );
+
+  return { postSubmitNewResponseAction, postDeleteResponseAction };
 };
 
 export default useActions;

@@ -22,7 +22,7 @@ export type SubmitNewResponseAction = Pick<AppAction, 'type' | 'data'> & {
 
 export type DeleteResponseAction = Pick<AppAction, 'type' | 'data'> & {
   type: AppActionTypes.DeleteResponse;
-  data: AppDataRef<ResponseData>;
+  data: { id: AppData['id'] };
 };
 
 export type ChooseResponseAction = Pick<AppAction, 'type' | 'data'> & {

@@ -34,6 +34,9 @@ export type AppDataContextType = {
   ) => Promise<AppData<Data>> | undefined;
   patchAppData: (payload: PatchAppDataType) => void;
   deleteAppData: (payload: DeleteAppDataType) => void;
+  deleteAppDataAsync: (
+    payload: DeleteAppDataType,
+  ) => Promise<AppData<Data>> | undefined;
   appData: AppData<Data>[];
   isSuccess: boolean;
   isLoading: boolean;
@@ -45,6 +48,7 @@ const defaultContextValue = {
   postAppDataAsync: () => undefined,
   patchAppData: () => null,
   deleteAppData: () => null,
+  deleteAppDataAsync: () => undefined,
   appData: [],
   isSuccess: false,
   isLoading: true,
@@ -67,7 +71,8 @@ export const AppDataProvider = ({ children }: Props): JSX.Element => {
   const { mutate: postAppData, mutateAsync: postAppDataAsync } =
     mutations.usePostAppData();
   const { mutate: patchAppData } = mutations.usePatchAppData();
-  const { mutate: deleteAppData } = mutations.useDeleteAppData();
+  const { mutate: deleteAppData, mutateAsync: deleteAppDataAsync } =
+    mutations.useDeleteAppData();
 
   const contextValue = useMemo(
     () => ({
@@ -75,6 +80,7 @@ export const AppDataProvider = ({ children }: Props): JSX.Element => {
       postAppData,
       postAppDataAsync,
       deleteAppData,
+      deleteAppDataAsync,
       appData: appData || [],
       isSuccess,
       isLoading,
@@ -85,6 +91,7 @@ export const AppDataProvider = ({ children }: Props): JSX.Element => {
       postAppData,
       postAppDataAsync,
       deleteAppData,
+      deleteAppDataAsync,
       appData,
       isSuccess,
       isLoading,
