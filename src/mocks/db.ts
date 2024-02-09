@@ -37,7 +37,7 @@ export const mockMembers: CompleteMember[] = [
 
 export const mockItem: DiscriminatedItem<ItemSettings> = {
   id: '1234-1234-1234-5678',
-  name: 'app-brainwriting',
+  name: 'app-collaborative-ideation',
   description: null,
   path: '',
   type: ItemType.APP,

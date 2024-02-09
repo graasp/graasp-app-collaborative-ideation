@@ -1,5 +1,6 @@
 import React, { createContext, useMemo } from 'react';
 
+import { Data } from '@graasp/apps-query-client';
 import { AppData } from '@graasp/sdk';
 
 import {
@@ -10,12 +11,10 @@ import {
 } from '../../config/queryClient';
 import Loader from '../common/Loader';
 
-type AnyData = { [key: string]: unknown };
-
 type PostAppDataType = {
-  data: AnyData;
+  data: Data;
   type: string;
-  visibility?: AppData<AnyData>['visibility'];
+  visibility?: AppData<Data>['visibility'];
   memberId?: string;
 };
 
@@ -32,10 +31,10 @@ export type AppDataContextType = {
   postAppData: (payload: PostAppDataType) => void;
   postAppDataAsync: (
     payload: PostAppDataType,
-  ) => Promise<AppData<AnyData>> | undefined;
+  ) => Promise<AppData<Data>> | undefined;
   patchAppData: (payload: PatchAppDataType) => void;
   deleteAppData: (payload: DeleteAppDataType) => void;
-  appData: AppData<AnyData>[];
+  appData: AppData<Data>[];
   isSuccess: boolean;
   isLoading: boolean;
   invalidateAppData: () => Promise<void>;
