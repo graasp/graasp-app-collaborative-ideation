@@ -2,15 +2,19 @@ import { useMemo } from 'react';
 
 import {
   AppActionTypes,
+  ChooseResponseAction,
   DeleteResponseAction,
   SubmitNewResponseAction,
 } from '@/config/appActionsTypes';
-import { ResponseAppData } from '@/config/appDataTypes';
+import { AnonymousResponseData, ResponseAppData } from '@/config/appDataTypes';
 import { mutations } from '@/config/queryClient';
 
 interface UseActionsValues {
   postSubmitNewResponseAction: (response: ResponseAppData) => void;
   postDeleteResponseAction: (id: ResponseAppData['id']) => void;
+  postChooseResponseAction: (
+    anonymousResponseData: AnonymousResponseData,
+  ) => void;
 }
 
 const useActions = (): UseActionsValues => {
@@ -43,7 +47,22 @@ const useActions = (): UseActionsValues => {
     [postAppAction],
   );
 
-  return { postSubmitNewResponseAction, postDeleteResponseAction };
+  const postChooseResponseAction = useMemo(
+    () => (anonymousResponseData: AnonymousResponseData) => {
+      const action: ChooseResponseAction = {
+        type: AppActionTypes.ChooseResponse,
+        data: anonymousResponseData,
+      };
+      postAppAction(action);
+    },
+    [postAppAction],
+  );
+
+  return {
+    postSubmitNewResponseAction,
+    postDeleteResponseAction,
+    postChooseResponseAction,
+  };
 };
 
 export default useActions;

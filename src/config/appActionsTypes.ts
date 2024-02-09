@@ -1,7 +1,7 @@
 import { Data } from '@graasp/apps-query-client';
 import { AppAction, AppData } from '@graasp/sdk';
 
-import { ResponseData } from './appDataTypes';
+import { AnonymousResponseData, ResponseData } from './appDataTypes';
 
 export enum AppActionTypes {
   SubmitNewResponse = 'submit-new-response',
@@ -27,5 +27,5 @@ export type DeleteResponseAction = Pick<AppAction, 'type' | 'data'> & {
 
 export type ChooseResponseAction = Pick<AppAction, 'type' | 'data'> & {
   type: AppActionTypes.ChooseResponse;
-  data: AppDataRef<ResponseData>;
+  data: AnonymousResponseData;
 };
