@@ -8694,7 +8694,7 @@ __metadata:
     qs: "npm:6.11.2"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
-    react-i18next: "npm:14.0.3"
+    react-i18next: "npm:14.0.5"
     react-plotly.js: "npm:^2.6.0"
     react-router-dom: "npm:^6.22.0"
     stylis-plugin-rtl: "npm:^2.1.1"
@@ -11780,9 +11780,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-i18next@npm:14.0.3":
-  version: 14.0.3
-  resolution: "react-i18next@npm:14.0.3"
+"react-i18next@npm:14.0.5":
+  version: 14.0.5
+  resolution: "react-i18next@npm:14.0.5"
   dependencies:
     "@babel/runtime": "npm:^7.23.9"
     html-parse-stringify: "npm:^3.0.1"
@@ -11794,7 +11794,7 @@ __metadata:
       optional: true
     react-native:
       optional: true
-  checksum: 10/2c919b3b261b44adf2d0f36556e8db0fb31150596536edc00047d5e5d69f5d1ae8aa662feec60513ee5d3c5cbc11192440d4e1e65d86354d0b408235d3e94a2b
+  checksum: 10/4c91d4b889ab1ab05d7cda050890f7f41c4a73dadfef4778770a53b0d2f98e9d80f04da5086790706349d8a80cf09eec0c539fc1020a7c6fead562511dd2a2cf
   languageName: node
   linkType: hard
 
