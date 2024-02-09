@@ -19,6 +19,7 @@ import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { appDataArrayToMap } from '@/utils/utils';
 
+import useActions from './useActions';
 import { UseParticipantsValue } from './useParticipants';
 import {
   filterBotResponses,
@@ -53,6 +54,7 @@ const useResponses = ({
     useAppDataContext();
   const { memberId, permission } = useLocalContext();
   const { orchestrator, activity } = useSettings();
+  const { postSubmitNewResponseAction } = useActions();
   const {
     mode: visibilityMode,
     numberOfResponsesPerSet,
@@ -118,11 +120,13 @@ const useResponses = ({
       type: AppDataTypes.Response,
       visibility: AppDataVisibility.Member,
       data,
-    })?.then((postedIdea) => {
+    })?.then((postedResponse) => {
+      const response = postedResponse as ResponseAppData;
+      postSubmitNewResponseAction(response);
       if (invalidateAll) {
         invalidateAppData();
       }
-      return postedIdea as ResponseAppData;
+      return response;
     });
 
   const postResponsesSet = async (
