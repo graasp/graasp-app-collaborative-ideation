@@ -1,6 +1,7 @@
 /// <reference types="../../src/window" />
 import { Database, LocalContext } from '@graasp/apps-query-client';
 
+import { ALL_SETTINGS } from '../fixtures/appSettings';
 import { CURRENT_MEMBER, MEMBERS } from '../fixtures/members';
 import { MOCK_SERVER_ITEM } from '../fixtures/mockItem';
 
@@ -34,7 +35,7 @@ Cypress.Commands.add('setUpApi', (database, appContext) => {
     win.database = {
       appData: [],
       appActions: [],
-      appSettings: [],
+      appSettings: [...ALL_SETTINGS],
       members: Object.values(MEMBERS),
       items: [MOCK_SERVER_ITEM],
       ...database,

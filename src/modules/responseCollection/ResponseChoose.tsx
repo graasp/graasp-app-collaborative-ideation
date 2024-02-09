@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
 import { ResponsesData } from '@/config/appDataTypes';
+import { PROPOSE_NEW_RESPONSE_BTN } from '@/config/selectors';
 import Idea from '@/modules/common/response/Response';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
@@ -50,6 +51,7 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ ideas, onChoose }) => {
       <Button
         startIcon={<AddCircleOutlineIcon />}
         onClick={() => handleChoose()}
+        data-cy={PROPOSE_NEW_RESPONSE_BTN}
       >
         {t('PROPOSE_NEW_IDEA')}
       </Button>

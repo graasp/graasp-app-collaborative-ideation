@@ -61,7 +61,7 @@ const LikertScale = (props: LikertScaleProps): JSX.Element => {
       </Label>
       <LikertRating
         name="likert-rating"
-        defaultValue={Math.ceil(levels / 2)}
+        value={value ?? Math.ceil(levels / 2)}
         precision={1}
         icon={<RadioButtonCheckedIcon fontSize="inherit" />}
         emptyIcon={<RadioButtonUncheckedIcon fontSize="inherit" />}

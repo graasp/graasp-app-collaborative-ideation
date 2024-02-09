@@ -17,6 +17,10 @@ import { AppData } from '@graasp/sdk';
 
 import { AnonymousResponseData, ResponseData } from '@/config/appDataTypes';
 import { RESPONSE_MAXIMUM_LENGTH } from '@/config/constants';
+import {
+  RESPONSE_INPUT_FIELD_CY,
+  SUBMIT_RESPONSE_BTN_CY,
+} from '@/config/selectors';
 import useChatbot from '@/hooks/useChatbot';
 
 import Loader from '../common/Loader';
@@ -110,8 +114,17 @@ const ResponseInput: FC<{
             </InputAdornment>
           ),
         }}
+        // eslint-disable-next-line react/jsx-no-duplicate-props
+        inputProps={{
+          id: 'input-response',
+        }}
+        data-cy={RESPONSE_INPUT_FIELD_CY}
       />
-      <Button onClick={submit} disabled={disableSubmission}>
+      <Button
+        onClick={submit}
+        disabled={disableSubmission}
+        data-cy={SUBMIT_RESPONSE_BTN_CY}
+      >
         {t('SUBMIT')}
       </Button>
       <LoadingButton

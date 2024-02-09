@@ -12,7 +12,8 @@ import {
   RatingsAppData,
   RatingsData,
 } from '@/config/appDataTypes';
-import { NoveltyRelevanceRatings } from '@/interfaces/ratings';
+import { EvaluationType } from '@/interfaces/evaluationType';
+import { UsefulnessNoveltyRatings } from '@/interfaces/ratings';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
 import LikertScale from '../../LikertScale';
@@ -27,7 +28,7 @@ const UsefulnessNoveltyRating: FC<{
   ) => void;
 }> = ({ responseId, onRatingsChange }) => {
   const { t } = useTranslation('translations', {
-    keyPrefix: 'RATINGS.USEFULNESS_RELEVANCE',
+    keyPrefix: 'RATINGS.USEFULNESS_NOVELTY',
   });
   const [noveltyRating, setNoveltyRating] = useState<number>();
   const [usefulnessRating, setUsefulnessRating] = useState<number>();
@@ -41,7 +42,7 @@ const UsefulnessNoveltyRating: FC<{
           data?.ideaRef === responseId &&
           type === AppDataTypes.Ratings &&
           creator?.id === memberId,
-      ) as RatingsAppData<NoveltyRelevanceRatings> | undefined,
+      ) as RatingsAppData<UsefulnessNoveltyRatings> | undefined,
     [appData, responseId, memberId],
   );
 
@@ -73,8 +74,9 @@ const UsefulnessNoveltyRating: FC<{
     relevance: number | undefined,
   ): void => {
     if (responseId) {
-      const ratingsData: RatingsData<NoveltyRelevanceRatings> = {
+      const ratingsData: RatingsData<UsefulnessNoveltyRatings> = {
         ideaRef: responseId,
+        type: EvaluationType.UsefulnessNoveltyRating,
         ratings: {
           novelty,
           usefulness: relevance,

@@ -38,6 +38,8 @@ const ResponseCollection: FC = () => {
   const { orchestrator } = useSettings();
   const [chosenIdea, setChosenIdea] = useState<AnonymousResponseData>();
   const [ideas, setIdeas] = useState<ResponsesData>([]);
+  // TODO: Remove
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [ownIdeas, setOwnIdeas] = useState<ResponseAppData[]>([]);
   const [phase, setPhase] = useState<number>(IdeationPhases.Choose);
 
@@ -97,7 +99,9 @@ const ResponseCollection: FC = () => {
   };
 
   const renderPhaseOfIdeation = (): React.JSX.Element | null => {
-    if (phase === IdeationPhases.Choose && ownIdeas.length > 0) {
+    // TODO: Choose what to display when starting the activity
+    // if (phase === IdeationPhases.Choose && ownIdeas.length > 0) {
+    if (phase === IdeationPhases.Choose) {
       return <IdeaChoose ideas={ideas} onChoose={handleChoose} />;
     }
     return (
