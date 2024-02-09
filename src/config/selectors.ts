@@ -10,5 +10,10 @@ export const CODE_EDITOR_ID_CY = 'code-editor-id';
 export const SETTING_CHATBOT_PROMPT_CODE_EDITOR_CY =
   'setting-chatbot-prompt-code-editor';
 
+export const PROPOSE_NEW_RESPONSE_BTN = 'propose-new-response';
+export const RESPONSE_INPUT_FIELD_CY = 'response-input-field';
+export const SUBMIT_RESPONSE_BTN_CY = 'submit-response-button';
+export const NEXT_ROUND_BTN_CY = 'next-round';
+
 export const buildDataCy = (selector: string): string =>
   `[data-cy=${selector}]`;

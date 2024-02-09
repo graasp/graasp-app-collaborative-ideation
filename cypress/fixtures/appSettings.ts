@@ -1,44 +1,56 @@
 import { AppSetting } from '@graasp/sdk';
 
+import { DEFAULT_SYSTEM_PROMPT } from '@/config/prompts';
+import { EvaluationType } from '@/interfaces/evaluationType';
+import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
+
+import { MEMBERS } from './members';
 import { MOCK_SERVER_DISCRIMINATED_ITEM } from './mockItem';
 
-export const QUESTION_SETTING: AppSetting = {
-  id: '0',
-  name: 'question',
-  data: {
-    label: 'Is the question field working?',
-  },
-  createdAt: new Date().toISOString(),
-  updatedAt: new Date().toISOString(),
-  item: MOCK_SERVER_DISCRIMINATED_ITEM,
+let settingCounter = 0;
+
+const newSettingFactory = (
+  settingName: string,
+  data: AppSetting['data'],
+): AppSetting => {
+  const id = settingCounter.toString();
+  settingCounter += 1;
+  return {
+    id,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    item: MOCK_SERVER_DISCRIMINATED_ITEM,
+    data,
+    name: settingName,
+  };
 };
 
-export const ANSWERS_SETTING = {
-  id: '1',
-  name: 'answers',
-  data: {
-    answers: [
-      {
-        key: 'fine',
-        label: "It's working fine",
-      },
-      {
-        key: 'well',
-        label: "It's working well",
-      },
-    ],
-    defaultAnswer: [],
-    multipleAnswers: false,
+const ALL_SETTINGS_OBJECT = {
+  instructions: {
+    title: {
+      content: 'What are your big ideas today?',
+      type: 'plain-text',
+    },
   },
-  createdAt: new Date().toISOString(),
-  updatedAt: new Date().toISOString(),
-  item: MOCK_SERVER_DISCRIMINATED_ITEM,
+  orchestrator: {
+    id: MEMBERS.ANNA.id,
+  },
+  activity: {
+    mode: ResponseVisibilityMode.Open,
+    numberOfResponsesPerSet: 3,
+    numberOfBotResponsesPerSet: 1,
+    exclusiveResponseDistribution: true,
+    evaluationType: EvaluationType.UsefulnessNoveltyRating,
+  },
+  notParticipating: { ids: [] },
+  chatbot: {
+    systemPrompt: DEFAULT_SYSTEM_PROMPT,
+  },
+  assistants: {
+    assistants: [],
+  },
 };
 
-export const ANSWERS_SETTING_MULTI_ANSWERS = {
-  ...ANSWERS_SETTING,
-  data: {
-    ...ANSWERS_SETTING.data,
-    multipleAnswers: true,
-  },
-};
+export const ALL_SETTINGS = Object.entries(ALL_SETTINGS_OBJECT).map(
+  ([key, value]) => newSettingFactory(key, value),
+);
