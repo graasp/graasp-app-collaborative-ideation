@@ -1998,9 +1998,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cypress/code-coverage@npm:3.12.20":
-  version: 3.12.20
-  resolution: "@cypress/code-coverage@npm:3.12.20"
+"@cypress/code-coverage@npm:3.12.21":
+  version: 3.12.21
+  resolution: "@cypress/code-coverage@npm:3.12.21"
   dependencies:
     "@cypress/webpack-preprocessor": "npm:^6.0.0"
     chalk: "npm:4.1.2"
@@ -2017,7 +2017,7 @@ __metadata:
     babel-loader: ^8.3 || ^9
     cypress: "*"
     webpack: ^4 || ^5
-  checksum: 10/e47eb4d86b845e16089f8a95708053006d1a88e2461b446083a3f023f8fabb3062badd5144f717666720d5d94f21c3c6ffc1a1ef759f32759255b9d01ed77581
+  checksum: 10/c2717017f4fc9cfa889c2fb7ee671ed35b0f774e14f2bc638130860c0bfb2da6c9a059cf198b559172c8da3699ec48087fb241802a57f15524db1fa3bb2770af
   languageName: node
   linkType: hard
 
@@ -3056,9 +3056,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/x-data-grid@npm:^6.19.3":
-  version: 6.19.3
-  resolution: "@mui/x-data-grid@npm:6.19.3"
+"@mui/x-data-grid@npm:^6.19.4":
+  version: 6.19.4
+  resolution: "@mui/x-data-grid@npm:6.19.4"
   dependencies:
     "@babel/runtime": "npm:^7.23.2"
     "@mui/utils": "npm:^5.14.16"
@@ -3070,7 +3070,7 @@ __metadata:
     "@mui/system": ^5.4.1
     react: ^17.0.0 || ^18.0.0
     react-dom: ^17.0.0 || ^18.0.0
-  checksum: 10/2a0d4007035bae53209a8dd260648a42635e238624b1a4d759cec012770f7dc1c01d3b93e694e8d7f13043532b85c0a005f36c67a1abd5dd37e096d217abec5d
+  checksum: 10/a131cbd1e090c3d626e8258738de6aec4925a9c9c6e8b0d94ba54600516f5da29791f04ecfd4f9ef2ba5391e7944f988c6ce3e2e4d1cf912aaa6f94df35f53b1
   languageName: node
   linkType: hard
 
@@ -8374,7 +8374,7 @@ __metadata:
     "@commitlint/cli": "npm:18.6.0"
     "@commitlint/config-conventional": "npm:18.6.0"
     "@commitlint/types": "npm:^18.6.0"
-    "@cypress/code-coverage": "npm:3.12.20"
+    "@cypress/code-coverage": "npm:3.12.21"
     "@emotion/react": "npm:11.11.3"
     "@emotion/styled": "npm:11.11.0"
     "@graasp/apps-query-client": "npm:3.4.2"
@@ -8382,7 +8382,7 @@ __metadata:
     "@mui/icons-material": "npm:5.15.9"
     "@mui/lab": "npm:5.0.0-alpha.165"
     "@mui/material": "npm:5.15.9"
-    "@mui/x-data-grid": "npm:^6.19.3"
+    "@mui/x-data-grid": "npm:^6.19.4"
     "@sentry/react": "npm:7.100.1"
     "@tanstack/react-query": "npm:^4.36.1"
     "@tanstack/react-query-devtools": "npm:^4.36.1"
@@ -8436,7 +8436,7 @@ __metadata:
     stylis-plugin-rtl: "npm:^2.1.1"
     typescript: "npm:5.3.3"
     uuid: "npm:^9.0.1"
-    vite: "npm:^5.1.0"
+    vite: "npm:^5.1.1"
     vite-plugin-checker: "npm:^0.6.4"
     vite-plugin-istanbul: "npm:^5.0.0"
     vitest: "npm:^1.2.2"
@@ -13771,9 +13771,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^5.1.0":
-  version: 5.1.0
-  resolution: "vite@npm:5.1.0"
+"vite@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "vite@npm:5.1.1"
   dependencies:
     esbuild: "npm:^0.19.3"
     fsevents: "npm:~2.3.3"
@@ -13807,7 +13807,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10/14d136f2e71d657cb55bec2a9330951e27e572ed79c4e79e3edc24decfa87f95664b8206614bfcf6a61db933667e554a8eed389291ad8af49de0784548a83a4c
+  checksum: 10/bdb8e683caddaa0a9adcbf40144ca8ea3660836b208862b07d43787ea867845919af16e58745365bd13ed3b7f66bbf9788a6869ee22cfaacac01645b59729c34
   languageName: node
   linkType: hard
 
