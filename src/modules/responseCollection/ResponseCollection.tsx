@@ -14,6 +14,7 @@ import {
   ResponsesData,
 } from '@/config/appDataTypes';
 import { RESPONSE_COLLECTION_VIEW_CY } from '@/config/selectors';
+import useActions from '@/hooks/useActions';
 import {
   ChoosePhase,
   IdeationPhases,
@@ -34,6 +35,7 @@ const ResponseCollection: FC = () => {
   const { t } = useTranslation();
   const { appData, isSuccess } = useAppDataContext();
   const { myResponsesSets, myResponses, round } = useActivityContext();
+  const { postChooseResponseAction } = useActions();
   const { memberId } = useLocalContext();
   const { orchestrator } = useSettings();
   const [chosenIdea, setChosenIdea] = useState<AnonymousResponseData>();
@@ -88,6 +90,7 @@ const ResponseCollection: FC = () => {
       | undefined;
     if (typeof idea !== 'undefined') {
       setChosenIdea(idea);
+      postChooseResponseAction(idea);
     }
     setPhase(IdeationPhases.Input);
   };

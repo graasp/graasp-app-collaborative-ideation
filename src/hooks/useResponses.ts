@@ -19,6 +19,7 @@ import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { appDataArrayToMap } from '@/utils/utils';
 
+import useActions from './useActions';
 import { UseParticipantsValue } from './useParticipants';
 import {
   filterBotResponses,
@@ -38,6 +39,7 @@ export interface UseResponsesValues {
   ) => Promise<ResponseAppData> | undefined;
   createAllResponsesSet: () => Promise<void>;
   deleteAllResponsesSet: () => Promise<void>;
+  deleteResponse: (id: ResponseAppData['id']) => Promise<void>;
 }
 
 interface UseResponsesProps {
@@ -49,10 +51,17 @@ const useResponses = ({
   participants,
   round,
 }: UseResponsesProps): UseResponsesValues => {
-  const { appData, postAppDataAsync, deleteAppData, invalidateAppData } =
-    useAppDataContext();
+  const {
+    appData,
+    postAppDataAsync,
+    deleteAppData,
+    deleteAppDataAsync,
+    invalidateAppData,
+  } = useAppDataContext();
   const { memberId, permission } = useLocalContext();
   const { orchestrator, activity } = useSettings();
+  const { postSubmitNewResponseAction, postDeleteResponseAction } =
+    useActions();
   const {
     mode: visibilityMode,
     numberOfResponsesPerSet,
@@ -118,11 +127,13 @@ const useResponses = ({
       type: AppDataTypes.Response,
       visibility: AppDataVisibility.Member,
       data,
-    })?.then((postedIdea) => {
+    })?.then((postedResponse) => {
+      const response = postedResponse as ResponseAppData;
+      postSubmitNewResponseAction(response);
       if (invalidateAll) {
         invalidateAppData();
       }
-      return postedIdea as ResponseAppData;
+      return response;
     });
 
   const postResponsesSet = async (
@@ -211,6 +222,11 @@ const useResponses = ({
     });
   };
 
+  const deleteResponse = async (id: ResponseAppData['id']): Promise<void> =>
+    deleteAppDataAsync({ id })?.then(() => {
+      postDeleteResponseAction(id);
+    });
+
   return {
     allResponses,
     myResponses,
@@ -220,6 +236,7 @@ const useResponses = ({
     assistantsResponsesSets,
     createAllResponsesSet,
     deleteAllResponsesSet,
+    deleteResponse,
   };
 };
 

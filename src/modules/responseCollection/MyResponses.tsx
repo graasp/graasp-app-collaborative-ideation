@@ -5,7 +5,6 @@ import Typography from '@mui/material/Typography';
 
 import { useLocalContext } from '@graasp/apps-query-client';
 
-import { mutations } from '@/config/queryClient';
 import useActivityState from '@/hooks/useActivityState';
 import Response from '@/modules/common/response/Response';
 
@@ -13,11 +12,10 @@ import { useActivityContext } from '../context/ActivityContext';
 
 const MyResponses: FC = () => {
   const { memberId } = useLocalContext();
-  const { myResponses } = useActivityContext();
+  const { myResponses, deleteResponse } = useActivityContext();
   const { round } = useActivityState();
-  const { mutate: deleteAppData } = mutations.useDeleteAppData();
 
-  const handleDelete = (id: string): void => deleteAppData({ id });
+  const handleDelete = async (id: string): Promise<void> => deleteResponse(id);
   if (memberId) {
     return (
       <>
