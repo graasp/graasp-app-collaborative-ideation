@@ -1,12 +1,19 @@
 import { useMemo } from 'react';
 
+import { LocalContext } from '@graasp/apps-query-client';
+
 import {
   AppActionTypes,
   ChooseResponseAction,
   DeleteResponseAction,
+  OpenAppAction,
   SubmitNewResponseAction,
 } from '@/config/appActionsTypes';
-import { AnonymousResponseData, ResponseAppData } from '@/config/appDataTypes';
+import {
+  AnonymousResponseData,
+  CurrentStateData,
+  ResponseAppData,
+} from '@/config/appDataTypes';
 import { mutations } from '@/config/queryClient';
 
 interface UseActionsValues {
@@ -14,6 +21,10 @@ interface UseActionsValues {
   postDeleteResponseAction: (id: ResponseAppData['id']) => void;
   postChooseResponseAction: (
     anonymousResponseData: AnonymousResponseData,
+  ) => void;
+  postOpenAppAction: (
+    currentState?: CurrentStateData,
+    context?: LocalContext,
   ) => void;
 }
 
@@ -58,10 +69,22 @@ const useActions = (): UseActionsValues => {
     [postAppAction],
   );
 
+  const postOpenAppAction = useMemo(
+    () => (currentState?: CurrentStateData, context?: LocalContext) => {
+      const action: OpenAppAction = {
+        type: AppActionTypes.OpenApp,
+        data: { currentState, context },
+      };
+      postAppAction(action);
+    },
+    [postAppAction],
+  );
+
   return {
     postSubmitNewResponseAction,
     postDeleteResponseAction,
     postChooseResponseAction,
+    postOpenAppAction,
   };
 };
 

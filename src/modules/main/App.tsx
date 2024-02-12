@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useLocalContext } from '@graasp/apps-query-client';
 import { Context, DEFAULT_LANG } from '@graasp/sdk';
@@ -7,6 +7,7 @@ import * as Sentry from '@sentry/react';
 
 import { SENTRY_ENV } from '@/config/env';
 import { hooks } from '@/config/queryClient';
+import useActions from '@/hooks/useActions';
 
 import i18n from '../../config/i18n';
 import { ActivityProvider } from '../context/ActivityContext';
@@ -20,6 +21,16 @@ import PlayerView from './PlayerView';
 const App = (): JSX.Element => {
   const context = useLocalContext();
   const { data: appContext, isSuccess } = hooks.useAppContext();
+  const { postOpenAppAction } = useActions();
+
+  const [openEventSent, setOpenEventSent] = useState(false);
+
+  useEffect(() => {
+    if (!openEventSent) {
+      postOpenAppAction(undefined, context);
+      setOpenEventSent(true);
+    }
+  }, [context, openEventSent, postOpenAppAction]);
 
   useEffect(() => {
     if (['development', 'staging'].includes(SENTRY_ENV)) {
