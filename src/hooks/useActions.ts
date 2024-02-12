@@ -6,12 +6,14 @@ import {
   AppActionTypes,
   ChooseResponseAction,
   DeleteResponseAction,
+  EvaluateResponseAction,
   OpenAppAction,
   SubmitNewResponseAction,
 } from '@/config/appActionsTypes';
 import {
   AnonymousResponseData,
   CurrentStateData,
+  RatingsAppData,
   ResponseAppData,
 } from '@/config/appDataTypes';
 import { mutations } from '@/config/queryClient';
@@ -26,6 +28,7 @@ interface UseActionsValues {
     currentState?: CurrentStateData,
     context?: LocalContext,
   ) => void;
+  postEvaluateResponseAction: <T>(evaluation: RatingsAppData<T>) => void;
 }
 
 const useActions = (): UseActionsValues => {
@@ -80,11 +83,28 @@ const useActions = (): UseActionsValues => {
     [postAppAction],
   );
 
+  const postEvaluateResponseAction = useMemo(
+    () =>
+      <T>(evaluation: RatingsAppData<T>) => {
+        const action: EvaluateResponseAction<T> = {
+          type: AppActionTypes.EvaluateResponse,
+          data: {
+            id: evaluation.id,
+            type: evaluation.type,
+            data: evaluation.data,
+          },
+        };
+        postAppAction(action);
+      },
+    [postAppAction],
+  );
+
   return {
     postSubmitNewResponseAction,
     postDeleteResponseAction,
     postChooseResponseAction,
     postOpenAppAction,
+    postEvaluateResponseAction,
   };
 };
 

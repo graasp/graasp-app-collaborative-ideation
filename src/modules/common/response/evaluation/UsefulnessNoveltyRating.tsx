@@ -1,17 +1,18 @@
-import { FC, useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import CardActions from '@mui/material/CardActions';
 import Container from '@mui/material/Container';
 
-import { useLocalContext } from '@graasp/apps-query-client';
-import { AppDataVisibility } from '@graasp/sdk';
+import { Data, useLocalContext } from '@graasp/apps-query-client';
+import { AppData, AppDataVisibility } from '@graasp/sdk';
 
 import {
   AppDataTypes,
   RatingsAppData,
   RatingsData,
 } from '@/config/appDataTypes';
+import useActions from '@/hooks/useActions';
 import { EvaluationType } from '@/interfaces/evaluationType';
 import { UsefulnessNoveltyRatings } from '@/interfaces/ratings';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
@@ -32,8 +33,10 @@ const UsefulnessNoveltyRating: FC<{
   });
   const [noveltyRating, setNoveltyRating] = useState<number>();
   const [usefulnessRating, setUsefulnessRating] = useState<number>();
-  const { appData, patchAppData, postAppData } = useAppDataContext();
+  const { appData, patchAppDataAsync, postAppDataAsync } = useAppDataContext();
   const { memberId } = useLocalContext();
+  const { postEvaluateResponseAction } = useActions();
+  const promiseUpdateRatings = useRef<Promise<void>>();
 
   const ratings = useMemo(
     () =>
@@ -69,6 +72,14 @@ const UsefulnessNoveltyRating: FC<{
     }
   }, [noveltyRating, onRatingsChange, usefulnessRating]);
 
+  const callbackPromiseUpdateRatings = (data: AppData<Data> | void): void => {
+    if (data) {
+      postEvaluateResponseAction<UsefulnessNoveltyRatings>(
+        data as RatingsAppData<UsefulnessNoveltyRatings>,
+      );
+    }
+  };
+
   const updateRatings = (
     novelty: number | undefined,
     relevance: number | undefined,
@@ -83,16 +94,16 @@ const UsefulnessNoveltyRating: FC<{
         },
       };
       if (ratings?.id) {
-        patchAppData({
+        promiseUpdateRatings.current = patchAppDataAsync({
           id: ratings.id,
           data: ratingsData,
-        });
+        }).then(callbackPromiseUpdateRatings);
       } else {
-        postAppData({
+        promiseUpdateRatings.current = postAppDataAsync({
           data: ratingsData,
           type: AppDataTypes.Ratings,
           visibility: AppDataVisibility.Member,
-        });
+        }).then(callbackPromiseUpdateRatings);
       }
     }
   };

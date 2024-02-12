@@ -4,6 +4,7 @@ import { AppAction, AppData } from '@graasp/sdk';
 import {
   AnonymousResponseData,
   CurrentStateData,
+  RatingsData,
   ResponseData,
 } from './appDataTypes';
 
@@ -12,6 +13,7 @@ export enum AppActionTypes {
   DeleteResponse = 'delete-response',
   ChooseResponse = 'choose-response',
   OpenApp = 'open-app',
+  EvaluateResponse = 'evaluate-response',
   ChangeActivityState = 'change-activity-state',
   PromptAssistant = 'prompt-assistant',
 }
@@ -40,4 +42,9 @@ export type OpenAppAction = Pick<AppAction, 'type' | 'data'> & {
     currentState?: CurrentStateData;
     context?: LocalContext;
   };
+};
+
+export type EvaluateResponseAction<T> = Pick<AppAction, 'type' | 'data'> & {
+  type: AppActionTypes.EvaluateResponse;
+  data: AppDataRef<RatingsData<T>>;
 };

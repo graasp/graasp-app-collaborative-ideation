@@ -29,14 +29,15 @@ type DeleteAppDataType = {
 
 export type AppDataContextType = {
   postAppData: (payload: PostAppDataType) => void;
-  postAppDataAsync: (
-    payload: PostAppDataType,
-  ) => Promise<AppData<Data>> | undefined;
+  postAppDataAsync: (payload: PostAppDataType) => Promise<AppData<Data> | void>;
   patchAppData: (payload: PatchAppDataType) => void;
+  patchAppDataAsync: (
+    payload: PatchAppDataType,
+  ) => Promise<AppData<Data> | void>;
   deleteAppData: (payload: DeleteAppDataType) => void;
   deleteAppDataAsync: (
     payload: DeleteAppDataType,
-  ) => Promise<AppData<Data>> | undefined;
+  ) => Promise<AppData<Data> | void>;
   appData: AppData<Data>[];
   isSuccess: boolean;
   isLoading: boolean;
@@ -45,10 +46,11 @@ export type AppDataContextType = {
 
 const defaultContextValue = {
   postAppData: () => null,
-  postAppDataAsync: () => undefined,
+  postAppDataAsync: () => Promise.resolve(),
   patchAppData: () => null,
+  patchAppDataAsync: () => Promise.resolve(),
   deleteAppData: () => null,
-  deleteAppDataAsync: () => undefined,
+  deleteAppDataAsync: () => Promise.resolve(),
   appData: [],
   isSuccess: false,
   isLoading: true,
@@ -70,13 +72,15 @@ export const AppDataProvider = ({ children }: Props): JSX.Element => {
 
   const { mutate: postAppData, mutateAsync: postAppDataAsync } =
     mutations.usePostAppData();
-  const { mutate: patchAppData } = mutations.usePatchAppData();
+  const { mutate: patchAppData, mutateAsync: patchAppDataAsync } =
+    mutations.usePatchAppData();
   const { mutate: deleteAppData, mutateAsync: deleteAppDataAsync } =
     mutations.useDeleteAppData();
 
   const contextValue = useMemo(
     () => ({
       patchAppData,
+      patchAppDataAsync,
       postAppData,
       postAppDataAsync,
       deleteAppData,
@@ -88,6 +92,7 @@ export const AppDataProvider = ({ children }: Props): JSX.Element => {
     }),
     [
       patchAppData,
+      patchAppDataAsync,
       postAppData,
       postAppDataAsync,
       deleteAppData,
