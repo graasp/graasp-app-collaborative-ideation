@@ -1,5 +1,31 @@
 # Changelog
 
+## [2.1.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.0.0...v2.1.0) (2024-02-13)
+
+
+### Features
+
+* action submit new response ([58e637c](https://github.com/graasp/graasp-app-collaborative-ideation/commit/58e637c56b92fe30ac244e6ca709dfa242cfdd34))
+* delete button on current round's responses ([#48](https://github.com/graasp/graasp-app-collaborative-ideation/issues/48)) ([6adff72](https://github.com/graasp/graasp-app-collaborative-ideation/commit/6adff72783bc7935d994db64e38e9e6de7430417))
+* record action choose response ([58e637c](https://github.com/graasp/graasp-app-collaborative-ideation/commit/58e637c56b92fe30ac244e6ca709dfa242cfdd34))
+* record action when changing ratings ([58e637c](https://github.com/graasp/graasp-app-collaborative-ideation/commit/58e637c56b92fe30ac244e6ca709dfa242cfdd34))
+* record action when opening the app ([58e637c](https://github.com/graasp/graasp-app-collaborative-ideation/commit/58e637c56b92fe30ac244e6ca709dfa242cfdd34))
+* record delete action ([58e637c](https://github.com/graasp/graasp-app-collaborative-ideation/commit/58e637c56b92fe30ac244e6ca709dfa242cfdd34))
+* record main actions ([#52](https://github.com/graasp/graasp-app-collaborative-ideation/issues/52)) ([58e637c](https://github.com/graasp/graasp-app-collaborative-ideation/commit/58e637c56b92fe30ac244e6ca709dfa242cfdd34))
+* stepper to navigate response collection ([#45](https://github.com/graasp/graasp-app-collaborative-ideation/issues/45)) ([5104ce8](https://github.com/graasp/graasp-app-collaborative-ideation/commit/5104ce86ca2ae42dfe005bae25e71da34e1b946a))
+
+
+### Bug Fixes
+
+* **deps:** minor upgrades ([58e637c](https://github.com/graasp/graasp-app-collaborative-ideation/commit/58e637c56b92fe30ac244e6ca709dfa242cfdd34))
+* **deps:** upgrade all deps ([58e637c](https://github.com/graasp/graasp-app-collaborative-ideation/commit/58e637c56b92fe30ac244e6ca709dfa242cfdd34))
+* **deps:** upgrade deps ([58e637c](https://github.com/graasp/graasp-app-collaborative-ideation/commit/58e637c56b92fe30ac244e6ca709dfa242cfdd34))
+* ratings ([1519488](https://github.com/graasp/graasp-app-collaborative-ideation/commit/15194880310305c8a6ac0d841cf34913efca8d31))
+* ratings ([#49](https://github.com/graasp/graasp-app-collaborative-ideation/issues/49)) ([1519488](https://github.com/graasp/graasp-app-collaborative-ideation/commit/15194880310305c8a6ac0d841cf34913efca8d31))
+* show ratings value ([1519488](https://github.com/graasp/graasp-app-collaborative-ideation/commit/15194880310305c8a6ac0d841cf34913efca8d31))
+* **ws:** enable websockets ([feb06b3](https://github.com/graasp/graasp-app-collaborative-ideation/commit/feb06b3a0188dc88463a2cff3b5c43b75fe18eec))
+* **ws:** websockets for realtime interactions ([#58](https://github.com/graasp/graasp-app-collaborative-ideation/issues/58)) ([feb06b3](https://github.com/graasp/graasp-app-collaborative-ideation/commit/feb06b3a0188dc88463a2cff3b5c43b75fe18eec))
+
 ## [2.0.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v1.2.0...v2.0.0) (2024-02-05)
 
 
