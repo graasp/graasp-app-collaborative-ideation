@@ -34,13 +34,12 @@ describe('Builder View with admin rights, no settings', () => {
     cy.get(buildDataCy(ADMIN_PANEL_CY)).should('exist');
   });
 
-  it('starts the ideation process (no orchestrator)', () => {
+  it('starts the ideation process with orchestrator', () => {
     cy.get(buildDataCy(INITIALIZE_BTN_CY)).click();
     cy.get(buildDataCy(PLAY_PAUSE_BUTTON_CY)).should('have.lengthOf', 1);
     cy.get(buildDataCy(PLAY_PAUSE_BUTTON_CY)).click();
 
-    cy.get(buildDataCy(RESPONSE_COLLECTION_VIEW_CY)).should('not.exist');
-    // because the orchestrator has not been set
+    cy.get(buildDataCy(RESPONSE_COLLECTION_VIEW_CY)).should('exist');
   });
 
   it('create some responses, and hit next round', () => {

@@ -2,7 +2,7 @@ import { configureQueryClient } from '@graasp/apps-query-client';
 
 import notifier from '@/utils/notifier';
 
-import { API_HOST, GRAASP_APP_KEY, MOCK_API } from './env';
+import { API_HOST, GRAASP_APP_KEY, MOCK_API, WS_HOST } from './env';
 
 const {
   queryClient,
@@ -21,6 +21,8 @@ const {
   staleTime: 1000, // ms
   GRAASP_APP_KEY,
   isStandalone: MOCK_API,
+  WS_HOST,
+  enableWebsocket: true,
 });
 
 export {
