@@ -4,8 +4,11 @@ import { useTranslation } from 'react-i18next';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
+import Input from '@mui/material/Input';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
+import Stack from '@mui/material/Stack';
+import Switch from '@mui/material/Switch';
 
 import { ActivitySetting } from '@/config/appSettingsType';
 import { EvaluationType } from '@/interfaces/evaluationType';
@@ -27,12 +30,41 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
     keyPrefix: 'SETTINGS.ACTIVITY',
   });
 
-  const { mode, evaluationType } = activity;
+  const {
+    mode,
+    evaluationType,
+    exclusiveResponseDistribution,
+    numberOfBotResponsesPerSet,
+    numberOfResponsesPerSet,
+  } = activity;
 
   const handleModeChange = (newMode: ResponseVisibilityMode): void => {
     onChange({
       ...activity,
       mode: newMode,
+    });
+  };
+
+  const handleExclDistributionChange = (newToggle: boolean): void => {
+    onChange({
+      ...activity,
+      exclusiveResponseDistribution: newToggle,
+    });
+  };
+
+  const handleNbrRespSetChange = (newVal: string): void => {
+    const newValNbr = parseInt(newVal, 10);
+    onChange({
+      ...activity,
+      numberOfResponsesPerSet: newValNbr,
+    });
+  };
+
+  const handleNbrBotRespSetChange = (newVal: string): void => {
+    const newValNbr = parseInt(newVal, 10);
+    onChange({
+      ...activity,
+      numberOfBotResponsesPerSet: newValNbr,
     });
   };
 
@@ -46,38 +78,72 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
   };
   return (
     <SettingsSection title={t('TITLE')}>
-      <FormControl>
-        <FormLabel>{t('MODE_LABEL')}</FormLabel>
-        <RadioGroup
-          aria-labelledby="ideation-mode-radio-button"
-          defaultValue={ResponseVisibilityMode.Open}
-          value={mode}
-          name="radio-buttons-group"
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            handleModeChange(
-              (event.target as HTMLInputElement)
-                .value as ResponseVisibilityMode,
-            );
-          }}
-        >
+      <Stack spacing={1} direction="row" justifyContent="space-between">
+        <FormControl>
+          <FormLabel>{t('MODE_LABEL')}</FormLabel>
+          <RadioGroup
+            aria-labelledby="ideation-mode-radio-button"
+            defaultValue={ResponseVisibilityMode.Open}
+            value={mode}
+            name="radio-buttons-group"
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              handleModeChange(
+                (event.target as HTMLInputElement)
+                  .value as ResponseVisibilityMode,
+              );
+            }}
+          >
+            <FormControlLabel
+              value={ResponseVisibilityMode.Open}
+              control={<Radio />}
+              label="Open (brainstorming)"
+            />
+            <FormControlLabel
+              value={ResponseVisibilityMode.PartiallyBlind}
+              control={<Radio />}
+              label="Partially blind (brainwriting)"
+            />
+            <FormControlLabel
+              value={ResponseVisibilityMode.FullyBlind}
+              control={<Radio />}
+              label="Fully blind (individual ideation)"
+              disabled
+            />
+          </RadioGroup>
+        </FormControl>
+        <FormControl>
+          <FormLabel>{t('ADVANCED_CONFIGURATION')}</FormLabel>
           <FormControlLabel
-            value={ResponseVisibilityMode.Open}
-            control={<Radio />}
-            label="Open (brainstorming)"
+            control={
+              <Switch
+                value={exclusiveResponseDistribution}
+                onChange={(e) => handleExclDistributionChange(e.target.checked)}
+              />
+            }
+            label={t('EXCLUSIVE_RESPONSE_DISTRIBUTION_LABEL')}
           />
           <FormControlLabel
-            value={ResponseVisibilityMode.PartiallyBlind}
-            control={<Radio />}
-            label="Partially blind (brainwriting)"
+            control={
+              <Input
+                value={numberOfResponsesPerSet}
+                onChange={(e) => handleNbrRespSetChange(e.target.value)}
+              />
+            }
+            labelPlacement="top"
+            label={t('NUMBER_RESP_SET_LABEL')}
           />
           <FormControlLabel
-            value={ResponseVisibilityMode.FullyBlind}
-            control={<Radio />}
-            label="Fully blind (individual ideation)"
-            disabled
+            control={
+              <Input
+                value={numberOfBotResponsesPerSet}
+                onChange={(e) => handleNbrBotRespSetChange(e.target.value)}
+              />
+            }
+            labelPlacement="top"
+            label={t('NUMBER_BOT_RESP_SET_LABEL')}
           />
-        </RadioGroup>
-      </FormControl>
+        </FormControl>
+      </Stack>
       <EvaluationTypeSelection
         evaluationType={evaluationType}
         onChange={handleEvaluationTypeChange}
