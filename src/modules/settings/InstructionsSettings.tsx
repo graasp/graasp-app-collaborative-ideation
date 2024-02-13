@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import FormGroup from '@mui/material/FormGroup';
 import TextField from '@mui/material/TextField';
 
 import { InstructionsSetting } from '@/config/appSettingsType';
@@ -20,7 +19,8 @@ const InstructionsSettings: FC<InstructionsSettingsProps> = ({
   const { t } = useTranslation('translations', {
     keyPrefix: 'SETTINGS.INSTRUCTIONS',
   });
-  const { title } = instructions;
+  const { title, details } = instructions;
+  const detailsContent = details?.content || '';
   const handleTitleChange = (newTitle: string): void => {
     onChange({
       ...instructions,
@@ -30,17 +30,32 @@ const InstructionsSettings: FC<InstructionsSettingsProps> = ({
       },
     });
   };
+  const handleDetailsChange = (newDetails: string): void => {
+    onChange({
+      ...instructions,
+      details: {
+        type: details?.type || 'plain-text',
+        content: newDetails,
+      },
+    });
+  };
   return (
     <SettingsSection title={t('TITLE')}>
-      <FormGroup>
-        <TextField
-          value={title.content}
-          onChange={(e) => handleTitleChange(e.target.value)}
-          helperText={t('HELPER_TITLE')}
-          multiline
-          label={t('LABEL_TITLE')}
-        />
-      </FormGroup>
+      <TextField
+        value={title.content}
+        onChange={(e) => handleTitleChange(e.target.value)}
+        helperText={t('HELPER_TITLE')}
+        multiline
+        label={t('LABEL_TITLE')}
+      />
+      <TextField
+        value={detailsContent}
+        onChange={(e) => handleDetailsChange(e.target.value)}
+        helperText={t('HELPER_DETAILS')}
+        multiline
+        rows={3}
+        label={t('LABEL_DETAILS')}
+      />
     </SettingsSection>
   );
 };

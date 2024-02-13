@@ -16,7 +16,9 @@
       "INSTRUCTIONS": {
         "TITLE": "Instructions",
         "HELPER_TITLE": "Provide a title instruction to be shown in your activity.",
-        "LABEL_TITLE": "Title"
+        "LABEL_TITLE": "Title",
+        "HELPER_DETAILS": "Detailed instructions",
+        "LABEL_DETAILS": "Provide detailed instructions."
       },
       "ORCHESTRATOR": {
         "TITLE": "Orchestrator",
