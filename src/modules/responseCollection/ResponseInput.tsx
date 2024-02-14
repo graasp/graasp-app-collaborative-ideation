@@ -31,7 +31,12 @@ const ResponseInput: FC<{
   parent?: AnonymousResponseData;
   onSubmitted?: (id: string) => void;
   actAsBot?: boolean;
-}> = ({ parent, currentRound, onSubmitted, actAsBot }) => {
+  enableAssistants?: boolean;
+}> = (
+  { parent, currentRound, onSubmitted, actAsBot, enableAssistants } = {
+    enableAssistants: false,
+  },
+) => {
   const { t } = useTranslation();
   const { postResponse } = useActivityContext();
   const [isWaitingOnBot, setIsWaitingOnBot] = useState<boolean>(false);
@@ -127,13 +132,15 @@ const ResponseInput: FC<{
       >
         {t('SUBMIT')}
       </Button>
-      <LoadingButton
-        loadingIndicator="Waiting for the bot to reply."
-        loading={isWaitingOnBot}
-        onClick={askBot}
-      >
-        Ask the bot
-      </LoadingButton>
+      {enableAssistants && (
+        <LoadingButton
+          loadingIndicator="Waiting for the bot to reply."
+          loading={isWaitingOnBot}
+          onClick={askBot}
+        >
+          Ask the bot
+        </LoadingButton>
+      )}
       <Collapse in={isPosting}>
         <Stack direction="row" spacing={1}>
           <Alert severity="info">{t('IDEA_BEING_SUBMITTED_ALERT')}</Alert>
