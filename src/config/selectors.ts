@@ -15,5 +15,11 @@ export const RESPONSE_INPUT_FIELD_CY = 'response-input-field';
 export const SUBMIT_RESPONSE_BTN_CY = 'submit-response-button';
 export const NEXT_ROUND_BTN_CY = 'next-round';
 
+export const SETTINGS_VIEW_CY = 'settings-view';
+
+export const ACTIVITY_TAB_CY = 'activity-tab';
+export const SETTINGS_TAB_CY = 'settings-tab';
+export const RESPONSES_TAB_CY = 'responses-tab';
+
 export const buildDataCy = (selector: string): string =>
   `[data-cy=${selector}]`;

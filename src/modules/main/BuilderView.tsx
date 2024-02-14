@@ -9,7 +9,12 @@ import Tabs from '@mui/material/Tabs';
 import { useLocalContext } from '@graasp/apps-query-client';
 import { PermissionLevel } from '@graasp/sdk';
 
-import { BUILDER_VIEW_CY } from '@/config/selectors';
+import {
+  ACTIVITY_TAB_CY,
+  BUILDER_VIEW_CY,
+  RESPONSES_TAB_CY,
+  SETTINGS_TAB_CY,
+} from '@/config/selectors';
 
 import AdminControl from '../adminPanel/AdminPanel';
 import TabPanel from '../common/TabPanel';
@@ -20,6 +25,7 @@ import Activity from './Activity';
 interface TabType {
   tabLabel: string;
   tabChild: JSX.Element;
+  tabSelector: string;
 }
 
 const BuilderView = (): JSX.Element => {
@@ -39,6 +45,7 @@ const BuilderView = (): JSX.Element => {
     () => ({
       tabLabel: t('ACTIVITY_TAB'),
       tabChild: <Activity />,
+      tabSelector: ACTIVITY_TAB_CY,
     }),
     [t],
   );
@@ -47,6 +54,7 @@ const BuilderView = (): JSX.Element => {
     () => ({
       tabLabel: t('SETTINGS_TAB'),
       tabChild: <SettingsView />,
+      tabSelector: SETTINGS_TAB_CY,
     }),
     [t],
   );
@@ -55,6 +63,7 @@ const BuilderView = (): JSX.Element => {
     () => ({
       tabLabel: t('RESPONSES_VIEW_TAB'),
       tabChild: <ResponsesView />,
+      tabSelector: RESPONSES_TAB_CY,
     }),
     [t],
   );
@@ -74,7 +83,7 @@ const BuilderView = (): JSX.Element => {
             aria-label="Tabs in the builder view."
           >
             {tabs.map((tab, index) => (
-              <Tab key={index} label={tab.tabLabel} />
+              <Tab key={index} label={tab.tabLabel} data-cy={tab.tabSelector} />
             ))}
           </Tabs>
         </Box>

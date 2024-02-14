@@ -13,13 +13,16 @@ import {
   ActivitySetting,
   AssistantsSetting,
   InstructionsSetting,
+  NotParticipatingSetting,
   OrchestratorSetting,
 } from '@/config/appSettingsType';
+import { SETTINGS_VIEW_CY } from '@/config/selectors';
 import { useSettings } from '@/modules/context/SettingsContext';
 
 import ResetSetsButton from '../common/ResetSetsButton';
 import InstructionsSettings from './InstructionsSettings';
 import OrchestratorSettings from './OrchestratorSettings';
+import ParticipantsSettings from './ParticipantsSettings';
 import ActivitySettings from './activity/ActivitySettings';
 import Assistant from './assistant/Assistant';
 
@@ -34,6 +37,7 @@ const Settings: FC<SettingsProps> = () => {
     orchestrator: orchestratorSaved,
     activity: activitySaved,
     assistants: assistantsSaved,
+    notParticipating: notParticipatingSaved,
   } = useSettings();
 
   const [instructions, setInstructions] =
@@ -47,11 +51,15 @@ const Settings: FC<SettingsProps> = () => {
   const [assistants, setAssistants] =
     useState<AssistantsSetting>(assistantsSaved);
 
+  const [notParticipating, setNotParticipating] =
+    useState<NotParticipatingSetting>(notParticipatingSaved);
+
   const handleSave = (): void => {
     saveSettings('instructions', instructions);
     saveSettings('orchestrator', orchestrator);
     saveSettings('activity', activity);
     saveSettings('assistants', assistants);
+    saveSettings('notParticipating', notParticipating);
   };
 
   const isSaved = useMemo(
@@ -59,7 +67,8 @@ const Settings: FC<SettingsProps> = () => {
       isEqual(instructions, instructionsSaved) &&
       isEqual(orchestrator, orchestratorSaved) &&
       isEqual(activity, activitySaved) &&
-      isEqual(assistants, assistantsSaved),
+      isEqual(assistants, assistantsSaved) &&
+      isEqual(notParticipating, notParticipatingSaved),
     [
       activity,
       activitySaved,
@@ -67,13 +76,20 @@ const Settings: FC<SettingsProps> = () => {
       assistantsSaved,
       instructions,
       instructionsSaved,
+      notParticipating,
+      notParticipatingSaved,
       orchestrator,
       orchestratorSaved,
     ],
   );
 
   return (
-    <Stack width="100%" spacing={4} direction="column">
+    <Stack
+      width="100%"
+      spacing={4}
+      direction="column"
+      data-cy={SETTINGS_VIEW_CY}
+    >
       <Typography variant="h2" fontSize="16pt">
         {t('SETTINGS.TITLE')}
       </Typography>
@@ -85,6 +101,10 @@ const Settings: FC<SettingsProps> = () => {
       <OrchestratorSettings
         orchestrator={orchestrator}
         onChange={setOrchestrator}
+      />
+      <ParticipantsSettings
+        notParticipating={notParticipating}
+        onChange={setNotParticipating}
       />
       <ActivitySettings activity={activity} onChange={setActivity} />
       <Assistant assistants={assistants} onChange={setAssistants} />

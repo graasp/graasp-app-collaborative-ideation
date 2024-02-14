@@ -24,6 +24,10 @@
         "TITLE": "Orchestrator",
         "LABEL": "Select the orchestrator of the activity"
       },
+      "PARTICIPANTS": {
+        "TITLE": "Participants",
+        "FIELD_LABEL": "Excluded members"
+      },
       "ACTIVITY": {
         "TITLE": "Activity",
         "MODE_LABEL": "Visibility mode",
