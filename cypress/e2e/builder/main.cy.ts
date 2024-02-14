@@ -3,11 +3,12 @@ import { Context, PermissionLevel } from '@graasp/sdk';
 import {
   ADMIN_PANEL_CY,
   BUILDER_VIEW_CY,
-  INITIALIZE_BTN_CY,
   NEXT_ROUND_BTN_CY,
   PLAY_PAUSE_BUTTON_CY,
   PROPOSE_NEW_RESPONSE_BTN,
   RESPONSE_COLLECTION_VIEW_CY,
+  SETTINGS_TAB_CY,
+  SETTINGS_VIEW_CY,
   SUBMIT_RESPONSE_BTN_CY,
   buildDataCy,
 } from '../../../src/config/selectors';
@@ -28,14 +29,10 @@ describe('Builder View with admin rights, no settings', () => {
 
   it('loads the view without initialization', () => {
     cy.get(buildDataCy(BUILDER_VIEW_CY));
-    cy.get(buildDataCy(INITIALIZE_BTN_CY)).should('exist');
-    cy.get(buildDataCy(INITIALIZE_BTN_CY)).click();
-    cy.get(buildDataCy(INITIALIZE_BTN_CY)).should('not.exist');
     cy.get(buildDataCy(ADMIN_PANEL_CY)).should('exist');
   });
 
   it('starts the ideation process with orchestrator', () => {
-    cy.get(buildDataCy(INITIALIZE_BTN_CY)).click();
     cy.get(buildDataCy(PLAY_PAUSE_BUTTON_CY)).should('have.lengthOf', 1);
     cy.get(buildDataCy(PLAY_PAUSE_BUTTON_CY)).click();
 
@@ -43,7 +40,6 @@ describe('Builder View with admin rights, no settings', () => {
   });
 
   it('create some responses, and hit next round', () => {
-    cy.get(buildDataCy(INITIALIZE_BTN_CY)).click();
     cy.get(buildDataCy(PLAY_PAUSE_BUTTON_CY)).should('have.lengthOf', 1);
     cy.get(buildDataCy(PLAY_PAUSE_BUTTON_CY)).click();
 
@@ -61,5 +57,10 @@ describe('Builder View with admin rights, no settings', () => {
     });
 
     cy.get(buildDataCy(NEXT_ROUND_BTN_CY)).click();
+  });
+
+  it('visits settings', () => {
+    cy.get(buildDataCy(SETTINGS_TAB_CY)).click();
+    cy.get(buildDataCy(SETTINGS_VIEW_CY)).should('be.visible');
   });
 });

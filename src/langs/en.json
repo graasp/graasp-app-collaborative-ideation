@@ -16,15 +16,25 @@
       "INSTRUCTIONS": {
         "TITLE": "Instructions",
         "HELPER_TITLE": "Provide a title instruction to be shown in your activity.",
-        "LABEL_TITLE": "Title"
+        "LABEL_TITLE": "Title",
+        "HELPER_DETAILS": "Detailed instructions",
+        "LABEL_DETAILS": "Provide detailed instructions."
       },
       "ORCHESTRATOR": {
         "TITLE": "Orchestrator",
         "LABEL": "Select the orchestrator of the activity"
       },
+      "PARTICIPANTS": {
+        "TITLE": "Participants",
+        "FIELD_LABEL": "Excluded members"
+      },
       "ACTIVITY": {
         "TITLE": "Activity",
-        "MODE_LABEL": "Visibility mode"
+        "MODE_LABEL": "Visibility mode",
+        "EXCLUSIVE_RESPONSE_DISTRIBUTION_LABEL": "Distribute each idea only once",
+        "ADVANCED_CONFIGURATION": "Advanced configuration",
+        "NUMBER_RESP_SET_LABEL": "Number of responses per set",
+        "NUMBER_BOT_RESP_SET_LABEL": "Number of bot responses per set"
       },
       "EVALUATION_TYPE_SELECTION": {
         "TITLE": "Evaluation type",

@@ -1,3 +1,5 @@
+import { Member } from '@graasp/sdk';
+
 import { AssistantPersona } from '@/interfaces/assistant';
 import { EvaluationType } from '@/interfaces/evaluationType';
 import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
@@ -33,11 +35,13 @@ export type AssistantsSetting = {
   assistants: AssistantPersona[];
 };
 
+export type NotParticipatingSetting = { ids: Member['id'][] };
+
 export type AllSettingsType = {
   instructions: InstructionsSetting;
   orchestrator: OrchestratorSetting;
   activity: ActivitySetting;
-  notParticipating: { ids: string[] };
+  notParticipating: NotParticipatingSetting;
   chatbot: {
     systemPrompt: string;
   };

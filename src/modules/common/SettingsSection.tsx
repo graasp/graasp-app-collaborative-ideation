@@ -9,8 +9,10 @@ interface SettingsSectionProps {
 }
 
 const SettingsSection: FC<SettingsSectionProps> = ({ children, title }) => (
-  <Stack spacing={1}>
-    <Typography variant="h3">{title}</Typography>
+  <Stack spacing={2}>
+    <Typography sx={{ mb: '1em' }} variant="h3">
+      {title}
+    </Typography>
     {children}
   </Stack>
 );

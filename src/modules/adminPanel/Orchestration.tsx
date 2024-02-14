@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useEffect, useState } from 'react';
+import { FC, MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import InputIcon from '@mui/icons-material/Input';
@@ -6,6 +6,9 @@ import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import PollIcon from '@mui/icons-material/Poll';
 import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
+import WarningIcon from '@mui/icons-material/Warning';
+import Chip from '@mui/material/Chip';
+import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
@@ -13,15 +16,10 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Typography from '@mui/material/Typography';
 
-import { CurrentStateAppData, CurrentStateData } from '@/config/appDataTypes';
-import { INITIAL_STATE } from '@/config/constants';
 import { PLAY_PAUSE_BUTTON_CY } from '@/config/selectors';
 import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
-import { getCurrentState } from '@/utils/state';
 
 import { useActivityContext } from '../context/ActivityContext';
-import { useAppDataContext } from '../context/AppDataContext';
-import { useSettings } from '../context/SettingsContext';
 import NextRoundButton from './NextRoundButton';
 import SectionTitle from './SectionTitle';
 
@@ -29,97 +27,37 @@ interface OrchestrationProps {
   onChange?: (state: ActivityStatus) => void;
 }
 
-const Orchestration: FC<OrchestrationProps> = ({ onChange }) => {
+const Orchestration: FC<OrchestrationProps> = () => {
   const { t } = useTranslation();
-  const { appData, postAppData, patchAppData } = useAppDataContext();
-  const { orchestrator } = useSettings();
-  const [currentState, setCurrentState] = useState<CurrentStateAppData>();
-  const [processStatus, setActivityStatus] = useState<ActivityStatus>();
-  const { round } = useActivityContext();
-  const [activity, setActivity] = useState<ActivityType>(
-    ActivityType.Collection,
-  );
-  // TODO: Refactor this component
-
-  useEffect(() => {
-    const tmpCurrentState = getCurrentState(appData, orchestrator.id);
-    setCurrentState(tmpCurrentState);
-    setActivityStatus(tmpCurrentState?.data.status);
-    const currentActivity = tmpCurrentState?.data.activity;
-    if (currentActivity) {
-      setActivity(tmpCurrentState?.data.activity); // TODO: Check that toggle button is now well set when refreshing
-    }
-  }, [appData, orchestrator.id]);
-
-  const updateState = async ({
-    newProcessState,
-    newRound,
-    newActivity,
-  }: {
-    newProcessState?: ActivityStatus;
-    newRound?: number;
-    newActivity?: ActivityType;
-  }): Promise<void> => {
-    if (currentState?.id) {
-      const {
-        status: previousState,
-        round: previousRound,
-        activity: previousActivity,
-      } = currentState.data as CurrentStateData;
-      const newData: CurrentStateData = {
-        status: newProcessState ?? previousState,
-        round: newRound ?? previousRound,
-        activity: newActivity ?? previousActivity,
-      };
-      patchAppData({
-        id: currentState.id,
-        data: newData,
-      });
-    } else {
-      const {
-        status: previousState,
-        round: previousRound,
-        activity: previousActivity,
-      } = INITIAL_STATE.data;
-      const newData: CurrentStateData = {
-        status: newProcessState ?? previousState,
-        round: newRound ?? previousRound,
-        activity: newActivity ?? previousActivity,
-      };
-      postAppData({
-        ...INITIAL_STATE,
-        data: newData,
-      });
-    }
-  };
-  const handleChange = ({
-    newProcessState,
-    newRound,
-  }: {
-    newProcessState?: ActivityStatus;
-    newRound?: number;
-  }): void => {
-    if (newProcessState) {
-      setActivityStatus(newProcessState);
-    }
-    updateState({ newProcessState, newRound });
-    if (onChange && newProcessState) {
-      onChange(newProcessState);
-    }
-  };
+  const {
+    round,
+    stateWarning,
+    activityState,
+    changeActivity,
+    pauseActivity,
+    playActivity,
+  } = useActivityContext();
+  const { activity } = activityState.data;
+  const { status } = activityState.data;
 
   const handleActivityChange = (
     _event: MouseEvent,
     value: ActivityType,
   ): void => {
     if (value !== null) {
-      setActivity(value);
-      updateState({ newActivity: value });
+      changeActivity(value);
     }
   };
   return (
     <>
       <SectionTitle>{t('ADMIN_PANEL.CONTROLS.TITLE')}</SectionTitle>
+      <Collapse in={stateWarning}>
+        <Chip
+          color="warning"
+          icon={<WarningIcon />}
+          label="State is duplicated"
+        />
+      </Collapse>
       <Stack
         direction="column"
         alignItems="center"
@@ -159,41 +97,22 @@ const Orchestration: FC<OrchestrationProps> = ({ onChange }) => {
           </ToggleButton>
         </ToggleButtonGroup>
         <Paper variant="outlined" elevation={1} sx={{ p: 1 }}>
-          {processStatus === ActivityStatus.Play ? (
-            <IconButton
-              onClick={() =>
-                handleChange({ newProcessState: ActivityStatus.Pause })
-              }
-            >
+          {status === ActivityStatus.Play ? (
+            <IconButton onClick={() => pauseActivity()}>
               <PauseCircleOutlineIcon />
             </IconButton>
           ) : (
             <IconButton
-              onClick={() =>
-                handleChange({ newProcessState: ActivityStatus.Play })
-              }
+              onClick={() => playActivity()}
               data-cy={PLAY_PAUSE_BUTTON_CY}
             >
               <PlayCircleOutlineIcon />
             </IconButton>
           )}
-          {/* <Tooltip title={t('ADMIN_PANEL.CONTROLS.PREVIOUS_ROUND_TOOLTIP')}>
-            <IconButton
-              // enabled={round >= 0}
-              onClick={() => handleChange({ newRound: round - 1 })}
-            >
-              <SkipPreviousIcon />
-            </IconButton>
-          </Tooltip> */}
           <Typography variant="caption">
             {t('ADMIN_PANEL.CONTROLS.ROUND_HELPER', { round })}
           </Typography>
           <NextRoundButton enable />
-          {/* <Tooltip title={t('ADMIN_PANEL.CONTROLS.NEXT_ROUND_TOOLTIP')}>
-            <IconButton onClick={() => handleChange({ newRound: round + 1 })}>
-              <SkipNextIcon />
-            </IconButton>
-          </Tooltip> */}
         </Paper>
       </Stack>
     </>

@@ -5,9 +5,10 @@ import { PermissionLevel } from '@graasp/sdk';
 
 import { CurrentStateAppData, CurrentStateData } from '@/config/appDataTypes';
 import { INITIAL_STATE } from '@/config/constants';
+import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
-import { getCurrentRound, getCurrentState } from '@/utils/state';
+import { getAllStates, getCurrentRound, getCurrentState } from '@/utils/state';
 
 export interface UseActivityStateValues {
   activityState: {
@@ -18,17 +19,25 @@ export interface UseActivityStateValues {
   round: number;
   nextRound: () => void;
   resetActivityState: () => void;
+  stateWarning: boolean;
+  changeActivity: (newActivity: ActivityType) => void;
+  playActivity: () => void;
+  pauseActivity: () => void;
 }
 
 const useActivityState = (): UseActivityStateValues => {
   const [round, setRound] = useState(0);
-  const { appData, postAppData, patchAppData } = useAppDataContext();
+  const [stateWarning, setStateWarning] = useState(false);
+  const { appData, postAppData, patchAppData, deleteAppData } =
+    useAppDataContext();
   const { orchestrator } = useSettings();
   const [activityState, setActivityState] = useState<CurrentStateAppData>();
   const { permission } = useLocalContext();
 
   useEffect(() => {
-    setActivityState(getCurrentState(appData, orchestrator.id));
+    const state = getCurrentState(appData, orchestrator.id);
+    setStateWarning(state?.multipleStatesFound === true);
+    setActivityState(state.currentState);
     const r = getCurrentRound(appData, orchestrator.id);
     if (r) {
       setRound(r);
@@ -41,37 +50,63 @@ const useActivityState = (): UseActivityStateValues => {
     }
   };
 
-  const nextRound = (): void => {
-    const newRound = round + 1;
-    setRound(newRound);
+  const updateActivityState = (
+    newActivityStateData: Partial<CurrentStateData>,
+  ): void => {
     if (activityState?.id) {
       patchAppData({
-        ...activityState,
+        id: activityState.id,
         data: {
           ...activityState.data,
-          round: newRound,
+          ...newActivityStateData,
         },
       });
     } else {
-      postDefaultActivityState();
+      postAppData({
+        ...INITIAL_STATE,
+        data: {
+          ...INITIAL_STATE,
+          ...newActivityStateData,
+        },
+      });
     }
   };
+
+  const nextRound = (): void => {
+    const newRound = round + 1;
+    setRound(newRound);
+    updateActivityState({
+      round: newRound,
+    });
+  };
+
+  const changeActivity = (newActivity: ActivityType): void => {
+    updateActivityState({ activity: newActivity });
+  };
+
+  const changeActivityStatus = (newStatus: ActivityStatus): void => {
+    updateActivityState({ status: newStatus });
+  };
+
+  const playActivity = (): void => changeActivityStatus(ActivityStatus.Play);
+  const pauseActivity = (): void => changeActivityStatus(ActivityStatus.Pause);
+
   const resetActivityState = (): void => {
-    if (activityState?.id) {
-      patchAppData({
-        ...INITIAL_STATE,
-        id: activityState?.id,
-      });
-    } else {
-      postDefaultActivityState();
-    }
+    const states = getAllStates(appData);
+    states.forEach(({ id }) => deleteAppData({ id }));
+    postDefaultActivityState();
     setRound(0);
   };
+
   return {
     activityState: activityState || INITIAL_STATE,
     round,
     nextRound,
     resetActivityState,
+    stateWarning,
+    changeActivity,
+    playActivity,
+    pauseActivity,
   };
 };
 
