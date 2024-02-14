@@ -62,13 +62,6 @@ const AdminPanel: FC<AdminPanelProps> = ({ width }): JSX.Element => {
   }
   const members = appContext?.members;
 
-  // const handleSyncChange = (
-  //   _event: React.ChangeEvent,
-  //   checked: boolean,
-  // ): void => {
-  //   setSync(checked);
-  // };
-
   return (
     <Paper
       variant="outlined"
