@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.2.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.1.0...v2.2.0) (2024-02-15)
+
+
+### Features
+
+* add refresh data button ([a9b2c2b](https://github.com/graasp/graasp-app-collaborative-ideation/commit/a9b2c2b94069fac4a4f9713465f4a78e6bdcb83f))
+
+
+### Bug Fixes
+
+* disable 'ask bot' button ([#64](https://github.com/graasp/graasp-app-collaborative-ideation/issues/64)) ([26d752b](https://github.com/graasp/graasp-app-collaborative-ideation/commit/26d752b14618c0e226ea775489f4725907b1494b))
+* disable results button ([a9b2c2b](https://github.com/graasp/graasp-app-collaborative-ideation/commit/a9b2c2b94069fac4a4f9713465f4a78e6bdcb83f))
+* ws communication of activity state ([a9b2c2b](https://github.com/graasp/graasp-app-collaborative-ideation/commit/a9b2c2b94069fac4a4f9713465f4a78e6bdcb83f))
+* ws communication of activity state ([#67](https://github.com/graasp/graasp-app-collaborative-ideation/issues/67)) ([a9b2c2b](https://github.com/graasp/graasp-app-collaborative-ideation/commit/a9b2c2b94069fac4a4f9713465f4a78e6bdcb83f))
+
 ## [2.1.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.0.0...v2.1.0) (2024-02-13)
 
 
