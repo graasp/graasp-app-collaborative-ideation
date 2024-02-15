@@ -67,6 +67,7 @@ const LikertScale = (props: LikertScaleProps): JSX.Element => {
         emptyIcon={<RadioButtonUncheckedIcon fontSize="inherit" />}
         onChange={handleChange}
         highlightSelectedOnly
+        max={levels}
       />
       <Label variant="caption">{maxLabel}</Label>
     </Stack>
