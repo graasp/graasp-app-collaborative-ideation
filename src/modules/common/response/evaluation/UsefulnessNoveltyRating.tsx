@@ -128,14 +128,14 @@ const UsefulnessNoveltyRating: FC<{
           onChange={(rating) => handleRatingChange('novelty', rating)}
           minLabel={t('COMMON')}
           maxLabel={t('NOVEL')}
-          levels={7}
+          levels={5}
           value={noveltyRating}
         />
         <LikertScale
           onChange={(rating) => handleRatingChange('relevance', rating)}
           minLabel={t('USELESS')}
           maxLabel={t('USEFUL')}
-          levels={7}
+          levels={5}
           value={usefulnessRating}
         />
       </Container>
