@@ -1,27 +1,15 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 
 import { ActivityType } from '@/interfaces/interactionProcess';
-import { getCurrentActivity } from '@/utils/state';
 
-import { useAppDataContext } from '../context/AppDataContext';
-import { useSettings } from '../context/SettingsContext';
+import { useActivityContext } from '../context/ActivityContext';
 import ResponseCollection from '../responseCollection/ResponseCollection';
 import ResponseEvaluation from '../responseEvaluation/ResponseEvaluation';
 
 const Activity: FC = () => {
-  const { appData } = useAppDataContext();
-  const { orchestrator } = useSettings();
+  const { activityState } = useActivityContext();
 
-  const [activity, setActivity] = useState<ActivityType>(
-    ActivityType.Collection,
-  );
-
-  useEffect(() => {
-    const a = getCurrentActivity(appData, orchestrator.id);
-    if (a) {
-      setActivity(a);
-    }
-  }, [appData, orchestrator.id]);
+  const { activity } = activityState.data;
 
   switch (activity) {
     case ActivityType.Evaluation:

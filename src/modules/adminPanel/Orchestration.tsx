@@ -91,9 +91,26 @@ const Orchestration: FC<OrchestrationProps> = () => {
           <ToggleButton
             value={ActivityType.Results}
             aria-label={t('ADMIN_PANEL.CONTROLS.RESULTS_BUTTON')}
+            disabled
           >
             <PollIcon sx={{ mr: 1 }} />
             {t('ADMIN_PANEL.CONTROLS.RESULTS_BUTTON')}
+            <Chip
+              disabled
+              variant="outlined"
+              color="warning"
+              size="small"
+              label="Under development"
+              sx={{
+                maxWidth: '10em',
+                height: 'auto',
+                '& .MuiChip-label': {
+                  display: 'block',
+                  whiteSpace: 'normal',
+                },
+              }}
+            />
+            {/* git commit -m "fix: disable results button" */}
           </ToggleButton>
         </ToggleButtonGroup>
         <Paper variant="outlined" elevation={1} sx={{ p: 1 }}>

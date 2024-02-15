@@ -39,6 +39,7 @@ export type AppDataContextType = {
     payload: DeleteAppDataType,
   ) => Promise<AppData<Data> | void>;
   appData: AppData<Data>[];
+  // refetchAppData: () => Promise<UseQueryResult<AppData[]>>;
   isSuccess: boolean;
   isLoading: boolean;
   invalidateAppData: () => Promise<void>;
@@ -64,7 +65,11 @@ type Props = {
 };
 
 export const AppDataProvider = ({ children }: Props): JSX.Element => {
-  const { data: appData, isLoading, isSuccess } = hooks.useAppData();
+  const {
+    data: appData,
+    isLoading,
+    isSuccess /* refetch: refetchAppData */,
+  } = hooks.useAppData();
   const invalidateAppData = useMemo(
     () => () => queryClient.invalidateQueries(QUERY_KEYS.appDataKeys.all),
     [],

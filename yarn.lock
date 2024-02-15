@@ -2474,9 +2474,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graasp/apps-query-client@npm:3.4.4":
+"@graasp/apps-query-client@graasp/graasp-apps-query-client#266-fix-patch-update-immutable-ws":
   version: 3.4.4
-  resolution: "@graasp/apps-query-client@npm:3.4.4"
+  resolution: "@graasp/apps-query-client@https://github.com/graasp/graasp-apps-query-client.git#commit=61b48e26ec9ec0323df6e77b5a903883bbf48e4d"
   dependencies:
     "@emotion/react": "npm:11.11.3"
     "@emotion/styled": "npm:11.11.0"
@@ -2497,7 +2497,7 @@ __metadata:
     date-fns: ^3.3.0
     react: ^18.0.0
     react-dom: ^18.0.0
-  checksum: 10/5d32654427b80ed1c8e183a8ee564c1ca462f5c191b3ad568c1c8a3be903d372bbb22a761619f2c9df5b0c9c63b40f195af3ad6a327f53c7f60260a9e17448e0
+  checksum: 10/b9183d62c0b1e609b829b39d5e86cd7931831d89600463a949602e0c5e3a985605153ee3bf5aad8960e8b4bd5c37d4444de47a76d1f2dd221e3f4952b540c61a
   languageName: node
   linkType: hard
 
@@ -8392,7 +8392,7 @@ __metadata:
     "@cypress/code-coverage": "npm:3.12.22"
     "@emotion/react": "npm:11.11.3"
     "@emotion/styled": "npm:11.11.0"
-    "@graasp/apps-query-client": "npm:3.4.4"
+    "@graasp/apps-query-client": "graasp/graasp-apps-query-client#266-fix-patch-update-immutable-ws"
     "@graasp/sdk": "npm:3.6.0"
     "@mui/icons-material": "npm:5.15.10"
     "@mui/lab": "npm:5.0.0-alpha.165"

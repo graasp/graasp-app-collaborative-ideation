@@ -118,6 +118,7 @@
       "ORCHESTRATION": {
         "NEXT_ROUND_BTN": "Next round",
         "RESET_SETS_BTN": "Reset activity",
+        "REFRESH_DATA": "Refresh data",
         "RESET_SETS_DIALOG": {
           "TITLE": "Do you really want to reset the activity?",
           "HELPER_TEXT": "This action is definitive and will result in the loss of all the sets created in this activity.",
