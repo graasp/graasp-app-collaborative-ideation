@@ -87,9 +87,9 @@
     "PROPOSE_NEW_IDEA": "Propose a new response",
     "STATE_CONTROL_TITLE": "Controls",
     "PAUSE_MESSAGE": "The process has been paused by the admin. Please, wait for a moment.",
-    "WAIT_TO_START_SCREEN_MAIN_INSTRUCTION": "The ideation will start soon. In the meantime, please, read the following instructions:",
-    "WAIT_TO_START_SCREEN_STEP1": "At the beginning, you will be presented with a generative design question and asked to provide an answer to it.",
-    "WAIT_TO_START_SCREEN_STEP2": "After submitting a first answer, you will see some ideas provided by the other participants. Rate all of them and then propose a new idea, either by choosing one to build upon or by proposing a completely new one.",
+    "WAIT_TO_START_SCREEN_MAIN_INSTRUCTION": "The activity will start soon. In the meantime, please, read the following instructions:",
+    "WAIT_TO_START_SCREEN_STEP1": "At the beginning, you will be presented with an instruction or a challenge and asked to propose an answer to it.",
+    "WAIT_TO_START_SCREEN_STEP2": "After submitting a first answer, you will see some ideas provided by the other participants. Choose one to build upon or propose a completely new one.",
     "ROUND": "Round {{round}}",
     "PARTICIPANTS": "Participants",
     "ORCHESTRATION": "Orchestration",
@@ -133,7 +133,7 @@
     },
     "PROMPTS": {
       "SINGLE_RESPONSE": "We are given the following wicked problem:\n<problem>\n{{problemStatement}}\n</problem>\n\nGenerate a single solution to this challenge. Provide only the solution and limit it to {{maxChars}} characters.",
-      "SINGLE_RESPONSE_AND_PROVIDE_RESPONSES": "We are given the following wicked problem:\n<problem>\n{{problemStatement}}\n</problem>\n\nSo far, your teammates have proposed the following solutions to this problem:\n{{responses}}\nGenerate a single solution to this challenge. Provide only the solution and limit it to {{maxChars}} characters."
+      "SINGLE_RESPONSE_AND_PROVIDE_RESPONSES": "We are given the following problem:\n<problem>\n{{problemStatement}}\n</problem>\n\nSo far, your teammates have proposed the following solutions to this problem:\n{{responses}}\nGenerate a single, disruptive and out-of-the-box solution for this challenge. Your solution should challenge conventional thinking and differ from the solutions proposed by the other participants. Try to match the tone and style of the given solutions.\nProvide only the solution, not enclosed in any format (no XML tags), and limit it to {{maxChars}} characters."
     }
   }
 }
