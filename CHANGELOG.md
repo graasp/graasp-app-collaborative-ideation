@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.2.1](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.2.0...v2.2.1) (2024-02-20)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @uiw/react-codemirror to v4.21.22 ([91d66e5](https://github.com/graasp/graasp-app-collaborative-ideation/commit/91d66e56c457ea344f975e55e9b50cf6d63b6488))
+* **deps:** update dependency i18next to v23.8.3 ([820cae9](https://github.com/graasp/graasp-app-collaborative-ideation/commit/820cae9cf512ab1d674292f4af4e808899b6ff92))
+* **deps:** update dependency i18next to v23.9.0 ([#78](https://github.com/graasp/graasp-app-collaborative-ideation/issues/78)) ([a431273](https://github.com/graasp/graasp-app-collaborative-ideation/commit/a431273010abb595649c6d7bed4957b2bd22c816))
+* **deps:** update dependency react-router-dom to v6.22.1 ([bfa920a](https://github.com/graasp/graasp-app-collaborative-ideation/commit/bfa920a2e0c1448cace6389e5222b160219c321f))
+* improve instructions and chatbot prompt ([36d2d62](https://github.com/graasp/graasp-app-collaborative-ideation/commit/36d2d62f01588a078cf8460eede563e1e1eb1043))
+* set right number of levels for ratings ([#68](https://github.com/graasp/graasp-app-collaborative-ideation/issues/68)) ([a97636c](https://github.com/graasp/graasp-app-collaborative-ideation/commit/a97636c7a78df4f44fc9645dd117214370731135))
+
 ## [2.2.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.1.0...v2.2.0) (2024-02-15)
 
 
