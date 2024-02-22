@@ -22,9 +22,6 @@ const LikertRating = styled(Rating)(({ theme }) => ({
   '& .MuiRating-iconFilled': {
     color: theme.palette.primary.main,
   },
-  '& .MuiRating-iconHover': {
-    color: theme.palette.primary.dark,
-  },
 }));
 
 const Label = styled(Typography)(() => ({
@@ -61,7 +58,7 @@ const LikertScale = (props: LikertScaleProps): JSX.Element => {
       </Label>
       <LikertRating
         name="likert-rating"
-        value={value ?? Math.ceil(levels / 2)}
+        value={value ?? 0}
         precision={1}
         icon={<RadioButtonCheckedIcon fontSize="inherit" />}
         emptyIcon={<RadioButtonUncheckedIcon fontSize="inherit" />}
