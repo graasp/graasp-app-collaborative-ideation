@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.2.2](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.2.1...v2.2.2) (2024-02-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @codemirror/lang-javascript to v6.2.2 ([9f3b6c0](https://github.com/graasp/graasp-app-collaborative-ideation/commit/9f3b6c0e5b806d07a06c801dae128f5ea6f4706a))
+* **deps:** update dependency @uiw/react-codemirror to v4.21.23 ([#84](https://github.com/graasp/graasp-app-collaborative-ideation/issues/84)) ([8b90bf8](https://github.com/graasp/graasp-app-collaborative-ideation/commit/8b90bf8ebfb3c0b686df1d22c41d969713b7b8d2))
+* **deps:** update dependency i18next to v23.10.0 ([#85](https://github.com/graasp/graasp-app-collaborative-ideation/issues/85)) ([e33c7bc](https://github.com/graasp/graasp-app-collaborative-ideation/commit/e33c7bc00a4c1011a7309463b5476370c2f3e8fe))
+* **deps:** upgrade dev deps ([#80](https://github.com/graasp/graasp-app-collaborative-ideation/issues/80)) ([920efe0](https://github.com/graasp/graasp-app-collaborative-ideation/commit/920efe00c04bf4489b91b4579f0d80b824e2458b))
+
 ## [2.2.1](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.2.0...v2.2.1) (2024-02-20)
 
 
