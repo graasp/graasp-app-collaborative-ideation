@@ -37,7 +37,9 @@ const ResponseInput: FC<{
     enableAssistants: false,
   },
 ) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('translations', {
+    keyPrefix: 'RESPONSE_COLLECTION.INPUT',
+  });
   const { postResponse } = useActivityContext();
   const [isWaitingOnBot, setIsWaitingOnBot] = useState<boolean>(false);
   const [response, setResponse] = useState<string>('');
@@ -93,15 +95,16 @@ const ResponseInput: FC<{
   return (
     <>
       <Collapse in={tooLong}>
-        <Alert severity="error">{t('IDEA_TOO_LONG_ALERT')}</Alert>
+        <Alert severity="error">{t('RESPONSE_TOO_LONG_ALERT')}</Alert>
       </Collapse>
       {parent && (
         <Alert severity="info">
-          <AlertTitle>{t('CUE_PARENT_IDEA_TITLE')}</AlertTitle>
+          <AlertTitle>{t('CUE_PARENT_RESPONSE_TITLE')}</AlertTitle>
           <q>{parent.response}</q>
         </Alert>
       )}
       <TextField
+        helperText={t('HELPER')}
         sx={{ width: { md: '75ch', sm: '100%' }, maxWidth: '100%' }}
         multiline
         variant="outlined"
@@ -143,7 +146,7 @@ const ResponseInput: FC<{
       )}
       <Collapse in={isPosting}>
         <Stack direction="row" spacing={1}>
-          <Alert severity="info">{t('IDEA_BEING_SUBMITTED_ALERT')}</Alert>
+          <Alert severity="info">{t('RESPONSE_BEING_SUBMITTED_ALERT')}</Alert>
           <Loader />
         </Stack>
       </Collapse>

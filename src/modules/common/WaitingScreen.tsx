@@ -10,7 +10,9 @@ interface WaitingScreenProps {
 }
 
 const WaitingScreen: FC<WaitingScreenProps> = ({ state }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('translations', {
+    keyPrefix: 'WAIT_TO_START_SCREEN',
+  });
 
   if (state === ActivityStatus.Pause) {
     return (
@@ -23,10 +25,11 @@ const WaitingScreen: FC<WaitingScreenProps> = ({ state }) => {
   return (
     <Stack direction="column" justifyItems="center" spacing={4}>
       <Typography>
-        {t('WAIT_TO_START_SCREEN_MAIN_INSTRUCTION')}
+        {t('MAIN_INSTRUCTION')}
         <ul>
-          <li>{t('WAIT_TO_START_SCREEN_STEP1')}</li>
-          <li>{t('WAIT_TO_START_SCREEN_STEP2')}</li>
+          <li>{t('STEP1')}</li>
+          <li>{t('STEP2')}</li>
+          <li>{t('STEP3')}</li>
         </ul>
       </Typography>
     </Stack>
