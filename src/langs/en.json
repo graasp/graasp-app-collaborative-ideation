@@ -6,11 +6,17 @@
     "RESPONSES_VIEW_TAB": "Responses view",
     "SETTINGS_TAB": "Settings",
     "BUILD_ON_THIS_IDEA": "Build on this idea",
-    "IDEA_TOO_LONG_ALERT": "Your idea is too long. Please, try to be more concise.",
     "IDEA_SUBMITTED_SUCCESS": "Your idea was successfully submitted.",
     "EDIT": "Edit",
     "DELETE": "Delete",
     "COMING_SOON": "Coming soon!",
+    "WAIT_TO_START_SCREEN": {
+      "MAIN_INSTRUCTION": "The activity will start soon. In the meantime, please, read the following instructions:",
+      "STEP1": "At the beginning, you will be presented with an instruction or a challenge.",
+      "STEP2": "Propose as many answers to it as possible. Don't spend too much time writing a single idea.",
+      "STEP3": "After submitting a first answer, you will see some ideas provided by the other participants. Choose one to build upon or propose a completely new one.",
+      "PAUSE_MESSAGE": "The process has been paused by the admin. Please, wait for a moment."
+    },
     "SETTINGS": {
       "TITLE": "Settings",
       "INSTRUCTIONS": {
@@ -70,6 +76,13 @@
       }
     },
     "RESPONSE_COLLECTION": {
+      "INPUT": {
+        "SUBMIT": "Submit your response",
+        "HELPER": "Write down only one proposition in this field.",
+        "CUE_PARENT_RESPONSE_TITLE": "Previous response",
+        "RESPONSE_BEING_SUBMITTED_ALERT": "Your response is being submitted, please wait for a few seconds.",
+        "RESPONSE_TOO_LONG_ALERT": "Your idea is too long. Please, try to be more concise."
+      },
       "STEPPER": {
         "INPUT_STEP_LABEL": "Submit your response",
         "CHOOSE_STEP_LABEL": "Read the responses of other participants"
@@ -78,18 +91,12 @@
     "SAVE": "Save",
     "CHOOSE_RESPONSE_HEADER_TEXT": "Read these responses that have been proposed by other participants. Choose one to build upon or propose a new response.",
     "NO_IDEAS_TO_SHOW_TEXT": "The other participants have not submitted enough ideas yet. Once they have, these ideas will appear here.",
-    "SUBMIT": "Submit",
     "BOT_NAME": "GraaspBot",
     "SYNC_ALERT_SUCCESS": "All ideas are sync.",
-    "CUE_PARENT_IDEA_TITLE": "Previous response",
-    "IDEA_BEING_SUBMITTED_ALERT": "Your response is being submitted, please wait for a few seconds.",
     "CHECK_FOR_NEW_IDEAS": "Check for new responses",
     "PROPOSE_NEW_IDEA": "Propose a new response",
     "STATE_CONTROL_TITLE": "Controls",
     "PAUSE_MESSAGE": "The process has been paused by the admin. Please, wait for a moment.",
-    "WAIT_TO_START_SCREEN_MAIN_INSTRUCTION": "The activity will start soon. In the meantime, please, read the following instructions:",
-    "WAIT_TO_START_SCREEN_STEP1": "At the beginning, you will be presented with an instruction or a challenge and asked to propose an answer to it.",
-    "WAIT_TO_START_SCREEN_STEP2": "After submitting a first answer, you will see some ideas provided by the other participants. Choose one to build upon or propose a completely new one.",
     "ROUND": "Round {{round}}",
     "PARTICIPANTS": "Participants",
     "ORCHESTRATION": "Orchestration",
