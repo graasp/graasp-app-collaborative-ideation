@@ -47,6 +47,8 @@ export type CurrentStateData = {
   round?: number;
   status: ActivityStatus;
   activity: ActivityType;
+  startTime: Date;
+  stepIndex?: number;
 };
 
 export type CurrentStateAppData = AppData & {

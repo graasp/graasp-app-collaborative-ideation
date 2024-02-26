@@ -17,6 +17,12 @@
       "STEP3": "After submitting a first answer, you will see some ideas provided by the other participants. Choose one to build upon or propose a completely new one.",
       "PAUSE_MESSAGE": "The process has been paused by the admin. Please, wait for a moment."
     },
+    "ORCHESTRATION_BAR": {
+    "NEXT_STEP_BTN": {
+      "NEXT_STEP": "Next step",
+      "REFRESH_DATA": "Refresh data"
+    }
+    },
     "SETTINGS": {
       "TITLE": "Settings",
       "INSTRUCTIONS": {

@@ -5,7 +5,11 @@ import { PermissionLevel } from '@graasp/sdk';
 
 import { CurrentStateData } from '@/config/appDataTypes';
 import { INITIAL_STATE } from '@/config/constants';
-import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
+import {
+  ActivityStatus,
+  ActivityStep,
+  ActivityType,
+} from '@/interfaces/interactionProcess';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { getAllStates, getCurrentState } from '@/utils/state';
@@ -23,6 +27,7 @@ export interface UseActivityStateValues {
   changeActivity: (newActivity: ActivityType) => void;
   playActivity: () => void;
   pauseActivity: () => void;
+  nextStep: (newStep: ActivityStep, index: number) => void;
 }
 
 const useActivityState = (): UseActivityStateValues => {
@@ -68,6 +73,15 @@ const useActivityState = (): UseActivityStateValues => {
     }
   };
 
+  const nextStep = (newStep: ActivityStep, index: number): void => {
+    updateActivityState({
+      activity: newStep.type,
+      round: newStep.round,
+      startTime: new Date(),
+      stepIndex: index,
+    });
+  };
+
   const nextRound = (): void => {
     const newRound = round + 1;
     updateActivityState({
@@ -101,6 +115,7 @@ const useActivityState = (): UseActivityStateValues => {
     changeActivity,
     playActivity,
     pauseActivity,
+    nextStep,
   };
 };
 
