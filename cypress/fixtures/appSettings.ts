@@ -1,5 +1,6 @@
 import { AppSetting } from '@graasp/sdk';
 
+import { AllSettingsType } from '@/config/appSettingsType';
 import { DEFAULT_SYSTEM_PROMPT } from '@/config/prompts';
 import { EvaluationType } from '@/interfaces/evaluationType';
 import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
@@ -25,10 +26,15 @@ const newSettingFactory = (
   };
 };
 
-const ALL_SETTINGS_OBJECT = {
+export const ALL_SETTINGS_OBJECT: AllSettingsType = {
   instructions: {
     title: {
       content: 'What are your big ideas today?',
+      type: 'plain-text',
+    },
+    details: {
+      content:
+        "Don't limitate yourself and express any idea that you may have.",
       type: 'plain-text',
     },
   },

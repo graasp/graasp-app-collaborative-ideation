@@ -21,5 +21,8 @@ export const ACTIVITY_TAB_CY = 'activity-tab';
 export const SETTINGS_TAB_CY = 'settings-tab';
 export const RESPONSES_TAB_CY = 'responses-tab';
 
+export const DETAILS_INSTRUCTIONS_CY = 'details-instructions';
+export const TITLE_INSTRUCTIONS_CY = 'title-instructions';
+
 export const buildDataCy = (selector: string): string =>
   `[data-cy=${selector}]`;
