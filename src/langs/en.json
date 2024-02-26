@@ -15,10 +15,10 @@
       "TITLE": "Settings",
       "INSTRUCTIONS": {
         "TITLE": "Instructions",
-        "HELPER_TITLE": "Provide a title instruction to be shown in your activity.",
-        "LABEL_TITLE": "Title",
-        "HELPER_DETAILS": "Detailed instructions",
-        "LABEL_DETAILS": "Provide detailed instructions."
+        "HELPER_TITLE": "Provide a main instruction to be shown in your activity.",
+        "LABEL_TITLE": "Main",
+        "HELPER_DETAILS": "Details",
+        "LABEL_DETAILS": "Provide details to complete your main instructions."
       },
       "ORCHESTRATOR": {
         "TITLE": "Orchestrator",

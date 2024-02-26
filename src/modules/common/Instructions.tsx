@@ -9,10 +9,16 @@ interface InstructionsProps {}
 
 const Instructions: FC<InstructionsProps> = () => {
   const { instructions } = useSettings();
+  const { title, details } = instructions;
   return (
-    <Typography sx={{ fontSize: '18pt' }} variant="h4">
-      {instructions.title.content}
-    </Typography>
+    <>
+      <Typography sx={{ fontSize: '18pt' }} variant="h4">
+        {title.content}
+      </Typography>
+      {typeof details !== 'undefined' && details.content.length > 0 && (
+        <Typography variant="body1">{details?.content}</Typography>
+      )}
+    </>
   );
 };
 
