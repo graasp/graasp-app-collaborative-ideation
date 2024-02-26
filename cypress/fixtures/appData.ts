@@ -1,6 +1,6 @@
 import { AppData, AppDataVisibility, Member } from '@graasp/sdk';
 
-import { AppDataTypes } from '@/config/appDataTypes';
+import { AppDataTypes, ResponseData } from '@/config/appDataTypes';
 import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
 
 import { MEMBERS } from './members';
@@ -30,7 +30,16 @@ const appDataFactory = (
   };
 };
 
-export const currentState = appDataFactory(
+const responseFactory = (responseData: ResponseData, member: Member): AppData =>
+  appDataFactory(
+    AppDataTypes.Response,
+    {},
+    AppDataVisibility.Member,
+    member,
+    member,
+  );
+
+export const currentStateInitial = appDataFactory(
   AppDataTypes.CurrentState,
   {
     round: 0,
@@ -42,3 +51,69 @@ export const currentState = appDataFactory(
   MEMBERS.ANNA,
   MEMBERS.ANNA,
 );
+
+export const currentStateEvaluation = appDataFactory(
+  AppDataTypes.CurrentState,
+  {
+    round: 5,
+    status: ActivityStatus.Play,
+    activity: ActivityType.Evaluation,
+  },
+  AppDataVisibility.Item,
+  // Check that orchestrator is set to ANNA for this to apply.
+  MEMBERS.ANNA,
+  MEMBERS.ANNA,
+);
+
+export const endOfActivityResponses = [
+  responseFactory(
+    {
+      response: 'Climbing to the top of the Everest',
+      round: 0,
+    },
+    MEMBERS.ANNA,
+  ),
+  responseFactory(
+    {
+      response: 'Going to Thailand.',
+      round: 0,
+    },
+    MEMBERS.ANNA,
+  ),
+  responseFactory(
+    {
+      response:
+        'Developing an open source and democratic alternative to the multiverse that does not cross the ecological and societal boundaries of the earth while enabling the complete destruction of our capitalist civilization.',
+      round: 1,
+    },
+    MEMBERS.ANNA,
+  ),
+  responseFactory(
+    {
+      response: 'Do nothing.',
+      round: 1,
+    },
+    MEMBERS.ANNA,
+  ),
+  responseFactory(
+    {
+      response: 'Get trash out.',
+      round: 0,
+    },
+    MEMBERS.BOB,
+  ),
+  responseFactory(
+    {
+      response: 'Eat rich people',
+      round: 0,
+    },
+    MEMBERS.BOB,
+  ),
+  responseFactory(
+    {
+      response: 'Write borderline text in E2E tests.',
+      round: 1,
+    },
+    MEMBERS.BOB,
+  ),
+];
