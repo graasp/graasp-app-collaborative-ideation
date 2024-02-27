@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.3.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.2.2...v2.3.0) (2024-02-27)
+
+
+### Features
+
+* improve instructions and texts in UI ([#99](https://github.com/graasp/graasp-app-collaborative-ideation/issues/99)) ([d3c8899](https://github.com/graasp/graasp-app-collaborative-ideation/commit/d3c889986509a2ce414e35403e50d44a86481b8b))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @mui/x-data-grid to v6.19.5 ([a424c05](https://github.com/graasp/graasp-app-collaborative-ideation/commit/a424c059f0cf60c4238adb7ad5bfc9db07de1ca1))
+* **deps:** update dependency @sentry/react to v7.102.1 ([f91f074](https://github.com/graasp/graasp-app-collaborative-ideation/commit/f91f07472ff6f486782392e6d9f89fc05912f645))
+* **deps:** update dependency @uiw/react-codemirror to v4.21.24 ([9d532ce](https://github.com/graasp/graasp-app-collaborative-ideation/commit/9d532ce44d17a65ae610c10280a4372fda7cc97f))
+* **deps:** update mui (non-major) ([2a298a1](https://github.com/graasp/graasp-app-collaborative-ideation/commit/2a298a1043c1125f4fc84dc7c91c42da823c98bd))
+* minor improvements of instructions ([7737eb2](https://github.com/graasp/graasp-app-collaborative-ideation/commit/7737eb26820b77c88e614ce3638104190b02764f))
+* ratings ([#87](https://github.com/graasp/graasp-app-collaborative-ideation/issues/87)) ([a470d10](https://github.com/graasp/graasp-app-collaborative-ideation/commit/a470d10670cb60d670704640702f456f6fc7bdb4))
+
 ## [2.2.2](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.2.1...v2.2.2) (2024-02-22)
 
 
