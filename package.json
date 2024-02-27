@@ -24,7 +24,7 @@
   "type": "module",
   "dependencies": {
     "@codemirror/lang-javascript": "^6.2.1",
-    "@emotion/react": "11.11.3",
+    "@emotion/react": "11.11.4",
     "@emotion/styled": "11.11.0",
     "@graasp/apps-query-client": "^3.4.4",
     "@graasp/sdk": "3.6.0",
