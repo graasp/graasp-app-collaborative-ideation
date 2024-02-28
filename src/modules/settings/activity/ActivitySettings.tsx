@@ -12,10 +12,14 @@ import Switch from '@mui/material/Switch';
 
 import { ActivitySetting } from '@/config/appSettingsType';
 import { EvaluationType } from '@/interfaces/evaluationType';
-import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
+import {
+  ActivityStep,
+  ResponseVisibilityMode,
+} from '@/interfaces/interactionProcess';
 
 import SettingsSection from '../../common/SettingsSection';
 import EvaluationTypeSelection from './EvaluationTypeSelection';
+import StepsSettings from './StepsSettings';
 
 interface ActivitySettingsProps {
   activity: ActivitySetting;
@@ -36,6 +40,7 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
     exclusiveResponseDistribution,
     numberOfBotResponsesPerSet,
     numberOfResponsesPerSet,
+    steps,
   } = activity;
 
   const handleModeChange = (newMode: ResponseVisibilityMode): void => {
@@ -74,6 +79,13 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
     onChange({
       ...activity,
       evaluationType: newEvaluationType,
+    });
+  };
+
+  const handleChangeSteps = (newSteps: ActivityStep[]): void => {
+    onChange({
+      ...activity,
+      steps: newSteps,
     });
   };
   return (
@@ -148,6 +160,7 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
         evaluationType={evaluationType}
         onChange={handleEvaluationTypeChange}
       />
+      <StepsSettings steps={steps} onChange={handleChangeSteps} />
     </SettingsSection>
   );
 };

@@ -20,6 +20,7 @@ export const INITIAL_STATE: {
     status: ActivityStatus.WaitingForStart,
     activity: ActivityType.Collection,
     round: 0,
+    startTime: new Date(),
   },
   visibility: AppDataVisibility.Item,
 };

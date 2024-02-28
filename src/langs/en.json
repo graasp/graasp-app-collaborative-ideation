@@ -17,11 +17,21 @@
       "STEP3": "After submitting a first answer, you will see some ideas provided by the other participants. Choose one to build upon or propose a completely new one.",
       "PAUSE_MESSAGE": "The process has been paused by the admin. Please, wait for a moment."
     },
+    "ROUND_COMP": {
+      "ROUND": "Round"
+    },
     "ORCHESTRATION_BAR": {
-    "NEXT_STEP_BTN": {
-      "NEXT_STEP": "Next step",
-      "REFRESH_DATA": "Refresh data"
-    }
+      "PLAY": "Play",
+      "PAUSE": "Pause",
+      "NEXT_STEP_BTN": {
+        "NEXT_STEP": "Next step",
+        "PREVIOUS_STEP": "Previous step",
+        "REFRESH_DATA": "Refresh data",
+        "LABEL_STEP_COLLECTION": "Collecting responses, round {{ round }}",
+        "LABEL_STEP_EVALUATION": "Evaluating responses",
+        "NO_STEP": "The current activity is not defined"
+      },
+      "ROUND_HELPER": "Round {{round}}"
     },
     "SETTINGS": {
       "TITLE": "Settings",
@@ -46,7 +56,11 @@
         "EXCLUSIVE_RESPONSE_DISTRIBUTION_LABEL": "Distribute each idea only once",
         "ADVANCED_CONFIGURATION": "Advanced configuration",
         "NUMBER_RESP_SET_LABEL": "Number of responses per set",
-        "NUMBER_BOT_RESP_SET_LABEL": "Number of bot responses per set"
+        "NUMBER_BOT_RESP_SET_LABEL": "Number of bot responses per set",
+        "STEPS": {
+          "ERROR_PROMPT_NOT_IN_JSON_FORMAT": "Prompt has to be in JSON format.",
+          "ADD_STEP": "Add a step"
+        }
       },
       "EVALUATION_TYPE_SELECTION": {
         "TITLE": "Evaluation type",

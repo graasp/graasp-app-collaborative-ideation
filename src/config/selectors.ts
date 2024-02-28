@@ -24,5 +24,8 @@ export const RESPONSES_TAB_CY = 'responses-tab';
 export const DETAILS_INSTRUCTIONS_CY = 'details-instructions';
 export const TITLE_INSTRUCTIONS_CY = 'title-instructions';
 
+export const PREVIOUS_STEP_BTN_CY = 'previous-step-btn';
+export const NEXT_STEP_BTN_CY = 'next-step-btn';
+
 export const buildDataCy = (selector: string): string =>
   `[data-cy=${selector}]`;

@@ -30,6 +30,7 @@ import MyResponses from './MyResponses';
 import PhasesStepper from './PhaseStepper';
 import IdeaChoose from './ResponseChoose';
 import IdeaInput from './ResponseInput';
+import Round from '../common/Round';
 
 const ResponseCollection: FC = () => {
   const { t } = useTranslation();
@@ -126,11 +127,14 @@ const ResponseCollection: FC = () => {
           height="100%"
           spacing={4}
         >
-          <PhasesStepper
-            activeStep={phase}
-            steps={[InputPhase, ChoosePhase]}
-            selectStep={(newPhase: number) => setPhase(newPhase)}
-          />
+          <Stack direction="row">
+            <Round round={round} />
+            <PhasesStepper
+              activeStep={phase}
+              steps={[InputPhase, ChoosePhase]}
+              selectStep={(newPhase: number) => setPhase(newPhase)}
+            />
+          </Stack>
           <Instructions />
           {renderPhaseOfIdeation()}
           <MyResponses />
