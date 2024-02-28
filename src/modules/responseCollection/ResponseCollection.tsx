@@ -31,11 +31,13 @@ import PhasesStepper from './PhaseStepper';
 import IdeaChoose from './ResponseChoose';
 import IdeaInput from './ResponseInput';
 import Round from '../common/Round';
+import Timer from '../common/Timer';
 
 const ResponseCollection: FC = () => {
   const { t } = useTranslation();
   const { appData, isSuccess } = useAppDataContext();
-  const { myResponsesSets, myResponses, round } = useActivityContext();
+  const { myResponsesSets, myResponses, round, currentStep, activityState } =
+    useActivityContext();
   const { postChooseResponseAction } = useActions();
   const { memberId } = useLocalContext();
   const { orchestrator } = useSettings();
@@ -45,6 +47,8 @@ const ResponseCollection: FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [ownIdeas, setOwnIdeas] = useState<ResponseAppData[]>([]);
   const [phase, setPhase] = useState<number>(IdeationPhases.Choose);
+
+  const { startTime } = activityState.data;
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const handleCloseSnackbar = (
@@ -127,8 +131,11 @@ const ResponseCollection: FC = () => {
           height="100%"
           spacing={4}
         >
-          <Stack direction="row">
+          <Stack direction="row" alignItems="center" spacing={1}>
             <Round round={round} />
+            {currentStep?.time && (
+              <Timer startTime={startTime} time={currentStep.time} />
+            )}
             <PhasesStepper
               activeStep={phase}
               steps={[InputPhase, ChoosePhase]}

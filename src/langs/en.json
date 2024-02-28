@@ -31,6 +31,12 @@
         "LABEL_STEP_EVALUATION": "Evaluating responses",
         "NO_STEP": "The current activity is not defined"
       },
+      "WARNING_PREVIOUS_STEP_DIALOG": {
+        "TITLE": "Are you sure you want to switch to the previous step?",
+        "WARNING_TEXT": "If you proceed, the current step will be reset. Responses and ratings submitted will be kept. However, the distribution of the responses between the participants may change. Finally, the time will be reset.",
+        "CANCEL": "Cancel",
+        "GO_TO_PREVIOUS_STEP": "Go to previous step"
+      },
       "ROUND_HELPER": "Round {{round}}"
     },
     "SETTINGS": {
@@ -39,8 +45,8 @@
         "TITLE": "Instructions",
         "HELPER_TITLE": "Provide a main instruction to be shown in your activity.",
         "LABEL_TITLE": "Main",
-        "HELPER_DETAILS": "Details",
-        "LABEL_DETAILS": "Provide details to complete your main instructions."
+        "HELPER_DETAILS": "Provide details to complete your main instructions.",
+        "LABEL_DETAILS": "Details"
       },
       "ORCHESTRATOR": {
         "TITLE": "Orchestrator",

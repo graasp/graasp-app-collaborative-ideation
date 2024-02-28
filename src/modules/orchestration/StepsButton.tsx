@@ -11,6 +11,7 @@ import Stack from '@mui/material/Stack';
 import Tooltip from '@mui/material/Tooltip';
 import { useActivityContext } from '../context/ActivityContext';
 import CommandButton from './CommandButton';
+import WarningPreviousStepDialog from './WarningPreviousStepDialog';
 
 interface StepsButtonProps {
   enable: boolean;
@@ -21,6 +22,8 @@ const StepsButton: FC<StepsButtonProps> = ({ enable }) => {
     keyPrefix: 'ORCHESTRATION_BAR.NEXT_STEP_BTN',
   });
   const [isPreparingNextRound, setIsPreparingNextRound] = useState(false);
+  const [openWarningPreviousStepDialog, setOpenWarningPreviousStepDialog] =
+    useState(false);
   // TODO: Implement refetch of the data before preparing next round!
   const {
     createAllResponsesSet,
@@ -75,6 +78,7 @@ const StepsButton: FC<StepsButtonProps> = ({ enable }) => {
   };
 
   const goToPreviousStep = async (): Promise<void> => {
+    setOpenWarningPreviousStepDialog(false);
     // TODO: add cleanup of aborted step.
     if (typeof previousStep !== 'undefined') {
       changeStep(previousStep, (stepIndex ?? 0) - 1);
@@ -96,7 +100,7 @@ const StepsButton: FC<StepsButtonProps> = ({ enable }) => {
     <>
       <CommandButton
         startIcon={<NavigateBeforeIcon />}
-        onClick={goToPreviousStep}
+        onClick={() => setOpenWarningPreviousStepDialog(true)}
         disabled={!enable || disablePreviousStep}
         data-cy={PREVIOUS_STEP_BTN_CY}
         variant="contained"
@@ -120,6 +124,11 @@ const StepsButton: FC<StepsButtonProps> = ({ enable }) => {
           {t('NEXT_STEP')}
         </CommandButton>
       </Tooltip>
+      <WarningPreviousStepDialog
+        open={openWarningPreviousStepDialog}
+        onConfirm={goToPreviousStep}
+        onCancel={() => setOpenWarningPreviousStepDialog(false)}
+      />
     </>
   );
 };
