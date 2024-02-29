@@ -4115,12 +4115,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:20.11.22":
-  version: 20.11.22
-  resolution: "@types/node@npm:20.11.22"
+"@types/node@npm:20.11.24":
+  version: 20.11.24
+  resolution: "@types/node@npm:20.11.24"
   dependencies:
     undici-types: "npm:~5.26.4"
-  checksum: 10/855058a4328c0c88bd0616b2fcfedc6504ca08c3e5304674dc2e6485147d7f523d0ff591e002c765a1ec761b26fc0934599d694a2749634e9244ba3bf02de703
+  checksum: 10/7f34bfae5f9b98b9910230af4b4c52dc7fb2d1e96fdebfbc3d7576f8ab3d100076f193f9469add9e7418b455294155e7e6a028498cc5e98f9d49349875a459cf
   languageName: node
   linkType: hard
 
@@ -4184,14 +4184,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.2.60":
-  version: 18.2.60
-  resolution: "@types/react@npm:18.2.60"
+"@types/react@npm:18.2.61":
+  version: 18.2.61
+  resolution: "@types/react@npm:18.2.61"
   dependencies:
     "@types/prop-types": "npm:*"
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 10/5f2f6091623f13375a5bbc7e5c222cd212b5d6366ead737b76c853f6f52b314db24af5ae3f688d2d49814c668c216858a75433f145311839d8989d46bb3cbecf
+  checksum: 10/74c2920ccca83fc51190ed4eda1066fa6a644197839dd37765fcce93cbd50b7a52b75815ce0083bb95195f886c80b57745314dd49ecbf235fa93d753ae2260bc
   languageName: node
   linkType: hard
 
@@ -8504,8 +8504,8 @@ __metadata:
     "@types/lodash.clonedeep": "npm:^4.5.9"
     "@types/lodash.isequal": "npm:^4.5.8"
     "@types/lodash.shuffle": "npm:^4.2.9"
-    "@types/node": "npm:20.11.22"
-    "@types/react": "npm:18.2.60"
+    "@types/node": "npm:20.11.24"
+    "@types/react": "npm:18.2.61"
     "@types/react-dom": "npm:18.2.19"
     "@types/react-plotly.js": "npm:^2.6.3"
     "@types/uuid": "npm:9.0.8"
