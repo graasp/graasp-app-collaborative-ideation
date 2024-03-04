@@ -72,7 +72,13 @@ const AdminPanel: FC<AdminPanelProps> = ({ width }): JSX.Element => {
         </Stack>
         <SectionTitle>Act as a bot</SectionTitle>
         <Typography>{t('ADMIN_PANEL.BOT.HELPER')}</Typography>
-        <IdeaInput actAsBot />
+        <IdeaInput
+          actAsBot
+          onCancel={() => {
+            // eslint-disable-next-line no-console
+            console.warn('Nothing to do here.');
+          }}
+        />
       </Stack>
     </Paper>
   );

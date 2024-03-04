@@ -27,19 +27,24 @@ import Loader from '../common/Loader';
 import { useActivityContext } from '../context/ActivityContext';
 
 const ResponseInput: FC<{
+  onCancel: () => void;
   currentRound?: number;
   parent?: AnonymousResponseData;
   onSubmitted?: (id: string) => void;
   actAsBot?: boolean;
   enableAssistants?: boolean;
-}> = (
-  { parent, currentRound, onSubmitted, actAsBot, enableAssistants } = {
-    enableAssistants: false,
-  },
-) => {
+}> = ({
+  onCancel,
+  parent,
+  currentRound,
+  onSubmitted,
+  actAsBot,
+  enableAssistants,
+}) => {
   const { t } = useTranslation('translations', {
     keyPrefix: 'RESPONSE_COLLECTION.INPUT',
   });
+  const { t: generalT } = useTranslation('translations');
   const { postResponse } = useActivityContext();
   const [isWaitingOnBot, setIsWaitingOnBot] = useState<boolean>(false);
   const [response, setResponse] = useState<string>('');
@@ -128,22 +133,26 @@ const ResponseInput: FC<{
         }}
         data-cy={RESPONSE_INPUT_FIELD_CY}
       />
-      <Button
-        onClick={submit}
-        disabled={disableSubmission}
-        data-cy={SUBMIT_RESPONSE_BTN_CY}
-      >
-        {t('SUBMIT')}
-      </Button>
-      {enableAssistants && (
-        <LoadingButton
-          loadingIndicator="Waiting for the bot to reply."
-          loading={isWaitingOnBot}
-          onClick={askBot}
+      <Stack direction="row" spacing={2}>
+        <Button
+          onClick={submit}
+          disabled={disableSubmission}
+          data-cy={SUBMIT_RESPONSE_BTN_CY}
+          variant="contained"
         >
-          Ask the bot
-        </LoadingButton>
-      )}
+          {t('SUBMIT')}
+        </Button>
+        <Button onClick={onCancel}>{generalT('CANCEL')}</Button>
+        {enableAssistants && (
+          <LoadingButton
+            loadingIndicator="Waiting for the bot to reply."
+            loading={isWaitingOnBot}
+            onClick={askBot}
+          >
+            Ask the bot
+          </LoadingButton>
+        )}
+      </Stack>
       <Collapse in={isPosting}>
         <Stack direction="row" spacing={1}>
           <Alert severity="info">{t('RESPONSE_BEING_SUBMITTED_ALERT')}</Alert>

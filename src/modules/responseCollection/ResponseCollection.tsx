@@ -8,18 +8,10 @@ import Stack from '@mui/material/Stack';
 
 import { useLocalContext } from '@graasp/apps-query-client';
 
-import {
-  AnonymousResponseData,
-  ResponseAppData,
-  ResponsesData,
-} from '@/config/appDataTypes';
+import { AnonymousResponseData, ResponsesData } from '@/config/appDataTypes';
 import { RESPONSE_COLLECTION_VIEW_CY } from '@/config/selectors';
 import useActions from '@/hooks/useActions';
-import {
-  ChoosePhase,
-  IdeationPhases,
-  InputPhase,
-} from '@/interfaces/interactionProcess';
+import { IdeationPhases } from '@/interfaces/interactionProcess';
 import Instructions from '@/modules/common/Instructions';
 import Pausable from '@/modules/common/Pausable';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
@@ -27,7 +19,6 @@ import { useSettings } from '@/modules/context/SettingsContext';
 
 import { useActivityContext } from '../context/ActivityContext';
 import MyResponses from './MyResponses';
-import PhasesStepper from './PhaseStepper';
 import IdeaChoose from './ResponseChoose';
 import IdeaInput from './ResponseInput';
 import Round from '../common/Round';
@@ -43,9 +34,6 @@ const ResponseCollection: FC = () => {
   const { orchestrator } = useSettings();
   const [chosenIdea, setChosenIdea] = useState<AnonymousResponseData>();
   const [ideas, setIdeas] = useState<ResponsesData>([]);
-  // TODO: Remove
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [ownIdeas, setOwnIdeas] = useState<ResponseAppData[]>([]);
   const [phase, setPhase] = useState<number>(IdeationPhases.Choose);
 
   const { startTime } = activityState.data;
@@ -73,8 +61,6 @@ const ResponseCollection: FC = () => {
       const currentIdeaSet = myResponsesSets.find(
         (a) => a.data.round === round - 1,
       );
-      const ownIdeasTmp = myResponses;
-      setOwnIdeas(ownIdeasTmp);
       if (typeof currentIdeaSet !== 'undefined') {
         setIdeas(currentIdeaSet.data.responses);
       }
@@ -117,6 +103,7 @@ const ResponseCollection: FC = () => {
         currentRound={round}
         parent={chosenIdea}
         onSubmitted={handleSubmission}
+        onCancel={() => setPhase(IdeationPhases.Choose)}
       />
     );
   };
@@ -131,16 +118,22 @@ const ResponseCollection: FC = () => {
           height="100%"
           spacing={4}
         >
-          <Stack direction="row" alignItems="center" spacing={1}>
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            width="100%"
+          >
             <Round round={round} />
             {currentStep?.time && (
               <Timer startTime={startTime} time={currentStep.time} />
             )}
-            <PhasesStepper
+            {/* TODO: Remove completely */}
+            {/* <PhasesStepper
               activeStep={phase}
               steps={[InputPhase, ChoosePhase]}
               selectStep={(newPhase: number) => setPhase(newPhase)}
-            />
+            /> */}
           </Stack>
           <Instructions />
           {renderPhaseOfIdeation()}
