@@ -5,7 +5,7 @@ import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import Paper from '@mui/material/Paper';
 
-import { PLAY_PAUSE_BUTTON_CY } from '@/config/selectors';
+import { ORCHESTRATION_BAR_CY } from '@/config/selectors';
 import { ActivityStatus } from '@/interfaces/interactionProcess';
 
 import Blue from '@mui/material/colors/blue';
@@ -46,6 +46,7 @@ const OrchestrationBar: FC<OrchestrationBarProps> = () => {
         <CommandButton
           startIcon={<PauseCircleOutlineIcon />}
           onClick={() => pauseActivity()}
+          data-cy={ORCHESTRATION_BAR_CY.PAUSE_BUTTON}
           color="warning"
         >
           {t('PAUSE')}
@@ -53,7 +54,7 @@ const OrchestrationBar: FC<OrchestrationBarProps> = () => {
       ) : (
         <CommandButton
           onClick={() => playActivity()}
-          data-cy={PLAY_PAUSE_BUTTON_CY}
+          data-cy={ORCHESTRATION_BAR_CY.PLAY_BUTTON}
           startIcon={<PlayCircleOutlineIcon />}
           color="success"
         >

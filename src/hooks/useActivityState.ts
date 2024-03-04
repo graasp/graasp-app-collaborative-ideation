@@ -55,7 +55,9 @@ const useActivityState = (): UseActivityStateValues => {
     () => activityState?.data.stepIndex,
     [activityState],
   );
-  const nbrOfSteps = steps.length;
+
+  // At runtime, steps may be undefined.
+  const nbrOfSteps = steps?.length || 0;
 
   const { currentStep, nextStep, previousStep } = useMemo(() => {
     if (typeof stepIndex !== 'undefined' && stepIndex < nbrOfSteps) {
