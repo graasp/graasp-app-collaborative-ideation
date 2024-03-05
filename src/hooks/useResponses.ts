@@ -10,7 +10,6 @@ import {
   AppDataTypes,
   ResponseAppData,
   ResponseData,
-  ResponsesData,
   ResponsesSetAppData,
 } from '@/config/appDataTypes';
 import { AssistantId } from '@/interfaces/assistant';
@@ -23,6 +22,7 @@ import useActions from './useActions';
 import { UseParticipantsValue } from './useParticipants';
 import {
   filterBotResponses,
+  isOwnResponse,
   recursivelyCreateAllOpenSets,
   recursivelyCreateAllPartiallyBlindSets,
 } from './utils/responses';
@@ -33,6 +33,8 @@ export interface UseResponsesValues {
   allResponsesSets: ResponsesSetAppData[];
   myResponsesSets: ResponsesSetAppData[];
   assistantsResponsesSets: ResponsesSetAppData[];
+  availableResponses: ResponseAppData[];
+  availableResponsesWithoutOwn: ResponseAppData[];
   postResponse: (
     data: ResponseData,
     invalidateAll?: boolean,
@@ -119,6 +121,49 @@ const useResponses = ({
     return responses;
   }, [appData, orchestrator]);
 
+  const availableResponses = useMemo((): ResponseAppData[] => {
+    const responses = appData.filter((r) => {
+      const { type, id } = r;
+      if (type === AppDataTypes.Response) {
+        let okay = true;
+        // Checks that the response has been assigned to the user.
+        myResponsesSets.forEach((s) => {
+          if (!s.data.responses.includes(id)) {
+            okay = false;
+          }
+        });
+        return okay || isOwnResponse(r as ResponseAppData, memberId);
+      }
+      return false;
+    }) as ResponseAppData[];
+    return responses;
+  }, [appData, memberId, myResponsesSets]);
+
+  const availableResponsesWithoutOwn = useMemo((): ResponseAppData[] => {
+    const responses = appData.filter(({ type, id, creator, data }) => {
+      if (type === AppDataTypes.Response) {
+        if (
+          creator?.id === memberId &&
+          typeof data?.assistantId === 'undefined'
+        ) {
+          return false;
+        }
+        let okay = true;
+        // Checks that the response has been assigned to the user.
+        myResponsesSets.forEach((s) => {
+          if (!s.data.responses.includes(id)) {
+            okay = false;
+          }
+        });
+        if (!okay) {
+          return false;
+        }
+      }
+      return true;
+    }) as ResponseAppData[];
+    return responses;
+  }, [appData, memberId, myResponsesSets]);
+
   const postResponse = (
     data: ResponseData,
     invalidateAll: boolean = false,
@@ -138,7 +183,7 @@ const useResponses = ({
 
   const postResponsesSet = async (
     id: Member['id'] | AssistantId,
-    responsesSet: ResponsesData,
+    responsesSet: Array<ResponseAppData['id']>,
     forAssistant: boolean = false,
   ): Promise<ResponsesSetAppData> => {
     const payload = {
@@ -201,17 +246,11 @@ const useResponses = ({
       );
     }
     sets.forEach((responsesSet, participantId) => {
-      const responsesSetDataWithId = responsesSet.map(({ id, data }) => ({
-        id,
-        ...data,
-      }));
+      const responsesSetDataWithId = responsesSet.map(({ id }) => id);
       postResponsesSet(participantId, responsesSetDataWithId);
     });
     assistantSets.forEach((responsesSet, assistantId) => {
-      const responsesSetDataWithId = responsesSet.map(({ id, data }) => ({
-        id,
-        ...data,
-      }));
+      const responsesSetDataWithId = responsesSet.map(({ id }) => id);
       postResponsesSet(assistantId, responsesSetDataWithId, true);
     });
   };
@@ -228,6 +267,7 @@ const useResponses = ({
     });
 
   return {
+    availableResponses,
     allResponses,
     myResponses,
     postResponse,
@@ -237,6 +277,7 @@ const useResponses = ({
     createAllResponsesSet,
     deleteAllResponsesSet,
     deleteResponse,
+    availableResponsesWithoutOwn,
   };
 };
 

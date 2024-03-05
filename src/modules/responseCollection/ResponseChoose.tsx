@@ -7,19 +7,19 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
-import { ResponsesData } from '@/config/appDataTypes';
+import { ResponseAppData } from '@/config/appDataTypes';
 import { PROPOSE_NEW_RESPONSE_BTN } from '@/config/selectors';
-import Idea from '@/modules/common/response/Response';
+import Response from '@/modules/common/response/Response';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
 import Loader from '../common/Loader';
 
 interface ResponseChooseProps {
-  ideas: ResponsesData;
+  responses: ResponseAppData[];
   onChoose: (id?: string) => void;
 }
 
-const ResponseChoose: FC<ResponseChooseProps> = ({ ideas, onChoose }) => {
+const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
   const { t } = useTranslation();
   const { isLoading, invalidateAppData } = useAppDataContext();
 
@@ -56,13 +56,12 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ ideas, onChoose }) => {
         {t('PROPOSE_NEW_IDEA')}
       </Button>
       <Grid container spacing={2}>
-        {ideas
-          ? ideas.map((idea) => (
-              <Grid key={idea.id} item xl={6} lg={6} xs={12}>
-                <Idea
-                  key={idea.id}
-                  response={idea}
-                  responseId={idea.id}
+        {responses
+          ? responses.map((response) => (
+              <Grid key={response.id} item xl={6} lg={6} xs={12}>
+                <Response
+                  key={response.id}
+                  response={response}
                   onSelect={handleChoose}
                 />
               </Grid>

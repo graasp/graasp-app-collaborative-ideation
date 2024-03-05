@@ -6,16 +6,12 @@ import Container from '@mui/material/Container';
 import Snackbar from '@mui/material/Snackbar';
 import Stack from '@mui/material/Stack';
 
-import { useLocalContext } from '@graasp/apps-query-client';
-
-import { AnonymousResponseData, ResponsesData } from '@/config/appDataTypes';
+import { ResponseAppData } from '@/config/appDataTypes';
 import { RESPONSE_COLLECTION_VIEW_CY } from '@/config/selectors';
 import useActions from '@/hooks/useActions';
 import { IdeationPhases } from '@/interfaces/interactionProcess';
 import Instructions from '@/modules/common/Instructions';
 import Pausable from '@/modules/common/Pausable';
-import { useAppDataContext } from '@/modules/context/AppDataContext';
-import { useSettings } from '@/modules/context/SettingsContext';
 
 import { useActivityContext } from '../context/ActivityContext';
 import MyResponses from './MyResponses';
@@ -26,14 +22,10 @@ import Timer from '../common/Timer';
 
 const ResponseCollection: FC = () => {
   const { t } = useTranslation();
-  const { appData, isSuccess } = useAppDataContext();
-  const { myResponsesSets, myResponses, round, currentStep, activityState } =
+  const { round, currentStep, activityState, availableResponses } =
     useActivityContext();
   const { postChooseResponseAction } = useActions();
-  const { memberId } = useLocalContext();
-  const { orchestrator } = useSettings();
-  const [chosenIdea, setChosenIdea] = useState<AnonymousResponseData>();
-  const [ideas, setIdeas] = useState<ResponsesData>([]);
+  const [chosenIdea, setChosenIdea] = useState<ResponseAppData>();
   const [phase, setPhase] = useState<number>(IdeationPhases.Choose);
 
   const { startTime } = activityState.data;
@@ -56,29 +48,8 @@ const ResponseCollection: FC = () => {
     }
   }, [phase]);
 
-  useEffect(() => {
-    if (isSuccess) {
-      const currentIdeaSet = myResponsesSets.find(
-        (a) => a.data.round === round - 1,
-      );
-      if (typeof currentIdeaSet !== 'undefined') {
-        setIdeas(currentIdeaSet.data.responses);
-      }
-    }
-  }, [
-    appData,
-    isSuccess,
-    memberId,
-    myResponses,
-    myResponsesSets,
-    orchestrator,
-    round,
-  ]);
-
   const handleChoose = (id?: string): void => {
-    const idea = ideas?.find((i) => i.id === id) as
-      | AnonymousResponseData
-      | undefined;
+    const idea = availableResponses?.find((i) => i.id === id);
     if (typeof idea !== 'undefined') {
       setChosenIdea(idea);
       postChooseResponseAction(idea);
@@ -96,7 +67,9 @@ const ResponseCollection: FC = () => {
     // TODO: Choose what to display when starting the activity
     // if (phase === IdeationPhases.Choose && ownIdeas.length > 0) {
     if (phase === IdeationPhases.Choose) {
-      return <IdeaChoose ideas={ideas} onChoose={handleChoose} />;
+      return (
+        <IdeaChoose responses={availableResponses} onChoose={handleChoose} />
+      );
     }
     return (
       <IdeaInput

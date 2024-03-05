@@ -5,7 +5,6 @@
     "ACTIVITY_TAB": "Activity",
     "RESPONSES_VIEW_TAB": "Responses view",
     "SETTINGS_TAB": "Settings",
-    "BUILD_ON_THIS_IDEA": "Build on this idea",
     "IDEA_SUBMITTED_SUCCESS": "Your idea was successfully submitted.",
     "EDIT": "Edit",
     "DELETE": "Delete",
@@ -39,6 +38,10 @@
         "GO_TO_PREVIOUS_STEP": "Go to previous step"
       },
       "ROUND_HELPER": "Round {{round}}"
+    },
+    "RESPONSE_CARD": {
+      "BUILD_ON_THIS": "Build on this",
+      "OWN": "You wrote this"
     },
     "SETTINGS": {
       "TITLE": "Settings",

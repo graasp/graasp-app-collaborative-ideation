@@ -18,27 +18,23 @@ export type ResponseData<T = UsefulnessNoveltyRatings> = {
   response: string;
   round?: number;
   bot?: boolean;
+  assistantId?: AssistantId;
   parentId?: string;
   encoding?: 'text' | 'markdown';
   ratings?: T;
 };
 
-export type AnonymousResponseData<RatingsT = UsefulnessNoveltyRatings> =
-  ResponseData<RatingsT> & { id: string };
-
-export type ResponsesData<RatingsT = UsefulnessNoveltyRatings> =
-  AnonymousResponseData<RatingsT>[];
-
 export type ResponseAppData = AppData & {
   type: AppDataTypes.Response;
   data: ResponseData;
+  visibility: AppDataVisibility.Item;
 };
 
 export type ResponsesSetAppData = AppData & {
   type: AppDataTypes.ResponsesSet;
   data: {
     round: number;
-    responses: ResponsesData;
+    responses: Array<ResponseAppData['id']>;
     assistant?: AssistantId;
   };
 };

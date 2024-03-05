@@ -2,9 +2,9 @@ import { Data, LocalContext } from '@graasp/apps-query-client';
 import { AppAction, AppData } from '@graasp/sdk';
 
 import {
-  AnonymousResponseData,
   CurrentStateData,
   RatingsData,
+  ResponseAppData,
   ResponseData,
 } from './appDataTypes';
 
@@ -33,7 +33,7 @@ export type DeleteResponseAction = Pick<AppAction, 'type' | 'data'> & {
 
 export type ChooseResponseAction = Pick<AppAction, 'type' | 'data'> & {
   type: AppActionTypes.ChooseResponse;
-  data: AnonymousResponseData;
+  data: ResponseAppData;
 };
 
 export type OpenAppAction = Pick<AppAction, 'type' | 'data'> & {

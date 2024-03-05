@@ -16,7 +16,8 @@ import { useSettings } from '../context/SettingsContext';
 
 const Assistants: FC = () => {
   const { t } = useTranslation();
-  const { assistantsResponsesSets, round, postResponse } = useActivityContext();
+  const { assistantsResponsesSets, round, postResponse, allResponses } =
+    useActivityContext();
   const { promptAssistant } = useChatbot();
 
   const { assistants: assistantsSetting, instructions } = useSettings();
@@ -36,7 +37,9 @@ const Assistants: FC = () => {
             set.data.assistant === persona.id && set.data.round === round - 1,
         );
         if (assistantSet) {
-          const responses = assistantSet.data.responses.map((r) => r.response);
+          const responses = assistantSet.data.responses.map(
+            (r) => allResponses.find(({ id }) => r === id)?.data.response || '',
+          );
           return promptAssistant(
             persona,
             promptForSingleResponseAndProvideResponses(

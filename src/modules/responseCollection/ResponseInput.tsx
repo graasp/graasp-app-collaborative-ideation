@@ -15,7 +15,7 @@ import Button from '@mui/material/Button';
 
 import { AppData } from '@graasp/sdk';
 
-import { AnonymousResponseData, ResponseData } from '@/config/appDataTypes';
+import { ResponseAppData, ResponseData } from '@/config/appDataTypes';
 import { RESPONSE_MAXIMUM_LENGTH } from '@/config/constants';
 import {
   RESPONSE_INPUT_FIELD_CY,
@@ -29,7 +29,7 @@ import { useActivityContext } from '../context/ActivityContext';
 const ResponseInput: FC<{
   onCancel: () => void;
   currentRound?: number;
-  parent?: AnonymousResponseData;
+  parent?: ResponseAppData;
   onSubmitted?: (id: string) => void;
   actAsBot?: boolean;
   enableAssistants?: boolean;
@@ -105,7 +105,7 @@ const ResponseInput: FC<{
       {parent && (
         <Alert severity="info">
           <AlertTitle>{t('CUE_PARENT_RESPONSE_TITLE')}</AlertTitle>
-          <q>{parent.response}</q>
+          <q>{parent.data.response}</q>
         </Alert>
       )}
       <TextField

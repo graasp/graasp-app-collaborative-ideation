@@ -13,7 +13,7 @@ const buildMockResponses = (
     creator: mockMembers[0],
     type: AppDataTypes.Response,
     member: mockMembers[0],
-    visibility: AppDataVisibility.Member,
+    visibility: AppDataVisibility.Item,
     createdAt: new Date().toDateString(),
     updatedAt: new Date().toISOString(),
     data: {
@@ -28,7 +28,7 @@ const buildMockResponses = (
     creator: mockMembers[0],
     type: AppDataTypes.Response,
     member: mockMembers[0],
-    visibility: AppDataVisibility.Member,
+    visibility: AppDataVisibility.Item,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     data: {
@@ -43,7 +43,7 @@ const buildMockResponses = (
     creator: mockMembers[0],
     type: AppDataTypes.Response,
     member: mockMembers[0],
-    visibility: AppDataVisibility.Member,
+    visibility: AppDataVisibility.Item,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     data: {
@@ -58,7 +58,7 @@ const buildMockResponses = (
     creator: mockMembers[0],
     type: AppDataTypes.Response,
     member: mockMembers[0],
-    visibility: AppDataVisibility.Member,
+    visibility: AppDataVisibility.Item,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     data: {
@@ -73,7 +73,7 @@ const buildMockResponses = (
     creator: mockMembers[0],
     type: AppDataTypes.Response,
     member: mockMembers[0],
-    visibility: AppDataVisibility.Member,
+    visibility: AppDataVisibility.Item,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     data: {
@@ -88,7 +88,7 @@ const buildMockResponses = (
     creator: mockMembers[0],
     type: AppDataTypes.Response,
     member: mockMembers[0],
-    visibility: AppDataVisibility.Member,
+    visibility: AppDataVisibility.Item,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     data: {
@@ -103,7 +103,7 @@ const buildMockResponses = (
     creator: mockMembers[1],
     type: AppDataTypes.Response,
     member: mockMembers[1],
-    visibility: AppDataVisibility.Member,
+    visibility: AppDataVisibility.Item,
     createdAt: new Date().toDateString(),
     updatedAt: new Date().toISOString(),
     data: {
@@ -118,7 +118,7 @@ const buildMockResponses = (
     creator: mockMembers[1],
     type: AppDataTypes.Response,
     member: mockMembers[1],
-    visibility: AppDataVisibility.Member,
+    visibility: AppDataVisibility.Item,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     data: {
@@ -133,7 +133,7 @@ const buildMockResponses = (
     creator: mockMembers[1],
     type: AppDataTypes.Response,
     member: mockMembers[1],
-    visibility: AppDataVisibility.Member,
+    visibility: AppDataVisibility.Item,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     data: {
@@ -148,7 +148,7 @@ const buildMockResponses = (
     creator: mockMembers[1],
     type: AppDataTypes.Response,
     member: mockMembers[1],
-    visibility: AppDataVisibility.Member,
+    visibility: AppDataVisibility.Item,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     data: {
@@ -163,7 +163,7 @@ const buildMockResponses = (
     creator: mockMembers[1],
     type: AppDataTypes.Response,
     member: mockMembers[1],
-    visibility: AppDataVisibility.Member,
+    visibility: AppDataVisibility.Item,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     data: {
@@ -178,7 +178,7 @@ const buildMockResponses = (
     creator: mockMembers[0],
     type: AppDataTypes.Response,
     member: mockMembers[0],
-    visibility: AppDataVisibility.Member,
+    visibility: AppDataVisibility.Item,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     data: {

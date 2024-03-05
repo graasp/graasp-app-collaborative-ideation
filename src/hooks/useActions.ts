@@ -11,7 +11,6 @@ import {
   SubmitNewResponseAction,
 } from '@/config/appActionsTypes';
 import {
-  AnonymousResponseData,
   CurrentStateData,
   RatingsAppData,
   ResponseAppData,
@@ -21,9 +20,7 @@ import { mutations } from '@/config/queryClient';
 interface UseActionsValues {
   postSubmitNewResponseAction: (response: ResponseAppData) => void;
   postDeleteResponseAction: (id: ResponseAppData['id']) => void;
-  postChooseResponseAction: (
-    anonymousResponseData: AnonymousResponseData,
-  ) => void;
+  postChooseResponseAction: (response: ResponseAppData) => void;
   postOpenAppAction: (
     currentState?: CurrentStateData,
     context?: LocalContext,
@@ -62,10 +59,10 @@ const useActions = (): UseActionsValues => {
   );
 
   const postChooseResponseAction = useMemo(
-    () => (anonymousResponseData: AnonymousResponseData) => {
+    () => (response: ResponseAppData) => {
       const action: ChooseResponseAction = {
         type: AppActionTypes.ChooseResponse,
-        data: anonymousResponseData,
+        data: response,
       };
       postAppAction(action);
     },

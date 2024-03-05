@@ -108,3 +108,10 @@ export const filterBotResponses = (
   bot: boolean = false,
 ): ResponseAppData[] =>
   responses.filter(({ data }) => (bot ? data.bot : !data?.bot));
+
+export const isOwnResponse = (
+  response: ResponseAppData,
+  memberId: string,
+): boolean =>
+  response.creator?.id === memberId &&
+  typeof response.data?.assistantId === 'undefined';

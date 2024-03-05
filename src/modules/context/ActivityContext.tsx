@@ -34,6 +34,8 @@ const defaultContextValue: ActivityContextType = {
   previousStep: undefined,
   stepIndex: undefined,
   nbrOfSteps: 0,
+  availableResponses: [],
+  availableResponsesWithoutOwn: [],
 };
 
 const ActivityContext = createContext<ActivityContextType>(defaultContextValue);
