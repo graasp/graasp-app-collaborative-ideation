@@ -21,10 +21,11 @@ import {
   RESPONSE_INPUT_FIELD_CY,
   SUBMIT_RESPONSE_BTN_CY,
 } from '@/config/selectors';
-import useChatbot from '@/hooks/useChatbot';
+import useAssistants from '@/hooks/useAssistants';
 
 import Loader from '../common/Loader';
 import { useActivityContext } from '../context/ActivityContext';
+import { useSettings } from '../context/SettingsContext';
 
 const ResponseInput: FC<{
   onCancel: () => void;
@@ -44,12 +45,14 @@ const ResponseInput: FC<{
   const { t } = useTranslation('translations', {
     keyPrefix: 'RESPONSE_COLLECTION.INPUT',
   });
+  const { activity } = useSettings();
+  const { reformulateResponses } = activity;
   const { t: generalT } = useTranslation('translations');
   const { postResponse } = useActivityContext();
   const [isWaitingOnBot, setIsWaitingOnBot] = useState<boolean>(false);
   const [response, setResponse] = useState<string>('');
   const promisePostIdea = useRef<Promise<AppData>>();
-  const { generateSingleResponse } = useChatbot();
+  const { generateSingleResponse, reformulateResponse } = useAssistants();
   const promiseBotRequest = useRef<Promise<void>>();
   const [isPosting, setIsPosting] = useState(false);
 
@@ -70,14 +73,23 @@ const ResponseInput: FC<{
     );
   };
 
-  const submit = (): void => {
+  const submit = async (): Promise<void> => {
     setIsPosting(true);
-    const newIdeaData: ResponseData = {
-      response,
-      parentId: parent?.id,
-      round: currentRound,
-      bot: actAsBot,
-    };
+
+    const newIdeaData: ResponseData = reformulateResponses
+      ? {
+          parentId: parent?.id,
+          response:
+            (await reformulateResponse(response))?.data.completion ?? response,
+          round: currentRound,
+          bot: actAsBot,
+        }
+      : {
+          response,
+          parentId: parent?.id,
+          round: currentRound,
+          bot: actAsBot,
+        };
 
     promisePostIdea.current = postResponse(newIdeaData, true)?.then(
       (postedIdea) => {

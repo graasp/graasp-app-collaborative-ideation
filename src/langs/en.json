@@ -65,6 +65,7 @@
         "MODE_LABEL": "Visibility mode",
         "EXCLUSIVE_RESPONSE_DISTRIBUTION_LABEL": "Distribute each idea only once",
         "ADVANCED_CONFIGURATION": "Advanced configuration",
+        "REFORMULATE_RESPONSE_LABEL": "Reformulate responses with AI upon submission",
         "NUMBER_RESP_SET_LABEL": "Number of responses per set",
         "NUMBER_BOT_RESP_SET_LABEL": "Number of bot responses per set",
         "STEPS": {

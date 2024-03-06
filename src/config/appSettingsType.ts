@@ -34,6 +34,7 @@ export type ActivitySetting = {
   exclusiveResponseDistribution: boolean;
   evaluationType: EvaluationType;
   steps: ActivityStep[];
+  reformulateResponses: boolean;
 };
 
 export type AssistantsSetting = {
@@ -70,6 +71,7 @@ export const defaultSettingsValues: AllSettingsType = {
     numberOfBotResponsesPerSet: 1,
     exclusiveResponseDistribution: false,
     evaluationType: EvaluationType.UsefulnessNoveltyRating,
+    reformulateResponses: false,
     steps: [
       {
         type: ActivityType.Collection,

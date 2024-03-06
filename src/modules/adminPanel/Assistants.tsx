@@ -9,7 +9,7 @@ import {
   promptForSingleResponse,
   promptForSingleResponseAndProvideResponses,
 } from '@/config/prompts';
-import useChatbot from '@/hooks/useChatbot';
+import useAssistants from '@/hooks/useAssistants';
 
 import { useActivityContext } from '../context/ActivityContext';
 import { useSettings } from '../context/SettingsContext';
@@ -18,7 +18,7 @@ const Assistants: FC = () => {
   const { t } = useTranslation();
   const { assistantsResponsesSets, round, postResponse, allResponses } =
     useActivityContext();
-  const { promptAssistant } = useChatbot();
+  const { promptAssistant } = useAssistants();
 
   const { assistants: assistantsSetting, instructions } = useSettings();
   const { assistants } = assistantsSetting;

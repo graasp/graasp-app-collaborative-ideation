@@ -20,7 +20,8 @@ export type ResponseData<T = UsefulnessNoveltyRatings> = {
   bot?: boolean;
   assistantId?: AssistantId;
   parentId?: string;
-  encoding?: 'text' | 'markdown';
+  encoding?: 'raw' | 'markdown';
+  originalResponse?: string;
   ratings?: T;
 };
 

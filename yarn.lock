@@ -5932,6 +5932,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:^10.0.0":
+  version: 10.0.1
+  resolution: "commander@npm:10.0.1"
+  checksum: 10/8799faa84a30da985802e661cc9856adfaee324d4b138413013ef7f087e8d7924b144c30a1f1405475f0909f467665cd9e1ce13270a2f41b141dab0b7a58f3fb
+  languageName: node
+  linkType: hard
+
 "commander@npm:^4.0.0":
   version: 4.1.1
   resolution: "commander@npm:4.1.1"
@@ -8778,6 +8785,7 @@ __metadata:
     husky: "npm:9.0.11"
     i18next: "npm:23.10.0"
     jsdom: "npm:^24.0.0"
+    liquidjs: "npm:^10.10.1"
     lodash.clonedeep: "npm:^4.5.0"
     lodash.isequal: "npm:^4.5.0"
     lodash.shuffle: "npm:^4.2.0"
@@ -10164,6 +10172,18 @@ __metadata:
   version: 1.2.4
   resolution: "lines-and-columns@npm:1.2.4"
   checksum: 10/0c37f9f7fa212b38912b7145e1cd16a5f3cd34d782441c3e6ca653485d326f58b3caccda66efce1c5812bde4961bbde3374fae4b0d11bf1226152337f3894aa5
+  languageName: node
+  linkType: hard
+
+"liquidjs@npm:^10.10.1":
+  version: 10.10.1
+  resolution: "liquidjs@npm:10.10.1"
+  dependencies:
+    commander: "npm:^10.0.0"
+  bin:
+    liquid: bin/liquid.js
+    liquidjs: bin/liquid.js
+  checksum: 10/b8d7a2bbe45fe79d626c792ee9cdd764d37917e46e0d5d2a965cd8ad7d26fc09512dcc2f82bc2c17ff6c08d4017a0fabcd4a18c03f44422dec43e1f585b13dee
   languageName: node
   linkType: hard
 
