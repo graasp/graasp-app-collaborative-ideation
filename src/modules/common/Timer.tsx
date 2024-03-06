@@ -2,7 +2,6 @@ import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { addSeconds, differenceInSeconds } from 'date-fns';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-// import { SHORT_TIME_LIMIT } from '@/config/constants';
 
 interface TimerProps {
   startTime: Date;
@@ -19,10 +18,7 @@ interface TimerProps {
 const Timer: FC<TimerProps> = ({ startTime, time, onTimeout }) => {
   const endTime = useMemo(() => addSeconds(startTime, time), [startTime, time]);
   const [remainingSeconds, setRemainingSeconds] = useState<number>(0);
-  // const shortTimeLeft = useMemo(
-  //   () => remainingSeconds < SHORT_TIME_LIMIT,
-  //   [remainingSeconds],
-  // );
+
   const [timedOut, setTimedOut] = useState(false);
 
   // Reset the timer when props change
@@ -58,8 +54,6 @@ const Timer: FC<TimerProps> = ({ startTime, time, onTimeout }) => {
     return () => null;
   }, [endTime, handleTimeout, timedOut]);
 
-  // const minutes = Math.floor(remainingSeconds / 60);
-  // const seconds = remainingSeconds % 60;
   const progress = (100 * (time - remainingSeconds)) / time;
   return (
     <Box
@@ -74,24 +68,6 @@ const Timer: FC<TimerProps> = ({ startTime, time, onTimeout }) => {
         value={progress}
         color="primary"
       />
-      {/* <Box
-        sx={{
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
-          position: 'absolute',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Typography
-          variant="caption"
-          component="div"
-          color="text.secondary"
-        >{`${minutes}:${seconds}`}</Typography>
-      </Box> */}
     </Box>
   );
 };

@@ -21,7 +21,7 @@ interface ResponseChooseProps {
 
 const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
   const { t } = useTranslation();
-  const { isLoading, invalidateAppData } = useAppDataContext();
+  const { isLoading, invalidateAppData, deleteAppData } = useAppDataContext();
 
   const handleChoose = (id?: string): void => {
     onChoose(id);
@@ -63,6 +63,7 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
                   key={response.id}
                   response={response}
                   onSelect={handleChoose}
+                  onDelete={() => deleteAppData({ id: response.id })}
                 />
               </Grid>
             ))

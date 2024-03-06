@@ -15,6 +15,8 @@ import { ResponseAppData } from '@/config/appDataTypes';
 import { EvaluationType } from '@/interfaces/evaluationType';
 
 import Chip from '@mui/material/Chip';
+import { useLocalContext } from '@graasp/apps-query-client';
+import Box from '@mui/material/Box';
 import UsefulnessNoveltyRating from './evaluation/UsefulnessNoveltyRating';
 
 const Response: FC<{
@@ -23,24 +25,25 @@ const Response: FC<{
   enableBuildAction?: boolean;
   evaluationType?: EvaluationType;
   onDelete?: (id: string) => void;
-  own?: boolean;
 }> = ({
   response,
   onSelect,
   onDelete,
   enableBuildAction = true,
   evaluationType = EvaluationType.None,
-  own = false,
 }) => {
   const { t } = useTranslation('translations', { keyPrefix: 'RESPONSE_CARD' });
   const { t: generalT } = useTranslation('translations');
+  const { memberId } = useLocalContext();
+
+  const { id, data, creator } = response;
+  const { response: responseContent, round } = data;
+
+  const isOwn = creator?.id === memberId;
 
   const showSelectButton = typeof onSelect !== 'undefined';
-  const showDeleteButton = typeof onDelete !== 'undefined';
+  const showDeleteButton = typeof onDelete !== 'undefined' && isOwn;
   const showActions = showDeleteButton || showSelectButton;
-
-  const { id, data } = response;
-  const { response: responseContent, round } = data;
 
   const renderEvaluationComponent = (): JSX.Element => {
     if (evaluationType === EvaluationType.UsefulnessNoveltyRating) {
@@ -61,19 +64,41 @@ const Response: FC<{
       }}
     >
       <CardContent sx={{ minHeight: '32pt' }}>
-        {own && <Chip label={t('OWN')} />}
         <Typography variant="body1" sx={{ overflowWrap: 'break-word' }}>
           {responseContent}
         </Typography>
-        <Typography variant="body2" sx={{ color: grey.A700 }}>
-          {generalT('ROUND', { round })}
-        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Typography variant="body2" sx={{ color: grey.A700 }}>
+            {generalT('ROUND', { round })}
+          </Typography>
+          {isOwn && (
+            <Chip
+              sx={{ ml: '1rem' }}
+              variant="outlined"
+              size="small"
+              color="info"
+              label={t('OWN')}
+            />
+          )}
+        </Box>
       </CardContent>
       {evaluationType !== EvaluationType.None && renderEvaluationComponent()}
       {showActions && (
         <>
           <Divider />
-          <CardActions>
+          <CardActions
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}
+          >
             {showSelectButton && (
               <Button
                 disabled={!enableBuildAction}

@@ -3,6 +3,7 @@ import React, { createContext, useMemo } from 'react';
 import { Data } from '@graasp/apps-query-client';
 import { AppData } from '@graasp/sdk';
 
+import { UseQueryResult } from '@tanstack/react-query';
 import {
   QUERY_KEYS,
   hooks,
@@ -39,7 +40,7 @@ export type AppDataContextType = {
     payload: DeleteAppDataType,
   ) => Promise<AppData<Data> | void>;
   appData: AppData<Data>[];
-  // refetchAppData: () => Promise<UseQueryResult<AppData[]>>;
+  refetchAppData: () => Promise<UseQueryResult<AppData[]> | void>;
   isSuccess: boolean;
   isLoading: boolean;
   invalidateAppData: () => Promise<void>;
@@ -56,6 +57,7 @@ const defaultContextValue = {
   isSuccess: false,
   isLoading: true,
   invalidateAppData: () => Promise.resolve(),
+  refetchAppData: () => Promise.resolve(),
 };
 
 const AppDataContext = createContext<AppDataContextType>(defaultContextValue);
@@ -68,7 +70,8 @@ export const AppDataProvider = ({ children }: Props): JSX.Element => {
   const {
     data: appData,
     isLoading,
-    isSuccess /* refetch: refetchAppData */,
+    isSuccess,
+    refetch: refetchAppData,
   } = hooks.useAppData();
   const invalidateAppData = useMemo(
     () => () => queryClient.invalidateQueries(QUERY_KEYS.appDataKeys.all),
@@ -94,6 +97,7 @@ export const AppDataProvider = ({ children }: Props): JSX.Element => {
       isSuccess,
       isLoading,
       invalidateAppData,
+      refetchAppData,
     }),
     [
       patchAppData,
@@ -106,6 +110,7 @@ export const AppDataProvider = ({ children }: Props): JSX.Element => {
       isSuccess,
       isLoading,
       invalidateAppData,
+      refetchAppData,
     ],
   );
 

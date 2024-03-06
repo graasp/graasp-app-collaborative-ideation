@@ -12,6 +12,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { useActivityContext } from '../context/ActivityContext';
 import CommandButton from './CommandButton';
 import WarningPreviousStepDialog from './WarningPreviousStepDialog';
+import useStepTimer from '../common/stepTimer/useStepTimer';
 
 interface StepsButtonProps {
   enable: boolean;
@@ -35,6 +36,8 @@ const StepsButton: FC<StepsButtonProps> = ({ enable }) => {
     stepIndex,
     previousStep,
   } = useActivityContext();
+
+  const stepHasTimeout = useStepTimer();
   const promise = useRef<Promise<void>>();
 
   const progress = useMemo(() => {
@@ -54,6 +57,13 @@ const StepsButton: FC<StepsButtonProps> = ({ enable }) => {
     [nextStep],
   );
 
+  const nextStepColor = useMemo(() => {
+    if (stepHasTimeout) {
+      return 'success';
+    }
+    return 'error';
+  }, [stepHasTimeout]);
+
   const prepareNextStep = async (): Promise<void> => {
     if (!isPreparingNextRound) {
       if (typeof nextStep === 'undefined') {
@@ -66,7 +76,7 @@ const StepsButton: FC<StepsButtonProps> = ({ enable }) => {
         (nextStep?.round || 0) > round
       ) {
         promise.current = createAllResponsesSet().then(() => {
-          // TODO: Fix this
+          // TODO: Fix this. Logic should be moved to the hook.
           changeStep(nextStep, (stepIndex ?? 0) + 1);
           setIsPreparingNextRound(false);
         });
@@ -120,6 +130,7 @@ const StepsButton: FC<StepsButtonProps> = ({ enable }) => {
           disabled={!enable || disableNextStep}
           data-cy={NEXT_STEP_BTN_CY}
           variant="contained"
+          color={nextStepColor}
         >
           {t('NEXT_STEP')}
         </CommandButton>

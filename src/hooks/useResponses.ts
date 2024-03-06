@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { useLocalContext } from '@graasp/apps-query-client';
-import { AppDataVisibility, Member, PermissionLevel } from '@graasp/sdk';
+import { AppDataVisibility, Member } from '@graasp/sdk';
 
 import cloneDeep from 'lodash.clonedeep';
 import shuffle from 'lodash.shuffle';
@@ -22,6 +22,8 @@ import useActions from './useActions';
 import { UseParticipantsValue } from './useParticipants';
 import {
   filterBotResponses,
+  getResponses,
+  getRoundResponses,
   isOwnResponse,
   recursivelyCreateAllOpenSets,
   recursivelyCreateAllPartiallyBlindSets,
@@ -34,7 +36,7 @@ export interface UseResponsesValues {
   myResponsesSets: ResponsesSetAppData[];
   assistantsResponsesSets: ResponsesSetAppData[];
   availableResponses: ResponseAppData[];
-  availableResponsesWithoutOwn: ResponseAppData[];
+  // availableResponsesWithoutOwn: ResponseAppData[];
   postResponse: (
     data: ResponseData,
     invalidateAll?: boolean,
@@ -59,8 +61,9 @@ const useResponses = ({
     deleteAppData,
     deleteAppDataAsync,
     invalidateAppData,
+    refetchAppData,
   } = useAppDataContext();
-  const { memberId, permission } = useLocalContext();
+  const { memberId } = useLocalContext();
   const { orchestrator, activity } = useSettings();
   const { postSubmitNewResponseAction, postDeleteResponseAction } =
     useActions();
@@ -79,16 +82,13 @@ const useResponses = ({
     return responses;
   }, [appData, memberId]);
 
-  const allResponses = useMemo((): ResponseAppData[] => {
-    const responses = appData.filter(
-      ({ type }) => type === AppDataTypes.Response,
-    ) as ResponseAppData[];
-    return responses;
-  }, [appData]);
+  const allResponses = useMemo(
+    (): ResponseAppData[] => getResponses(appData),
+    [appData],
+  );
 
   const roundResponses = useMemo(
-    (): ResponseAppData[] =>
-      allResponses.filter(({ data }) => data?.round === round),
+    (): ResponseAppData[] => getRoundResponses(allResponses, round),
     [allResponses, round],
   );
 
@@ -122,47 +122,44 @@ const useResponses = ({
   }, [appData, orchestrator]);
 
   const availableResponses = useMemo((): ResponseAppData[] => {
-    const responses = appData.filter((r) => {
-      const { type, id } = r;
-      if (type === AppDataTypes.Response) {
-        let okay = true;
-        // Checks that the response has been assigned to the user.
-        myResponsesSets.forEach((s) => {
-          if (!s.data.responses.includes(id)) {
-            okay = false;
-          }
-        });
-        return okay || isOwnResponse(r as ResponseAppData, memberId);
-      }
-      return false;
+    const responses = getResponses(appData).filter((r) => {
+      const { id } = r;
+      let okay = false;
+      // Checks that the response has been assigned to the user.
+      myResponsesSets.forEach((s) => {
+        if (s.data.responses.includes(id)) {
+          okay = true;
+        }
+      });
+      return okay || isOwnResponse(r as ResponseAppData, memberId);
     }) as ResponseAppData[];
     return responses;
   }, [appData, memberId, myResponsesSets]);
 
-  const availableResponsesWithoutOwn = useMemo((): ResponseAppData[] => {
-    const responses = appData.filter(({ type, id, creator, data }) => {
-      if (type === AppDataTypes.Response) {
-        if (
-          creator?.id === memberId &&
-          typeof data?.assistantId === 'undefined'
-        ) {
-          return false;
-        }
-        let okay = true;
-        // Checks that the response has been assigned to the user.
-        myResponsesSets.forEach((s) => {
-          if (!s.data.responses.includes(id)) {
-            okay = false;
-          }
-        });
-        if (!okay) {
-          return false;
-        }
-      }
-      return true;
-    }) as ResponseAppData[];
-    return responses;
-  }, [appData, memberId, myResponsesSets]);
+  // const availableResponsesWithoutOwn = useMemo((): ResponseAppData[] => {
+  //   const responses = appData.filter(({ type, id, creator, data }) => {
+  //     if (type === AppDataTypes.Response) {
+  //       if (
+  //         creator?.id === memberId &&
+  //         typeof data?.assistantId === 'undefined'
+  //       ) {
+  //         return false;
+  //       }
+  //       let okay = true;
+  //       // Checks that the response has been assigned to the user.
+  //       myResponsesSets.forEach((s) => {
+  //         if (!s.data.responses.includes(id)) {
+  //           okay = false;
+  //         }
+  //       });
+  //       if (!okay) {
+  //         return false;
+  //       }
+  //     }
+  //     return true;
+  //   }) as ResponseAppData[];
+  //   return responses;
+  // }, [appData, memberId, myResponsesSets]);
 
   const postResponse = (
     data: ResponseData,
@@ -170,7 +167,7 @@ const useResponses = ({
   ): Promise<ResponseAppData> | undefined =>
     postAppDataAsync({
       type: AppDataTypes.Response,
-      visibility: AppDataVisibility.Member,
+      visibility: AppDataVisibility.Item,
       data,
     })?.then((postedResponse) => {
       const response = postedResponse as ResponseAppData;
@@ -203,18 +200,19 @@ const useResponses = ({
     throw Error('Something went wrong with the request.'); // TODO: change
   };
 
-  const createAllResponsesSet = async (): Promise<void> => {
-    if (permission !== PermissionLevel.Admin) throw Error('You are not admin.');
+  const createAllResponsesSetWorker = (
+    responsePool: ResponseAppData[],
+  ): void => {
     let sets: Map<string, ResponseAppData[]>;
     let assistantSets: Map<string, ResponseAppData[]>;
     const participantIterator = participants.members.entries();
     const assistantsIterator = participants.assistants.entries();
     if (visibilityMode === ResponseVisibilityMode.PartiallyBlind) {
       const participantsRepsonses = appDataArrayToMap(
-        shuffle(filterBotResponses(roundResponses, false)),
+        shuffle(filterBotResponses(responsePool, false)),
       );
       const botResponses = appDataArrayToMap(
-        shuffle(filterBotResponses(roundResponses, true)),
+        shuffle(filterBotResponses(responsePool, true)),
       );
 
       const participantRCopy = cloneDeep(participantsRepsonses);
@@ -255,6 +253,21 @@ const useResponses = ({
     });
   };
 
+  const createAllResponsesSet = async (): Promise<void> => {
+    refetchAppData().then((result) => {
+      if (result) {
+        const { data, isSuccess } = result;
+        if (isSuccess) {
+          const responsePool = getRoundResponses(getResponses(data), round);
+          createAllResponsesSetWorker(responsePool);
+        }
+      } else {
+        // TODO: Change error message
+        throw new Error('Failed to refetch app data.');
+      }
+    });
+  };
+
   const deleteAllResponsesSet = async (): Promise<void> => {
     allResponsesSets.forEach(({ id }) => {
       deleteAppData({ id });
@@ -277,7 +290,7 @@ const useResponses = ({
     createAllResponsesSet,
     deleteAllResponsesSet,
     deleteResponse,
-    availableResponsesWithoutOwn,
+    // availableResponsesWithoutOwn,
   };
 };
 

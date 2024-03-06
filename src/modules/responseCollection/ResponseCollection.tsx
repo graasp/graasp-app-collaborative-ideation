@@ -14,7 +14,6 @@ import Instructions from '@/modules/common/Instructions';
 import Pausable from '@/modules/common/Pausable';
 
 import { useActivityContext } from '../context/ActivityContext';
-import MyResponses from './MyResponses';
 import IdeaChoose from './ResponseChoose';
 import IdeaInput from './ResponseInput';
 import Round from '../common/Round';
@@ -110,7 +109,6 @@ const ResponseCollection: FC = () => {
           </Stack>
           <Instructions />
           {renderPhaseOfIdeation()}
-          <MyResponses />
           <Snackbar
             open={openSnackbar}
             autoHideDuration={6000}

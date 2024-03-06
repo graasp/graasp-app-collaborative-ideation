@@ -68,7 +68,7 @@ export const defaultSettingsValues: AllSettingsType = {
     mode: ResponseVisibilityMode.Open,
     numberOfResponsesPerSet: 3,
     numberOfBotResponsesPerSet: 1,
-    exclusiveResponseDistribution: true,
+    exclusiveResponseDistribution: false,
     evaluationType: EvaluationType.UsefulnessNoveltyRating,
     steps: [
       {
