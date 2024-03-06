@@ -83,6 +83,7 @@ const ResponseInput: FC<{
             (await reformulateResponse(response))?.data.completion ?? response,
           round: currentRound,
           bot: actAsBot,
+          originalResponse: response,
         }
       : {
           response,

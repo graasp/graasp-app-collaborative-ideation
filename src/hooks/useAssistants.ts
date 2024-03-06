@@ -3,7 +3,7 @@ import { ChatbotRole } from '@graasp/sdk';
 import { ChatbotResponseAppData } from '@/config/appDataTypes';
 import {
   DEFAULT_CHATBOT_RESPONSE_APP_DATA,
-  MAX_NUMBER_OF_CHARS_INPUT,
+  RESPONSE_MAXIMUM_LENGTH,
 } from '@/config/constants';
 import { getSingleResponsePrompt } from '@/config/prompts';
 import { mutations } from '@/config/queryClient';
@@ -40,7 +40,7 @@ const useAssistants = (): UseAssistantsValues => {
       },
       {
         role: 'user',
-        content: `I will give you a response. You need to reformulate it so that it has a neutral tone, is clearer and match the following problem:\n${generalPrompt.title}\nThe reformulated response must not exceed ${MAX_NUMBER_OF_CHARS_INPUT}. When answering, give me only the reformulated idea.`,
+        content: `I will give you a response. You need to reformulate it so that it has a neutral tone, is clearer and match the following problem:\n${generalPrompt.title.content}\n\n${generalPrompt.details && `Details about the problem:\n${generalPrompt.details.content}\n\n`}The reformulated response must not exceed ${RESPONSE_MAXIMUM_LENGTH}. When answering, give me only the reformulated idea.`,
       },
       {
         role: 'assistant',
