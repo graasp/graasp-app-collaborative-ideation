@@ -13,6 +13,7 @@ import {
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { getAllStates, getCurrentState } from '@/utils/state';
+import useActions from './useActions';
 
 export interface UseActivityStateValues {
   activityState: {
@@ -34,6 +35,8 @@ export interface UseActivityStateValues {
 
 const useActivityState = (): UseActivityStateValues => {
   const [stateWarning, setStateWarning] = useState(false);
+
+  const { postPlayActivityAction, postPauseActivityAction } = useActions();
 
   const { appData, postAppData, patchAppData, deleteAppData } =
     useAppDataContext();
@@ -103,9 +106,13 @@ const useActivityState = (): UseActivityStateValues => {
     } else {
       changeActivityStatus(ActivityStatus.Play);
     }
+    postPlayActivityAction();
   };
 
-  const pauseActivity = (): void => changeActivityStatus(ActivityStatus.Pause);
+  const pauseActivity = (): void => {
+    changeActivityStatus(ActivityStatus.Pause);
+    postPauseActivityAction();
+  };
 
   const resetActivityState = (): void => {
     const states = getAllStates(appData);

@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 
-import { LocalContext } from '@graasp/apps-query-client';
+import { Data, LocalContext } from '@graasp/apps-query-client';
 
 import {
   AppActionTypes,
@@ -9,6 +9,8 @@ import {
   EvaluateResponseAction,
   NextStepAction,
   OpenAppAction,
+  PauseActivityAction,
+  PlayActivityAction,
   PreviousStepAction,
   SubmitNewResponseAction,
 } from '@/config/appActionsTypes';
@@ -31,6 +33,8 @@ interface UseActionsValues {
   postEvaluateResponseAction: <T>(evaluation: RatingsAppData<T>) => void;
   postNextStepAction: (step: ActivityStep, stepIndex: number) => void;
   postPreviousStepAction: (step: ActivityStep, stepIndex: number) => void;
+  postPlayActivityAction: (data?: Data) => void;
+  postPauseActivityAction: (data?: Data) => void;
 }
 
 const useActions = (): UseActionsValues => {
@@ -129,6 +133,28 @@ const useActions = (): UseActionsValues => {
     [postAppAction],
   );
 
+  const postPlayActivityAction = useCallback(
+    (data?: Data) => {
+      const action: PlayActivityAction = {
+        type: AppActionTypes.PlayActivity,
+        data: data ?? {},
+      };
+      postAppAction(action);
+    },
+    [postAppAction],
+  );
+
+  const postPauseActivityAction = useCallback(
+    (data?: Data) => {
+      const action: PauseActivityAction = {
+        type: AppActionTypes.PauseActivity,
+        data: data ?? {},
+      };
+      postAppAction(action);
+    },
+    [postAppAction],
+  );
+
   return {
     postSubmitNewResponseAction,
     postDeleteResponseAction,
@@ -137,6 +163,8 @@ const useActions = (): UseActionsValues => {
     postEvaluateResponseAction,
     postNextStepAction,
     postPreviousStepAction,
+    postPlayActivityAction,
+    postPauseActivityAction,
   };
 };
 

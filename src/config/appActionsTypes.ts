@@ -19,6 +19,8 @@ export enum AppActionTypes {
   PromptAssistant = 'prompt-assistant',
   NextStep = 'next-step',
   PreviousStep = 'previous-step',
+  PlayActivity = 'play-activity',
+  PauseActivity = 'pause-activity',
 }
 
 type AppDataRef<T extends Data> = Pick<AppData<T>, 'id' | 'type' | 'data'> &
@@ -62,4 +64,12 @@ export type NextStepAction = StepAction & {
 
 export type PreviousStepAction = StepAction & {
   type: AppActionTypes.PreviousStep;
+};
+
+export type PlayActivityAction = Pick<AppAction, 'type' | 'data'> & {
+  type: AppActionTypes.PlayActivity;
+};
+
+export type PauseActivityAction = Pick<AppAction, 'type' | 'data'> & {
+  type: AppActionTypes.PauseActivity;
 };
