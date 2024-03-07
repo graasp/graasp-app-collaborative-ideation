@@ -27,8 +27,9 @@ const useSteps = (): UseStepsValues => {
   const { postNextStepAction, postPreviousStepAction } = useActions();
   const { activity } = useSettings();
   const { steps } = activity;
+
   const stepIndex = useMemo(
-    () => activityState?.data.stepIndex || 0,
+    () => activityState?.data.stepIndex,
     [activityState],
   );
 
@@ -51,7 +52,8 @@ const useSteps = (): UseStepsValues => {
     }
     return {
       currentStep: undefined,
-      nextStep: undefined,
+      nextStep:
+        typeof steps !== 'undefined' && nbrOfSteps > 0 ? steps[0] : undefined,
       previousStep: undefined,
     };
   }, [nbrOfSteps, stepIndex, steps]);
@@ -88,9 +90,8 @@ const useSteps = (): UseStepsValues => {
 
   const moveToPreviousStep = async (): Promise<void> => {
     if (typeof previousStep !== 'undefined') {
-      // TODO: Refactor, does not cover all cases
-      if (previousStep?.round && previousStep?.round < round) {
-        deleteResponsesSetsForRound(round);
+      if (typeof previousStep?.round !== 'undefined') {
+        deleteResponsesSetsForRound(previousStep.round);
       }
       const previousStepIndex = (stepIndex ?? 1) - 1;
       changeStep(previousStep, previousStepIndex);

@@ -10,6 +10,7 @@ import { ActivityStatus } from '@/interfaces/interactionProcess';
 
 import Blue from '@mui/material/colors/blue';
 import useTheme from '@mui/material/styles/useTheme';
+import useSteps from '@/hooks/useSteps';
 import { useActivityContext } from '../context/ActivityContext';
 import CommandButton from './CommandButton';
 import StepsButton from './StepsButton';
@@ -23,9 +24,18 @@ const OrchestrationBar: FC<OrchestrationBarProps> = () => {
     keyPrefix: 'ORCHESTRATION_BAR',
   });
   const { activityState, pauseActivity, playActivity } = useActivityContext();
+  const { currentStep, nextStep } = useSteps();
   const { status } = activityState.data;
 
   const theme = useTheme();
+
+  const handlePlay = (): void => {
+    if (typeof currentStep === 'undefined') {
+      playActivity(nextStep, 0);
+    } else {
+      playActivity();
+    }
+  };
 
   return (
     <Paper
@@ -53,7 +63,7 @@ const OrchestrationBar: FC<OrchestrationBarProps> = () => {
         </CommandButton>
       ) : (
         <CommandButton
-          onClick={() => playActivity()}
+          onClick={handlePlay}
           data-cy={ORCHESTRATION_BAR_CY.PLAY_BUTTON}
           startIcon={<PlayCircleOutlineIcon />}
           color="success"

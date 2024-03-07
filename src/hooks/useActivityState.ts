@@ -25,7 +25,7 @@ export interface UseActivityStateValues {
   resetActivityState: () => void;
   stateWarning: boolean;
   changeActivity: (newActivity: ActivityType) => void;
-  playActivity: () => void;
+  playActivity: (step?: ActivityStep, stepIndex?: number) => void;
   pauseActivity: () => void;
   updateActivityState: (
     newActivityStateData: Partial<CurrentStateData>,
