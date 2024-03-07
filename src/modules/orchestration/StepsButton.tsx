@@ -1,4 +1,4 @@
-import { FC, useMemo, useRef, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
@@ -9,7 +9,7 @@ import { NEXT_STEP_BTN_CY, PREVIOUS_STEP_BTN_CY } from '@/config/selectors';
 import LinearProgress from '@mui/material/LinearProgress';
 import Stack from '@mui/material/Stack';
 import Tooltip from '@mui/material/Tooltip';
-import { useActivityContext } from '../context/ActivityContext';
+import useSteps from '@/hooks/useSteps';
 import CommandButton from './CommandButton';
 import WarningPreviousStepDialog from './WarningPreviousStepDialog';
 import useStepTimer from '../common/stepTimer/useStepTimer';
@@ -22,23 +22,22 @@ const StepsButton: FC<StepsButtonProps> = ({ enable }) => {
   const { t } = useTranslation('translations', {
     keyPrefix: 'ORCHESTRATION_BAR.NEXT_STEP_BTN',
   });
-  const [isPreparingNextRound, setIsPreparingNextRound] = useState(false);
+  const [isPreparingNextStep, setIsPreparingNextStep] = useState(false);
   const [openWarningPreviousStepDialog, setOpenWarningPreviousStepDialog] =
     useState(false);
   // TODO: Implement refetch of the data before preparing next round!
   const {
-    createAllResponsesSet,
     changeStep,
-    round,
     nextStep,
     currentStep,
     nbrOfSteps,
     stepIndex,
     previousStep,
-  } = useActivityContext();
+    moveToNextStep,
+  } = useSteps();
 
   const stepHasTimeout = useStepTimer();
-  const promise = useRef<Promise<void>>();
+  // const promise = useRef<Promise<void>>();
 
   const progress = useMemo(() => {
     if (typeof stepIndex !== 'undefined') {
@@ -48,13 +47,13 @@ const StepsButton: FC<StepsButtonProps> = ({ enable }) => {
   }, [nbrOfSteps, stepIndex]);
 
   const disablePreviousStep = useMemo(
-    () => typeof previousStep === 'undefined',
-    [previousStep],
+    () => typeof previousStep === 'undefined' || isPreparingNextStep,
+    [isPreparingNextStep, previousStep],
   );
 
   const disableNextStep = useMemo(
-    () => typeof nextStep === 'undefined',
-    [nextStep],
+    () => typeof nextStep === 'undefined' || isPreparingNextStep,
+    [isPreparingNextStep, nextStep],
   );
 
   const nextStepColor = useMemo(() => {
@@ -64,27 +63,32 @@ const StepsButton: FC<StepsButtonProps> = ({ enable }) => {
     return 'error';
   }, [stepHasTimeout]);
 
-  const prepareNextStep = async (): Promise<void> => {
-    if (!isPreparingNextRound) {
-      if (typeof nextStep === 'undefined') {
-        return;
-      }
-      setIsPreparingNextRound(true);
+  // const prepareNextStep = async (): Promise<void> => {
+  //   if (!isPreparingNextRound) {
+  //     if (typeof nextStep === 'undefined') {
+  //       return;
+  //     }
+  //     setIsPreparingNextRound(true);
 
-      if (
-        nextStep.type === ActivityType.Collection &&
-        (nextStep?.round || 0) > round
-      ) {
-        promise.current = createAllResponsesSet().then(() => {
-          // TODO: Fix this. Logic should be moved to the hook.
-          changeStep(nextStep, (stepIndex ?? 0) + 1);
-          setIsPreparingNextRound(false);
-        });
-      } else {
-        // TODO: Fix this
-        changeStep(nextStep, (stepIndex ?? 0) + 1);
-      }
-    }
+  //     if (
+  //       nextStep.type === ActivityType.Collection &&
+  //       (nextStep?.round || 0) > round
+  //     ) {
+  //       promise.current = createAllResponsesSet().then(() => {
+  //         // TODO: Fix this. Logic should be moved to the hook.
+  //         changeStep(nextStep, (stepIndex ?? 0) + 1);
+  //         setIsPreparingNextRound(false);
+  //       });
+  //     } else {
+  //       // TODO: Fix this
+  //       changeStep(nextStep, (stepIndex ?? 0) + 1);
+  //     }
+  //   }
+  // };
+
+  const handleNextStep = (): void => {
+    setIsPreparingNextStep(true);
+    moveToNextStep().then(() => setIsPreparingNextStep(false));
   };
 
   const goToPreviousStep = async (): Promise<void> => {
@@ -126,7 +130,7 @@ const StepsButton: FC<StepsButtonProps> = ({ enable }) => {
       <Tooltip title={nextStep ? getLabelStep(nextStep) : t('NO_STEP')}>
         <CommandButton
           endIcon={<NavigateNextIcon />}
-          onClick={prepareNextStep}
+          onClick={handleNextStep}
           disabled={!enable || disableNextStep}
           data-cy={NEXT_STEP_BTN_CY}
           variant="contained"

@@ -28,13 +28,8 @@ const defaultContextValue: ActivityContextType = {
   changeActivity: () => undefined,
   playActivity: () => undefined,
   pauseActivity: () => undefined,
-  changeStep: () => undefined,
-  currentStep: undefined,
-  nextStep: undefined,
-  previousStep: undefined,
-  stepIndex: undefined,
-  nbrOfSteps: 0,
   availableResponses: [],
+  updateActivityState: () => undefined,
 };
 
 const ActivityContext = createContext<ActivityContextType>(defaultContextValue);

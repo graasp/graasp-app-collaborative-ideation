@@ -1,6 +1,7 @@
 import { Data, LocalContext } from '@graasp/apps-query-client';
 import { AppAction, AppData } from '@graasp/sdk';
 
+import { ActivityStep } from '@/interfaces/interactionProcess';
 import {
   CurrentStateData,
   RatingsData,
@@ -16,6 +17,8 @@ export enum AppActionTypes {
   EvaluateResponse = 'evaluate-response',
   ChangeActivityState = 'change-activity-state',
   PromptAssistant = 'prompt-assistant',
+  NextStep = 'next-step',
+  PreviousStep = 'previous-step',
 }
 
 type AppDataRef<T extends Data> = Pick<AppData<T>, 'id' | 'type' | 'data'> &
@@ -47,4 +50,16 @@ export type OpenAppAction = Pick<AppAction, 'type' | 'data'> & {
 export type EvaluateResponseAction<T> = Pick<AppAction, 'type' | 'data'> & {
   type: AppActionTypes.EvaluateResponse;
   data: AppDataRef<RatingsData<T>>;
+};
+
+type StepAction = Pick<AppAction, 'type' | 'data'> & {
+  data: ActivityStep & { stepIndex: number };
+};
+
+export type NextStepAction = StepAction & {
+  type: AppActionTypes.NextStep;
+};
+
+export type PreviousStepAction = StepAction & {
+  type: AppActionTypes.PreviousStep;
 };

@@ -44,7 +44,7 @@ const useAssistants = (): UseAssistantsValues => {
       },
       {
         role: 'assistant',
-        content: 'Provide me with the idea you want me to reformulate',
+        content: 'Provide me with the idea you want me to reformulate.',
       },
       {
         role: 'user',

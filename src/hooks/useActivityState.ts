@@ -27,21 +27,18 @@ export interface UseActivityStateValues {
   changeActivity: (newActivity: ActivityType) => void;
   playActivity: () => void;
   pauseActivity: () => void;
-  changeStep: (newStep: ActivityStep, index: number) => void;
-  currentStep: ActivityStep | undefined;
-  nextStep: ActivityStep | undefined;
-  previousStep: ActivityStep | undefined;
-  stepIndex: number | undefined;
-  nbrOfSteps: number;
+  updateActivityState: (
+    newActivityStateData: Partial<CurrentStateData>,
+  ) => void;
 }
 
 const useActivityState = (): UseActivityStateValues => {
   const [stateWarning, setStateWarning] = useState(false);
+
   const { appData, postAppData, patchAppData, deleteAppData } =
     useAppDataContext();
-  const { orchestrator, activity } = useSettings();
+  const { orchestrator } = useSettings();
   const { permission } = useLocalContext();
-  const { steps } = activity;
 
   const activityState = useMemo(() => {
     const state = getCurrentState(appData, orchestrator.id);
@@ -50,35 +47,6 @@ const useActivityState = (): UseActivityStateValues => {
   }, [appData, orchestrator]);
 
   const round = useMemo(() => activityState?.data.round || 0, [activityState]);
-
-  const stepIndex = useMemo(
-    () => activityState?.data.stepIndex,
-    [activityState],
-  );
-
-  // At runtime, steps may be undefined.
-  const nbrOfSteps = steps?.length || 0;
-
-  const { currentStep, nextStep, previousStep } = useMemo(() => {
-    if (typeof stepIndex !== 'undefined' && stepIndex < nbrOfSteps) {
-      // eslint-disable-next-line @typescript-eslint/no-shadow
-      const currentStep = steps[stepIndex];
-      const nextStepIndex = stepIndex + 1;
-      const previousStepIndex = stepIndex - 1;
-      // eslint-disable-next-line @typescript-eslint/no-shadow
-      const nextStep =
-        nextStepIndex < nbrOfSteps ? steps[nextStepIndex] : undefined;
-      // eslint-disable-next-line @typescript-eslint/no-shadow
-      const previousStep =
-        previousStepIndex >= 0 ? steps[previousStepIndex] : undefined;
-      return { currentStep, nextStep, previousStep };
-    }
-    return {
-      currentStep: undefined,
-      nextStep: undefined,
-      previousStep: undefined,
-    };
-  }, [nbrOfSteps, stepIndex, steps]);
 
   const postDefaultActivityState = (): void => {
     if (permission === PermissionLevel.Admin) {
@@ -108,15 +76,6 @@ const useActivityState = (): UseActivityStateValues => {
     }
   };
 
-  const changeStep = (newStep: ActivityStep, index: number): void => {
-    updateActivityState({
-      activity: newStep.type,
-      round: newStep.round,
-      startTime: new Date(),
-      stepIndex: index,
-    });
-  };
-
   const nextRound = (): void => {
     const newRound = round + 1;
     updateActivityState({
@@ -132,14 +91,13 @@ const useActivityState = (): UseActivityStateValues => {
     updateActivityState({ status: newStatus });
   };
 
-  const playActivity = (): void => {
-    if (typeof currentStep === 'undefined' && nbrOfSteps > 0) {
-      const firstStep = steps[0];
+  const playActivity = (step?: ActivityStep, stepIndex?: number): void => {
+    if (typeof step !== 'undefined') {
       updateActivityState({
-        activity: firstStep.type,
-        round: firstStep.round,
+        activity: step.type,
+        round: step.round,
         startTime: new Date(),
-        stepIndex: 0,
+        stepIndex: stepIndex || 0,
         status: ActivityStatus.Play,
       });
     } else {
@@ -164,12 +122,7 @@ const useActivityState = (): UseActivityStateValues => {
     changeActivity,
     playActivity,
     pauseActivity,
-    changeStep,
-    currentStep,
-    nextStep,
-    previousStep,
-    nbrOfSteps,
-    stepIndex,
+    updateActivityState,
   };
 };
 

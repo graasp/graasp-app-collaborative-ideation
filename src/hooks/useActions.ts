@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { LocalContext } from '@graasp/apps-query-client';
 
@@ -7,7 +7,9 @@ import {
   ChooseResponseAction,
   DeleteResponseAction,
   EvaluateResponseAction,
+  NextStepAction,
   OpenAppAction,
+  PreviousStepAction,
   SubmitNewResponseAction,
 } from '@/config/appActionsTypes';
 import {
@@ -16,6 +18,7 @@ import {
   ResponseAppData,
 } from '@/config/appDataTypes';
 import { mutations } from '@/config/queryClient';
+import { ActivityStep } from '@/interfaces/interactionProcess';
 
 interface UseActionsValues {
   postSubmitNewResponseAction: (response: ResponseAppData) => void;
@@ -26,6 +29,8 @@ interface UseActionsValues {
     context?: LocalContext,
   ) => void;
   postEvaluateResponseAction: <T>(evaluation: RatingsAppData<T>) => void;
+  postNextStepAction: (step: ActivityStep, stepIndex: number) => void;
+  postPreviousStepAction: (step: ActivityStep, stepIndex: number) => void;
 }
 
 const useActions = (): UseActionsValues => {
@@ -96,12 +101,42 @@ const useActions = (): UseActionsValues => {
     [postAppAction],
   );
 
+  const postNextStepAction = useCallback(
+    (step: ActivityStep, stepIndex: number) => {
+      const action: NextStepAction = {
+        type: AppActionTypes.NextStep,
+        data: {
+          ...step,
+          stepIndex,
+        },
+      };
+      postAppAction(action);
+    },
+    [postAppAction],
+  );
+
+  const postPreviousStepAction = useCallback(
+    (step: ActivityStep, stepIndex: number) => {
+      const action: PreviousStepAction = {
+        type: AppActionTypes.PreviousStep,
+        data: {
+          ...step,
+          stepIndex,
+        },
+      };
+      postAppAction(action);
+    },
+    [postAppAction],
+  );
+
   return {
     postSubmitNewResponseAction,
     postDeleteResponseAction,
     postChooseResponseAction,
     postOpenAppAction,
     postEvaluateResponseAction,
+    postNextStepAction,
+    postPreviousStepAction,
   };
 };
 
