@@ -12,13 +12,19 @@ interface UseStepsValues {
   stepIndex: number | undefined;
   nbrOfSteps: number;
   moveToNextStep: () => Promise<void>;
+  moveToPreviousStep: () => Promise<void>;
 }
 
 const useSteps = (): UseStepsValues => {
-  const { updateActivityState, activityState, createAllResponsesSet, round } =
-    useActivityContext();
+  const {
+    updateActivityState,
+    activityState,
+    createAllResponsesSet,
+    round,
+    deleteResponsesSetsForRound,
+  } = useActivityContext();
 
-  const { postNextStepAction } = useActions();
+  const { postNextStepAction, postPreviousStepAction } = useActions();
   const { activity } = useSettings();
   const { steps } = activity;
   const stepIndex = useMemo(
@@ -80,6 +86,18 @@ const useSteps = (): UseStepsValues => {
     postNextStepAction(nextStep, nextStepIndex);
   };
 
+  const moveToPreviousStep = async (): Promise<void> => {
+    if (typeof previousStep !== 'undefined') {
+      // TODO: Refactor, does not cover all cases
+      if (previousStep?.round && previousStep?.round < round) {
+        deleteResponsesSetsForRound(round);
+      }
+      const previousStepIndex = (stepIndex ?? 1) - 1;
+      changeStep(previousStep, previousStepIndex);
+      postPreviousStepAction(previousStep, previousStepIndex);
+    }
+  };
+
   return {
     changeStep,
     currentStep,
@@ -88,6 +106,7 @@ const useSteps = (): UseStepsValues => {
     nbrOfSteps,
     stepIndex,
     moveToNextStep,
+    moveToPreviousStep,
   };
 };
 

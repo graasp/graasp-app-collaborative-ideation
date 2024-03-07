@@ -22,12 +22,12 @@ const StepsButton: FC<StepsButtonProps> = ({ enable }) => {
   const { t } = useTranslation('translations', {
     keyPrefix: 'ORCHESTRATION_BAR.NEXT_STEP_BTN',
   });
-  const [isPreparingNextStep, setIsPreparingNextStep] = useState(false);
+  const [isChangingStep, setIsChangingStep] = useState(false);
   const [openWarningPreviousStepDialog, setOpenWarningPreviousStepDialog] =
     useState(false);
   // TODO: Implement refetch of the data before preparing next round!
   const {
-    changeStep,
+    moveToPreviousStep,
     nextStep,
     currentStep,
     nbrOfSteps,
@@ -47,13 +47,13 @@ const StepsButton: FC<StepsButtonProps> = ({ enable }) => {
   }, [nbrOfSteps, stepIndex]);
 
   const disablePreviousStep = useMemo(
-    () => typeof previousStep === 'undefined' || isPreparingNextStep,
-    [isPreparingNextStep, previousStep],
+    () => typeof previousStep === 'undefined' || isChangingStep,
+    [isChangingStep, previousStep],
   );
 
   const disableNextStep = useMemo(
-    () => typeof nextStep === 'undefined' || isPreparingNextStep,
-    [isPreparingNextStep, nextStep],
+    () => typeof nextStep === 'undefined' || isChangingStep,
+    [isChangingStep, nextStep],
   );
 
   const nextStepColor = useMemo(() => {
@@ -87,16 +87,16 @@ const StepsButton: FC<StepsButtonProps> = ({ enable }) => {
   // };
 
   const handleNextStep = (): void => {
-    setIsPreparingNextStep(true);
-    moveToNextStep().then(() => setIsPreparingNextStep(false));
+    setIsChangingStep(true);
+    moveToNextStep().then(() => setIsChangingStep(false));
   };
 
   const goToPreviousStep = async (): Promise<void> => {
+    setIsChangingStep(true);
     setOpenWarningPreviousStepDialog(false);
-    // TODO: add cleanup of aborted step.
-    if (typeof previousStep !== 'undefined') {
-      changeStep(previousStep, (stepIndex ?? 0) - 1);
-    }
+    moveToPreviousStep().then(() => {
+      setIsChangingStep(false);
+    });
   };
 
   const getLabelStep = (step: ActivityStep): string => {

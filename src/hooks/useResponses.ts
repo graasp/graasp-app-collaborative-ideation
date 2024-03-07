@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { useLocalContext } from '@graasp/apps-query-client';
 import { AppDataVisibility, Member } from '@graasp/sdk';
@@ -42,6 +42,7 @@ export interface UseResponsesValues {
     invalidateAll?: boolean,
   ) => Promise<ResponseAppData> | undefined;
   createAllResponsesSet: () => Promise<void>;
+  deleteResponsesSetsForRound: (roundToDelete: number) => Promise<void>;
   deleteAllResponsesSet: () => Promise<void>;
   deleteResponse: (id: ResponseAppData['id']) => Promise<void>;
 }
@@ -135,31 +136,6 @@ const useResponses = ({
     }) as ResponseAppData[];
     return responses;
   }, [appData, memberId, myResponsesSets]);
-
-  // const availableResponsesWithoutOwn = useMemo((): ResponseAppData[] => {
-  //   const responses = appData.filter(({ type, id, creator, data }) => {
-  //     if (type === AppDataTypes.Response) {
-  //       if (
-  //         creator?.id === memberId &&
-  //         typeof data?.assistantId === 'undefined'
-  //       ) {
-  //         return false;
-  //       }
-  //       let okay = true;
-  //       // Checks that the response has been assigned to the user.
-  //       myResponsesSets.forEach((s) => {
-  //         if (!s.data.responses.includes(id)) {
-  //           okay = false;
-  //         }
-  //       });
-  //       if (!okay) {
-  //         return false;
-  //       }
-  //     }
-  //     return true;
-  //   }) as ResponseAppData[];
-  //   return responses;
-  // }, [appData, memberId, myResponsesSets]);
 
   const postResponse = (
     data: ResponseData,
@@ -268,6 +244,17 @@ const useResponses = ({
     });
   };
 
+  const deleteResponsesSetsForRound = useCallback(
+    async (roundToDelete: number): Promise<void> => {
+      allResponsesSets
+        .filter(({ data }) => data.round === roundToDelete)
+        .forEach(({ id }) => {
+          deleteAppData({ id });
+        });
+    },
+    [allResponsesSets, deleteAppData],
+  );
+
   const deleteAllResponsesSet = async (): Promise<void> => {
     allResponsesSets.forEach(({ id }) => {
       deleteAppData({ id });
@@ -290,7 +277,7 @@ const useResponses = ({
     createAllResponsesSet,
     deleteAllResponsesSet,
     deleteResponse,
-    // availableResponsesWithoutOwn,
+    deleteResponsesSetsForRound,
   };
 };
 
