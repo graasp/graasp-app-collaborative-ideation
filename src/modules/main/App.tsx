@@ -9,6 +9,7 @@ import { SENTRY_ENV } from '@/config/env';
 import { hooks } from '@/config/queryClient';
 import useActions from '@/hooks/useActions';
 
+import { DEFAULT_LANG } from '@/config/constants';
 import i18n from '../../config/i18n';
 import { ActivityProvider } from '../context/ActivityContext';
 import { AppDataProvider } from '../context/AppDataContext';
@@ -56,8 +57,7 @@ const App = (): JSX.Element => {
 
   useEffect(() => {
     // handle a change of language
-    // TODO: factor out default
-    const lang = context?.lang ?? appContext?.item?.lang ?? 'en';
+    const lang = context?.lang ?? appContext?.item?.lang ?? DEFAULT_LANG;
     if (i18n.language !== lang) {
       i18n.changeLanguage(lang);
     }
