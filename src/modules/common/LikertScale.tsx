@@ -2,9 +2,7 @@ import { SyntheticEvent } from 'react';
 
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
-// import Container from '@mui/material/Container';
 import Rating from '@mui/material/Rating';
-// import Slider from '@mui/material/Slider';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';

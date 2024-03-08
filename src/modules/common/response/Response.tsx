@@ -56,11 +56,7 @@ const Response: FC<{
     <Card
       variant="outlined"
       sx={{
-        // maxWidth: '30%',
         minWidth: '160pt',
-        // backgroundColor:
-        //   noveltyRating && relevanceRating ? green[100] : 'white',
-        // borderColor: noveltyRating && relevanceRating ? green[700] : 'default',
       }}
     >
       <CardContent sx={{ minHeight: '32pt' }}>

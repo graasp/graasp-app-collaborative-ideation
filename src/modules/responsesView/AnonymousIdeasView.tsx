@@ -7,7 +7,6 @@ import RatingsPlot from './RatingsPlot';
 import { useActivityContext } from '../context/ActivityContext';
 
 const AnonymousIdeasView = (): JSX.Element => {
-  // const { t } = useTranslation();
   const { allResponses } = useActivityContext();
   const ideasTable = useMemo(
     () =>

@@ -36,7 +36,6 @@ export interface UseResponsesValues {
   myResponsesSets: ResponsesSetAppData[];
   assistantsResponsesSets: ResponsesSetAppData[];
   availableResponses: ResponseAppData[];
-  // availableResponsesWithoutOwn: ResponseAppData[];
   postResponse: (
     data: ResponseData,
     invalidateAll?: boolean,

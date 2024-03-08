@@ -10,7 +10,7 @@ import useResponses, { UseResponsesValues } from '@/hooks/useResponses';
 type ActivityContextType = UseActivityStateValues &
   UseResponsesValues & { participants: UseParticipantsValue };
 const defaultContextValue: ActivityContextType = {
-  round: 0, // INITIAL_STATE.data.round,
+  round: 0,
   nextRound: () => undefined,
   activityState: INITIAL_STATE,
   resetActivityState: () => undefined,

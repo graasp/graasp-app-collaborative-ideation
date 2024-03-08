@@ -1,4 +1,4 @@
-import { ActivityStep, ActivityType } from '@/interfaces/interactionProcess';
+import { ActivityStep } from '@/interfaces/interactionProcess';
 import { useActivityContext } from '@/modules/context/ActivityContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { useMemo } from 'react';
@@ -74,15 +74,11 @@ const useSteps = (): UseStepsValues => {
 
     const nextStepIndex = (stepIndex ?? 0) + 1;
 
-    if (
-      nextStep.type === ActivityType.Collection &&
-      (nextStep?.round || 0) > round
-    ) {
+    if ((nextStep?.round || 0) > round) {
       await createAllResponsesSet().then(() => {
         changeStep(nextStep, nextStepIndex);
       });
     } else {
-      // TODO: Fix this
       changeStep(nextStep, nextStepIndex);
     }
     postNextStepAction(nextStep, nextStepIndex);

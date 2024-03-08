@@ -64,8 +64,6 @@ const ResponseCollection: FC = () => {
   };
 
   const renderPhaseOfIdeation = (): React.JSX.Element | null => {
-    // TODO: Choose what to display when starting the activity
-    // if (phase === IdeationPhases.Choose && ownIdeas.length > 0) {
     if (phase === IdeationPhases.Choose) {
       return (
         <IdeaChoose responses={availableResponses} onChoose={handleChoose} />
@@ -101,12 +99,6 @@ const ResponseCollection: FC = () => {
             {currentStep?.time && (
               <Timer startTime={startTime} time={currentStep.time} />
             )}
-            {/* TODO: Remove completely */}
-            {/* <PhasesStepper
-              activeStep={phase}
-              steps={[InputPhase, ChoosePhase]}
-              selectStep={(newPhase: number) => setPhase(newPhase)}
-            /> */}
           </Stack>
           <Instructions />
           {renderPhaseOfIdeation()}
