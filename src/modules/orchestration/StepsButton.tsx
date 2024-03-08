@@ -13,6 +13,7 @@ import useSteps from '@/hooks/useSteps';
 import CommandButton from './CommandButton';
 import WarningPreviousStepDialog from './WarningPreviousStepDialog';
 import useStepTimer from '../common/stepTimer/useStepTimer';
+import WarningNextStepDialog from './WarningNextStepDialog';
 
 interface StepsButtonProps {
   enable: boolean;
@@ -25,7 +26,8 @@ const StepsButton: FC<StepsButtonProps> = ({ enable }) => {
   const [isChangingStep, setIsChangingStep] = useState(false);
   const [openWarningPreviousStepDialog, setOpenWarningPreviousStepDialog] =
     useState(false);
-  // TODO: Implement refetch of the data before preparing next round!
+  const [openWarningNextStepDialog, setOpenWarningNextStepDialog] =
+    useState(false);
   const {
     moveToPreviousStep,
     nextStep,
@@ -63,32 +65,18 @@ const StepsButton: FC<StepsButtonProps> = ({ enable }) => {
     return 'error';
   }, [stepHasTimeout]);
 
-  // const prepareNextStep = async (): Promise<void> => {
-  //   if (!isPreparingNextRound) {
-  //     if (typeof nextStep === 'undefined') {
-  //       return;
-  //     }
-  //     setIsPreparingNextRound(true);
-
-  //     if (
-  //       nextStep.type === ActivityType.Collection &&
-  //       (nextStep?.round || 0) > round
-  //     ) {
-  //       promise.current = createAllResponsesSet().then(() => {
-  //         // TODO: Fix this. Logic should be moved to the hook.
-  //         changeStep(nextStep, (stepIndex ?? 0) + 1);
-  //         setIsPreparingNextRound(false);
-  //       });
-  //     } else {
-  //       // TODO: Fix this
-  //       changeStep(nextStep, (stepIndex ?? 0) + 1);
-  //     }
-  //   }
-  // };
-
   const handleNextStep = (): void => {
     setIsChangingStep(true);
+    setOpenWarningNextStepDialog(false);
     moveToNextStep().then(() => setIsChangingStep(false));
+  };
+
+  const tryToMoveToNextStep = (): void => {
+    if (stepHasTimeout) {
+      handleNextStep();
+    } else {
+      setOpenWarningNextStepDialog(true);
+    }
   };
 
   const goToPreviousStep = async (): Promise<void> => {
@@ -130,7 +118,7 @@ const StepsButton: FC<StepsButtonProps> = ({ enable }) => {
       <Tooltip title={nextStep ? getLabelStep(nextStep) : t('NO_STEP')}>
         <CommandButton
           endIcon={<NavigateNextIcon />}
-          onClick={handleNextStep}
+          onClick={tryToMoveToNextStep}
           disabled={!enable || disableNextStep}
           data-cy={NEXT_STEP_BTN_CY}
           variant="contained"
@@ -143,6 +131,11 @@ const StepsButton: FC<StepsButtonProps> = ({ enable }) => {
         open={openWarningPreviousStepDialog}
         onConfirm={goToPreviousStep}
         onCancel={() => setOpenWarningPreviousStepDialog(false)}
+      />
+      <WarningNextStepDialog
+        open={openWarningNextStepDialog}
+        onCancel={() => setOpenWarningNextStepDialog(false)}
+        onConfirm={handleNextStep}
       />
     </>
   );

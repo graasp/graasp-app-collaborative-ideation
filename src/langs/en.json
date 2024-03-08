@@ -37,6 +37,12 @@
         "CANCEL": "Cancel",
         "GO_TO_PREVIOUS_STEP": "Go to previous step"
       },
+      "WARNING_NEXT_STEP_DIALOG": {
+        "TITLE": "Are you sure you want to move to the next step?",
+        "WARNING_TEXT_WITH_TIME": "There is {{minutes}} minutes and {{seconds}} seconds left for this step.",
+        "WARNING_TEXT": "There is time left for this step.",
+        "GO_TO_NEXT_STEP": "Go to next step"
+      },
       "ROUND_HELPER": "Round {{round}}"
     },
     "RESPONSE_CARD": {
