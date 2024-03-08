@@ -1,27 +1,17 @@
-import { FC, ReactElement, useEffect, useState } from 'react';
+import { FC, ReactElement } from 'react';
 
 import { ActivityStatus } from '@/interfaces/interactionProcess';
 import WaitingScreen from '@/modules/common/WaitingScreen';
-import { useAppDataContext } from '@/modules/context/AppDataContext';
-import { useSettings } from '@/modules/context/SettingsContext';
-import { getCurrentStatus } from '@/utils/state';
+import { useActivityContext } from '../context/ActivityContext';
 
 const Pausable: FC<{ children: ReactElement }> = ({ children }) => {
-  const { appData } = useAppDataContext();
-  const [state, setState] = useState(ActivityStatus.WaitingForStart);
-  const { orchestrator } = useSettings();
+  const { activityState } = useActivityContext();
+  const status = activityState?.data?.status || ActivityStatus.WaitingForStart;
 
-  useEffect(() => {
-    setState(
-      getCurrentStatus(appData, orchestrator.id) ||
-        ActivityStatus.WaitingForStart,
-    );
-  }, [appData, orchestrator.id]);
-
-  if (state === ActivityStatus.Play) {
+  if (status === ActivityStatus.Play) {
     return children;
   }
-  return <WaitingScreen state={state} />;
+  return <WaitingScreen state={status} />;
 };
 
 export default Pausable;

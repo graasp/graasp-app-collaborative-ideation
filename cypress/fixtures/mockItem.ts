@@ -21,6 +21,7 @@ export const MOCK_SERVER_DISCRIMINATED_ITEM: DiscriminatedItem = {
       url: '',
     },
   },
+  lang: 'en',
   createdAt: MOCK_SERVER_ITEM.createdAt.toISOString(),
   updatedAt: MOCK_SERVER_ITEM.updatedAt.toISOString(),
 };

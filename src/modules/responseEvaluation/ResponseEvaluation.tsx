@@ -1,4 +1,4 @@
-import { FC, ReactNode, useMemo } from 'react';
+import { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Alert from '@mui/material/Alert';
@@ -17,13 +17,10 @@ import { useSettings } from '../context/SettingsContext';
 
 const ResponseEvaluation: FC = () => {
   const { t } = useTranslation();
-  const { myResponsesSets } = useActivityContext();
+  const { availableResponses } = useActivityContext();
   const { activity } = useSettings();
   const { evaluationType } = activity;
-  const responses = useMemo(
-    () => myResponsesSets.flatMap((set) => set.data.responses),
-    [myResponsesSets],
-  );
+  const responses = availableResponses;
 
   const { invalidateAppData, isLoading } = useAppDataContext();
 
@@ -54,7 +51,6 @@ const ResponseEvaluation: FC = () => {
                   <Response
                     key={response.id}
                     response={response}
-                    responseId={response.id}
                     evaluationType={evaluationType}
                   />
                 </Grid>

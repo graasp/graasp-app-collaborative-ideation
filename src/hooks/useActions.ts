@@ -1,34 +1,40 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
-import { LocalContext } from '@graasp/apps-query-client';
+import { Data, LocalContext } from '@graasp/apps-query-client';
 
 import {
   AppActionTypes,
   ChooseResponseAction,
   DeleteResponseAction,
   EvaluateResponseAction,
+  NextStepAction,
   OpenAppAction,
+  PauseActivityAction,
+  PlayActivityAction,
+  PreviousStepAction,
   SubmitNewResponseAction,
 } from '@/config/appActionsTypes';
 import {
-  AnonymousResponseData,
   CurrentStateData,
   RatingsAppData,
   ResponseAppData,
 } from '@/config/appDataTypes';
 import { mutations } from '@/config/queryClient';
+import { ActivityStep } from '@/interfaces/interactionProcess';
 
 interface UseActionsValues {
   postSubmitNewResponseAction: (response: ResponseAppData) => void;
   postDeleteResponseAction: (id: ResponseAppData['id']) => void;
-  postChooseResponseAction: (
-    anonymousResponseData: AnonymousResponseData,
-  ) => void;
+  postChooseResponseAction: (response: ResponseAppData) => void;
   postOpenAppAction: (
     currentState?: CurrentStateData,
     context?: LocalContext,
   ) => void;
   postEvaluateResponseAction: <T>(evaluation: RatingsAppData<T>) => void;
+  postNextStepAction: (step: ActivityStep, stepIndex: number) => void;
+  postPreviousStepAction: (step: ActivityStep, stepIndex: number) => void;
+  postPlayActivityAction: (data?: Data) => void;
+  postPauseActivityAction: (data?: Data) => void;
 }
 
 const useActions = (): UseActionsValues => {
@@ -62,10 +68,10 @@ const useActions = (): UseActionsValues => {
   );
 
   const postChooseResponseAction = useMemo(
-    () => (anonymousResponseData: AnonymousResponseData) => {
+    () => (response: ResponseAppData) => {
       const action: ChooseResponseAction = {
         type: AppActionTypes.ChooseResponse,
-        data: anonymousResponseData,
+        data: response,
       };
       postAppAction(action);
     },
@@ -99,12 +105,66 @@ const useActions = (): UseActionsValues => {
     [postAppAction],
   );
 
+  const postNextStepAction = useCallback(
+    (step: ActivityStep, stepIndex: number) => {
+      const action: NextStepAction = {
+        type: AppActionTypes.NextStep,
+        data: {
+          ...step,
+          stepIndex,
+        },
+      };
+      postAppAction(action);
+    },
+    [postAppAction],
+  );
+
+  const postPreviousStepAction = useCallback(
+    (step: ActivityStep, stepIndex: number) => {
+      const action: PreviousStepAction = {
+        type: AppActionTypes.PreviousStep,
+        data: {
+          ...step,
+          stepIndex,
+        },
+      };
+      postAppAction(action);
+    },
+    [postAppAction],
+  );
+
+  const postPlayActivityAction = useCallback(
+    (data?: Data) => {
+      const action: PlayActivityAction = {
+        type: AppActionTypes.PlayActivity,
+        data: data ?? {},
+      };
+      postAppAction(action);
+    },
+    [postAppAction],
+  );
+
+  const postPauseActivityAction = useCallback(
+    (data?: Data) => {
+      const action: PauseActivityAction = {
+        type: AppActionTypes.PauseActivity,
+        data: data ?? {},
+      };
+      postAppAction(action);
+    },
+    [postAppAction],
+  );
+
   return {
     postSubmitNewResponseAction,
     postDeleteResponseAction,
     postChooseResponseAction,
     postOpenAppAction,
     postEvaluateResponseAction,
+    postNextStepAction,
+    postPreviousStepAction,
+    postPlayActivityAction,
+    postPauseActivityAction,
   };
 };
 

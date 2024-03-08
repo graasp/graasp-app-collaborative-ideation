@@ -5,10 +5,15 @@ import { PermissionLevel } from '@graasp/sdk';
 
 import { CurrentStateData } from '@/config/appDataTypes';
 import { INITIAL_STATE } from '@/config/constants';
-import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
+import {
+  ActivityStatus,
+  ActivityStep,
+  ActivityType,
+} from '@/interfaces/interactionProcess';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { getAllStates, getCurrentState } from '@/utils/state';
+import useActions from './useActions';
 
 export interface UseActivityStateValues {
   activityState: {
@@ -21,12 +26,18 @@ export interface UseActivityStateValues {
   resetActivityState: () => void;
   stateWarning: boolean;
   changeActivity: (newActivity: ActivityType) => void;
-  playActivity: () => void;
+  playActivity: (step?: ActivityStep, stepIndex?: number) => void;
   pauseActivity: () => void;
+  updateActivityState: (
+    newActivityStateData: Partial<CurrentStateData>,
+  ) => void;
 }
 
 const useActivityState = (): UseActivityStateValues => {
   const [stateWarning, setStateWarning] = useState(false);
+
+  const { postPlayActivityAction, postPauseActivityAction } = useActions();
+
   const { appData, postAppData, patchAppData, deleteAppData } =
     useAppDataContext();
   const { orchestrator } = useSettings();
@@ -83,8 +94,25 @@ const useActivityState = (): UseActivityStateValues => {
     updateActivityState({ status: newStatus });
   };
 
-  const playActivity = (): void => changeActivityStatus(ActivityStatus.Play);
-  const pauseActivity = (): void => changeActivityStatus(ActivityStatus.Pause);
+  const playActivity = (step?: ActivityStep, stepIndex?: number): void => {
+    if (typeof step !== 'undefined') {
+      updateActivityState({
+        activity: step.type,
+        round: step.round,
+        startTime: new Date(),
+        stepIndex: stepIndex || 0,
+        status: ActivityStatus.Play,
+      });
+    } else {
+      changeActivityStatus(ActivityStatus.Play);
+    }
+    postPlayActivityAction();
+  };
+
+  const pauseActivity = (): void => {
+    changeActivityStatus(ActivityStatus.Pause);
+    postPauseActivityAction();
+  };
 
   const resetActivityState = (): void => {
     const states = getAllStates(appData);
@@ -101,6 +129,7 @@ const useActivityState = (): UseActivityStateValues => {
     changeActivity,
     playActivity,
     pauseActivity,
+    updateActivityState,
   };
 };
 

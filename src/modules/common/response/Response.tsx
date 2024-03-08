@@ -11,35 +11,43 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import grey from '@mui/material/colors/grey';
 
-import { ResponseData } from '@/config/appDataTypes';
+import { ResponseAppData } from '@/config/appDataTypes';
 import { EvaluationType } from '@/interfaces/evaluationType';
 
+import Chip from '@mui/material/Chip';
+import { useLocalContext } from '@graasp/apps-query-client';
+import Box from '@mui/material/Box';
 import UsefulnessNoveltyRating from './evaluation/UsefulnessNoveltyRating';
 
 const Response: FC<{
-  responseId: string;
-  response: ResponseData;
+  response: ResponseAppData;
   onSelect?: (id: string) => void;
   enableBuildAction?: boolean;
   evaluationType?: EvaluationType;
   onDelete?: (id: string) => void;
 }> = ({
-  responseId,
   response,
   onSelect,
   onDelete,
   enableBuildAction = true,
   evaluationType = EvaluationType.None,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('translations', { keyPrefix: 'RESPONSE_CARD' });
+  const { t: generalT } = useTranslation('translations');
+  const { memberId } = useLocalContext();
+
+  const { id, data, creator } = response;
+  const { response: responseContent, round } = data;
+
+  const isOwn = creator?.id === memberId;
 
   const showSelectButton = typeof onSelect !== 'undefined';
-  const showDeleteButton = typeof onDelete !== 'undefined';
+  const showDeleteButton = typeof onDelete !== 'undefined' && isOwn;
   const showActions = showDeleteButton || showSelectButton;
 
   const renderEvaluationComponent = (): JSX.Element => {
     if (evaluationType === EvaluationType.UsefulnessNoveltyRating) {
-      return <UsefulnessNoveltyRating responseId={responseId} />;
+      return <UsefulnessNoveltyRating responseId={id} />;
     }
     return <p>Vote</p>; // TODO: implement
   };
@@ -48,40 +56,59 @@ const Response: FC<{
     <Card
       variant="outlined"
       sx={{
-        // maxWidth: '30%',
         minWidth: '160pt',
-        // backgroundColor:
-        //   noveltyRating && relevanceRating ? green[100] : 'white',
-        // borderColor: noveltyRating && relevanceRating ? green[700] : 'default',
       }}
     >
       <CardContent sx={{ minHeight: '32pt' }}>
         <Typography variant="body1" sx={{ overflowWrap: 'break-word' }}>
-          {response.response}
+          {responseContent}
         </Typography>
-        <Typography variant="body2" sx={{ color: grey.A700 }}>
-          {t('ROUND', { round: response.round })}
-        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Typography variant="body2" sx={{ color: grey.A700 }}>
+            {generalT('ROUND', { round })}
+          </Typography>
+          {isOwn && (
+            <Chip
+              sx={{ ml: '1rem' }}
+              variant="outlined"
+              size="small"
+              color="info"
+              label={t('OWN')}
+            />
+          )}
+        </Box>
       </CardContent>
       {evaluationType !== EvaluationType.None && renderEvaluationComponent()}
       {showActions && (
         <>
           <Divider />
-          <CardActions>
+          <CardActions
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}
+          >
             {showSelectButton && (
               <Button
                 disabled={!enableBuildAction}
                 onClick={() => {
-                  if (typeof onSelect !== 'undefined') onSelect(responseId);
+                  if (typeof onSelect !== 'undefined') onSelect(id);
                 }}
               >
-                {t('BUILD_ON_THIS_IDEA')}
+                {t('BUILD_ON_THIS')}
               </Button>
             )}
             {showDeleteButton && (
               <IconButton
                 sx={{ marginLeft: 'auto' }}
-                onClick={() => onDelete(responseId)}
+                onClick={() => onDelete(id)}
               >
                 <DeleteIcon />
               </IconButton>

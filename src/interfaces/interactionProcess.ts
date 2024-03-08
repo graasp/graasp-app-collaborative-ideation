@@ -22,6 +22,12 @@ export enum ActivityStatus {
   ShowSummary = 'show-summary',
 }
 
+export type ActivityStep = {
+  type: ActivityType;
+  round?: number;
+  time?: number; // Time in seconds
+};
+
 export type Phase = {
   phase: number;
   label: string;

@@ -12,10 +12,15 @@ import Switch from '@mui/material/Switch';
 
 import { ActivitySetting } from '@/config/appSettingsType';
 import { EvaluationType } from '@/interfaces/evaluationType';
-import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
+import {
+  ActivityStep,
+  ResponseVisibilityMode,
+} from '@/interfaces/interactionProcess';
 
+import Box from '@mui/material/Box';
 import SettingsSection from '../../common/SettingsSection';
 import EvaluationTypeSelection from './EvaluationTypeSelection';
+import StepsSettings from './StepsSettings';
 
 interface ActivitySettingsProps {
   activity: ActivitySetting;
@@ -36,6 +41,8 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
     exclusiveResponseDistribution,
     numberOfBotResponsesPerSet,
     numberOfResponsesPerSet,
+    reformulateResponses,
+    steps,
   } = activity;
 
   const handleModeChange = (newMode: ResponseVisibilityMode): void => {
@@ -49,6 +56,13 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
     onChange({
       ...activity,
       exclusiveResponseDistribution: newToggle,
+    });
+  };
+
+  const handleReformulateResponsesChange = (newToggle: boolean): void => {
+    onChange({
+      ...activity,
+      reformulateResponses: newToggle,
     });
   };
 
@@ -74,6 +88,13 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
     onChange({
       ...activity,
       evaluationType: newEvaluationType,
+    });
+  };
+
+  const handleChangeSteps = (newSteps: ActivityStep[]): void => {
+    onChange({
+      ...activity,
+      steps: newSteps,
     });
   };
   return (
@@ -111,43 +132,63 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
             />
           </RadioGroup>
         </FormControl>
-        <FormControl>
-          <FormLabel>{t('ADVANCED_CONFIGURATION')}</FormLabel>
-          <FormControlLabel
-            control={
-              <Switch
-                value={exclusiveResponseDistribution}
-                onChange={(e) => handleExclDistributionChange(e.target.checked)}
-              />
-            }
-            label={t('EXCLUSIVE_RESPONSE_DISTRIBUTION_LABEL')}
-          />
-          <FormControlLabel
-            control={
-              <Input
-                value={numberOfResponsesPerSet}
-                onChange={(e) => handleNbrRespSetChange(e.target.value)}
-              />
-            }
-            labelPlacement="top"
-            label={t('NUMBER_RESP_SET_LABEL')}
-          />
-          <FormControlLabel
-            control={
-              <Input
-                value={numberOfBotResponsesPerSet}
-                onChange={(e) => handleNbrBotRespSetChange(e.target.value)}
-              />
-            }
-            labelPlacement="top"
-            label={t('NUMBER_BOT_RESP_SET_LABEL')}
-          />
-        </FormControl>
+        <Box>
+          <FormControl>
+            <FormLabel>{t('ADVANCED_CONFIGURATION')}</FormLabel>
+            <FormControlLabel
+              control={
+                <Switch
+                  value={exclusiveResponseDistribution}
+                  onChange={(e) =>
+                    handleExclDistributionChange(e.target.checked)
+                  }
+                />
+              }
+              label={t('EXCLUSIVE_RESPONSE_DISTRIBUTION_LABEL')}
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  value={reformulateResponses}
+                  onChange={(e) =>
+                    handleReformulateResponsesChange(e.target.checked)
+                  }
+                />
+              }
+              label={t('REFORMULATE_RESPONSE_LABEL')}
+            />
+          </FormControl>
+          <FormControl>
+            <FormControlLabel
+              control={
+                <Input
+                  value={numberOfResponsesPerSet}
+                  onChange={(e) => handleNbrRespSetChange(e.target.value)}
+                />
+              }
+              labelPlacement="top"
+              label={t('NUMBER_RESP_SET_LABEL')}
+            />
+          </FormControl>
+          <FormControl>
+            <FormControlLabel
+              control={
+                <Input
+                  value={numberOfBotResponsesPerSet}
+                  onChange={(e) => handleNbrBotRespSetChange(e.target.value)}
+                />
+              }
+              labelPlacement="top"
+              label={t('NUMBER_BOT_RESP_SET_LABEL')}
+            />
+          </FormControl>
+        </Box>
       </Stack>
       <EvaluationTypeSelection
         evaluationType={evaluationType}
         onChange={handleEvaluationTypeChange}
       />
+      <StepsSettings steps={steps} onChange={handleChangeSteps} />
     </SettingsSection>
   );
 };

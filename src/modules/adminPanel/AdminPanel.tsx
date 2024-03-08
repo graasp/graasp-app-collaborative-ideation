@@ -36,11 +36,8 @@ const AdminPanel: FC<AdminPanelProps> = ({ width }): JSX.Element => {
       sx={{
         width,
         backgroundColor: grey[50],
-        // b: '1pt',
-        // borderColor: 'black',
         p: 4,
         m: 1,
-        // borderRadius: 2,
       }}
       data-cy={ADMIN_PANEL_CY}
     >
@@ -54,11 +51,6 @@ const AdminPanel: FC<AdminPanelProps> = ({ width }): JSX.Element => {
         <SectionTitle>{t('PARTICIPANTS')}</SectionTitle>
         <Stack sx={{ m: 1 }} direction="row" spacing={2}>
           {members?.map((member) => (
-            // <Badge
-            //   key={member.id}
-            //   badgeContent={getNumberOfIdeas(member)}
-            //   color="secondary"
-            // >
             <Tooltip title={member.name} key={member.id}>
               <Avatar
                 sx={{ bgcolor: stringToColor(member.name) }}
@@ -67,12 +59,17 @@ const AdminPanel: FC<AdminPanelProps> = ({ width }): JSX.Element => {
                 {member.name[0]}
               </Avatar>
             </Tooltip>
-            // </Badge>
           ))}
         </Stack>
         <SectionTitle>Act as a bot</SectionTitle>
         <Typography>{t('ADMIN_PANEL.BOT.HELPER')}</Typography>
-        <IdeaInput actAsBot />
+        <IdeaInput
+          actAsBot
+          onCancel={() => {
+            // eslint-disable-next-line no-console
+            console.warn('Nothing to do here.');
+          }}
+        />
       </Stack>
     </Paper>
   );

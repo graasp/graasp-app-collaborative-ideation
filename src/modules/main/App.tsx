@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { useLocalContext } from '@graasp/apps-query-client';
-import { Context, DEFAULT_LANG } from '@graasp/sdk';
+import { Context } from '@graasp/sdk';
 
 import * as Sentry from '@sentry/react';
 
@@ -9,6 +9,7 @@ import { SENTRY_ENV } from '@/config/env';
 import { hooks } from '@/config/queryClient';
 import useActions from '@/hooks/useActions';
 
+import { DEFAULT_LANG } from '@/config/constants';
 import i18n from '../../config/i18n';
 import { ActivityProvider } from '../context/ActivityContext';
 import { AppDataProvider } from '../context/AppDataContext';
@@ -46,9 +47,9 @@ const App = (): JSX.Element => {
           });
         }
         Sentry.setContext('app-context', {
-          itemId: appContext.id,
-          name: appContext.name,
-          path: appContext.path,
+          itemId: appContext.item.id,
+          name: appContext.item.name,
+          path: appContext.item.path,
         });
       }
     }
@@ -56,11 +57,11 @@ const App = (): JSX.Element => {
 
   useEffect(() => {
     // handle a change of language
-    const lang = context?.lang ?? DEFAULT_LANG;
+    const lang = context?.lang ?? appContext?.item?.lang ?? DEFAULT_LANG;
     if (i18n.language !== lang) {
       i18n.changeLanguage(lang);
     }
-  }, [context]);
+  }, [appContext, context]);
 
   const renderContent = (): JSX.Element => {
     switch (context.context) {

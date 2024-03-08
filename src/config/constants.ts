@@ -20,6 +20,7 @@ export const INITIAL_STATE: {
     status: ActivityStatus.WaitingForStart,
     activity: ActivityType.Collection,
     round: 0,
+    startTime: new Date(),
   },
   visibility: AppDataVisibility.Item,
 };
@@ -42,3 +43,5 @@ export const DEFAULT_CHATBOT_RESPONSE_APP_DATA: Pick<
 };
 
 export const DEFAULT_BOT_USERNAME = 'GraaspBot';
+export const SHORT_TIME_LIMIT = 10; // seconds
+export const DEFAULT_LANG = 'en';

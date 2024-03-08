@@ -1,8 +1,8 @@
-import { Member } from '@graasp/sdk';
+import { AppData, Member } from '@graasp/sdk';
 
 import shuffle from 'lodash.shuffle';
 
-import { ResponseAppData } from '@/config/appDataTypes';
+import { AppDataTypes, ResponseAppData } from '@/config/appDataTypes';
 
 export const extractNResponsesThatDontHaveMemberAsCreator = (
   responses: Map<string, ResponseAppData>,
@@ -103,8 +103,27 @@ export const recursivelyCreateAllOpenSets = <T extends { id: string }>(
   return new Map();
 };
 
+// Filters
+
+export const getResponses = (appData: AppData[]): ResponseAppData[] =>
+  appData.filter(
+    ({ type }) => type === AppDataTypes.Response,
+  ) as ResponseAppData[];
+
+export const getRoundResponses = (
+  responses: ResponseAppData[],
+  round: number,
+): ResponseAppData[] => responses.filter(({ data }) => data?.round === round);
+
 export const filterBotResponses = (
   responses: ResponseAppData[],
   bot: boolean = false,
 ): ResponseAppData[] =>
   responses.filter(({ data }) => (bot ? data.bot : !data?.bot));
+
+export const isOwnResponse = (
+  response: ResponseAppData,
+  memberId: string,
+): boolean =>
+  response.creator?.id === memberId &&
+  typeof response.data?.assistantId === 'undefined';

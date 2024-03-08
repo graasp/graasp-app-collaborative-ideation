@@ -5,7 +5,6 @@ import Container from '@mui/material/Container';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
 import { useActivityContext } from '../context/ActivityContext';
-import ResponsesSetsView from './ResponsesSetsView';
 
 const ResponsesView = (): JSX.Element => {
   const { t } = useTranslation();
@@ -44,7 +43,6 @@ const ResponsesView = (): JSX.Element => {
   return (
     <Container>
       <DataGrid columns={columns} rows={ideasTable} />
-      <ResponsesSetsView />
       {/* <RatingsPlot /> */}
     </Container>
   );

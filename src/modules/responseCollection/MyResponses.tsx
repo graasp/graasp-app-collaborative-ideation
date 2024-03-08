@@ -26,8 +26,7 @@ const MyResponses: FC = () => {
               <Grid key={response.id} item xl={6} sm={6} xs={12}>
                 <Response
                   key={response.id}
-                  response={response.data}
-                  responseId={response.id}
+                  response={response}
                   onDelete={
                     response.data.round === round ? handleDelete : undefined
                   }

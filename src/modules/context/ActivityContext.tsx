@@ -10,7 +10,7 @@ import useResponses, { UseResponsesValues } from '@/hooks/useResponses';
 type ActivityContextType = UseActivityStateValues &
   UseResponsesValues & { participants: UseParticipantsValue };
 const defaultContextValue: ActivityContextType = {
-  round: 0, // INITIAL_STATE.data.round,
+  round: 0,
   nextRound: () => undefined,
   activityState: INITIAL_STATE,
   resetActivityState: () => undefined,
@@ -21,6 +21,7 @@ const defaultContextValue: ActivityContextType = {
   myResponsesSets: [],
   assistantsResponsesSets: [],
   createAllResponsesSet: async () => undefined,
+  deleteResponsesSetsForRound: async () => undefined,
   deleteAllResponsesSet: async () => undefined,
   participants: { members: [], assistants: [] },
   deleteResponse: async () => undefined,
@@ -28,6 +29,8 @@ const defaultContextValue: ActivityContextType = {
   changeActivity: () => undefined,
   playActivity: () => undefined,
   pauseActivity: () => undefined,
+  availableResponses: [],
+  updateActivityState: () => undefined,
 };
 
 const ActivityContext = createContext<ActivityContextType>(defaultContextValue);

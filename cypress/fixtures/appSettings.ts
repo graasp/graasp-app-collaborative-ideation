@@ -3,7 +3,10 @@ import { AppSetting } from '@graasp/sdk';
 import { AllSettingsType } from '@/config/appSettingsType';
 import { DEFAULT_SYSTEM_PROMPT } from '@/config/prompts';
 import { EvaluationType } from '@/interfaces/evaluationType';
-import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
+import {
+  ActivityType,
+  ResponseVisibilityMode,
+} from '@/interfaces/interactionProcess';
 
 import { MEMBERS } from './members';
 import { MOCK_SERVER_DISCRIMINATED_ITEM } from './mockItem';
@@ -47,6 +50,24 @@ export const ALL_SETTINGS_OBJECT: AllSettingsType = {
     numberOfBotResponsesPerSet: 1,
     exclusiveResponseDistribution: true,
     evaluationType: EvaluationType.UsefulnessNoveltyRating,
+    steps: [
+      {
+        type: ActivityType.Collection,
+        round: 0,
+        time: 60,
+      },
+      {
+        type: ActivityType.Collection,
+        round: 1,
+        time: 60,
+      },
+      {
+        type: ActivityType.Evaluation,
+        round: 2,
+        time: 120,
+      },
+    ],
+    reformulateResponses: false,
   },
   notParticipating: { ids: [] },
   chatbot: {

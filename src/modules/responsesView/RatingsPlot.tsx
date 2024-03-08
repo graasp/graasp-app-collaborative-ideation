@@ -1,33 +1,18 @@
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 import Plot from 'react-plotly.js';
 
 import Container from '@mui/material/Container';
 import { useTheme } from '@mui/material/styles';
 
-import { AppDataTypes, ResponsesSetAppData } from '@/config/appDataTypes';
-import { useAppDataContext } from '@/modules/context/AppDataContext';
-import { useSettings } from '@/modules/context/SettingsContext';
+import { useActivityContext } from '../context/ActivityContext';
 
 const RatingsPlot: FC = () => {
-  const { appData } = useAppDataContext();
-  const { orchestrator } = useSettings();
   const theme = useTheme();
-  const ideas = useMemo(
-    // TODO: Factor out as utility func
-    () =>
-      (
-        appData.find(
-          ({ creator, type }) =>
-            creator?.id === orchestrator.id &&
-            type === AppDataTypes.ResponsesSet,
-        ) as ResponsesSetAppData
-      )?.data.responses,
-    [appData, orchestrator.id],
-  );
+  const { allResponses } = useActivityContext();
 
-  const x = ideas.map(({ ratings }) => ratings?.novelty || 0);
-  const y = ideas.map(({ ratings }) => ratings?.usefulness || 0);
-  const labels = ideas.map(({ response }) => response);
+  const x = allResponses.map(({ data }) => data?.ratings?.novelty || 0);
+  const y = allResponses.map(({ data }) => data?.ratings?.usefulness || 0);
+  const labels = allResponses.map(({ data }) => data.response);
 
   return (
     <Container>

@@ -3,32 +3,23 @@ import { useMemo } from 'react';
 import Container from '@mui/material/Container';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
-import { AppDataTypes, ResponsesSetAppData } from '@/config/appDataTypes';
-import { useAppDataContext } from '@/modules/context/AppDataContext';
-import { useSettings } from '@/modules/context/SettingsContext';
-
 import RatingsPlot from './RatingsPlot';
+import { useActivityContext } from '../context/ActivityContext';
 
 const AnonymousIdeasView = (): JSX.Element => {
-  // const { t } = useTranslation();
-  const { appData } = useAppDataContext();
-  const { orchestrator } = useSettings();
-  const ideasTable = useMemo(() => {
-    const ideaSet = (
-      appData.find(
-        (a) =>
-          a.type === AppDataTypes.ResponsesSet &&
-          a.member.id === orchestrator.id,
-      ) as ResponsesSetAppData
-    )?.data.responses;
-    return ideaSet.map((i) => ({
-      id: i.id,
-      response: i.response,
-      parentId: i.parentId,
-      parentIdea: ideaSet.find(({ id }) => i.parentId === id)?.response,
-      bot: i.bot,
-    }));
-  }, [appData, orchestrator.id]);
+  const { allResponses } = useActivityContext();
+  const ideasTable = useMemo(
+    () =>
+      allResponses.map((i) => ({
+        id: i.id,
+        response: i.data.response,
+        parentId: i.data.parentId,
+        parentIdea: allResponses.find(({ id }) => i.data.parentId === id)?.data
+          ?.response,
+        bot: i.data?.bot,
+      })),
+    [allResponses],
+  );
   const columns: GridColDef[] = [
     { field: 'response', headerName: 'Response', width: 600, resizable: true },
     {

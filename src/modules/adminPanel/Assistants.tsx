@@ -9,15 +9,16 @@ import {
   promptForSingleResponse,
   promptForSingleResponseAndProvideResponses,
 } from '@/config/prompts';
-import useChatbot from '@/hooks/useChatbot';
+import useAssistants from '@/hooks/useAssistants';
 
 import { useActivityContext } from '../context/ActivityContext';
 import { useSettings } from '../context/SettingsContext';
 
 const Assistants: FC = () => {
   const { t } = useTranslation();
-  const { assistantsResponsesSets, round, postResponse } = useActivityContext();
-  const { promptAssistant } = useChatbot();
+  const { assistantsResponsesSets, round, postResponse, allResponses } =
+    useActivityContext();
+  const { promptAssistant } = useAssistants();
 
   const { assistants: assistantsSetting, instructions } = useSettings();
   const { assistants } = assistantsSetting;
@@ -36,7 +37,9 @@ const Assistants: FC = () => {
             set.data.assistant === persona.id && set.data.round === round - 1,
         );
         if (assistantSet) {
-          const responses = assistantSet.data.responses.map((r) => r.response);
+          const responses = assistantSet.data.responses.map(
+            (r) => allResponses.find(({ id }) => r === id)?.data.response || '',
+          );
           return promptAssistant(
             persona,
             promptForSingleResponseAndProvideResponses(

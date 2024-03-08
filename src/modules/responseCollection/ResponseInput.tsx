@@ -15,36 +15,44 @@ import Button from '@mui/material/Button';
 
 import { AppData } from '@graasp/sdk';
 
-import { AnonymousResponseData, ResponseData } from '@/config/appDataTypes';
+import { ResponseAppData, ResponseData } from '@/config/appDataTypes';
 import { RESPONSE_MAXIMUM_LENGTH } from '@/config/constants';
 import {
   RESPONSE_INPUT_FIELD_CY,
   SUBMIT_RESPONSE_BTN_CY,
 } from '@/config/selectors';
-import useChatbot from '@/hooks/useChatbot';
+import useAssistants from '@/hooks/useAssistants';
 
 import Loader from '../common/Loader';
 import { useActivityContext } from '../context/ActivityContext';
+import { useSettings } from '../context/SettingsContext';
 
 const ResponseInput: FC<{
+  onCancel: () => void;
   currentRound?: number;
-  parent?: AnonymousResponseData;
+  parent?: ResponseAppData;
   onSubmitted?: (id: string) => void;
   actAsBot?: boolean;
   enableAssistants?: boolean;
-}> = (
-  { parent, currentRound, onSubmitted, actAsBot, enableAssistants } = {
-    enableAssistants: false,
-  },
-) => {
+}> = ({
+  onCancel,
+  parent,
+  currentRound,
+  onSubmitted,
+  actAsBot,
+  enableAssistants,
+}) => {
   const { t } = useTranslation('translations', {
     keyPrefix: 'RESPONSE_COLLECTION.INPUT',
   });
+  const { activity } = useSettings();
+  const { reformulateResponses } = activity;
+  const { t: generalT } = useTranslation('translations');
   const { postResponse } = useActivityContext();
   const [isWaitingOnBot, setIsWaitingOnBot] = useState<boolean>(false);
   const [response, setResponse] = useState<string>('');
   const promisePostIdea = useRef<Promise<AppData>>();
-  const { generateSingleResponse } = useChatbot();
+  const { generateSingleResponse, reformulateResponse } = useAssistants();
   const promiseBotRequest = useRef<Promise<void>>();
   const [isPosting, setIsPosting] = useState(false);
 
@@ -65,14 +73,24 @@ const ResponseInput: FC<{
     );
   };
 
-  const submit = (): void => {
+  const submit = async (): Promise<void> => {
     setIsPosting(true);
-    const newIdeaData: ResponseData = {
-      response,
-      parentId: parent?.id,
-      round: currentRound,
-      bot: actAsBot,
-    };
+
+    const newIdeaData: ResponseData = reformulateResponses
+      ? {
+          parentId: parent?.id,
+          response:
+            (await reformulateResponse(response))?.data.completion ?? response,
+          round: currentRound,
+          bot: actAsBot,
+          originalResponse: response,
+        }
+      : {
+          response,
+          parentId: parent?.id,
+          round: currentRound,
+          bot: actAsBot,
+        };
 
     promisePostIdea.current = postResponse(newIdeaData, true)?.then(
       (postedIdea) => {
@@ -100,7 +118,7 @@ const ResponseInput: FC<{
       {parent && (
         <Alert severity="info">
           <AlertTitle>{t('CUE_PARENT_RESPONSE_TITLE')}</AlertTitle>
-          <q>{parent.response}</q>
+          <q>{parent.data.response}</q>
         </Alert>
       )}
       <TextField
@@ -128,22 +146,26 @@ const ResponseInput: FC<{
         }}
         data-cy={RESPONSE_INPUT_FIELD_CY}
       />
-      <Button
-        onClick={submit}
-        disabled={disableSubmission}
-        data-cy={SUBMIT_RESPONSE_BTN_CY}
-      >
-        {t('SUBMIT')}
-      </Button>
-      {enableAssistants && (
-        <LoadingButton
-          loadingIndicator="Waiting for the bot to reply."
-          loading={isWaitingOnBot}
-          onClick={askBot}
+      <Stack direction="row" spacing={2}>
+        <Button
+          onClick={submit}
+          disabled={disableSubmission}
+          data-cy={SUBMIT_RESPONSE_BTN_CY}
+          variant="contained"
         >
-          Ask the bot
-        </LoadingButton>
-      )}
+          {t('SUBMIT')}
+        </Button>
+        <Button onClick={onCancel}>{generalT('CANCEL')}</Button>
+        {enableAssistants && (
+          <LoadingButton
+            loadingIndicator="Waiting for the bot to reply."
+            loading={isWaitingOnBot}
+            onClick={askBot}
+          >
+            Ask the bot
+          </LoadingButton>
+        )}
+      </Stack>
       <Collapse in={isPosting}>
         <Stack direction="row" spacing={1}>
           <Alert severity="info">{t('RESPONSE_BEING_SUBMITTED_ALERT')}</Alert>
