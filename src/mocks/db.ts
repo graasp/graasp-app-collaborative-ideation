@@ -5,7 +5,6 @@ import {
   CompleteMember,
   Context,
   DiscriminatedItem,
-  ItemSettings,
   ItemType,
   PermissionLevel,
 } from '@graasp/sdk';
@@ -35,7 +34,7 @@ export const mockMembers: CompleteMember[] = [
   },
 ];
 
-export const mockItem: DiscriminatedItem<ItemSettings> = {
+export const mockItem: DiscriminatedItem = {
   id: '1234-1234-1234-5678',
   name: 'app-collaborative-ideation',
   description: null,
@@ -43,6 +42,7 @@ export const mockItem: DiscriminatedItem<ItemSettings> = {
   type: ItemType.APP,
   settings: {},
   creator: mockMembers[0],
+  lang: 'en',
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),
   extra: {

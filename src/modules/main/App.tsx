@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { useLocalContext } from '@graasp/apps-query-client';
-import { Context, DEFAULT_LANG } from '@graasp/sdk';
+import { Context } from '@graasp/sdk';
 
 import * as Sentry from '@sentry/react';
 
@@ -46,9 +46,9 @@ const App = (): JSX.Element => {
           });
         }
         Sentry.setContext('app-context', {
-          itemId: appContext.id,
-          name: appContext.name,
-          path: appContext.path,
+          itemId: appContext.item.id,
+          name: appContext.item.name,
+          path: appContext.item.path,
         });
       }
     }
@@ -56,11 +56,12 @@ const App = (): JSX.Element => {
 
   useEffect(() => {
     // handle a change of language
-    const lang = context?.lang ?? DEFAULT_LANG;
+    // TODO: factor out default
+    const lang = context?.lang ?? appContext?.item?.lang ?? 'en';
     if (i18n.language !== lang) {
       i18n.changeLanguage(lang);
     }
-  }, [context]);
+  }, [appContext, context]);
 
   const renderContent = (): JSX.Element => {
     switch (context.context) {
