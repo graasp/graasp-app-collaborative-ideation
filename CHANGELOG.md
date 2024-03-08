@@ -1,5 +1,45 @@
 # Changelog
 
+## [2.4.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.3.0...v2.4.0) (2024-03-08)
+
+
+### Features
+
+* **actions:** post action when moving back to previous step ([94adc97](https://github.com/graasp/graasp-app-collaborative-ideation/commit/94adc9732c6cfdfb0e333c0ef31e830042e80572))
+* **actions:** record action for next step ([94adc97](https://github.com/graasp/graasp-app-collaborative-ideation/commit/94adc9732c6cfdfb0e333c0ef31e830042e80572))
+* add dialog to prevent undesired switch to next step ([94adc97](https://github.com/graasp/graasp-app-collaborative-ideation/commit/94adc9732c6cfdfb0e333c0ef31e830042e80572))
+* change response handling ([94adc97](https://github.com/graasp/graasp-app-collaborative-ideation/commit/94adc9732c6cfdfb0e333c0ef31e830042e80572))
+* next step color change when time is out ([94adc97](https://github.com/graasp/graasp-app-collaborative-ideation/commit/94adc9732c6cfdfb0e333c0ef31e830042e80572))
+* orchestration bar and activity plan ([#104](https://github.com/graasp/graasp-app-collaborative-ideation/issues/104)) ([94adc97](https://github.com/graasp/graasp-app-collaborative-ideation/commit/94adc9732c6cfdfb0e333c0ef31e830042e80572))
+* **orchestration:** next step button ([94adc97](https://github.com/graasp/graasp-app-collaborative-ideation/commit/94adc9732c6cfdfb0e333c0ef31e830042e80572))
+* **orchestration:** steps buttons and round ([94adc97](https://github.com/graasp/graasp-app-collaborative-ideation/commit/94adc9732c6cfdfb0e333c0ef31e830042e80572))
+* record actions on play/pause ([94adc97](https://github.com/graasp/graasp-app-collaborative-ideation/commit/94adc9732c6cfdfb0e333c0ef31e830042e80572)), closes [#54](https://github.com/graasp/graasp-app-collaborative-ideation/issues/54)
+* reformulate responses with bot ([94adc97](https://github.com/graasp/graasp-app-collaborative-ideation/commit/94adc9732c6cfdfb0e333c0ef31e830042e80572))
+* timer ([94adc97](https://github.com/graasp/graasp-app-collaborative-ideation/commit/94adc9732c6cfdfb0e333c0ef31e830042e80572))
+
+
+### Bug Fixes
+
+* **assistants:** reformulation prompt ([94adc97](https://github.com/graasp/graasp-app-collaborative-ideation/commit/94adc9732c6cfdfb0e333c0ef31e830042e80572))
+* **deps:** update dependency @emotion/react to v11.11.4 ([19e7e2e](https://github.com/graasp/graasp-app-collaborative-ideation/commit/19e7e2e731f83f95f9b64fd51e671e1e0a2d1d7c))
+* **deps:** update dependency @mui/x-data-grid to v6.19.6 ([b84fb4d](https://github.com/graasp/graasp-app-collaborative-ideation/commit/b84fb4df5868fc2a31224e298afe84513b6575af))
+* **deps:** update dependency @sentry/react to v7.104.0 ([#106](https://github.com/graasp/graasp-app-collaborative-ideation/issues/106)) ([cdfdf20](https://github.com/graasp/graasp-app-collaborative-ideation/commit/cdfdf2016ec39f882aadb196a625a84ef75d7b22))
+* **deps:** update dependency @sentry/react to v7.105.0 ([#115](https://github.com/graasp/graasp-app-collaborative-ideation/issues/115)) ([d245bfb](https://github.com/graasp/graasp-app-collaborative-ideation/commit/d245bfbb8cc6c45cacb73f3dd4870dbed50f0922))
+* **deps:** update dependency @sentry/react to v7.106.0 ([#131](https://github.com/graasp/graasp-app-collaborative-ideation/issues/131)) ([700bc37](https://github.com/graasp/graasp-app-collaborative-ideation/commit/700bc37ce433e88a623370e422494d8a2723f1b6))
+* **deps:** update dependency i18next to v23.10.1 ([#129](https://github.com/graasp/graasp-app-collaborative-ideation/issues/129)) ([4585047](https://github.com/graasp/graasp-app-collaborative-ideation/commit/4585047619b74739c9a9f8b28982c08f9734ca56))
+* **deps:** update dependency qs to v6.12.0 ([#124](https://github.com/graasp/graasp-app-collaborative-ideation/issues/124)) ([4d04622](https://github.com/graasp/graasp-app-collaborative-ideation/commit/4d04622864c8c90ddc7e41a4f015ca84269505f4))
+* **deps:** update dependency react-i18next to v14.0.8 ([07d21c3](https://github.com/graasp/graasp-app-collaborative-ideation/commit/07d21c35553e6999d1b6840e437444bce75beb33))
+* **deps:** update dependency react-i18next to v14.1.0 ([#127](https://github.com/graasp/graasp-app-collaborative-ideation/issues/127)) ([0d7ff33](https://github.com/graasp/graasp-app-collaborative-ideation/commit/0d7ff3330882e71fce0e81b45abc0190cd6f3142))
+* **deps:** update dependency react-router-dom to v6.22.2 ([fb5929f](https://github.com/graasp/graasp-app-collaborative-ideation/commit/fb5929f61612492ec28950c455cbecf2ca17d641))
+* **deps:** update dependency typescript to v5.4.2 ([#126](https://github.com/graasp/graasp-app-collaborative-ideation/issues/126)) ([33e6467](https://github.com/graasp/graasp-app-collaborative-ideation/commit/33e646797e5ec330375408eb79e4cefb3a2ab180))
+* **deps:** update mui (non-major) ([c2641dd](https://github.com/graasp/graasp-app-collaborative-ideation/commit/c2641dd57b1db8757cdf9db6652c9b2e31f27683))
+* **deps:** update mui (non-major) ([#130](https://github.com/graasp/graasp-app-collaborative-ideation/issues/130)) ([eb20a15](https://github.com/graasp/graasp-app-collaborative-ideation/commit/eb20a153194e3a48317d9cd507de60b5f33e14a3))
+* **deps:** upgrade [@graasp](https://github.com/graasp) sdk & apps-query-client ([94adc97](https://github.com/graasp/graasp-app-collaborative-ideation/commit/94adc9732c6cfdfb0e333c0ef31e830042e80572))
+* refetch data before creating sets ([94adc97](https://github.com/graasp/graasp-app-collaborative-ideation/commit/94adc9732c6cfdfb0e333c0ef31e830042e80572))
+* remove stepper in response collection ([94adc97](https://github.com/graasp/graasp-app-collaborative-ideation/commit/94adc9732c6cfdfb0e333c0ef31e830042e80572))
+* start first step when playing activity for the first time ([94adc97](https://github.com/graasp/graasp-app-collaborative-ideation/commit/94adc9732c6cfdfb0e333c0ef31e830042e80572))
+* useAssistants prompt ([94adc97](https://github.com/graasp/graasp-app-collaborative-ideation/commit/94adc9732c6cfdfb0e333c0ef31e830042e80572))
+
 ## [2.3.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.2.2...v2.3.0) (2024-02-27)
 
 
