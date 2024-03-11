@@ -33,12 +33,26 @@ export const ALL_SETTINGS_OBJECT: AllSettingsType = {
   instructions: {
     title: {
       content: 'What are your big ideas today?',
-      type: 'plain-text',
+      format: 'plain-text',
     },
     details: {
       content:
         "Don't limitate yourself and express any idea that you may have.",
-      type: 'plain-text',
+      format: 'plain-text',
+    },
+    collection: {
+      choose: {
+        content: 'Choose an idea to build upon',
+        format: 'plain-text',
+      },
+      input: {
+        content: 'Submit your great idea',
+        format: 'plain-text',
+      },
+    },
+    evaluation: {
+      content: 'Evaluate the responses.',
+      format: 'plain-text',
     },
   },
   orchestrator: {

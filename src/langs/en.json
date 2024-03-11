@@ -56,7 +56,11 @@
         "HELPER_TITLE": "Provide a main instruction to be shown in your activity.",
         "LABEL_TITLE": "Main",
         "HELPER_DETAILS": "Provide details to complete your main instructions.",
-        "LABEL_DETAILS": "Details"
+        "LABEL_DETAILS": "Details",
+        "HELPER_INPUT": "Provide detailed instructions for submitting a response",
+        "LABEL_INPUT": "Instructions for response submission",
+        "HELPER_CHOOSE": "Provide detailed instructions for considering other's responses",
+        "LABEL_CHOOSE": "Instructions for response selection"
       },
       "ORCHESTRATOR": {
         "TITLE": "Orchestrator",
@@ -113,6 +117,7 @@
       }
     },
     "RESPONSE_COLLECTION": {
+      "CHOOSE_HELPER_INSTRUCTION": "Read these responses that have been proposed by other participants. Choose one to build upon or propose a new response.",
       "INPUT": {
         "SUBMIT": "Submit your response",
         "HELPER": "Write down only one proposition in this field.",
@@ -126,7 +131,6 @@
       }
     },
     "SAVE": "Save",
-    "CHOOSE_RESPONSE_HEADER_TEXT": "Read these responses that have been proposed by other participants. Choose one to build upon or propose a new response.",
     "NO_IDEAS_TO_SHOW_TEXT": "The other participants have not submitted enough ideas yet. Once they have, these ideas will appear here.",
     "BOT_NAME": "GraaspBot",
     "SYNC_ALERT_SUCCESS": "All ideas are sync.",

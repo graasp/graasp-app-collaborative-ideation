@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from 'react';
+import { FC, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { LoadingButton } from '@mui/lab';
@@ -45,7 +45,7 @@ const ResponseInput: FC<{
   const { t } = useTranslation('translations', {
     keyPrefix: 'RESPONSE_COLLECTION.INPUT',
   });
-  const { activity } = useSettings();
+  const { activity, instructions } = useSettings();
   const { reformulateResponses } = activity;
   const { t: generalT } = useTranslation('translations');
   const { postResponse } = useActivityContext();
@@ -55,6 +55,14 @@ const ResponseInput: FC<{
   const { generateSingleResponse, reformulateResponse } = useAssistants();
   const promiseBotRequest = useRef<Promise<void>>();
   const [isPosting, setIsPosting] = useState(false);
+
+  const inputInstructions = useMemo(
+    () =>
+      typeof instructions?.collection?.input !== 'undefined' &&
+      instructions.collection.input.content.length > 0 &&
+      instructions.collection.input,
+    [instructions],
+  );
 
   const askBot = (): void => {
     setIsWaitingOnBot(true);
@@ -112,6 +120,9 @@ const ResponseInput: FC<{
     isPosting || tooLong || response.length === 0 || isWaitingOnBot;
   return (
     <>
+      {inputInstructions && (
+        <Alert severity="info">{inputInstructions.content}</Alert>
+      )}
       <Collapse in={tooLong}>
         <Alert severity="error">{t('RESPONSE_TOO_LONG_ALERT')}</Alert>
       </Collapse>

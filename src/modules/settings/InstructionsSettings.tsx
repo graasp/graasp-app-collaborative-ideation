@@ -5,6 +5,7 @@ import TextField from '@mui/material/TextField';
 
 import { InstructionsSetting } from '@/config/appSettingsType';
 
+import Alert from '@mui/material/Alert';
 import SettingsSection from '../common/SettingsSection';
 
 interface InstructionsSettingsProps {
@@ -19,7 +20,8 @@ const InstructionsSettings: FC<InstructionsSettingsProps> = ({
   const { t } = useTranslation('translations', {
     keyPrefix: 'SETTINGS.INSTRUCTIONS',
   });
-  const { title, details } = instructions;
+  const { title, details, collection } = instructions;
+  const { input, choose } = collection;
   const detailsContent = details?.content || '';
   const handleTitleChange = (newTitle: string): void => {
     onChange({
@@ -34,11 +36,38 @@ const InstructionsSettings: FC<InstructionsSettingsProps> = ({
     onChange({
       ...instructions,
       details: {
-        type: details?.type || 'plain-text',
+        format: details?.format || 'plain-text',
         content: newDetails,
       },
     });
   };
+
+  const handleInputInstrChange = (newInputInstr: string): void => {
+    onChange({
+      ...instructions,
+      collection: {
+        ...collection,
+        input: {
+          format: input?.format || 'plain-text',
+          content: newInputInstr,
+        },
+      },
+    });
+  };
+
+  const handleChooseInstrChange = (newChooseInstr: string): void => {
+    onChange({
+      ...instructions,
+      collection: {
+        ...collection,
+        choose: {
+          format: choose?.format || 'plain-text',
+          content: newChooseInstr,
+        },
+      },
+    });
+  };
+
   return (
     <SettingsSection title={t('TITLE')}>
       <TextField
@@ -56,6 +85,44 @@ const InstructionsSettings: FC<InstructionsSettingsProps> = ({
         rows={3}
         label={t('LABEL_DETAILS')}
       />
+      {/* TODO: Factor out */}
+      <Alert
+        severity="info"
+        sx={{
+          '& .MuiAlert-message': {
+            width: '100%',
+          },
+        }}
+      >
+        <TextField
+          value={input?.content || ''}
+          onChange={(e) => handleInputInstrChange(e.target.value)}
+          helperText={t('HELPER_INPUT')}
+          multiline
+          rows={3}
+          label={t('LABEL_INPUT')}
+          fullWidth
+        />
+      </Alert>
+      {/* TODO: Factor out */}
+      <Alert
+        severity="info"
+        sx={{
+          '& .MuiAlert-message': {
+            width: '100%',
+          },
+        }}
+      >
+        <TextField
+          value={choose?.content || ''}
+          onChange={(e) => handleChooseInstrChange(e.target.value)}
+          helperText={t('HELPER_CHOOSE')}
+          multiline
+          rows={3}
+          label={t('LABEL_CHOOSE')}
+          fullWidth
+        />
+      </Alert>
     </SettingsSection>
   );
 };
