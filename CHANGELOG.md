@@ -1,5 +1,21 @@
 # Changelog
 
+## [2.5.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.4.0...v2.5.0) (2024-03-11)
+
+
+### Features
+
+* add error boundary powered by Sentry ([7b74e9e](https://github.com/graasp/graasp-app-collaborative-ideation/commit/7b74e9e24f5b912f7b7468b61166d300b08c44d2)), closes [#128](https://github.com/graasp/graasp-app-collaborative-ideation/issues/128)
+* allow custom instructions when collection responses ([7b74e9e](https://github.com/graasp/graasp-app-collaborative-ideation/commit/7b74e9e24f5b912f7b7468b61166d300b08c44d2))
+* allow custom instructions when collection responses ([#135](https://github.com/graasp/graasp-app-collaborative-ideation/issues/135)) ([7b74e9e](https://github.com/graasp/graasp-app-collaborative-ideation/commit/7b74e9e24f5b912f7b7468b61166d300b08c44d2))
+* **fr:** translate to french ([7b74e9e](https://github.com/graasp/graasp-app-collaborative-ideation/commit/7b74e9e24f5b912f7b7468b61166d300b08c44d2)), closes [#73](https://github.com/graasp/graasp-app-collaborative-ideation/issues/73)
+
+
+### Bug Fixes
+
+* **deps:** update dependency date-fns to v3.4.0 ([#136](https://github.com/graasp/graasp-app-collaborative-ideation/issues/136)) ([28c196c](https://github.com/graasp/graasp-app-collaborative-ideation/commit/28c196c4b15252b2c3c9c8c204718c6f8985480f))
+* **en:** fix translation keys and text ([7b74e9e](https://github.com/graasp/graasp-app-collaborative-ideation/commit/7b74e9e24f5b912f7b7468b61166d300b08c44d2))
+
 ## [2.4.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.3.0...v2.4.0) (2024-03-08)
 
 
