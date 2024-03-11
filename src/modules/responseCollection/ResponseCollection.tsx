@@ -21,7 +21,7 @@ import Round from '../common/Round';
 import Timer from '../common/Timer';
 
 const ResponseCollection: FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('translations');
   const { round, activityState, availableResponses } = useActivityContext();
   const { currentStep } = useSteps();
   const { postChooseResponseAction } = useActions();
@@ -113,7 +113,7 @@ const ResponseCollection: FC = () => {
               severity="success"
               sx={{ width: '100%' }}
             >
-              {t('IDEA_SUBMITTED_SUCCESS')}
+              {t('RESPONSE_SUBMITTED_SUCCESS')}
             </Alert>
           </Snackbar>
         </Stack>

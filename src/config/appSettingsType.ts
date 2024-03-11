@@ -8,19 +8,24 @@ import {
   ResponseVisibilityMode,
 } from '@/interfaces/interactionProcess';
 
+import { t } from 'i18next';
 import { DEFAULT_SYSTEM_PROMPT } from './prompts';
 
-type InstructionType = 'html' | 'markdown' | 'plain-text';
+type InstructionFormatType = 'html' | 'markdown' | 'plain-text';
+
+type InstructionType = {
+  content: string;
+  format: InstructionFormatType;
+};
 
 export type InstructionsSetting = {
-  title: {
-    content: string;
-    type: InstructionType;
+  title: InstructionType;
+  details?: InstructionType;
+  collection: {
+    choose: InstructionType;
+    input: InstructionType;
   };
-  details?: {
-    content: string;
-    type: InstructionType;
-  };
+  evaluation: InstructionType;
 };
 
 export type OrchestratorSetting = {
@@ -59,7 +64,21 @@ export const defaultSettingsValues: AllSettingsType = {
   instructions: {
     title: {
       content: '',
-      type: 'plain-text',
+      format: 'plain-text',
+    },
+    collection: {
+      input: {
+        content: t('RESPONSE_COLLECTION.CHOOSE_HELPER_INSTRUCTION'),
+        format: 'plain-text',
+      },
+      choose: {
+        content: t('RESPONSE_COLLECTION.CHOOSE_HELPER_INSTRUCTION'),
+        format: 'plain-text',
+      },
+    },
+    evaluation: {
+      content: '',
+      format: 'plain-text',
     },
   },
   orchestrator: {

@@ -1,11 +1,10 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 
 import { ResponseAppData } from '@/config/appDataTypes';
 import { PROPOSE_NEW_RESPONSE_BTN } from '@/config/selectors';
@@ -13,6 +12,7 @@ import Response from '@/modules/common/response/Response';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
 import Loader from '../common/Loader';
+import { useSettings } from '../context/SettingsContext';
 
 interface ResponseChooseProps {
   responses: ResponseAppData[];
@@ -22,6 +22,14 @@ interface ResponseChooseProps {
 const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
   const { t } = useTranslation();
   const { isLoading, invalidateAppData, deleteAppData } = useAppDataContext();
+  const { instructions } = useSettings();
+  const chooseInstructions = useMemo(
+    () =>
+      typeof instructions?.collection?.choose !== 'undefined' &&
+      instructions.collection.choose.content.length > 0 &&
+      instructions.collection.choose,
+    [instructions],
+  );
 
   const handleChoose = (id?: string): void => {
     onChoose(id);
@@ -37,7 +45,7 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
           {t('NO_IDEAS_TO_SHOW_TEXT')}
         </Alert>
         <Button onClick={() => invalidateAppData()}>
-          {t('CHECK_FOR_NEW_IDEAS')}
+          {t('CHECK_FOR_NEW_RESPONSES')}
         </Button>
       </>
     );
@@ -45,15 +53,15 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
 
   return (
     <>
-      <Typography variant="body1">
-        {t('CHOOSE_RESPONSE_HEADER_TEXT')}
-      </Typography>
+      {chooseInstructions && (
+        <Alert severity="info">{chooseInstructions.content}</Alert>
+      )}
       <Button
         startIcon={<AddCircleOutlineIcon />}
         onClick={() => handleChoose()}
         data-cy={PROPOSE_NEW_RESPONSE_BTN}
       >
-        {t('PROPOSE_NEW_IDEA')}
+        {t('PROPOSE_NEW_RESPONSE')}
       </Button>
       <Grid container spacing={2}>
         {responses

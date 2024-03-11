@@ -1,11 +1,10 @@
 {
   "translations": {
-    "Welcome to the Graasp App Starter Kit": "Welcome to the Graasp App Starter Kit",
     "VERSION": "version {{version}}",
     "ACTIVITY_TAB": "Activity",
     "RESPONSES_VIEW_TAB": "Responses view",
     "SETTINGS_TAB": "Settings",
-    "IDEA_SUBMITTED_SUCCESS": "Your idea was successfully submitted.",
+    "RESPONSE_SUBMITTED_SUCCESS": "Your response was successfully submitted.",
     "EDIT": "Edit",
     "DELETE": "Delete",
     "CANCEL": "Cancel",
@@ -56,7 +55,11 @@
         "HELPER_TITLE": "Provide a main instruction to be shown in your activity.",
         "LABEL_TITLE": "Main",
         "HELPER_DETAILS": "Provide details to complete your main instructions.",
-        "LABEL_DETAILS": "Details"
+        "LABEL_DETAILS": "Details",
+        "HELPER_INPUT": "Provide detailed instructions for submitting a response",
+        "LABEL_INPUT": "Instructions for response submission",
+        "HELPER_CHOOSE": "Provide detailed instructions for considering other's responses",
+        "LABEL_CHOOSE": "Instructions for response selection"
       },
       "ORCHESTRATOR": {
         "TITLE": "Orchestrator",
@@ -113,6 +116,7 @@
       }
     },
     "RESPONSE_COLLECTION": {
+      "CHOOSE_HELPER_INSTRUCTION": "Read these responses that have been proposed by other participants. Choose one to build upon or propose a new response.",
       "INPUT": {
         "SUBMIT": "Submit your response",
         "HELPER": "Write down only one proposition in this field.",
@@ -126,14 +130,12 @@
       }
     },
     "SAVE": "Save",
-    "CHOOSE_RESPONSE_HEADER_TEXT": "Read these responses that have been proposed by other participants. Choose one to build upon or propose a new response.",
     "NO_IDEAS_TO_SHOW_TEXT": "The other participants have not submitted enough ideas yet. Once they have, these ideas will appear here.",
     "BOT_NAME": "GraaspBot",
     "SYNC_ALERT_SUCCESS": "All ideas are sync.",
-    "CHECK_FOR_NEW_IDEAS": "Check for new responses",
-    "PROPOSE_NEW_IDEA": "Propose a new response",
+    "CHECK_FOR_NEW_RESPONSES": "Check for new responses",
+    "PROPOSE_NEW_RESPONSE": "Propose a new response",
     "STATE_CONTROL_TITLE": "Controls",
-    "PAUSE_MESSAGE": "The process has been paused by the admin. Please, wait for a moment.",
     "ROUND": "Round {{round}}",
     "PARTICIPANTS": "Participants",
     "ORCHESTRATION": "Orchestration",
@@ -173,6 +175,21 @@
       "BOT": {
         "TITLE": "Act as a bot",
         "HELPER": "With the following field, you can insert new ideas in the ideation process under the identity of the virtual agent."
+      }
+    },
+    "ERROR_BOUNDARY": {
+      "FALLBACK": {
+        "MESSAGE_TITLE": "Sorry, something went wrong with this application",
+        "MESSAGE_FEEDBACK": "Our team has been notified. If you would like to help, please, tell us what happened below.",
+        "ERROR_DETAILS": "Details of the error",
+        "NAME_LABEL": "Name",
+        "NAME_HELPER": "Provide your name (optional)",
+        "EMAIL_LABEL": "Email",
+        "EMAIL_HELPER": "Provide your email (optional)",
+        "COMMENT_LABEL": "Comment",
+        "COMMENT_HELPER": "Tell us what happened (optional)",
+        "THANKS_FOR_FEEDBACK": "Thank you for your feedback!",
+        "SEND": "Send your feedback"
       }
     },
     "PROMPTS": {

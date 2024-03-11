@@ -12,7 +12,10 @@ import buildDatabase, { defaultMockContext, mockMembers } from './mocks/db';
 import Root from './modules/Root';
 
 Sentry.init({
-  integrations: [new Sentry.BrowserTracing(), new Sentry.Replay()],
+  integrations: [
+    Sentry.replayIntegration(),
+    Sentry.browserTracingIntegration(),
+  ],
   ...generateSentryConfig(),
 });
 
