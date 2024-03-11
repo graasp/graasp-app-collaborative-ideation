@@ -7,6 +7,7 @@ import {
   TITLE_INSTRUCTIONS_CY,
 } from '@/config/selectors';
 
+import Paper from '@mui/material/Paper';
 import { useSettings } from '../context/SettingsContext';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -16,10 +17,22 @@ const Instructions: FC<InstructionsProps> = () => {
   const { instructions } = useSettings();
   const { title, details } = instructions;
   return (
-    <>
+    <Paper
+      elevation={1}
+      sx={{
+        width: '100%',
+        pt: 2,
+        pb: 2,
+        pl: 1,
+        pr: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        alignContent: 'flex-start',
+      }}
+    >
       <Typography
-        sx={{ fontSize: '18pt' }}
-        variant="h4"
+        sx={{ fontSize: '1.5rem', mb: 2 }}
+        variant="body1"
         data-cy={TITLE_INSTRUCTIONS_CY}
       >
         {title.content}
@@ -29,7 +42,7 @@ const Instructions: FC<InstructionsProps> = () => {
           {details?.content}
         </Typography>
       )}
-    </>
+    </Paper>
   );
 };
 

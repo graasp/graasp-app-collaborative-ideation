@@ -14,6 +14,7 @@ import Loader from '../common/Loader';
 import { useActivityContext } from '../context/ActivityContext';
 import { useAppDataContext } from '../context/AppDataContext';
 import { useSettings } from '../context/SettingsContext';
+import Instructions from '../common/Instructions';
 
 const ResponseEvaluation: FC = () => {
   const { t } = useTranslation();
@@ -43,7 +44,7 @@ const ResponseEvaluation: FC = () => {
   return (
     <Pausable>
       <Container data-cy={RESPONSE_EVALUATION_VIEW_CY}>
-        {t('RESPONSE_EVALUATION.TITLE')}
+        <Instructions />
         <Grid container spacing={2}>
           {responses
             ? responses.map((response) => (
