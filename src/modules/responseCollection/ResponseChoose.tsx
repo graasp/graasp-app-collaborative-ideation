@@ -45,7 +45,7 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
           {t('NO_IDEAS_TO_SHOW_TEXT')}
         </Alert>
         <Button onClick={() => invalidateAppData()}>
-          {t('CHECK_FOR_NEW_IDEAS')}
+          {t('CHECK_FOR_NEW_RESPONSES')}
         </Button>
       </>
     );
@@ -61,7 +61,7 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
         onClick={() => handleChoose()}
         data-cy={PROPOSE_NEW_RESPONSE_BTN}
       >
-        {t('PROPOSE_NEW_IDEA')}
+        {t('PROPOSE_NEW_RESPONSE')}
       </Button>
       <Grid container spacing={2}>
         {responses

@@ -35,7 +35,7 @@ const ResponseEvaluation: FC = () => {
           {t('NO_IDEAS_TO_SHOW_TEXT')}
         </Alert>
         <Button onClick={() => invalidateAppData()}>
-          {t('CHECK_FOR_NEW_IDEAS')}
+          {t('CHECK_FOR_NEW_RESPONSES')}
         </Button>
       </>
     );
