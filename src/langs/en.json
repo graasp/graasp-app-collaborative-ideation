@@ -179,6 +179,21 @@
         "HELPER": "With the following field, you can insert new ideas in the ideation process under the identity of the virtual agent."
       }
     },
+    "ERROR_BOUNDARY": {
+      "FALLBACK": {
+        "MESSAGE_TITLE": "Sorry, something went wrong with this application",
+        "MESSAGE_FEEDBACK": "Our team has been notified. If you would like to help, please, tell us what happened below.",
+        "ERROR_DETAILS": "Details of the error",
+        "NAME_LABEL": "Name",
+        "NAME_HELPER": "Provide your name (optional)",
+        "EMAIL_LABEL": "Email",
+        "EMAIL_HELPER": "Provide your email (optional)",
+        "COMMENT_LABEL": "Comment",
+        "COMMENT_HELPER": "Tell us what happened (optional)",
+        "THANKS_FOR_FEEDBACK": "Thank you for your feedback!",
+        "SEND": "Send your feedback"
+      }
+    },
     "PROMPTS": {
       "SINGLE_RESPONSE": "We are given the following wicked problem:\n<problem>\n{{problemStatement}}\n</problem>\n\nGenerate a single solution to this challenge. Provide only the solution and limit it to {{maxChars}} characters.",
       "SINGLE_RESPONSE_AND_PROVIDE_RESPONSES": "We are given the following problem:\n<problem>\n{{problemStatement}}\n</problem>\n\nSo far, your teammates have proposed the following solutions to this problem:\n{{responses}}\nGenerate a single, disruptive and out-of-the-box solution for this challenge. Your solution should challenge conventional thinking and differ from the solutions proposed by the other participants. Try to match the tone and style of the given solutions.\nProvide only the solution, not enclosed in any format (no XML tags), and limit it to {{maxChars}} characters."

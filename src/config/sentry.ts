@@ -19,7 +19,7 @@ export const generateSentryConfig = (): SentryConfigType => {
     case 'production':
       SENTRY_ENVIRONMENT = 'production';
       SENTRY_TRACE_SAMPLE_RATE = 0.1;
-      SENTRY_REPLAY_SAMPLE_RATE = 0.5;
+      SENTRY_REPLAY_SAMPLE_RATE = 0.1;
       break;
     case 'test':
       SENTRY_TRACE_SAMPLE_RATE = 0.0;
