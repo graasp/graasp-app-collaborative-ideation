@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.6.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.5.0...v2.6.0) (2024-03-12)
+
+
+### Features
+
+* translate reformulation prompt ([#145](https://github.com/graasp/graasp-app-collaborative-ideation/issues/145)) ([b05f0a8](https://github.com/graasp/graasp-app-collaborative-ideation/commit/b05f0a835f5f9970a90d40b2a2ffe1cdd8fddd69))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/react to v7.106.1 ([b394394](https://github.com/graasp/graasp-app-collaborative-ideation/commit/b39439465f92137378e42cd92d00663b4cd96207))
+
 ## [2.5.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.4.0...v2.5.0) (2024-03-11)
 
 
