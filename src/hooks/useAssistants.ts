@@ -10,6 +10,7 @@ import { mutations } from '@/config/queryClient';
 import { AssistantPersona } from '@/interfaces/assistant';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
+import { useTranslation } from 'react-i18next';
 
 interface UseAssistantsValues {
   generateSingleResponse: () => Promise<ChatbotResponseAppData | undefined>;
@@ -26,6 +27,7 @@ interface UseAssistantsValues {
 }
 
 const useAssistants = (): UseAssistantsValues => {
+  const { t } = useTranslation('translations', { keyPrefix: 'PROMPTS' });
   const { mutateAsync: postChatBot } = mutations.usePostChatBot();
   const { chatbot, instructions: generalPrompt, assistants } = useSettings();
   const { postAppDataAsync } = useAppDataContext();
@@ -35,20 +37,27 @@ const useAssistants = (): UseAssistantsValues => {
     postChatBot([
       {
         role: 'system',
-        content:
-          'You are an helpful assistant. You will help in reformulating short text that the user will give you.',
+        content: t('REFORMULATE.SYSTEM'),
       },
       {
         role: 'user',
-        content: `I will give you a response. You need to reformulate it so that it has a neutral tone, is clearer and match the following problem:\n${generalPrompt.title.content}\n\n${generalPrompt.details ? `Details about the problem:\n${generalPrompt.details.content}\n\n` : ''}The reformulated response must not exceed ${RESPONSE_MAXIMUM_LENGTH}. When answering, give me only the reformulated idea.`,
+        content: t('REFORMULATE.USER_1', {
+          problem: generalPrompt.title.content,
+          details: generalPrompt.details
+            ? t('REFORMULATE.USER_1_DETAILS', {
+                details: generalPrompt.details.content,
+              })
+            : '',
+          maxChars: RESPONSE_MAXIMUM_LENGTH,
+        }),
       },
       {
         role: 'assistant',
-        content: 'Provide me with the idea you want me to reformulate.',
+        content: t('REFORMULATE.ASSISTANT_1'),
       },
       {
         role: 'user',
-        content: `Reformulate this response:\n${response}`,
+        content: t('REFORMULATE.USER_2', { response }),
       },
     ]).then((ans) => {
       const a = postAppDataAsync({
