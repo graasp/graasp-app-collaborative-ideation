@@ -16,7 +16,7 @@ import {
 } from '@graasp/apps-query-client';
 
 import { defaultMockContext, mockMembers } from '@/mocks/db';
-import Loader from '@/modules/common/Loader';
+import { Loader } from '@graasp/ui';
 
 import i18nConfig from '../config/i18n';
 import {

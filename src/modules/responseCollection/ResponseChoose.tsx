@@ -11,7 +11,7 @@ import { PROPOSE_NEW_RESPONSE_BTN } from '@/config/selectors';
 import Response from '@/modules/common/response/Response';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
-import Loader from '../common/Loader';
+import { Loader } from '@graasp/ui';
 import { useSettings } from '../context/SettingsContext';
 
 interface ResponseChooseProps {

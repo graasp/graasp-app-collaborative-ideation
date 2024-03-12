@@ -4,13 +4,13 @@ import { Data } from '@graasp/apps-query-client';
 import { AppData } from '@graasp/sdk';
 
 import { UseQueryResult } from '@tanstack/react-query';
+import { Loader } from '@graasp/ui';
 import {
   QUERY_KEYS,
   hooks,
   mutations,
   queryClient,
 } from '../../config/queryClient';
-import Loader from '../common/Loader';
 
 type PostAppDataType = {
   data: Data;

@@ -5,8 +5,8 @@ import {
   defaultSettingsValues,
 } from '@/config/appSettingsType';
 
+import { Loader } from '@graasp/ui';
 import { hooks, mutations } from '../../config/queryClient';
-import Loader from '../common/Loader';
 
 // list of the settings names
 const ALL_SETTING_NAMES = [

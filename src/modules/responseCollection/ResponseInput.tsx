@@ -23,7 +23,7 @@ import {
 } from '@/config/selectors';
 import useAssistants from '@/hooks/useAssistants';
 
-import Loader from '../common/Loader';
+import { Loader } from '@graasp/ui';
 import { useActivityContext } from '../context/ActivityContext';
 import { useSettings } from '../context/SettingsContext';
 
