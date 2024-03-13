@@ -2,8 +2,8 @@ import React, { FC, ReactElement, createContext, useMemo } from 'react';
 
 import { Member } from '@graasp/sdk';
 
+import { Loader } from '@graasp/ui';
 import { hooks } from '../../config/queryClient';
-import Loader from '../common/Loader';
 
 export type MembersContextType = Member[];
 

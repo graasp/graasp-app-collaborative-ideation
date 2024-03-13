@@ -10,7 +10,7 @@ import { RESPONSE_EVALUATION_VIEW_CY } from '@/config/selectors';
 import Pausable from '@/modules/common/Pausable';
 import Response from '@/modules/common/response/Response';
 
-import Loader from '../common/Loader';
+import { Loader } from '@graasp/ui';
 import { useActivityContext } from '../context/ActivityContext';
 import { useAppDataContext } from '../context/AppDataContext';
 import { useSettings } from '../context/SettingsContext';
