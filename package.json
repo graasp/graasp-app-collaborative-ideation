@@ -21,6 +21,9 @@
     "url": "https://github.com/graasp/graasp-app-collaborative-ideation"
   },
   "homepage": ".",
+  "engines": {
+    "node": ">=20"
+  },
   "type": "module",
   "dependencies": {
     "@codemirror/lang-javascript": "^6.2.1",
@@ -28,7 +31,7 @@
     "@emotion/styled": "11.11.0",
     "@graasp/apps-query-client": "^3.4.8",
     "@graasp/sdk": "4.1.0",
-    "@graasp/ui": "^4.9.3",
+    "@graasp/ui": "graasp/graasp-ui#755-error-fallback",
     "@mui/icons-material": "5.15.12",
     "@mui/lab": "5.0.0-alpha.167",
     "@mui/material": "5.15.12",
