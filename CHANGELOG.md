@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.6.1](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.6.0...v2.6.1) (2024-03-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @graasp/sdk to v4.2.0 ([#94](https://github.com/graasp/graasp-app-collaborative-ideation/issues/94)) ([b0f193f](https://github.com/graasp/graasp-app-collaborative-ideation/commit/b0f193fbe57133a9b6a6c86c18730ba4c3a9064b))
+* **deps:** update dependency @graasp/ui to v4.11.0 ([#149](https://github.com/graasp/graasp-app-collaborative-ideation/issues/149)) ([f1f768f](https://github.com/graasp/graasp-app-collaborative-ideation/commit/f1f768f015d8131396645b7f7455a23cbf9b679f))
+* **deps:** update dependency @mui/material to v5.15.13 ([6d21a2c](https://github.com/graasp/graasp-app-collaborative-ideation/commit/6d21a2c2c0de672d8c7c8e95749baee2102ec66e))
+* **deps:** update dependency @sentry/react to v7.107.0 ([#153](https://github.com/graasp/graasp-app-collaborative-ideation/issues/153)) ([f799082](https://github.com/graasp/graasp-app-collaborative-ideation/commit/f799082fd97959edc2c71fe2f3afe826cd09ddf6))
+* **deps:** update mui (non-major) ([#148](https://github.com/graasp/graasp-app-collaborative-ideation/issues/148)) ([56a01f5](https://github.com/graasp/graasp-app-collaborative-ideation/commit/56a01f58c30bae7b1ad8e36d11e8373937811971))
+
 ## [2.6.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.5.0...v2.6.0) (2024-03-12)
 
 
