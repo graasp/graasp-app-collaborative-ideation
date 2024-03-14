@@ -36,7 +36,7 @@
     "@mui/lab": "5.0.0-alpha.168",
     "@mui/material": "5.15.13",
     "@mui/x-data-grid": "^6.19.4",
-    "@sentry/react": "7.106.1",
+    "@sentry/react": "7.107.0",
     "@tanstack/react-query": "^4.36.1",
     "@tanstack/react-query-devtools": "^4.36.1",
     "@uiw/react-codemirror": "^4.21.22",
