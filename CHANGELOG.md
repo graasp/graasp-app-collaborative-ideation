@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.2](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.6.1...v2.6.2) (2024-03-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency date-fns to v3.5.0 ([#157](https://github.com/graasp/graasp-app-collaborative-ideation/issues/157)) ([010afb2](https://github.com/graasp/graasp-app-collaborative-ideation/commit/010afb2c159d926cce92171421bd40ac01a6908b))
+
 ## [2.6.1](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.6.0...v2.6.1) (2024-03-14)
 
 
