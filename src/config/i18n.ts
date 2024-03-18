@@ -2,8 +2,8 @@ import { initReactI18next } from 'react-i18next';
 
 import i18n from 'i18next';
 
-import en from '../langs/en.json';
-import fr from '../langs/fr.json';
+import en from '../langs/en/main.json';
+import fr from '../langs/fr/main.json';
 import { DEFAULT_LANG } from './constants';
 
 export const defaultNS = 'translations';
