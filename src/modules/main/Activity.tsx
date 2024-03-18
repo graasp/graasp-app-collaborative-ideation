@@ -8,13 +8,14 @@ import ResponseCollection from '../responseCollection/ResponseCollection';
 import ResponseEvaluation from '../responseEvaluation/ResponseEvaluation';
 import OrchestrationBar from '../orchestration/OrchestrationBar';
 import { useSettings } from '../context/SettingsContext';
+import ResultsView from '../results/ResultsView';
 
 const getActivityComponent = (activity: ActivityType): JSX.Element => {
   switch (activity) {
     case ActivityType.Evaluation:
       return <ResponseEvaluation />;
     case ActivityType.Results:
-      return <p>Results</p>;
+      return <ResultsView />;
     default:
       return <ResponseCollection />;
   }

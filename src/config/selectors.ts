@@ -34,3 +34,5 @@ export const NEXT_STEP_BTN_CY = 'next-step-btn';
 
 export const buildDataCy = (selector: string): string =>
   `[data-cy=${selector}]`;
+
+export const RESULTS_VIEW_CY = 'results-view';

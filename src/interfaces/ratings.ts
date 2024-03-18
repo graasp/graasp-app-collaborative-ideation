@@ -18,3 +18,9 @@ export type UsefulnessNoveltyRatings = {
   novelty: number | undefined;
   usefulness: number | undefined;
 };
+
+export type DimensionsOfGIRatings = {
+  global: number | undefined;
+  coordination: number | undefined;
+  socioTechnic: number | undefined;
+};

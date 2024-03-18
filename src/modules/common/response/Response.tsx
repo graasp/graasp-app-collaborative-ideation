@@ -18,6 +18,7 @@ import Chip from '@mui/material/Chip';
 import { useLocalContext } from '@graasp/apps-query-client';
 import Box from '@mui/material/Box';
 import UsefulnessNoveltyRating from './evaluation/UsefulnessNoveltyRating';
+import DimensionsOfGlobalIssueRating from './evaluation/DimensionsOfGlobalIssueRating';
 
 const Response: FC<{
   response: ResponseAppData;
@@ -48,6 +49,9 @@ const Response: FC<{
   const renderEvaluationComponent = (): JSX.Element => {
     if (evaluationType === EvaluationType.UsefulnessNoveltyRating) {
       return <UsefulnessNoveltyRating responseId={id} />;
+    }
+    if (evaluationType === EvaluationType.DimensionsOfGIRating) {
+      return <DimensionsOfGlobalIssueRating responseId={id} />;
     }
     return <p>Vote</p>; // TODO: implement
   };

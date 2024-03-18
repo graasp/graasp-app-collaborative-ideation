@@ -87,7 +87,8 @@
         "NONE_BTN": "Do not evaluate the responses.",
         "VOTE_BTN": "Evaluate the responses by votes.",
         "NOV_REL_RATINGS_BTN": "Evaluate the responses by rating the relevance and novelty.",
-        "USE_NOV_RATINGS_BTN": "Evaluate the responses by rating the usefulness and novelty."
+        "USE_NOV_RATINGS_BTN": "Evaluate the responses by rating the usefulness and novelty.",
+        "DIMENSIONS_OF_GI_BTN": "Rate the responses according the dimensions of a Global Issue"
       },
       "ASSISTANT": {
         "TITLE": "Assistants",
@@ -148,6 +149,11 @@
         "NOVEL": "Novel",
         "USELESS": "Useless",
         "USEFUL": "Useful"
+      },
+      "DIMENSIONS_OF_GI": {
+        "COORDINATION_LABEL": "Requires coordination",
+        "SOCIOTECHNIC_LABEL": "Has social and technical dimensions",
+        "GLOBAL_LABEL": "Is Global"
       }
     },
     "ADMIN_PANEL": {
