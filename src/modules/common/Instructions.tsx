@@ -28,6 +28,7 @@ const Instructions: FC<InstructionsProps> = () => {
         display: 'flex',
         flexDirection: 'column',
         alignContent: 'flex-start',
+        mb: 4,
       }}
     >
       <Typography

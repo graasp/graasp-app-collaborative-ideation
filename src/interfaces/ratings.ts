@@ -24,3 +24,5 @@ export type DimensionsOfGIRatings = {
   coordination: number | undefined;
   socioTechnic: number | undefined;
 };
+
+export type RatingsTypes = DimensionsOfGIRatings | UsefulnessNoveltyRatings;

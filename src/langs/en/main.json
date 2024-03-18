@@ -9,6 +9,9 @@
     "DELETE": "Delete",
     "CANCEL": "Cancel",
     "COMING_SOON": "Coming soon!",
+    "GOOD": "Good",
+    "OKAY": "Okay",
+    "BAD": "Bad",
     "WAIT_TO_START_SCREEN": {
       "MAIN_INSTRUCTION": "The activity will start soon. In the meantime, please, read the following instructions:",
       "STEP1": "At the beginning, you will be presented with an instruction or a challenge.",
@@ -151,9 +154,12 @@
         "USEFUL": "Useful"
       },
       "DIMENSIONS_OF_GI": {
-        "COORDINATION_LABEL": "Requires coordination",
-        "SOCIOTECHNIC_LABEL": "Has social and technical dimensions",
-        "GLOBAL_LABEL": "Is Global"
+        "COORDINATION_LABEL": "It requires large-scale coordination.",
+        "SOCIOTECHNIC_LABEL": "It has social and technical dimensions.",
+        "GLOBAL_LABEL": "It's global.",
+        "COORDINATION_LABEL_VIZ": "Coordination",
+        "SOCIOTECHNIC_LABEL_VIZ": "Social and technical dimensions",
+        "GLOBAL_LABEL_VIZ": "Global"
       }
     },
     "ADMIN_PANEL": {

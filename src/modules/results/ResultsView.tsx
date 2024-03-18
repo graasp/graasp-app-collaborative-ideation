@@ -19,11 +19,10 @@ const ResultsView = (props: ResultsViewProps): JSX.Element => {
           {allResponses
             ? allResponses.map((response) => (
                 <Grid item key={response.id} md={6} sm={12} xs={12}>
-                  <Response key={response.id} response={response} />
+                  <Response key={response.id} response={response} showRatings />
                 </Grid>
               ))
             : ''}
-          {/* : renderPlaceHolderForNoResponses()} */}
         </Grid>
       </Container>
     </Pausable>

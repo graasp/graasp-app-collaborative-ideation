@@ -19,6 +19,7 @@ import { useLocalContext } from '@graasp/apps-query-client';
 import Box from '@mui/material/Box';
 import UsefulnessNoveltyRating from './evaluation/UsefulnessNoveltyRating';
 import DimensionsOfGlobalIssueRating from './evaluation/DimensionsOfGlobalIssueRating';
+import RatingsVisualization from './visualization/RatingsVisualization';
 
 const Response: FC<{
   response: ResponseAppData;
@@ -26,12 +27,14 @@ const Response: FC<{
   enableBuildAction?: boolean;
   evaluationType?: EvaluationType;
   onDelete?: (id: string) => void;
+  showRatings?: boolean;
 }> = ({
   response,
   onSelect,
   onDelete,
   enableBuildAction = true,
   evaluationType = EvaluationType.None,
+  showRatings = false,
 }) => {
   const { t } = useTranslation('translations', { keyPrefix: 'RESPONSE_CARD' });
   const { t: generalT } = useTranslation('translations');
@@ -89,6 +92,7 @@ const Response: FC<{
         </Box>
       </CardContent>
       {evaluationType !== EvaluationType.None && renderEvaluationComponent()}
+      {showRatings && <RatingsVisualization response={response} />}
       {showActions && (
         <>
           <Divider />
