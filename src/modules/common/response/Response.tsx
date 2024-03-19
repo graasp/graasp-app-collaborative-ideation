@@ -20,6 +20,7 @@ import Box from '@mui/material/Box';
 import UsefulnessNoveltyRating from './evaluation/UsefulnessNoveltyRating';
 import DimensionsOfGlobalIssueRating from './evaluation/DimensionsOfGlobalIssueRating';
 import RatingsVisualization from './visualization/RatingsVisualization';
+import SFERARating from './evaluation/SFERARating';
 
 const Response: FC<{
   response: ResponseAppData;
@@ -55,6 +56,9 @@ const Response: FC<{
     }
     if (evaluationType === EvaluationType.DimensionsOfGIRating) {
       return <DimensionsOfGlobalIssueRating responseId={id} />;
+    }
+    if (evaluationType === EvaluationType.SFERARating) {
+      return <SFERARating responseId={id} />;
     }
     return <p>Vote</p>; // TODO: implement
   };

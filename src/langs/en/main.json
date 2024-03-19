@@ -91,7 +91,8 @@
         "VOTE_BTN": "Evaluate the responses by votes.",
         "NOV_REL_RATINGS_BTN": "Evaluate the responses by rating the relevance and novelty.",
         "USE_NOV_RATINGS_BTN": "Evaluate the responses by rating the usefulness and novelty.",
-        "DIMENSIONS_OF_GI_BTN": "Rate the responses according the dimensions of a Global Issue"
+        "DIMENSIONS_OF_GI_BTN": "Rate the responses according the dimensions of a Global Issue",
+        "SFERA_BTN": "Rate the responses as problems of the SFERA program"
       },
       "ASSISTANT": {
         "TITLE": "Assistants",
@@ -160,6 +161,12 @@
         "COORDINATION_LABEL_VIZ": "Coordination",
         "SOCIOTECHNIC_LABEL_VIZ": "Social and technical dimensions",
         "GLOBAL_LABEL_VIZ": "Global"
+      },
+      "SFERA": {
+        "LOCAL": "Local problem",
+        "GLOBAL": "Global problem",
+        "PERSONAL_INTEREST": "Personal interest",
+        "GENERAL_INTEREST": "General interest"
       }
     },
     "ADMIN_PANEL": {

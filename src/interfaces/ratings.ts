@@ -19,6 +19,11 @@ export type UsefulnessNoveltyRatings = {
   usefulness: number | undefined;
 };
 
+export type SFERARating = {
+  globalLocal: number | undefined;
+  personalGeneral: number | undefined;
+};
+
 export type DimensionsOfGIRatings = {
   global: number | undefined;
   coordination: number | undefined;

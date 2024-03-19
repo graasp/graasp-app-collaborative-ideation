@@ -50,6 +50,11 @@ const EvaluationTypeSelection: FC<EvaluationTypeSelectionProps> = ({
           label={t('SETTINGS.EVALUATION_TYPE_SELECTION.DIMENSIONS_OF_GI_BTN')}
         />
         <FormControlLabel
+          value={EvaluationType.SFERARating}
+          control={<Radio />}
+          label={t('SETTINGS.EVALUATION_TYPE_SELECTION.SFERA_BTN')}
+        />
+        <FormControlLabel
           value={EvaluationType.Vote}
           control={<Radio />}
           label={

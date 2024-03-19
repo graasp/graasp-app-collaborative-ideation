@@ -14,12 +14,12 @@ import {
 } from '@/config/appDataTypes';
 import useActions from '@/hooks/useActions';
 import { EvaluationType } from '@/interfaces/evaluationType';
-import { DimensionsOfGIRatings } from '@/interfaces/ratings';
+import { SFERARating } from '@/interfaces/ratings';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
-import Feedback from '../../Feedback';
+import LikertScale from '../../LikertScale';
 
-const DimensionsOfGlobalIssueRating: FC<{
+const SFERARatingComp: FC<{
   responseId: string;
   // eslint-disable-next-line react/no-unused-prop-types
   onRatingsChange?: (
@@ -28,7 +28,7 @@ const DimensionsOfGlobalIssueRating: FC<{
   ) => void;
 }> = ({ responseId }) => {
   const { t } = useTranslation('translations', {
-    keyPrefix: 'RATINGS.DIMENSIONS_OF_GI',
+    keyPrefix: 'RATINGS.SFERA',
   });
   const { appData, patchAppDataAsync, postAppDataAsync } = useAppDataContext();
   const { memberId } = useLocalContext();
@@ -40,30 +40,29 @@ const DimensionsOfGlobalIssueRating: FC<{
       appData.find(
         ({ data, type, creator }) =>
           data?.ideaRef === responseId &&
-          data?.type === EvaluationType.DimensionsOfGIRating &&
+          data?.type === EvaluationType.SFERARating &&
           type === AppDataTypes.Ratings &&
           creator?.id === memberId,
-      ) as RatingsAppData<DimensionsOfGIRatings> | undefined,
+      ) as RatingsAppData<SFERARating> | undefined,
     [appData, responseId, memberId],
   );
 
   const callbackPromiseUpdateRatings = (data: AppData<Data> | void): void => {
     if (data) {
-      postEvaluateResponseAction<DimensionsOfGIRatings>(
-        data as RatingsAppData<DimensionsOfGIRatings>,
+      postEvaluateResponseAction<SFERARating>(
+        data as RatingsAppData<SFERARating>,
       );
     }
   };
 
-  const updateRatings = (newRatings: Partial<DimensionsOfGIRatings>): void => {
+  const updateRatings = (newRatings: Partial<SFERARating>): void => {
     if (responseId) {
-      const ratingsData: RatingsData<DimensionsOfGIRatings> = {
+      const ratingsData: RatingsData<SFERARating> = {
         ideaRef: responseId,
-        type: EvaluationType.DimensionsOfGIRating,
+        type: EvaluationType.SFERARating,
         ratings: {
-          coordination: 0,
-          global: 0,
-          socioTechnic: 0,
+          globalLocal: 0,
+          personalGeneral: 0,
           ...ratings?.data.ratings,
           ...newRatings,
         },
@@ -90,27 +89,23 @@ const DimensionsOfGlobalIssueRating: FC<{
       }}
     >
       <Container>
-        <Feedback
-          onChange={(rating) => updateRatings({ coordination: rating })}
-          label={t('COORDINATION_LABEL')}
-          levels={3}
-          value={ratings?.data.ratings.coordination}
+        <LikertScale
+          onChange={(rating) => updateRatings({ globalLocal: rating })}
+          minLabel={t('LOCAL')}
+          maxLabel={t('GLOBAL')}
+          levels={5}
+          value={ratings?.data.ratings.globalLocal}
         />
-        <Feedback
-          onChange={(rating) => updateRatings({ global: rating })}
-          label={t('GLOBAL_LABEL')}
-          levels={3}
-          value={ratings?.data.ratings.global}
-        />
-        <Feedback
-          onChange={(rating) => updateRatings({ socioTechnic: rating })}
-          label={t('SOCIOTECHNIC_LABEL')}
-          levels={3}
-          value={ratings?.data.ratings.socioTechnic}
+        <LikertScale
+          onChange={(rating) => updateRatings({ personalGeneral: rating })}
+          minLabel={t('PERSONAL_INTEREST')}
+          maxLabel={t('GENERAL_INTEREST')}
+          levels={5}
+          value={ratings?.data.ratings.personalGeneral}
         />
       </Container>
     </CardActions>
   );
 };
 
-export default DimensionsOfGlobalIssueRating;
+export default SFERARatingComp;
