@@ -91,8 +91,8 @@ const SFERARatingComp: FC<{
       <Container>
         <LikertScale
           onChange={(rating) => updateRatings({ globalLocal: rating })}
-          minLabel={t('LOCAL')}
-          maxLabel={t('GLOBAL')}
+          minLabel={t('LOCAL_PROBLEM')}
+          maxLabel={t('GLOBAL_PROBLEM')}
           levels={5}
           value={ratings?.data.ratings.globalLocal}
         />

@@ -3,8 +3,9 @@ import useRatings from '@/hooks/useRatings';
 import { EvaluationType } from '@/interfaces/evaluationType';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { useMemo } from 'react';
-import { DimensionsOfGIRatings } from '@/interfaces/ratings';
+import { DimensionsOfGIRatings, SFERARating } from '@/interfaces/ratings';
 import DimensionsOfGlobalIssue from './DimensionsOfGlobalIssue';
+import SFERAViz from './SFERA';
 
 const RatingsVisualization = ({
   response,
@@ -26,6 +27,9 @@ const RatingsVisualization = ({
         ratings={ratings as RatingsAppData<DimensionsOfGIRatings>[]}
       />
     );
+  }
+  if (evaluationType === EvaluationType.SFERARating) {
+    return <SFERAViz ratings={ratings as RatingsAppData<SFERARating>[]} />;
   }
   if (evaluationType === EvaluationType.UsefulnessNoveltyRating) {
     return <p>Hihi</p>;

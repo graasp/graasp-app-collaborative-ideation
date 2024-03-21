@@ -3,7 +3,7 @@ import { DimensionsOfGIRatings } from '@/interfaces/ratings';
 import Stack from '@mui/material/Stack';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import CircularIndicator from './CircularIndicator';
+import CircularIndicator from './indicators/CircularIndicator';
 
 const RATING_SCALE = 3;
 

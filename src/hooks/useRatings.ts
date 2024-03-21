@@ -2,6 +2,7 @@ import { AppDataTypes, RatingsAppData } from '@/config/appDataTypes';
 import { EvaluationType } from '@/interfaces/evaluationType';
 import {
   DimensionsOfGIRatings,
+  SFERARating,
   UsefulnessNoveltyRatings,
 } from '@/interfaces/ratings';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
@@ -16,7 +17,9 @@ type ReturnRating<T> = T extends EvaluationType.DimensionsOfGIRating
   ? DimensionsOfGIRatings
   : T extends EvaluationType.UsefulnessNoveltyRating
     ? UsefulnessNoveltyRatings
-    : null;
+    : T extends EvaluationType.SFERARating
+      ? SFERARating
+      : null;
 
 const useRatings = (
   evaluationType: EvaluationType,
