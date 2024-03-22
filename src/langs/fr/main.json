@@ -8,6 +8,9 @@
   "DELETE": "Effacer",
   "CANCEL": "Annuler",
   "COMING_SOON": "Prochainement !",
+  "GOOD": "Bien",
+  "OKAY": "À réviser",
+  "BAD": "Mauvais",
   "WAIT_TO_START_SCREEN": {
     "MAIN_INSTRUCTION": "L'activité va bientôt commencer. En attendant, merci de lire les instructions suivantes :",
     "STEP1": "Au départ, il vous sera présenté une instruction ou un défi.",
@@ -86,13 +89,15 @@
       "NONE_BTN": "Ne pas évaluer les réponses.",
       "VOTE_BTN": "Évaluer les réponses par vote.",
       "NOV_REL_RATINGS_BTN": "Évaluer les réponses par pertinence et nouveauté.",
-      "USE_NOV_RATINGS_BTN": "Évaluer les réponses par utilité et nouveauté."
+      "USE_NOV_RATINGS_BTN": "Évaluer les réponses par utilité et nouveauté.",
+      "DIMENSIONS_OF_GI_BTN": "Évaluer les réponses selon les dimensions de la définition d'un Enjeux Mondial",
+      "SFERA_BTN": "Évaluer les réponses tels des problèmes proposés dans le cadre du programme SFERA"
     },
     "ASSISTANT": {
       "TITLE": "Assistants",
-      "ADD": "Add an assistant",
+      "ADD": "Ajouter un assistant",
       "EDIT_DIALOG": {
-        "CHATBOT_NAME_LABEL": "Chatbot Name",
+        "CHATBOT_NAME_LABEL": "Nom du chatbot",
         "CHATBOT_NAME_HELPER": "This is the name that users will see when they interact with the chatbot",
         "CHATBOT_NAME_DEFAULT_MESSAGE": "by default",
         "CHATBOT_PROMPT_LABEL": "Chatbot Prompt",
@@ -109,8 +114,8 @@
         "EDIT_LABEL": "Edit",
         "CHATBOT_SETTING_TITLE": "Chatbot",
         "ERROR_PROMPT_NOT_IN_JSON_FORMAT": "Prompt has to be in JSON format.",
-        "SAVE_LABEL": "Save",
-        "SAVED_LABEL": "Saved"
+        "SAVE_LABEL": "Sauvegarder",
+        "SAVED_LABEL": "Sauvegardé"
       }
     }
   },
@@ -131,10 +136,11 @@
   "SAVE": "Sauvegarder",
   "NO_IDEAS_TO_SHOW_TEXT": "Les autres participants n'ont pas soumis suffisamment de réponses pour le moment. Lorsque ce sera le cas, ces réponses apparaîtront ici.",
   "BOT_NAME": "GraaspBot",
+  "SYNC_ALERT_SUCCESS": "Toutes les réponses ont été synchronisées.",
   "CHECK_FOR_NEW_RESPONSES": "Vérifier si de nouvelles réponses sont disponibles.",
   "PROPOSE_NEW_RESPONSE": "Proposer une nouvelle réponse",
   "STATE_CONTROL_TITLE": "Contrôles",
-  "ROUND": "Round {{round}}",
+  "ROUND": "Tour {{round}}",
   "PARTICIPANTS": "Participants",
   "ORCHESTRATION": "Orchestration",
   "RESPONSE_EVALUATION": {
@@ -146,6 +152,16 @@
       "NOVEL": "Nouveau",
       "USELESS": "Inutile",
       "USEFUL": "Utile"
+    },
+    "DIMENSIONS_OF_GI": {
+      "COORDINATION_LABEL": "Demande une coordination à grande échelle.",
+      "SOCIOTECHNIC_LABEL": "A des dimensions sociales et techniques.",
+      "GLOBAL_LABEL": "Est global.",
+      "COORDINATION_LABEL_VIZ": "Coordination",
+      "SOCIOTECHNIC_LABEL_VIZ": "Dimensions sociales et techniques",
+      "GLOBAL_LABEL_VIZ": "Global"
+    },
+    "SFERA": {
     }
   },
   "ADMIN_PANEL": {
