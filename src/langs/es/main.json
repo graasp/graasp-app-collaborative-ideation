@@ -8,6 +8,9 @@
   "DELETE": "Eliminar",
   "CANCEL": "Cancelar",
   "COMING_SOON": "¡Próximamente!",
+  "GOOD": "Bien",
+  "OKAY": "Ok",
+  "BAD": "Malo",
   "WAIT_TO_START_SCREEN": {
     "MAIN_INSTRUCTION": "La actividad comenzará pronto. Mientras tanto, lee las siguientes instrucciones:",
     "STEP1": "Al principio, se le presentará una instrucción.",
@@ -86,7 +89,9 @@
       "NONE_BTN": "No evalúes las respuestas.",
       "VOTE_BTN": "Evaluar las respuestas por votos.",
       "NOV_REL_RATINGS_BTN": "Evaluar las respuestas calificando la relevancia y novedad.",
-      "USE_NOV_RATINGS_BTN": "Evaluar las respuestas calificando la utilidad y novedad."
+      "USE_NOV_RATINGS_BTN": "Evaluar las respuestas calificando la utilidad y novedad.",
+      "DIMENSIONS_OF_GI_BTN": "Califica las respuestas según las dimensiones de un Problema Global",
+      "SFERA_BTN": "Califica las respuestas como problemas del programa SFERA"
     },
     "ASSISTANT": {
       "TITLE": "Asistentes",
@@ -147,6 +152,26 @@
       "NOVEL": "Novedoso",
       "USELESS": "Inútil",
       "USEFUL": "Útil"
+    },
+    "DIMENSIONS_OF_GI": {
+      "COORDINATION_LABEL": "Requiere una coordinación a gran escala.",
+      "SOCIOTECHNIC_LABEL": "Tiene dimensiones sociales y técnicas.",
+      "GLOBAL_LABEL": "Es global.",
+      "COORDINATION_LABEL_VIZ": "Coordinación",
+      "SOCIOTECHNIC_LABEL_VIZ": "Dimensiones sociales y técnicas",
+      "GLOBAL_LABEL_VIZ": "Global"
+    },
+    "SFERA": {
+      "LOCAL_PROBLEM": "Problema local",
+      "GLOBAL_PROBLEM": "Problema mundial",
+      "PERSONAL_INTEREST": "Interés personal",
+      "GENERAL_INTEREST": "Interés general",
+      "PERSONAL": "Personal",
+      "GENERAL": "General",
+      "LOCAL": "Local",
+      "GLOBAL": "Global",
+      "INTEREST_LABEL_VIZ": "Interés por el problema.",
+      "SCOPE_LABEL_VIZ": "Alcance del problema"
     }
   },
   "ADMIN_PANEL": {
