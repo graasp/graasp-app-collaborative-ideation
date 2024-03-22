@@ -1,0 +1,11 @@
+{
+  "SINGLE_RESPONSE": "We are given the following wicked problem:\n<problem>\n{{problemStatement}}\n</problem>\n\nGenerate a single solution to this challenge. Provide only the solution and limit it to {{maxChars}} characters.",
+  "SINGLE_RESPONSE_AND_PROVIDE_RESPONSES": "We are given the following problem:\n<problem>\n{{problemStatement}}\n</problem>\n\nSo far, your teammates have proposed the following solutions to this problem:\n{{responses}}\nGenerate a single, disruptive and out-of-the-box solution for this challenge. Your solution should challenge conventional thinking and differ from the solutions proposed by the other participants. Try to match the tone and style of the given solutions.\nProvide only the solution, not enclosed in any format (no XML tags), and limit it to {{maxChars}} characters.",
+  "REFORMULATE": {
+    "SYSTEM": "Tu es un assistant serviable. Tu vas aider à reformuler de court textes que l'utilisateur va te donner.",
+    "USER_1": "Je vais te donner une réponse. Tu dois la reformuler pour que cette dernière aie un ton neutre, soit plus clair et corresponde au problème suivant:\n{{ problem }}\n\n{{ details }}\nLa réponse reformulée ne dois pas dépasser {{ maxChars }} charactères. Donne moi uniquement la réponse reformulée.",
+    "USER_1_DETAILS": "Détails du problème:\n${{ details }}\n\n",
+    "ASSISTANT_1": "Donnez moi le réponse que vous souhaitez que je reformule.",
+    "USER_2": "Reformule la réponse suivante:\n {{ response }}"
+  }
+}

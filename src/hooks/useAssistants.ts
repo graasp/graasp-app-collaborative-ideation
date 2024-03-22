@@ -35,7 +35,7 @@ interface UseAssistantsValues {
 }
 
 const useAssistants = (): UseAssistantsValues => {
-  const { t } = useTranslation('translations', { keyPrefix: 'PROMPTS' });
+  const { t } = useTranslation('prompts');
   const { mutateAsync: postChatBot } = mutations.usePostChatBot();
   const {
     chatbot,
