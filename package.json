@@ -36,6 +36,7 @@
     "@mui/lab": "5.0.0-alpha.169",
     "@mui/material": "5.15.14",
     "@mui/x-data-grid": "^6.19.4",
+    "@nivo/boxplot": "^0.85.1",
     "@sentry/react": "7.107.0",
     "@tanstack/react-query": "^4.36.1",
     "@tanstack/react-query-devtools": "^4.36.1",

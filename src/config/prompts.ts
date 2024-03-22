@@ -12,9 +12,9 @@ export const getSingleResponsePrompt = (prompt: string): string =>
 
 export const promptForSingleResponse = (
   problemStatement: string,
-  t: TFunction,
+  t: TFunction<'prompts', undefined>,
 ): string =>
-  t('PROMPTS.SINGLE_RESPONSE', {
+  t('SINGLE_RESPONSE', {
     problemStatement,
     maxChars: RESPONSE_MAXIMUM_LENGTH,
   });
@@ -22,12 +22,12 @@ export const promptForSingleResponse = (
 export const promptForSingleResponseAndProvideResponses = (
   problemStatement: string,
   responses: string[],
-  t: TFunction,
+  t: TFunction<'prompts', undefined>,
 ): string => {
   const responsesString = responses.map(
     (r) => `<solution>\n${r}\n</solution>\n`,
   );
-  return t('PROMPTS.SINGLE_RESPONSE_AND_PROVIDE_RESPONSES', {
+  return t('SINGLE_RESPONSE_AND_PROVIDE_RESPONSES', {
     problemStatement,
     responses: responsesString,
     maxChars: RESPONSE_MAXIMUM_LENGTH,

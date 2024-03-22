@@ -57,7 +57,7 @@ const App = (): JSX.Element => {
 
   useEffect(() => {
     // handle a change of language
-    const lang = context?.lang ?? appContext?.item?.lang ?? DEFAULT_LANG;
+    const lang = appContext?.item?.lang ?? context?.lang ?? DEFAULT_LANG;
     if (i18n.language !== lang) {
       i18n.changeLanguage(lang);
     }

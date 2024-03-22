@@ -1,207 +1,219 @@
 {
-  "translations": {
-    "VERSION": "version {{version}}",
-    "ACTIVITY_TAB": "Activity",
-    "RESPONSES_VIEW_TAB": "Responses view",
-    "SETTINGS_TAB": "Settings",
-    "RESPONSE_SUBMITTED_SUCCESS": "Your response was successfully submitted.",
-    "EDIT": "Edit",
-    "DELETE": "Delete",
-    "CANCEL": "Cancel",
-    "COMING_SOON": "Coming soon!",
-    "WAIT_TO_START_SCREEN": {
-      "MAIN_INSTRUCTION": "The activity will start soon. In the meantime, please, read the following instructions:",
-      "STEP1": "At the beginning, you will be presented with an instruction or a challenge.",
-      "STEP2": "Propose as many answers to it as possible. Don't spend too much time writing a single idea.",
-      "STEP3": "After submitting a first answer, you will see some ideas provided by the other participants. Choose one to build upon or propose a completely new one.",
-      "PAUSE_MESSAGE": "The process has been paused by the admin. Please, wait for a moment."
+  "VERSION": "version {{version}}",
+  "ACTIVITY_TAB": "Activity",
+  "RESPONSES_VIEW_TAB": "Responses view",
+  "SETTINGS_TAB": "Settings",
+  "RESPONSE_SUBMITTED_SUCCESS": "Your response was successfully submitted.",
+  "EDIT": "Edit",
+  "DELETE": "Delete",
+  "CANCEL": "Cancel",
+  "COMING_SOON": "Coming soon!",
+  "GOOD": "Good",
+  "OKAY": "Okay",
+  "BAD": "Bad",
+  "WAIT_TO_START_SCREEN": {
+    "MAIN_INSTRUCTION": "The activity will start soon. In the meantime, please, read the following instructions:",
+    "STEP1": "At the beginning, you will be presented with an instruction or a challenge.",
+    "STEP2": "Propose as many answers to it as possible. Don't spend too much time writing a single idea.",
+    "STEP3": "After submitting a first answer, you will see some ideas provided by the other participants. Choose one to build upon or propose a completely new one.",
+    "PAUSE_MESSAGE": "The process has been paused by the admin. Please, wait for a moment."
+  },
+  "ROUND_COMP": {
+    "ROUND": "Round"
+  },
+  "ORCHESTRATION_BAR": {
+    "PLAY": "Play",
+    "PAUSE": "Pause",
+    "NEXT_STEP_BTN": {
+      "NEXT_STEP": "Next step",
+      "PREVIOUS_STEP": "Previous step",
+      "REFRESH_DATA": "Refresh data",
+      "LABEL_STEP_COLLECTION": "Collecting responses, round {{ round }}",
+      "LABEL_STEP_EVALUATION": "Evaluating responses",
+      "NO_STEP": "The current activity is not defined"
     },
-    "ROUND_COMP": {
-      "ROUND": "Round"
+    "WARNING_PREVIOUS_STEP_DIALOG": {
+      "TITLE": "Are you sure you want to switch to the previous step?",
+      "WARNING_TEXT": "If you proceed, the current step will be reset. Responses and ratings submitted will be kept. However, the distribution of the responses between the participants may change. Finally, the time will be reset.",
+      "CANCEL": "Cancel",
+      "GO_TO_PREVIOUS_STEP": "Go to previous step"
     },
-    "ORCHESTRATION_BAR": {
-      "PLAY": "Play",
-      "PAUSE": "Pause",
-      "NEXT_STEP_BTN": {
-        "NEXT_STEP": "Next step",
-        "PREVIOUS_STEP": "Previous step",
-        "REFRESH_DATA": "Refresh data",
-        "LABEL_STEP_COLLECTION": "Collecting responses, round {{ round }}",
-        "LABEL_STEP_EVALUATION": "Evaluating responses",
-        "NO_STEP": "The current activity is not defined"
-      },
-      "WARNING_PREVIOUS_STEP_DIALOG": {
-        "TITLE": "Are you sure you want to switch to the previous step?",
-        "WARNING_TEXT": "If you proceed, the current step will be reset. Responses and ratings submitted will be kept. However, the distribution of the responses between the participants may change. Finally, the time will be reset.",
+    "WARNING_NEXT_STEP_DIALOG": {
+      "TITLE": "Are you sure you want to move to the next step?",
+      "WARNING_TEXT_WITH_TIME": "There is {{minutes}} minutes and {{seconds}} seconds left for this step.",
+      "WARNING_TEXT": "There is time left for this step.",
+      "GO_TO_NEXT_STEP": "Go to next step"
+    },
+    "ROUND_HELPER": "Round {{round}}"
+  },
+  "RESPONSE_CARD": {
+    "BUILD_ON_THIS": "Build on this",
+    "OWN": "You wrote this"
+  },
+  "SETTINGS": {
+    "TITLE": "Settings",
+    "INSTRUCTIONS": {
+      "TITLE": "Instructions",
+      "HELPER_TITLE": "Provide a main instruction to be shown in your activity.",
+      "LABEL_TITLE": "Main",
+      "HELPER_DETAILS": "Provide details to complete your main instructions.",
+      "LABEL_DETAILS": "Details",
+      "HELPER_INPUT": "Provide detailed instructions for submitting a response",
+      "LABEL_INPUT": "Instructions for response submission",
+      "HELPER_CHOOSE": "Provide detailed instructions for considering other's responses",
+      "LABEL_CHOOSE": "Instructions for response selection"
+    },
+    "ORCHESTRATOR": {
+      "TITLE": "Orchestrator",
+      "LABEL": "Select the orchestrator of the activity"
+    },
+    "PARTICIPANTS": {
+      "TITLE": "Participants",
+      "FIELD_LABEL": "Excluded members"
+    },
+    "ACTIVITY": {
+      "TITLE": "Activity",
+      "MODE_LABEL": "Visibility mode",
+      "EXCLUSIVE_RESPONSE_DISTRIBUTION_LABEL": "Distribute each idea only once",
+      "ADVANCED_CONFIGURATION": "Advanced configuration",
+      "REFORMULATE_RESPONSE_LABEL": "Reformulate responses with AI upon submission",
+      "NUMBER_RESP_SET_LABEL": "Number of responses per set",
+      "NUMBER_BOT_RESP_SET_LABEL": "Number of bot responses per set",
+      "STEPS": {
+        "ERROR_PROMPT_NOT_IN_JSON_FORMAT": "Prompt has to be in JSON format.",
+        "ADD_STEP": "Add a step"
+      }
+    },
+    "EVALUATION_TYPE_SELECTION": {
+      "TITLE": "Evaluation type",
+      "NONE_BTN": "Do not evaluate the responses.",
+      "VOTE_BTN": "Evaluate the responses by votes.",
+      "NOV_REL_RATINGS_BTN": "Evaluate the responses by rating the relevance and novelty.",
+      "USE_NOV_RATINGS_BTN": "Evaluate the responses by rating the usefulness and novelty.",
+      "DIMENSIONS_OF_GI_BTN": "Rate the responses according the dimensions of a Global Issue",
+      "SFERA_BTN": "Rate the responses as problems of the SFERA program"
+    },
+    "ASSISTANT": {
+      "TITLE": "Assistants",
+      "ADD": "Add an assistant",
+      "EDIT_DIALOG": {
+        "CHATBOT_NAME_LABEL": "Chatbot Name",
+        "CHATBOT_NAME_HELPER": "This is the name that users will see when they interact with the chatbot",
+        "CHATBOT_NAME_DEFAULT_MESSAGE": "by default",
+        "CHATBOT_PROMPT_LABEL": "Chatbot Prompt",
+        "CHATBOT_PROMPT_HELPER_LABEL": "In-depth technical description",
+        "CHATBOT_PROMPT_HELPER": "This is the name that users will see when they interact with the chatbot",
+        "CHATBOT_PROMPT_FORMAT_HELPER": "To describe the initial situation, create an object at the start of the array with 2 keys: 'role' and 'content'. For the initial description the role must be 'system'. Place your description of the initial situation in the 'content' key. Add interaction examples after that. Add one object per message with the role corresponding to either 'assistant' or 'user'.",
+        "CHATBOT_PROMPT_FORMAT_EXAMPLE": "Here is an example",
+        "CHATBOT_PROMPT_API_REFERENCE": "See the API reference",
+        "CHATBOT_CUE_LABEL": "Cue",
+        "CHATBOT_CUE_HELPER": "This defines the content of the first message of the chatbot. You can change it to better orient the conversation with the user.",
+        "CHATBOT_CUE_EMPTY_MESSAGE": "The cue is empty.",
+        "CHATBOT_CONFIGURATION_MISSING": "This chatbot has not been configured yet.",
+        "CANCEL_LABEL": "Cancel",
+        "EDIT_LABEL": "Edit",
+        "CHATBOT_SETTING_TITLE": "Chatbot",
+        "ERROR_PROMPT_NOT_IN_JSON_FORMAT": "Prompt has to be in JSON format.",
+        "SAVE_LABEL": "Save",
+        "SAVED_LABEL": "Saved"
+      }
+    }
+  },
+  "RESPONSE_COLLECTION": {
+    "CHOOSE_HELPER_INSTRUCTION": "Read these responses that have been proposed by other participants. Choose one to build upon or propose a new response.",
+    "INPUT": {
+      "SUBMIT": "Submit your response",
+      "HELPER": "Write down only one proposition in this field.",
+      "CUE_PARENT_RESPONSE_TITLE": "Previous response",
+      "RESPONSE_BEING_SUBMITTED_ALERT": "Your response is being submitted, please wait for a few seconds.",
+      "RESPONSE_TOO_LONG_ALERT": "Your idea is too long. Please, try to be more concise."
+    },
+    "STEPPER": {
+      "INPUT_STEP_LABEL": "Submit your response",
+      "CHOOSE_STEP_LABEL": "Read the responses of other participants"
+    }
+  },
+  "SAVE": "Save",
+  "NO_IDEAS_TO_SHOW_TEXT": "The other participants have not submitted enough ideas yet. Once they have, these ideas will appear here.",
+  "BOT_NAME": "GraaspBot",
+  "SYNC_ALERT_SUCCESS": "All ideas are sync.",
+  "CHECK_FOR_NEW_RESPONSES": "Check for new responses",
+  "PROPOSE_NEW_RESPONSE": "Propose a new response",
+  "STATE_CONTROL_TITLE": "Controls",
+  "ROUND": "Round {{round}}",
+  "PARTICIPANTS": "Participants",
+  "ORCHESTRATION": "Orchestration",
+  "RESPONSE_EVALUATION": {
+    "TITLE": "Response Evaluation"
+  },
+  "RATINGS": {
+    "USEFULNESS_NOVELTY": {
+      "COMMON": "Common",
+      "NOVEL": "Novel",
+      "USELESS": "Useless",
+      "USEFUL": "Useful"
+    },
+    "DIMENSIONS_OF_GI": {
+      "COORDINATION_LABEL": "It requires large-scale coordination.",
+      "SOCIOTECHNIC_LABEL": "It has social and technical dimensions.",
+      "GLOBAL_LABEL": "It's global.",
+      "COORDINATION_LABEL_VIZ": "Coordination",
+      "SOCIOTECHNIC_LABEL_VIZ": "Social and technical dimensions",
+      "GLOBAL_LABEL_VIZ": "Global"
+    },
+    "SFERA": {
+      "LOCAL_PROBLEM": "Local problem",
+      "GLOBAL_PROBLEM": "Global problem",
+      "PERSONAL_INTEREST": "Personal interest",
+      "GENERAL_INTEREST": "General interest",
+      "PERSONAL": "Personal",
+      "GENERAL": "General",
+      "LOCAL": "Local",
+      "GLOBAL": "Global",
+      "INTEREST_LABEL_VIZ": "Interest for the problem",
+      "SCOPE_LABEL_VIZ": "Scope of the problem"
+    }
+  },
+  "ADMIN_PANEL": {
+    "TITLE": "Admin panel",
+    "CONTROLS": {
+      "TITLE": "Controls",
+      "ROUND_HELPER": "Round {{round}}",
+      "RESPONSE_COLLECTION_BUTTON": "Response collection",
+      "EVALUATION_BUTTON": "Evaluation",
+      "RESULTS_BUTTON": "Results",
+      "PREVIOUS_ROUND_TOOLTIP": "Go back to previous round",
+      "NEXT_ROUND_TOOLTIP": "Start next round"
+    },
+    "ORCHESTRATION": {
+      "NEXT_ROUND_BTN": "Next round",
+      "RESET_SETS_BTN": "Reset activity",
+      "REFRESH_DATA": "Refresh data",
+      "RESET_SETS_DIALOG": {
+        "TITLE": "Do you really want to reset the activity?",
+        "HELPER_TEXT": "This action is definitive and will result in the loss of all the sets created in this activity.",
         "CANCEL": "Cancel",
-        "GO_TO_PREVIOUS_STEP": "Go to previous step"
-      },
-      "WARNING_NEXT_STEP_DIALOG": {
-        "TITLE": "Are you sure you want to move to the next step?",
-        "WARNING_TEXT_WITH_TIME": "There is {{minutes}} minutes and {{seconds}} seconds left for this step.",
-        "WARNING_TEXT": "There is time left for this step.",
-        "GO_TO_NEXT_STEP": "Go to next step"
-      },
-      "ROUND_HELPER": "Round {{round}}"
-    },
-    "RESPONSE_CARD": {
-      "BUILD_ON_THIS": "Build on this",
-      "OWN": "You wrote this"
-    },
-    "SETTINGS": {
-      "TITLE": "Settings",
-      "INSTRUCTIONS": {
-        "TITLE": "Instructions",
-        "HELPER_TITLE": "Provide a main instruction to be shown in your activity.",
-        "LABEL_TITLE": "Main",
-        "HELPER_DETAILS": "Provide details to complete your main instructions.",
-        "LABEL_DETAILS": "Details",
-        "HELPER_INPUT": "Provide detailed instructions for submitting a response",
-        "LABEL_INPUT": "Instructions for response submission",
-        "HELPER_CHOOSE": "Provide detailed instructions for considering other's responses",
-        "LABEL_CHOOSE": "Instructions for response selection"
-      },
-      "ORCHESTRATOR": {
-        "TITLE": "Orchestrator",
-        "LABEL": "Select the orchestrator of the activity"
-      },
-      "PARTICIPANTS": {
-        "TITLE": "Participants",
-        "FIELD_LABEL": "Excluded members"
-      },
-      "ACTIVITY": {
-        "TITLE": "Activity",
-        "MODE_LABEL": "Visibility mode",
-        "EXCLUSIVE_RESPONSE_DISTRIBUTION_LABEL": "Distribute each idea only once",
-        "ADVANCED_CONFIGURATION": "Advanced configuration",
-        "REFORMULATE_RESPONSE_LABEL": "Reformulate responses with AI upon submission",
-        "NUMBER_RESP_SET_LABEL": "Number of responses per set",
-        "NUMBER_BOT_RESP_SET_LABEL": "Number of bot responses per set",
-        "STEPS": {
-          "ERROR_PROMPT_NOT_IN_JSON_FORMAT": "Prompt has to be in JSON format.",
-          "ADD_STEP": "Add a step"
-        }
-      },
-      "EVALUATION_TYPE_SELECTION": {
-        "TITLE": "Evaluation type",
-        "NONE_BTN": "Do not evaluate the responses.",
-        "VOTE_BTN": "Evaluate the responses by votes.",
-        "NOV_REL_RATINGS_BTN": "Evaluate the responses by rating the relevance and novelty.",
-        "USE_NOV_RATINGS_BTN": "Evaluate the responses by rating the usefulness and novelty."
-      },
-      "ASSISTANT": {
-        "TITLE": "Assistants",
-        "ADD": "Add an assistant",
-        "EDIT_DIALOG": {
-          "CHATBOT_NAME_LABEL": "Chatbot Name",
-          "CHATBOT_NAME_HELPER": "This is the name that users will see when they interact with the chatbot",
-          "CHATBOT_NAME_DEFAULT_MESSAGE": "by default",
-          "CHATBOT_PROMPT_LABEL": "Chatbot Prompt",
-          "CHATBOT_PROMPT_HELPER_LABEL": "In-depth technical description",
-          "CHATBOT_PROMPT_HELPER": "This is the name that users will see when they interact with the chatbot",
-          "CHATBOT_PROMPT_FORMAT_HELPER": "To describe the initial situation, create an object at the start of the array with 2 keys: 'role' and 'content'. For the initial description the role must be 'system'. Place your description of the initial situation in the 'content' key. Add interaction examples after that. Add one object per message with the role corresponding to either 'assistant' or 'user'.",
-          "CHATBOT_PROMPT_FORMAT_EXAMPLE": "Here is an example",
-          "CHATBOT_PROMPT_API_REFERENCE": "See the API reference",
-          "CHATBOT_CUE_LABEL": "Cue",
-          "CHATBOT_CUE_HELPER": "This defines the content of the first message of the chatbot. You can change it to better orient the conversation with the user.",
-          "CHATBOT_CUE_EMPTY_MESSAGE": "The cue is empty.",
-          "CHATBOT_CONFIGURATION_MISSING": "This chatbot has not been configured yet.",
-          "CANCEL_LABEL": "Cancel",
-          "EDIT_LABEL": "Edit",
-          "CHATBOT_SETTING_TITLE": "Chatbot",
-          "ERROR_PROMPT_NOT_IN_JSON_FORMAT": "Prompt has to be in JSON format.",
-          "SAVE_LABEL": "Save",
-          "SAVED_LABEL": "Saved"
-        }
+        "CONFIRM": "Confirm"
       }
     },
-    "RESPONSE_COLLECTION": {
-      "CHOOSE_HELPER_INSTRUCTION": "Read these responses that have been proposed by other participants. Choose one to build upon or propose a new response.",
-      "INPUT": {
-        "SUBMIT": "Submit your response",
-        "HELPER": "Write down only one proposition in this field.",
-        "CUE_PARENT_RESPONSE_TITLE": "Previous response",
-        "RESPONSE_BEING_SUBMITTED_ALERT": "Your response is being submitted, please wait for a few seconds.",
-        "RESPONSE_TOO_LONG_ALERT": "Your idea is too long. Please, try to be more concise."
-      },
-      "STEPPER": {
-        "INPUT_STEP_LABEL": "Submit your response",
-        "CHOOSE_STEP_LABEL": "Read the responses of other participants"
-      }
-    },
-    "SAVE": "Save",
-    "NO_IDEAS_TO_SHOW_TEXT": "The other participants have not submitted enough ideas yet. Once they have, these ideas will appear here.",
-    "BOT_NAME": "GraaspBot",
-    "SYNC_ALERT_SUCCESS": "All ideas are sync.",
-    "CHECK_FOR_NEW_RESPONSES": "Check for new responses",
-    "PROPOSE_NEW_RESPONSE": "Propose a new response",
-    "STATE_CONTROL_TITLE": "Controls",
-    "ROUND": "Round {{round}}",
-    "PARTICIPANTS": "Participants",
-    "ORCHESTRATION": "Orchestration",
-    "RESPONSE_EVALUATION": {
-      "TITLE": "Response Evaluation"
-    },
-    "RATINGS": {
-      "USEFULNESS_NOVELTY": {
-        "COMMON": "Common",
-        "NOVEL": "Novel",
-        "USELESS": "Useless",
-        "USEFUL": "Useful"
-      }
-    },
-    "ADMIN_PANEL": {
-      "TITLE": "Admin panel",
-      "CONTROLS": {
-        "TITLE": "Controls",
-        "ROUND_HELPER": "Round {{round}}",
-        "RESPONSE_COLLECTION_BUTTON": "Response collection",
-        "EVALUATION_BUTTON": "Evaluation",
-        "RESULTS_BUTTON": "Results",
-        "PREVIOUS_ROUND_TOOLTIP": "Go back to previous round",
-        "NEXT_ROUND_TOOLTIP": "Start next round"
-      },
-      "ORCHESTRATION": {
-        "NEXT_ROUND_BTN": "Next round",
-        "RESET_SETS_BTN": "Reset activity",
-        "REFRESH_DATA": "Refresh data",
-        "RESET_SETS_DIALOG": {
-          "TITLE": "Do you really want to reset the activity?",
-          "HELPER_TEXT": "This action is definitive and will result in the loss of all the sets created in this activity.",
-          "CANCEL": "Cancel",
-          "CONFIRM": "Confirm"
-        }
-      },
-      "BOT": {
-        "TITLE": "Act as a bot",
-        "HELPER": "With the following field, you can insert new ideas in the ideation process under the identity of the virtual agent."
-      }
-    },
-    "ERROR_BOUNDARY": {
-      "FALLBACK": {
-        "MESSAGE_TITLE": "Sorry, something went wrong with this application",
-        "MESSAGE_FEEDBACK": "Our team has been notified. If you would like to help, please, tell us what happened below.",
-        "ERROR_DETAILS": "Details of the error",
-        "NAME_LABEL": "Name",
-        "NAME_HELPER": "Provide your name (optional)",
-        "EMAIL_LABEL": "Email",
-        "EMAIL_HELPER": "Provide your email (optional)",
-        "COMMENT_LABEL": "Comment",
-        "COMMENT_HELPER": "Tell us what happened (optional)",
-        "THANKS_FOR_FEEDBACK": "Thank you for your feedback!",
-        "SEND": "Send your feedback"
-      }
-    },
-    "PROMPTS": {
-      "SINGLE_RESPONSE": "We are given the following wicked problem:\n<problem>\n{{problemStatement}}\n</problem>\n\nGenerate a single solution to this challenge. Provide only the solution and limit it to {{maxChars}} characters.",
-      "SINGLE_RESPONSE_AND_PROVIDE_RESPONSES": "We are given the following problem:\n<problem>\n{{problemStatement}}\n</problem>\n\nSo far, your teammates have proposed the following solutions to this problem:\n{{responses}}\nGenerate a single, disruptive and out-of-the-box solution for this challenge. Your solution should challenge conventional thinking and differ from the solutions proposed by the other participants. Try to match the tone and style of the given solutions.\nProvide only the solution, not enclosed in any format (no XML tags), and limit it to {{maxChars}} characters.",
-      "REFORMULATE": {
-        "SYSTEM": "You are an helpful assistant. You will help in reformulating short text that the user will give you.",
-        "USER_1": "I will give you a response. You need to reformulate it so that it has a neutral tone, is clearer and match the following problem:\n{{ problem }}\n\n{{ details }}The reformulated response must not exceed {{ maxChars }} characters. When answering, give me only the reformulated idea.",
-        "USER_1_DETAILS": "Details about the problem:\n${{ details }}\n\n",
-        "ASSISTANT_1": "Provide me with the idea you want me to reformulate.",
-        "USER_2": "Reformulate this response:\n {{ response }}"
-      }
+    "BOT": {
+      "TITLE": "Act as a bot",
+      "HELPER": "With the following field, you can insert new ideas in the ideation process under the identity of the virtual agent."
+    }
+  },
+  "ERROR_BOUNDARY": {
+    "FALLBACK": {
+      "MESSAGE_TITLE": "Sorry, something went wrong with this application",
+      "MESSAGE_FEEDBACK": "Our team has been notified. If you would like to help, please, tell us what happened below.",
+      "ERROR_DETAILS": "Details of the error",
+      "NAME_LABEL": "Name",
+      "NAME_HELPER": "Provide your name (optional)",
+      "EMAIL_LABEL": "Email",
+      "EMAIL_HELPER": "Provide your email (optional)",
+      "COMMENT_LABEL": "Comment",
+      "COMMENT_HELPER": "Tell us what happened (optional)",
+      "THANKS_FOR_FEEDBACK": "Thank you for your feedback!",
+      "SEND": "Send your feedback"
     }
   }
 }

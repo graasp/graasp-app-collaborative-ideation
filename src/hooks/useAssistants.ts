@@ -1,16 +1,21 @@
 import { ChatbotRole } from '@graasp/sdk';
 
-import { ChatbotResponseAppData } from '@/config/appDataTypes';
+import { ChatbotResponseAppData, ResponseAppData } from '@/config/appDataTypes';
 import {
   DEFAULT_CHATBOT_RESPONSE_APP_DATA,
   RESPONSE_MAXIMUM_LENGTH,
 } from '@/config/constants';
-import { getSingleResponsePrompt } from '@/config/prompts';
+import {
+  getSingleResponsePrompt,
+  promptForSingleResponse,
+  promptForSingleResponseAndProvideResponses,
+} from '@/config/prompts';
 import { mutations } from '@/config/queryClient';
 import { AssistantPersona } from '@/interfaces/assistant';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { useTranslation } from 'react-i18next';
+import { useActivityContext } from '@/modules/context/ActivityContext';
 
 interface UseAssistantsValues {
   generateSingleResponse: () => Promise<ChatbotResponseAppData | undefined>;
@@ -24,13 +29,25 @@ interface UseAssistantsValues {
   reformulateResponse: (
     response: string,
   ) => Promise<ChatbotResponseAppData | undefined>;
+  generateResponsesWithEachAssistant: () => Promise<
+    Promise<ResponseAppData | undefined>[]
+  >;
 }
 
 const useAssistants = (): UseAssistantsValues => {
-  const { t } = useTranslation('translations', { keyPrefix: 'PROMPTS' });
+  const { t } = useTranslation('prompts');
   const { mutateAsync: postChatBot } = mutations.usePostChatBot();
-  const { chatbot, instructions: generalPrompt, assistants } = useSettings();
+  const {
+    chatbot,
+    instructions: generalPrompt,
+    assistants,
+    instructions,
+  } = useSettings();
   const { postAppDataAsync } = useAppDataContext();
+
+  const { assistantsResponsesSets, round, allResponses, postResponse } =
+    useActivityContext();
+
   const reformulateResponse = (
     response: string,
   ): Promise<ChatbotResponseAppData | undefined> =>
@@ -86,7 +103,9 @@ const useAssistants = (): UseAssistantsValues => {
     ]).then((ans) => {
       const a = postAppDataAsync({
         ...DEFAULT_CHATBOT_RESPONSE_APP_DATA,
-        data: ans,
+        data: {
+          ...ans,
+        },
       }) as Promise<ChatbotResponseAppData>;
       return a;
     });
@@ -104,7 +123,10 @@ const useAssistants = (): UseAssistantsValues => {
     ]).then((ans) => {
       const a = postAppDataAsync({
         ...DEFAULT_CHATBOT_RESPONSE_APP_DATA,
-        data: ans,
+        data: {
+          ans,
+          assistantId: assistant.id,
+        },
       }) as Promise<ChatbotResponseAppData>;
       return a;
     });
@@ -114,11 +136,58 @@ const useAssistants = (): UseAssistantsValues => {
   ): Promise<Promise<ChatbotResponseAppData | undefined>[]> =>
     assistants.assistants.map((p) => promptAssistant(p, prompt));
 
+  const generateResponsesWithEachAssistant = async (): Promise<
+    Promise<ResponseAppData | undefined>[]
+  > => {
+    const responsesAssistants = assistants.assistants
+      .map((persona) => {
+        const assistantSet = assistantsResponsesSets.find(
+          (set) =>
+            set.data.assistant === persona.id && set.data.round === round - 1,
+        );
+        if (assistantSet) {
+          const responses = assistantSet.data.responses.map(
+            (r) => allResponses.find(({ id }) => r === id)?.data.response || '',
+          );
+          return promptAssistant(
+            persona,
+            promptForSingleResponseAndProvideResponses(
+              instructions.title.content,
+              responses,
+              t,
+            ),
+          );
+        }
+        return promptAssistant(
+          persona,
+          promptForSingleResponse(instructions.title.content, t),
+        );
+      })
+      .map((promise) =>
+        promise.then((assistantResponseAppData) => {
+          if (assistantResponseAppData) {
+            const { completion: response, assistantId } =
+              assistantResponseAppData.data;
+            return postResponse({
+              response,
+              round,
+              bot: true,
+              assistantId,
+            });
+          }
+          return assistantResponseAppData;
+        }),
+      );
+
+    return responsesAssistants;
+  };
+
   return {
     generateSingleResponse,
     promptAssistant,
     promptAllAssistants,
     reformulateResponse,
+    generateResponsesWithEachAssistant,
   };
 };
 

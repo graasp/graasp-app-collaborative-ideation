@@ -15,7 +15,7 @@ import { useActivityContext } from '../context/ActivityContext';
 import { useSettings } from '../context/SettingsContext';
 
 const Assistants: FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('prompts');
   const { assistantsResponsesSets, round, postResponse, allResponses } =
     useActivityContext();
   const { promptAssistant } = useAssistants();

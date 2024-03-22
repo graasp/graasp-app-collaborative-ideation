@@ -10,7 +10,7 @@ type SentryConfigType = {
 };
 
 export const generateSentryConfig = (): SentryConfigType => {
-  let SENTRY_ENVIRONMENT = 'development';
+  let SENTRY_ENVIRONMENT = SENTRY_ENV || 'development';
   let SENTRY_TRACE_SAMPLE_RATE = 1.0;
   // This sets the sample rate to be 10%. You may want this to be 100% while
   // in development and sample at a lower rate in production

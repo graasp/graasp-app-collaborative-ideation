@@ -91,11 +91,10 @@ const Orchestration: FC<OrchestrationProps> = () => {
           <ToggleButton
             value={ActivityType.Results}
             aria-label={t('ADMIN_PANEL.CONTROLS.RESULTS_BUTTON')}
-            disabled
           >
             <PollIcon sx={{ mr: 1 }} />
             {t('ADMIN_PANEL.CONTROLS.RESULTS_BUTTON')}
-            <Chip
+            {/* <Chip
               disabled
               variant="outlined"
               color="warning"
@@ -109,8 +108,7 @@ const Orchestration: FC<OrchestrationProps> = () => {
                   whiteSpace: 'normal',
                 },
               }}
-            />
-            {/* git commit -m "fix: disable results button" */}
+            /> */}
           </ToggleButton>
         </ToggleButtonGroup>
         <Paper variant="outlined" elevation={1} sx={{ p: 1 }}>

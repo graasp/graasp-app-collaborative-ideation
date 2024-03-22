@@ -3,6 +3,7 @@ import { useActivityContext } from '@/modules/context/ActivityContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { useMemo } from 'react';
 import useActions from './useActions';
+import useAssistants from './useAssistants';
 
 interface UseStepsValues {
   changeStep: (newStep: ActivityStep, index: number) => void;
@@ -23,6 +24,8 @@ const useSteps = (): UseStepsValues => {
     round,
     deleteResponsesSetsForRound,
   } = useActivityContext();
+
+  const { generateResponsesWithEachAssistant } = useAssistants();
 
   const { postNextStepAction, postPreviousStepAction } = useActions();
   const { activity } = useSettings();
@@ -75,9 +78,12 @@ const useSteps = (): UseStepsValues => {
     const nextStepIndex = (stepIndex ?? 0) + 1;
 
     if ((nextStep?.round || 0) > round) {
-      await createAllResponsesSet().then(() => {
-        changeStep(nextStep, nextStepIndex);
-      });
+      // TODO: Insane amount of work here. REFACTOR!
+      await generateResponsesWithEachAssistant().then(() =>
+        createAllResponsesSet().then(() => {
+          changeStep(nextStep, nextStepIndex);
+        }),
+      );
     } else {
       changeStep(nextStep, nextStepIndex);
     }

@@ -138,7 +138,7 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
             <FormControlLabel
               control={
                 <Switch
-                  value={exclusiveResponseDistribution}
+                  checked={exclusiveResponseDistribution ?? false}
                   onChange={(e) =>
                     handleExclDistributionChange(e.target.checked)
                   }
@@ -149,7 +149,7 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
             <FormControlLabel
               control={
                 <Switch
-                  value={reformulateResponses}
+                  checked={reformulateResponses ?? false}
                   onChange={(e) =>
                     handleReformulateResponsesChange(e.target.checked)
                   }
