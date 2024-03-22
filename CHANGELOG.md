@@ -1,5 +1,28 @@
 # Changelog
 
+## [2.7.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.6.2...v2.7.0) (2024-03-22)
+
+
+### Features
+
+* implement SFERA rating ([83dcf2d](https://github.com/graasp/graasp-app-collaborative-ideation/commit/83dcf2d348795f3d0624a334f25155f1ee9873d8))
+* ratings global issue ([83dcf2d](https://github.com/graasp/graasp-app-collaborative-ideation/commit/83dcf2d348795f3d0624a334f25155f1ee9873d8))
+* results view and SFERA and GI ratings([#167](https://github.com/graasp/graasp-app-collaborative-ideation/issues/167)) ([83dcf2d](https://github.com/graasp/graasp-app-collaborative-ideation/commit/83dcf2d348795f3d0624a334f25155f1ee9873d8))
+* show summary of ratings for responses GI ([83dcf2d](https://github.com/graasp/graasp-app-collaborative-ideation/commit/83dcf2d348795f3d0624a334f25155f1ee9873d8))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @graasp/sdk to v4.2.1 ([2f335e5](https://github.com/graasp/graasp-app-collaborative-ideation/commit/2f335e52ff9908ac6c88e5c3aa90c7b7741d788e))
+* **deps:** update dependency liquidjs to v10.10.2 ([4983c86](https://github.com/graasp/graasp-app-collaborative-ideation/commit/4983c867f32c7d2379a9069cb2363c15958c5ddc))
+* **deps:** update dependency plotly.js to v2.30.1 ([a5ae12f](https://github.com/graasp/graasp-app-collaborative-ideation/commit/a5ae12f15af09cd671cfb229c4995bda992d41a8))
+* **deps:** update dependency typescript to v5.4.3 ([e8a76e1](https://github.com/graasp/graasp-app-collaborative-ideation/commit/e8a76e16df9eb0b963eadc689186a397531f37ac))
+* **deps:** update mui (non-major) ([#172](https://github.com/graasp/graasp-app-collaborative-ideation/issues/172)) ([92a1659](https://github.com/graasp/graasp-app-collaborative-ideation/commit/92a16592c5722d6caca20f4f6451cfcd1aa1a957))
+* hook automatic response generation on next steps ([83dcf2d](https://github.com/graasp/graasp-app-collaborative-ideation/commit/83dcf2d348795f3d0624a334f25155f1ee9873d8))
+* **langs:** es translations ([83dcf2d](https://github.com/graasp/graasp-app-collaborative-ideation/commit/83dcf2d348795f3d0624a334f25155f1ee9873d8))
+* missing assistant id when generating responses with chatbot ([83dcf2d](https://github.com/graasp/graasp-app-collaborative-ideation/commit/83dcf2d348795f3d0624a334f25155f1ee9873d8))
+* show correct value for activity switch in settings ([83dcf2d](https://github.com/graasp/graasp-app-collaborative-ideation/commit/83dcf2d348795f3d0624a334f25155f1ee9873d8))
+
 ## [2.6.2](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.6.1...v2.6.2) (2024-03-15)
 
 
