@@ -103,7 +103,9 @@ const useAssistants = (): UseAssistantsValues => {
     ]).then((ans) => {
       const a = postAppDataAsync({
         ...DEFAULT_CHATBOT_RESPONSE_APP_DATA,
-        data: ans,
+        data: {
+          ...ans,
+        },
       }) as Promise<ChatbotResponseAppData>;
       return a;
     });
@@ -121,7 +123,10 @@ const useAssistants = (): UseAssistantsValues => {
     ]).then((ans) => {
       const a = postAppDataAsync({
         ...DEFAULT_CHATBOT_RESPONSE_APP_DATA,
-        data: ans,
+        data: {
+          ans,
+          assistantId: assistant.id,
+        },
       }) as Promise<ChatbotResponseAppData>;
       return a;
     });
@@ -161,11 +166,13 @@ const useAssistants = (): UseAssistantsValues => {
       .map((promise) =>
         promise.then((assistantResponseAppData) => {
           if (assistantResponseAppData) {
-            const response = assistantResponseAppData.data.completion;
+            const { completion: response, assistantId } =
+              assistantResponseAppData.data;
             return postResponse({
               response,
               round,
               bot: true,
+              assistantId,
             });
           }
           return assistantResponseAppData;
