@@ -33,9 +33,9 @@ jobs:
         id: set-version
         run: |
           VERSION_REPO_DISPATCH=${{ github.event.client_payload.tag }}
-          VERSION_REF=${{ github.ref }}
+          VERSION_REF=${{ github.ref_name }}
           VERSION_COMMIT=${{ github.sha }}
-          echo "::set-output name=value::${VERSION_REPO_DISPATCH:-${VERSION_REF:-${VERSION_COMMIT:-"undefined"}}}"
+          echo "VERSION=${VERSION_REPO_DISPATCH:-${VERSION_REF:-${VERSION_COMMIT:-"undefined"}}}" >> "$GITHUB_OUTPUT"
 
       - name: Yarn build
         # Set environment variables required to perform the build. These are only available to this step
@@ -44,7 +44,7 @@ jobs:
           VITE_GRAASP_APP_KEY: ${{ secrets.APP_KEY }}
           VITE_SENTRY_ENV: ${{ vars.SENTRY_ENV }}
           VITE_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
-          VITE_VERSION: ${{ steps.set-version.outputs.value }}
+          VITE_VERSION: ${{ steps.set-version.outputs.VERSION }}
           VITE_WS_HOST: ${{ vars.WS_HOST }}
           # add any env variable needed by your app here
         run: yarn build
