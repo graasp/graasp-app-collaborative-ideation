@@ -79,11 +79,13 @@ const useSteps = (): UseStepsValues => {
 
     if ((nextStep?.round || 0) > round) {
       // TODO: Insane amount of work here. REFACTOR!
-      await generateResponsesWithEachAssistant().then(() =>
-        createAllResponsesSet().then(() => {
-          changeStep(nextStep, nextStepIndex);
-        }),
-      );
+      await generateResponsesWithEachAssistant()
+        .then((p) => Promise.all(p))
+        .then(() =>
+          createAllResponsesSet().then(() => {
+            changeStep(nextStep, nextStepIndex);
+          }),
+        );
     } else {
       changeStep(nextStep, nextStepIndex);
     }
