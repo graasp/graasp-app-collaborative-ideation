@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.7.2](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.7.1...v2.7.2) (2024-03-25)
+
+
+### Bug Fixes
+
+* await for chatbot completion before creating responses sets ([ab1b4e1](https://github.com/graasp/graasp-app-collaborative-ideation/commit/ab1b4e10e7d1b7ac098a3efa262bca42746a1319))
+* **deps:** update dependency @graasp/apps-query-client to v3.4.9 ([#193](https://github.com/graasp/graasp-app-collaborative-ideation/issues/193)) ([bae4645](https://github.com/graasp/graasp-app-collaborative-ideation/commit/bae4645feb9a966e274e5e510a18d46190b8b568))
+* **deps:** update dependency @uiw/react-codemirror to v4.21.25 ([2ea86ef](https://github.com/graasp/graasp-app-collaborative-ideation/commit/2ea86ef92b8f1b04b8e3042ffdf11a7a2a84c31c))
+* shape of chatbot completion app data ([#191](https://github.com/graasp/graasp-app-collaborative-ideation/issues/191)) ([ab1b4e1](https://github.com/graasp/graasp-app-collaborative-ideation/commit/ab1b4e10e7d1b7ac098a3efa262bca42746a1319))
+
 ## [2.7.1](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.7.0...v2.7.1) (2024-03-22)
 
 
