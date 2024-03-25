@@ -30,7 +30,7 @@
     "@emotion/react": "11.11.4",
     "@emotion/styled": "11.11.0",
     "@graasp/apps-query-client": "^3.4.8",
-    "@graasp/sdk": "4.3.0",
+    "@graasp/sdk": "4.3.1",
     "@graasp/ui": "4.12.0",
     "@mui/icons-material": "5.15.14",
     "@mui/lab": "5.0.0-alpha.169",
