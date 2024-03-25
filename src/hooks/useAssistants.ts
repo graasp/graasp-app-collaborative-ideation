@@ -166,7 +166,7 @@ const useAssistants = (): UseAssistantsValues => {
         );
       })
       .map((promise) =>
-        promise.then((assistantResponseAppData) => {
+        promise.then(async (assistantResponseAppData) => {
           if (assistantResponseAppData) {
             const { completion: response, assistantId } =
               assistantResponseAppData.data;
