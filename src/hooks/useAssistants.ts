@@ -79,7 +79,9 @@ const useAssistants = (): UseAssistantsValues => {
     ]).then((ans) => {
       const a = postAppDataAsync({
         ...DEFAULT_CHATBOT_RESPONSE_APP_DATA,
-        data: ans,
+        data: {
+          ...ans,
+        },
       }) as Promise<ChatbotResponseAppData>;
       return a;
     });
@@ -124,7 +126,7 @@ const useAssistants = (): UseAssistantsValues => {
       const a = postAppDataAsync({
         ...DEFAULT_CHATBOT_RESPONSE_APP_DATA,
         data: {
-          ans,
+          ...ans, // Be careful. Destructure.
           assistantId: assistant.id,
         },
       }) as Promise<ChatbotResponseAppData>;
