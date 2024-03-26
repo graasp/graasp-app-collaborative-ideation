@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.7.4](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.7.3...v2.7.4) (2024-03-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @graasp/sdk to v4.3.1 ([#198](https://github.com/graasp/graasp-app-collaborative-ideation/issues/198)) ([d8a7cad](https://github.com/graasp/graasp-app-collaborative-ideation/commit/d8a7cade6aa2c61f57408fa539648b0772daa31a))
+* **deps:** update dependency @graasp/ui to v4.12.1 ([#199](https://github.com/graasp/graasp-app-collaborative-ideation/issues/199)) ([7482e2e](https://github.com/graasp/graasp-app-collaborative-ideation/commit/7482e2e777ed75b985cda89c0cff362ddff64dfc))
+
 ## [2.7.3](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.7.2...v2.7.3) (2024-03-25)
 
 
