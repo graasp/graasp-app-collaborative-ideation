@@ -162,6 +162,16 @@
       "GLOBAL_LABEL_VIZ": "Global"
     },
     "SFERA": {
+      "LOCAL_PROBLEM": "Problème local",
+      "GLOBAL_PROBLEM": "Problème global",
+      "PERSONAL_INTEREST": "Intérêt personnel",
+      "GENERAL_INTEREST": "Intérêt général",
+      "PERSONAL": "Personnel",
+      "GENERAL": "Général",
+      "LOCAL": "Local",
+      "GLOBAL": "Global",
+      "INTEREST_LABEL_VIZ": "Intérêt pour le problème",
+      "SCOPE_LABEL_VIZ": "Portée du problème"
     }
   },
   "ADMIN_PANEL": {
