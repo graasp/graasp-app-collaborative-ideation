@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.7.5](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.7.4...v2.7.5) (2024-04-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @emotion/styled to v11.11.5 ([d8a8bdc](https://github.com/graasp/graasp-app-collaborative-ideation/commit/d8a8bdc56260a024e09839b58c3a11a70e922688))
+* **deps:** update dependency @graasp/apps-query-client to v3.4.10 ([dd93e7c](https://github.com/graasp/graasp-app-collaborative-ideation/commit/dd93e7c4e102ec799b50475d660fe5e05f652a07))
+* **deps:** update dependency @graasp/sdk to v4.4.0 ([#207](https://github.com/graasp/graasp-app-collaborative-ideation/issues/207)) ([c3d71cd](https://github.com/graasp/graasp-app-collaborative-ideation/commit/c3d71cdb41f2a3dfbcbdbc3854a1ed4670fd92c8))
+* **deps:** update dependency @graasp/sdk to v4.5.0 ([#220](https://github.com/graasp/graasp-app-collaborative-ideation/issues/220)) ([f035eae](https://github.com/graasp/graasp-app-collaborative-ideation/commit/f035eaea3397ac441a2d3659642e383931d2e314))
+* **deps:** update dependency @graasp/ui to v4.13.0 ([#218](https://github.com/graasp/graasp-app-collaborative-ideation/issues/218)) ([a6ecd66](https://github.com/graasp/graasp-app-collaborative-ideation/commit/a6ecd66a3a148244c7524d8efdbb9c62197197d4))
+* **deps:** update dependency @sentry/react to v7.109.0 ([#209](https://github.com/graasp/graasp-app-collaborative-ideation/issues/209)) ([9e7394d](https://github.com/graasp/graasp-app-collaborative-ideation/commit/9e7394d2f8b3c0075d2bc28020cd3a63eaec96e6))
+* **deps:** update mui (non-major) ([#222](https://github.com/graasp/graasp-app-collaborative-ideation/issues/222)) ([fc66344](https://github.com/graasp/graasp-app-collaborative-ideation/commit/fc66344598be1245c68ad9bdaeb090e7e08d4fd9))
+
 ## [2.7.4](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.7.3...v2.7.4) (2024-03-26)
 
 
