@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.7.6](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.7.5...v2.7.6) (2024-04-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @mui/x-data-grid to v6.19.9 ([6acdc66](https://github.com/graasp/graasp-app-collaborative-ideation/commit/6acdc662d829675ae76c54219f3754ca3230193c))
+* **deps:** update dependency typescript to v5.4.4 ([71b37b9](https://github.com/graasp/graasp-app-collaborative-ideation/commit/71b37b9245e7105c8a8ab8a98f3dd8d0e4a8dbac))
+* provide initial value when reducing ratings ([#233](https://github.com/graasp/graasp-app-collaborative-ideation/issues/233)) ([f92a775](https://github.com/graasp/graasp-app-collaborative-ideation/commit/f92a775392ae4a809e1f2ed53e39f7c56a911a3e))
+
 ## [2.7.5](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.7.4...v2.7.5) (2024-04-04)
 
 
