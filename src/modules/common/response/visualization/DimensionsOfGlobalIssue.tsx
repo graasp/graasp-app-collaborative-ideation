@@ -65,7 +65,11 @@ const DimensionsOfGlobalIssue = ({
   const meanRatings = useMemo(() => {
     const accumulatedRatings = ratings
       .map(({ data }) => data.ratings)
-      .reduce(compputeMeanRatings);
+      .reduce(compputeMeanRatings, {
+        coordination: 0,
+        global: 0,
+        socioTechnic: 0,
+      });
     // TODO: Divide only by actual number of ratings i.e. don't count undefined.
     const divider = RATING_SCALE * ratings.length;
     return {
