@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.7.7](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.7.6...v2.7.7) (2024-04-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @graasp/ui to v4.14.2 ([#224](https://github.com/graasp/graasp-app-collaborative-ideation/issues/224)) ([4427d68](https://github.com/graasp/graasp-app-collaborative-ideation/commit/4427d68ce6db9a012266a7eacab0ac2638af22b9))
+* **deps:** update dependency i18next to v23.11.1 ([#232](https://github.com/graasp/graasp-app-collaborative-ideation/issues/232)) ([4b3422a](https://github.com/graasp/graasp-app-collaborative-ideation/commit/4b3422a240925a321ed05649ffc3c935cda9ea4e))
+* **deps:** update dependency plotly.js to v2.31.0 ([#237](https://github.com/graasp/graasp-app-collaborative-ideation/issues/237)) ([084da6e](https://github.com/graasp/graasp-app-collaborative-ideation/commit/084da6e0a48abcc8ece3ba4b3163dbbddcce3486))
+* **deps:** update dependency typescript to v5.4.5 ([ceff712](https://github.com/graasp/graasp-app-collaborative-ideation/commit/ceff712f5f69959b760a227f1a1e5f1fcd809a99))
+
 ## [2.7.6](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.7.5...v2.7.6) (2024-04-08)
 
 
