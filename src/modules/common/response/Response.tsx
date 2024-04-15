@@ -17,6 +17,7 @@ import { EvaluationType } from '@/interfaces/evaluationType';
 import Chip from '@mui/material/Chip';
 import { useLocalContext } from '@graasp/apps-query-client';
 import Box from '@mui/material/Box';
+import { RESPONSE_CY } from '@/config/selectors';
 import UsefulnessNoveltyRating from './evaluation/UsefulnessNoveltyRating';
 import DimensionsOfGlobalIssueRating from './evaluation/DimensionsOfGlobalIssueRating';
 import RatingsVisualization from './visualization/RatingsVisualization';
@@ -69,6 +70,7 @@ const Response: FC<{
       sx={{
         minWidth: '160pt',
       }}
+      data-cy={RESPONSE_CY}
     >
       <CardContent sx={{ minHeight: '32pt' }}>
         <Typography variant="body1" sx={{ overflowWrap: 'break-word' }}>

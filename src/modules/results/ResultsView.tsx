@@ -1,7 +1,7 @@
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Response from '@/modules/common/response/Response';
-import { RESULTS_VIEW_CY } from '@/config/selectors';
+import { RESPONSE_RESULTS_VIEW_CY } from '@/config/selectors';
 import Instructions from '../common/Instructions';
 import { useActivityContext } from '../context/ActivityContext';
 import Pausable from '../common/Pausable';
@@ -13,7 +13,7 @@ const ResultsView = (props: ResultsViewProps): JSX.Element => {
   const { allResponses } = useActivityContext();
   return (
     <Pausable>
-      <Container data-cy={RESULTS_VIEW_CY}>
+      <Container data-cy={RESPONSE_RESULTS_VIEW_CY}>
         <Instructions />
         <Grid container spacing={2}>
           {allResponses
