@@ -95,3 +95,45 @@ export const ALL_SETTINGS_OBJECT: AllSettingsType = {
 export const ALL_SETTINGS = Object.entries(ALL_SETTINGS_OBJECT).map(
   ([key, value]) => newSettingFactory(key, value),
 );
+
+const SETTINGS_WITH_ASSISTANT_OBJECT = ALL_SETTINGS_OBJECT;
+
+SETTINGS_WITH_ASSISTANT_OBJECT.assistants.assistants = [
+  {
+    id: 'assistant1',
+    name: 'GraaspBot',
+    message: [
+      {
+        role: 'system',
+        content:
+          'You are a helpful assistant. You always give your most creative ideas.',
+      },
+    ],
+  },
+];
+SETTINGS_WITH_ASSISTANT_OBJECT.activity.steps = [
+  {
+    type: ActivityType.Collection,
+    round: 0,
+    time: 1,
+  },
+  {
+    type: ActivityType.Collection,
+    round: 1,
+    time: 1,
+  },
+  {
+    type: ActivityType.Evaluation,
+    round: 2,
+    time: 1,
+  },
+  {
+    type: ActivityType.Results,
+    round: 3,
+    time: 240,
+  },
+];
+
+export const SETTINGS_WITH_ASSISTANT = Object.entries(
+  SETTINGS_WITH_ASSISTANT_OBJECT,
+).map(([key, value]) => newSettingFactory(key, value));

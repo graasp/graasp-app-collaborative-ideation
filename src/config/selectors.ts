@@ -3,6 +3,7 @@ export const BUILDER_VIEW_CY = 'builder-view';
 export const ANALYTICS_VIEW_CY = 'analytics-view';
 export const RESPONSE_COLLECTION_VIEW_CY = 'response-collection-view';
 export const RESPONSE_EVALUATION_VIEW_CY = 'response-evaluation-view';
+export const RESPONSE_RESULTS_VIEW_CY = 'response-results-view';
 export const ADMIN_PANEL_CY = 'admin-panel';
 export const PLAY_PAUSE_BUTTON_CY = 'play-pause-button';
 export const INITIALIZE_BTN_CY = 'initialize-button';
@@ -32,7 +33,9 @@ export const ORCHESTRATION_BAR_CY = {
 export const PREVIOUS_STEP_BTN_CY = 'previous-step-btn';
 export const NEXT_STEP_BTN_CY = 'next-step-btn';
 
+export const RESPONSE_CY = 'response';
+
+export const LIKERT_RATING_CY = 'likert-rating';
+
 export const buildDataCy = (selector: string): string =>
   `[data-cy=${selector}]`;
-
-export const RESULTS_VIEW_CY = 'results-view';

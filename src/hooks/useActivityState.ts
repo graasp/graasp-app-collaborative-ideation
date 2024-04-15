@@ -72,7 +72,7 @@ const useActivityState = (): UseActivityStateValues => {
       postAppData({
         ...INITIAL_STATE,
         data: {
-          ...INITIAL_STATE,
+          ...INITIAL_STATE.data,
           ...newActivityStateData,
         },
       });

@@ -87,11 +87,6 @@ const useResponses = ({
     [appData],
   );
 
-  const roundResponses = useMemo(
-    (): ResponseAppData[] => getRoundResponses(allResponses, round),
-    [allResponses, round],
-  );
-
   const allResponsesSets = useMemo((): ResponsesSetAppData[] => {
     const responses = appData.filter(
       ({ creator, type }) =>
@@ -192,7 +187,6 @@ const useResponses = ({
 
       const participantRCopy = cloneDeep(participantsRepsonses);
       const botRCopy = cloneDeep(botResponses);
-
       sets = recursivelyCreateAllPartiallyBlindSets(
         participantIterator,
         participantsRepsonses,
@@ -210,7 +204,7 @@ const useResponses = ({
         exclusiveResponseDistribution,
       );
     } else {
-      const responses = appDataArrayToMap(shuffle(roundResponses));
+      const responses = appDataArrayToMap(shuffle(responsePool));
       const responsesCopy = cloneDeep(responses);
       sets = recursivelyCreateAllOpenSets(participantIterator, responses);
       assistantSets = recursivelyCreateAllOpenSets(
