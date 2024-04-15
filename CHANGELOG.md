@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.8.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.7.8...v2.8.0) (2024-04-15)
+
+
+### Features
+
+* visualize ratings for usefulness and novelty rating ([#251](https://github.com/graasp/graasp-app-collaborative-ideation/issues/251)) ([d96f63f](https://github.com/graasp/graasp-app-collaborative-ideation/commit/d96f63f5a6371ce117d3b4caedc0e98fb4a13e2f))
+
+
+### Bug Fixes
+
+* add default message when no viz available for ratings ([d96f63f](https://github.com/graasp/graasp-app-collaborative-ideation/commit/d96f63f5a6371ce117d3b4caedc0e98fb4a13e2f))
+* **deps:** update dependency @graasp/ui to v4.15.0 ([#254](https://github.com/graasp/graasp-app-collaborative-ideation/issues/254)) ([21686e2](https://github.com/graasp/graasp-app-collaborative-ideation/commit/21686e275108ec2fe3ec76db6f3b931716ea57ce))
+* **deps:** update dependency @sentry/react to v7.110.1 ([#252](https://github.com/graasp/graasp-app-collaborative-ideation/issues/252)) ([741b8ef](https://github.com/graasp/graasp-app-collaborative-ideation/commit/741b8ef7d4dd15143423ae5b176a1e6b9d76a5bb))
+* **deps:** update dependency plotly.js to v2.31.1 ([#257](https://github.com/graasp/graasp-app-collaborative-ideation/issues/257)) ([a968fa5](https://github.com/graasp/graasp-app-collaborative-ideation/commit/a968fa50ce22a35ceddafe6d9bc1fab76da25677))
+
 ## [2.7.8](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.7.7...v2.7.8) (2024-04-15)
 
 
