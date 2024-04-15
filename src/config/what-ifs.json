@@ -1,0 +1,23 @@
+{
+  "sets": [
+    {
+      "name": "52 Sustainability Ideation & Brainstorm Cards",
+      "description": "These cards help you quickly generate sustainability focused radical & disruptive business ideas to take forward & test with your key ecosystem stakeholders.\n\nThey help you think critically & creatively by asking questions from 4P sustainability lenses. People, Planet, Profit & Progress.",
+      "author": "Explorer Labs",
+      "link": "https://www.explorerlabs.co/tools-canvases/52-sustainability-ideation-brainstorm-cards",
+      "categories": ["people", "planet", "profit", "progress"],
+      "set": [
+        {
+          "title": "What if: your employees moved country every week?",
+          "details": "Imagine your employees shifted country every week, enabled by digital-nomadic lifestyles. How could this bring you new business opportunities? Which new ways of working & collaborating could emerge? The average digital nomad is aged 32 yrs, works 40 hours /week & earns ~$100k+ /yr.",
+          "category": "people"
+        },
+        {
+          "title": "What if: all your customers only bought from net-zero GHG companies?",
+          "details": "Imagine all your customers refused to buy from non-net-zero companies. What immediate steps would you need to take to become net-zero in the shortest amount of time? Company targets for net-zero at Ørsted, Wipro, AstraZeneca have already been independently validated by Science Based Targets (SBTi).",
+          "category": "people"
+        }
+      ]
+    }
+  ]
+}
