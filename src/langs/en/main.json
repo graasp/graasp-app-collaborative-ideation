@@ -147,6 +147,7 @@
     "TITLE": "Response Evaluation"
   },
   "RATINGS": {
+    "NO_VISUALIZATION": "No visualization is available for this type of evaluation.",
     "USEFULNESS_NOVELTY": {
       "COMMON": "Common",
       "NOVEL": "Novel",

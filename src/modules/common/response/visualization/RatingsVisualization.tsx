@@ -8,6 +8,8 @@ import {
   SFERARating,
   UsefulnessNoveltyRatings,
 } from '@/interfaces/ratings';
+import { TRANSLATIONS_NS } from '@/config/i18n';
+import { useTranslation } from 'react-i18next';
 import DimensionsOfGlobalIssue from './DimensionsOfGlobalIssue';
 import SFERAViz from './SFERA';
 import UsefulnessNovelty from './UsefulnessNovelty';
@@ -17,6 +19,7 @@ const RatingsVisualization = ({
 }: {
   response: ResponseAppData;
 }): JSX.Element => {
+  const { t } = useTranslation(TRANSLATIONS_NS);
   const { activity } = useSettings();
   const { evaluationType } = activity;
   const { getRatingsForResponse } = useRatings(evaluationType);
@@ -43,7 +46,7 @@ const RatingsVisualization = ({
       />
     );
   }
-  return <>a</>;
+  return <>{t('NO_VISUALIZATION')}</>;
 };
 
 export default RatingsVisualization;
