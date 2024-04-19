@@ -7205,9 +7205,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:13.7.3":
-  version: 13.7.3
-  resolution: "cypress@npm:13.7.3"
+"cypress@npm:13.8.0":
+  version: 13.8.0
+  resolution: "cypress@npm:13.8.0"
   dependencies:
     "@cypress/request": "npm:^3.0.0"
     "@cypress/xvfb": "npm:^1.2.4"
@@ -7253,7 +7253,7 @@ __metadata:
     yauzl: "npm:^2.10.0"
   bin:
     cypress: bin/cypress
-  checksum: 10/eca6f204b59523fb22c6e55811e8506ff22559f01d6bc3aafa4c4fcda1613518f895169c480b5a53910878549143d9b9529cc4ce6f2948d5e6c233683ca360ec
+  checksum: 10/114eaac462feb3ebb7a57dc088857cfeace1341ae4e84a3406ef8f487f3c0ec42f31d2b2c5de5411f26057502f50561f3d62fd019a8161933b615c6847fb5332
   languageName: node
   linkType: hard
 
@@ -10016,7 +10016,7 @@ __metadata:
     "@vitejs/plugin-react": "npm:^4.2.1"
     "@vitest/browser": "npm:^1.3.0"
     concurrently: "npm:8.2.2"
-    cypress: "npm:13.7.3"
+    cypress: "npm:13.8.0"
     date-fns: "npm:^3.3.1"
     env-cmd: "npm:10.1.0"
     eslint: "npm:8.57.0"
