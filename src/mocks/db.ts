@@ -22,6 +22,7 @@ export const mockMembers: CompleteMember[] = [
     type: 'individual',
     createdAt: new Date('1996-09-08T19:00:00').toISOString(),
     updatedAt: new Date().toISOString(),
+    enableSaveActions: true,
   },
   {
     id: 'mock-member-id-2',
@@ -31,12 +32,14 @@ export const mockMembers: CompleteMember[] = [
     type: 'individual',
     createdAt: new Date('1995-02-02T15:00:00').toISOString(),
     updatedAt: new Date().toISOString(),
+    enableSaveActions: true,
   },
 ];
 
 export const mockItem: DiscriminatedItem = {
   id: '1234-1234-1234-5678',
   name: 'app-collaborative-ideation',
+  displayName: 'App Collaborative Ideation',
   description: null,
   path: '',
   type: ItemType.APP,
