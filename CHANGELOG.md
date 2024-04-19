@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.8.1](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.8.0...v2.8.1) (2024-04-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @mui/x-data-grid to v6.19.11 ([3ab986a](https://github.com/graasp/graasp-app-collaborative-ideation/commit/3ab986a9f98a3cf8954ad9d580f1217916618bd0))
+* **deps:** update dependency @sentry/react to v7.111.0 ([#262](https://github.com/graasp/graasp-app-collaborative-ideation/issues/262)) ([c7542db](https://github.com/graasp/graasp-app-collaborative-ideation/commit/c7542db7391400686888dd70763cad8a50681ab3))
+* **deps:** upgrade graasp deps ([#265](https://github.com/graasp/graasp-app-collaborative-ideation/issues/265)) ([32f17e2](https://github.com/graasp/graasp-app-collaborative-ideation/commit/32f17e219c821c0ad60c1179b72009e6646427e6))
+
 ## [2.8.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.7.8...v2.8.0) (2024-04-15)
 
 
