@@ -82,7 +82,7 @@
     "@commitlint/cli": "19.2.2",
     "@commitlint/config-conventional": "19.2.2",
     "@commitlint/types": "^19.0.0",
-    "@cypress/code-coverage": "3.12.35",
+    "@cypress/code-coverage": "3.12.36",
     "@trivago/prettier-plugin-sort-imports": "4.3.0",
     "@types/d3": "^7.4.3",
     "@types/i18n": "0.13.11",
