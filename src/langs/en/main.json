@@ -95,6 +95,12 @@
     },
     "ASSISTANT": {
       "TITLE": "Assistants",
+      "USE_DETAILS": "Use instructions details when prompting assistants.",
+      "PROMPT_MODE_LABEL": "Select the prompting mode",
+      "PROMPT_MODE_ITEMS": {
+        "INSTRUCTIONS": "Instructions",
+        "PROBLEM": "Problem"
+      },
       "ADD": "Add an assistant",
       "EDIT_DIALOG": {
         "CHATBOT_NAME_LABEL": "Chatbot Name",

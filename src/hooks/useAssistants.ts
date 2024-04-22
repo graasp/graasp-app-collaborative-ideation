@@ -43,6 +43,8 @@ const useAssistants = (): UseAssistantsValues => {
     assistants,
     instructions,
   } = useSettings();
+
+  const { includeDetails, promptMode } = assistants;
   const { postAppDataAsync } = useAppDataContext();
 
   const { assistantsResponsesSets, round, allResponses, postResponse } =
@@ -157,12 +159,19 @@ const useAssistants = (): UseAssistantsValues => {
               instructions.title.content,
               responses,
               t,
+              includeDetails ? instructions.details?.content : undefined,
+              promptMode,
             ),
           );
         }
         return promptAssistant(
           persona,
-          promptForSingleResponse(instructions.title.content, t),
+          promptForSingleResponse(
+            instructions.title.content,
+            t,
+            includeDetails ? instructions.details?.content : undefined,
+            promptMode,
+          ),
         );
       })
       .map((promise) =>

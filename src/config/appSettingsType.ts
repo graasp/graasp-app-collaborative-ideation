@@ -1,6 +1,6 @@
 import { Member } from '@graasp/sdk';
 
-import { AssistantPersona } from '@/interfaces/assistant';
+import { AssistantPersona, PromptMode } from '@/interfaces/assistant';
 import { EvaluationType } from '@/interfaces/evaluationType';
 import {
   ActivityStep,
@@ -44,6 +44,8 @@ export type ActivitySetting = {
 
 export type AssistantsSetting = {
   assistants: AssistantPersona[];
+  promptMode?: PromptMode;
+  includeDetails?: boolean;
 };
 
 export type NotParticipatingSetting = { ids: Member['id'][] };
@@ -124,5 +126,7 @@ export const defaultSettingsValues: AllSettingsType = {
   },
   assistants: {
     assistants: [],
+    promptMode: PromptMode.Problem,
+    includeDetails: false,
   },
 };

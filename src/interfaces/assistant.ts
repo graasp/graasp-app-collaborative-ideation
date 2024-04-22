@@ -23,3 +23,8 @@ export const makeEmptyAssistant = (id?: AssistantId): AssistantPersona => ({
   description: '',
   message: [],
 });
+
+export enum PromptMode {
+  Problem = 'problem',
+  Instructions = 'instructions',
+}
