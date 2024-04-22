@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.9.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.8.1...v2.9.0) (2024-04-22)
+
+
+### Features
+
+* add circular progress when changing step ([1c76f86](https://github.com/graasp/graasp-app-collaborative-ideation/commit/1c76f86c82827e4169f30c8bb8595b2c795d0e94))
+* add instruction mode and enable use of instruction details ([#272](https://github.com/graasp/graasp-app-collaborative-ideation/issues/272)) ([1c76f86](https://github.com/graasp/graasp-app-collaborative-ideation/commit/1c76f86c82827e4169f30c8bb8595b2c795d0e94))
+* **langs:** add fr translation for prompts ([1c76f86](https://github.com/graasp/graasp-app-collaborative-ideation/commit/1c76f86c82827e4169f30c8bb8595b2c795d0e94))
+
+
+### Bug Fixes
+
+* **deps:** update dependency liquidjs to v10.11.1 ([3ddb14e](https://github.com/graasp/graasp-app-collaborative-ideation/commit/3ddb14e98deb095f2ec907e92f47ffc7bf104cee))
+
 ## [2.8.1](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.8.0...v2.8.1) (2024-04-19)
 
 
