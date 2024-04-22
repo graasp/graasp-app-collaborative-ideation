@@ -10,6 +10,8 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Stack from '@mui/material/Stack';
 import Tooltip from '@mui/material/Tooltip';
 import useSteps from '@/hooks/useSteps';
+import Collapse from '@mui/material/Collapse';
+import CircularProgress from '@mui/material/CircularProgress';
 import CommandButton from './CommandButton';
 import WarningPreviousStepDialog from './WarningPreviousStepDialog';
 import useStepTimer from '../common/stepTimer/useStepTimer';
@@ -127,6 +129,9 @@ const StepsButton: FC<StepsButtonProps> = ({ enable }) => {
           {t('NEXT_STEP')}
         </CommandButton>
       </Tooltip>
+      <Collapse in={isChangingStep}>
+        <CircularProgress />
+      </Collapse>
       <WarningPreviousStepDialog
         open={openWarningPreviousStepDialog}
         onConfirm={goToPreviousStep}
