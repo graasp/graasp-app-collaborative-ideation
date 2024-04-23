@@ -4751,10 +4751,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/i18n@npm:0.13.11":
-  version: 0.13.11
-  resolution: "@types/i18n@npm:0.13.11"
-  checksum: 10/0331fd495d692f5cfb220e87cc6b2c85afbd064067747add23a000f8e1c1e57471b4bf5a2738a88cb20e26d580505b8abc8874ae6c7aa8b2804c9cd5b05aa5ae
+"@types/i18n@npm:0.13.12":
+  version: 0.13.12
+  resolution: "@types/i18n@npm:0.13.12"
+  checksum: 10/37fafabce4973ac0be008c5401bd159397dbaa2dab720323d1624a0580c1dce3416186981417c7d6558b90dd44947ccdb2ec4da663894ffba57a6239a5d4f4d2
   languageName: node
   linkType: hard
 
@@ -7154,9 +7154,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:13.8.0":
-  version: 13.8.0
-  resolution: "cypress@npm:13.8.0"
+"cypress@npm:13.8.1":
+  version: 13.8.1
+  resolution: "cypress@npm:13.8.1"
   dependencies:
     "@cypress/request": "npm:^3.0.0"
     "@cypress/xvfb": "npm:^1.2.4"
@@ -7202,7 +7202,7 @@ __metadata:
     yauzl: "npm:^2.10.0"
   bin:
     cypress: bin/cypress
-  checksum: 10/114eaac462feb3ebb7a57dc088857cfeace1341ae4e84a3406ef8f487f3c0ec42f31d2b2c5de5411f26057502f50561f3d62fd019a8161933b615c6847fb5332
+  checksum: 10/ff5410ef53dd2498a7143dc10e6c90d4fe0314ac536ebef8cdd503a2d2bfff267e91ffda0f2ede8da68cdae9b05ddbb59c2f177090ce3e6d51b6506b0e8a35d5
   languageName: node
   linkType: hard
 
@@ -9950,7 +9950,7 @@ __metadata:
     "@tanstack/react-query-devtools": "npm:^4.36.1"
     "@trivago/prettier-plugin-sort-imports": "npm:4.3.0"
     "@types/d3": "npm:^7.4.3"
-    "@types/i18n": "npm:0.13.11"
+    "@types/i18n": "npm:0.13.12"
     "@types/lodash.clonedeep": "npm:^4.5.9"
     "@types/lodash.isequal": "npm:^4.5.8"
     "@types/lodash.shuffle": "npm:^4.2.9"
@@ -9965,7 +9965,7 @@ __metadata:
     "@vitejs/plugin-react": "npm:^4.2.1"
     "@vitest/browser": "npm:^1.3.0"
     concurrently: "npm:8.2.2"
-    cypress: "npm:13.8.0"
+    cypress: "npm:13.8.1"
     date-fns: "npm:^3.3.1"
     env-cmd: "npm:10.1.0"
     eslint: "npm:8.57.0"
