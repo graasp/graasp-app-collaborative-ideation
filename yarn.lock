@@ -9616,9 +9616,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gl-text@npm:^1.3.1":
-  version: 1.3.1
-  resolution: "gl-text@npm:1.3.1"
+"gl-text@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "gl-text@npm:1.4.0"
   dependencies:
     bit-twiddle: "npm:^1.0.2"
     color-normalize: "npm:^1.5.0"
@@ -9637,7 +9637,7 @@ __metadata:
     regl: "npm:^2.0.0"
     to-px: "npm:^1.0.1"
     typedarray-pool: "npm:^1.1.0"
-  checksum: 10/2db50ffe68aaeb82462361e262376ba7302f9a4b0f59a8813344cd4e3f4d892b7ea8806183bdb52017f280c26c0502245303c90a2572d4f8501f0dd74b28d563
+  checksum: 10/2b6e6d0b19fc6d7f2c071d48a24697a7018ee47ee25eb52ffd75fd50911a7d231d876e70ff1dba0e5cd71188640f22421f771f154372d83124df8cb5cacd40eb
   languageName: node
   linkType: hard
 
@@ -12914,8 +12914,8 @@ __metadata:
   linkType: hard
 
 "plotly.js@npm:^2.29.1":
-  version: 2.31.1
-  resolution: "plotly.js@npm:2.31.1"
+  version: 2.32.0
+  resolution: "plotly.js@npm:2.32.0"
   dependencies:
     "@plotly/d3": "npm:3.8.1"
     "@plotly/d3-sankey": "npm:0.7.2"
@@ -12941,7 +12941,7 @@ __metadata:
     d3-time-format: "npm:^2.2.3"
     fast-isnumeric: "npm:^1.1.4"
     gl-mat4: "npm:^1.2.0"
-    gl-text: "npm:^1.3.1"
+    gl-text: "npm:^1.4.0"
     has-hover: "npm:^1.0.1"
     has-passive-events: "npm:^1.0.0"
     is-mobile: "npm:^4.0.0"
@@ -12966,7 +12966,7 @@ __metadata:
     topojson-client: "npm:^3.1.0"
     webgl-context: "npm:^2.2.0"
     world-calendars: "npm:^1.0.3"
-  checksum: 10/fb1edd4957beeb13e5844a5c2c42bd18afb511381bec7335113187e6ee0f8cef2a9df3868f2f04ffe61359592c3c0b804731257a3a89271653f374e45f80261a
+  checksum: 10/6222b440f1392d747cc68266d65112b26e7037796eecd72a515af0efe83ea5b4f6cbc480e7fe018aff93dddce6354bf9791fd35ba0da0d6c36660e6330affe4d
   languageName: node
   linkType: hard
 
