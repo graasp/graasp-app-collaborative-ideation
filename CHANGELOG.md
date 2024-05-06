@@ -1,5 +1,26 @@
 # Changelog
 
+## [2.9.1](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.9.0...v2.9.1) (2024-05-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @graasp/ui to v4.15.1 ([#274](https://github.com/graasp/graasp-app-collaborative-ideation/issues/274)) ([81a7ffe](https://github.com/graasp/graasp-app-collaborative-ideation/commit/81a7ffeabc2d2ba92b6d93173750b2a29d7c761b))
+* **deps:** update dependency @graasp/ui to v4.15.3 ([6198db3](https://github.com/graasp/graasp-app-collaborative-ideation/commit/6198db3151e3fc51f0362a6b9f7bf01064badbac))
+* **deps:** update dependency @graasp/ui to v4.17.1 ([#291](https://github.com/graasp/graasp-app-collaborative-ideation/issues/291)) ([2d46bf6](https://github.com/graasp/graasp-app-collaborative-ideation/commit/2d46bf62e2c4feb9015e8e62546353e149731c89))
+* **deps:** update dependency @nivo/boxplot to ^0.86.0 ([#301](https://github.com/graasp/graasp-app-collaborative-ideation/issues/301)) ([0e20627](https://github.com/graasp/graasp-app-collaborative-ideation/commit/0e20627f46a50e249acf2bc8bcf71a9057c7c4c9))
+* **deps:** update dependency @sentry/react to v7.112.1 ([#278](https://github.com/graasp/graasp-app-collaborative-ideation/issues/278)) ([3aeaaba](https://github.com/graasp/graasp-app-collaborative-ideation/commit/3aeaaba21b9a563efe39f263f0a5739c9a7ffd61))
+* **deps:** update dependency @sentry/react to v7.112.2 ([6a4151d](https://github.com/graasp/graasp-app-collaborative-ideation/commit/6a4151d26ac39fd07543f0bd40114d4470ff6f6e))
+* **deps:** update dependency @sentry/react to v7.113.0 ([#307](https://github.com/graasp/graasp-app-collaborative-ideation/issues/307)) ([ca20db2](https://github.com/graasp/graasp-app-collaborative-ideation/commit/ca20db2afef124c19453b10f5c011d65af42bb6f))
+* **deps:** update dependency i18next to v23.11.3 ([638e502](https://github.com/graasp/graasp-app-collaborative-ideation/commit/638e50291ef1725d97e038cdfa86fc075815d2b2))
+* **deps:** update dependency plotly.js to v2.32.0 ([#282](https://github.com/graasp/graasp-app-collaborative-ideation/issues/282)) ([97d8811](https://github.com/graasp/graasp-app-collaborative-ideation/commit/97d8811aade1447f094840a67b7c80ed02f92d90))
+* **deps:** update dependency react-i18next to v14.1.1 ([f336112](https://github.com/graasp/graasp-app-collaborative-ideation/commit/f3361124be93f598e31aa670991c7d5eb2221fec))
+* **deps:** update dependency react-router-dom to v6.23.0 ([#279](https://github.com/graasp/graasp-app-collaborative-ideation/issues/279)) ([3af2f0f](https://github.com/graasp/graasp-app-collaborative-ideation/commit/3af2f0f641c27a8655bb51cf981219c397f05b46))
+* **deps:** update mui (non-major) to v5.15.16 ([c1deacb](https://github.com/graasp/graasp-app-collaborative-ideation/commit/c1deacb032403cca43deb7c6a5f850c64935cf5b))
+* **deps:** update react monorepo to v18.3.0 ([#288](https://github.com/graasp/graasp-app-collaborative-ideation/issues/288)) ([8e7e067](https://github.com/graasp/graasp-app-collaborative-ideation/commit/8e7e0674b6d630fe5053cbc21858e742c5d839fe))
+* **deps:** update react monorepo to v18.3.1 ([ed9630f](https://github.com/graasp/graasp-app-collaborative-ideation/commit/ed9630faec23bbabf12c76bb74df4e9e6d188bdc))
+* make background transparent ([#310](https://github.com/graasp/graasp-app-collaborative-ideation/issues/310)) ([882065f](https://github.com/graasp/graasp-app-collaborative-ideation/commit/882065f41959e1d45bf56b8f3b978197f4b64c66))
+
 ## [2.9.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.8.1...v2.9.0) (2024-04-22)
 
 
