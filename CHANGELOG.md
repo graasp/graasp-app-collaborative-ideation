@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.9.2](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.9.1...v2.9.2) (2024-05-13)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @nivo/boxplot to ^0.87.0 ([#322](https://github.com/graasp/graasp-app-collaborative-ideation/issues/322)) ([de573e7](https://github.com/graasp/graasp-app-collaborative-ideation/commit/de573e76172a6e531e39f3783cb00fc4d2ad78f8))
+* **deps:** update dependency @sentry/react to v7.114.0 ([#313](https://github.com/graasp/graasp-app-collaborative-ideation/issues/313)) ([0c1a875](https://github.com/graasp/graasp-app-collaborative-ideation/commit/0c1a875fc9ebc58ddb4aa3fe92818e8164b26f21))
+* **deps:** update dependency i18next to v23.11.4 ([b977d78](https://github.com/graasp/graasp-app-collaborative-ideation/commit/b977d784ee3ceb418d1ff951208b5243cdcf2e34))
+* **deps:** update dependency react-router-dom to v6.23.1 ([c208505](https://github.com/graasp/graasp-app-collaborative-ideation/commit/c208505033e6978802c9c20f7f0db96bf872a812))
+* **deps:** update mui (non-major) to v5.15.17 ([829b37b](https://github.com/graasp/graasp-app-collaborative-ideation/commit/829b37bdf77b9380a17facb03f4d05bfe3dffb7b))
+
 ## [2.9.1](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.9.0...v2.9.1) (2024-05-06)
 
 
