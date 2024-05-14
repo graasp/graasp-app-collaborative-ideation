@@ -2677,6 +2677,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@graasp/sdk@npm:4.10.1":
+  version: 4.10.1
+  resolution: "@graasp/sdk@npm:4.10.1"
+  dependencies:
+    "@faker-js/faker": "npm:8.4.1"
+    filesize: "npm:10.1.2"
+    js-cookie: "npm:3.0.5"
+    validator: "npm:13.12.0"
+  peerDependencies:
+    date-fns: ^3
+    uuid: ^9
+  checksum: 10/cfaad81a16875f1ad26c8c4e15abf3d5f3f0b93a9d257e9d72f8f391a9f5a26a80be913d66a6f8d9cdeed9d6cbe6c1ee72b1f2726f2a718f196bd04b8542cace
+  languageName: node
+  linkType: hard
+
 "@graasp/sdk@npm:4.7.2":
   version: 4.7.2
   resolution: "@graasp/sdk@npm:4.7.2"
@@ -9247,6 +9262,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"filesize@npm:10.1.2":
+  version: 10.1.2
+  resolution: "filesize@npm:10.1.2"
+  checksum: 10/47830a299cc8cfe7b90089a6c37790d2334f3057b98efd891e1e2e1683c8076962d9bd1d600eb77bb9bc33f5e7c4682e07ccb62281b8833b923d39c5c322e983
+  languageName: node
+  linkType: hard
+
 "fill-range@npm:^7.0.1":
   version: 7.0.1
   resolution: "fill-range@npm:7.0.1"
@@ -10047,7 +10069,7 @@ __metadata:
     "@emotion/react": "npm:11.11.4"
     "@emotion/styled": "npm:11.11.5"
     "@graasp/apps-query-client": "npm:^3.4.11"
-    "@graasp/sdk": "npm:4.7.2"
+    "@graasp/sdk": "npm:4.10.1"
     "@graasp/ui": "npm:4.17.1"
     "@mui/icons-material": "npm:5.15.17"
     "@mui/lab": "npm:5.0.0-alpha.170"
@@ -15753,6 +15775,13 @@ __metadata:
   version: 13.11.0
   resolution: "validator@npm:13.11.0"
   checksum: 10/4bf094641eb71729c06a42d669840e7189597ba655a8264adabac9bf03f95cd6fde5fbc894b0a13ee861bd4a852f56d2afdc9391aeaeb3fc0f9633a974140e12
+  languageName: node
+  linkType: hard
+
+"validator@npm:13.12.0":
+  version: 13.12.0
+  resolution: "validator@npm:13.12.0"
+  checksum: 10/db6eb0725e2b67d60d30073ae8573982713b5903195d031dc3c7db7e82df8b74e8c13baef8e2106d146d979599fd61a06cde1fec5c148e4abd53d52817ff0fd9
   languageName: node
   linkType: hard
 
