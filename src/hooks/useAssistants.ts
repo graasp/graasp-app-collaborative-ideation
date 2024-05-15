@@ -1,4 +1,4 @@
-import { ChatbotRole } from '@graasp/sdk';
+import { ChatbotRole, GPTVersion } from '@graasp/sdk';
 
 import { ChatbotResponseAppData, ResponseAppData } from '@/config/appDataTypes';
 import {
@@ -36,7 +36,9 @@ interface UseAssistantsValues {
 
 const useAssistants = (): UseAssistantsValues => {
   const { t } = useTranslation('prompts');
-  const { mutateAsync: postChatBot } = mutations.usePostChatBot();
+  const { mutateAsync: postChatBot } = mutations.usePostChatBot(
+    GPTVersion.GPT_4_O, // TODO: Allow user to choose which model to use.
+  );
   const {
     chatbot,
     instructions: generalPrompt,
