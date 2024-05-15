@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.9.3](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.9.2...v2.9.3) (2024-05-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency liquidjs to v10.13.0 ([#324](https://github.com/graasp/graasp-app-collaborative-ideation/issues/324)) ([9815a5b](https://github.com/graasp/graasp-app-collaborative-ideation/commit/9815a5b94332f64cce5b880f8900f2e4b6e3f037))
+* **deps:** upgrade graasp-ui and sentry ([#331](https://github.com/graasp/graasp-app-collaborative-ideation/issues/331)) ([9946ed9](https://github.com/graasp/graasp-app-collaborative-ideation/commit/9946ed9a49c9184104a425cabcf0da1343540b13))
+* update graasp sdk ([#330](https://github.com/graasp/graasp-app-collaborative-ideation/issues/330)) ([41468d3](https://github.com/graasp/graasp-app-collaborative-ideation/commit/41468d3008b3a1267361d4ec695c3b4fb4a2fa7c))
+
 ## [2.9.2](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.9.1...v2.9.2) (2024-05-13)
 
 
