@@ -2553,9 +2553,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graasp/ui@npm:4.18.1":
-  version: 4.18.1
-  resolution: "@graasp/ui@npm:4.18.1"
+"@graasp/ui@npm:4.18.2":
+  version: 4.18.2
+  resolution: "@graasp/ui@npm:4.18.2"
   dependencies:
     "@ag-grid-community/client-side-row-model": "npm:31.3.1"
     "@ag-grid-community/react": "npm:^31.3.1"
@@ -2588,7 +2588,7 @@ __metadata:
     react-router-dom: ^6.11.0
     stylis: ^4.1.3
     stylis-plugin-rtl: ^2.1.1
-  checksum: 10/06312f684c6c40ebc35b45fda57148644a6aa6b0ddf070e327f07ce7db1e676d64af0d5becd1003bbbaff7e10541b315c5f60a8bbe8e2df02a0ffef0eeca6077
+  checksum: 10/819c2d8bf63008d7b7cd983a2a2750d4b2259c870dfaa17e826880424ddcc729803908ee3b41661064e4102da9a79e4734cd2df4f402ca1a34592ad7b34b694c
   languageName: node
   linkType: hard
 
@@ -9771,7 +9771,7 @@ __metadata:
     "@emotion/styled": "npm:11.11.5"
     "@graasp/apps-query-client": "npm:^3.4.14"
     "@graasp/sdk": "npm:4.10.2"
-    "@graasp/ui": "npm:4.18.1"
+    "@graasp/ui": "npm:4.18.2"
     "@mui/icons-material": "npm:5.15.18"
     "@mui/lab": "npm:5.0.0-alpha.170"
     "@mui/material": "npm:5.15.18"
