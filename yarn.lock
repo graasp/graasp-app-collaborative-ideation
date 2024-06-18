@@ -3837,10 +3837,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@plotly/d3@npm:3.8.1":
-  version: 3.8.1
-  resolution: "@plotly/d3@npm:3.8.1"
-  checksum: 10/58d5a28692157338066cc3ce12dd838eeb16c0973556fd8b80519430abfb654da4b0d011f6154660f0a519b170451c2c8469fa2b8a3e60c13f1e63cda711577f
+"@plotly/d3@npm:3.8.2":
+  version: 3.8.2
+  resolution: "@plotly/d3@npm:3.8.2"
+  checksum: 10/88c78efcb0f41a0e67fb86d7a55b7606f9cd67a1279cc2c50a3ea1151898b4d8ed716aa97942bb1799ccdff68292addbdb6a72a816c75c9debfcda40d80a50f6
   languageName: node
   linkType: hard
 
@@ -13275,10 +13275,10 @@ __metadata:
   linkType: hard
 
 "plotly.js@npm:^2.29.1":
-  version: 2.32.0
-  resolution: "plotly.js@npm:2.32.0"
+  version: 2.33.0
+  resolution: "plotly.js@npm:2.33.0"
   dependencies:
-    "@plotly/d3": "npm:3.8.1"
+    "@plotly/d3": "npm:3.8.2"
     "@plotly/d3-sankey": "npm:0.7.2"
     "@plotly/d3-sankey-circular": "npm:0.33.1"
     "@plotly/mapbox-gl": "npm:1.13.4"
@@ -13327,7 +13327,7 @@ __metadata:
     topojson-client: "npm:^3.1.0"
     webgl-context: "npm:^2.2.0"
     world-calendars: "npm:^1.0.3"
-  checksum: 10/6222b440f1392d747cc68266d65112b26e7037796eecd72a515af0efe83ea5b4f6cbc480e7fe018aff93dddce6354bf9791fd35ba0da0d6c36660e6330affe4d
+  checksum: 10/d9130111aef688fdd437fbdfb3958c1749356f0fcaeab297e46b44b4da6d929eb48830f6c43a8e1d3d6f8f81c7eed599914d0fd0efda4dbb9b368cca5eea54fb
   languageName: node
   linkType: hard
 
