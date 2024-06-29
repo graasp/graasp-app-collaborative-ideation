@@ -1828,6 +1828,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.24.7":
+  version: 7.24.7
+  resolution: "@babel/runtime@npm:7.24.7"
+  dependencies:
+    regenerator-runtime: "npm:^0.14.0"
+  checksum: 10/7b77f566165dee62db3db0296e71d08cafda3f34e1b0dcefcd68427272e17c1704f4e4369bff76651b07b6e49d3ea5a0ce344818af9116e9292e4381e0918c76
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.22.15, @babel/template@npm:^7.24.0":
   version: 7.24.0
   resolution: "@babel/template@npm:7.24.0"
@@ -3544,7 +3553,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/utils@npm:^5.14.16, @mui/utils@npm:^5.15.14":
+"@mui/utils@npm:^5.15.14":
   version: 5.15.14
   resolution: "@mui/utils@npm:5.15.14"
   dependencies:
@@ -3580,21 +3589,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/x-data-grid@npm:^6.19.4":
-  version: 6.20.3
-  resolution: "@mui/x-data-grid@npm:6.20.3"
+"@mui/x-data-grid@npm:^7.0.0":
+  version: 7.8.0
+  resolution: "@mui/x-data-grid@npm:7.8.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@mui/utils": "npm:^5.14.16"
-    clsx: "npm:^2.0.0"
+    "@babel/runtime": "npm:^7.24.7"
+    "@mui/system": "npm:^5.15.20"
+    "@mui/utils": "npm:^5.15.20"
+    clsx: "npm:^2.1.1"
     prop-types: "npm:^15.8.1"
     reselect: "npm:^4.1.8"
   peerDependencies:
-    "@mui/material": ^5.4.1
-    "@mui/system": ^5.4.1
+    "@mui/material": ^5.15.14
     react: ^17.0.0 || ^18.0.0
     react-dom: ^17.0.0 || ^18.0.0
-  checksum: 10/826dd397c6e9a103a3037c0e1ca598af97fea51384fb662fa50893a3c35ffe4b97287671baf4d84ffe08cc3778368711f4a0879ad87497cdb1c934dfa6e348b7
+  checksum: 10/bb05cf77853be30da7d1b5886e36cf2a00e01a38ace82659f5de3a2f857298594570a21b108ee54f88a23777be2b83647cb98b7b7ebde5f185d4664a6223f9a0
   languageName: node
   linkType: hard
 
@@ -6962,7 +6971,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clsx@npm:^2.0.0, clsx@npm:^2.1.0":
+"clsx@npm:^2.1.0, clsx@npm:^2.1.1":
   version: 2.1.1
   resolution: "clsx@npm:2.1.1"
   checksum: 10/cdfb57fa6c7649bbff98d9028c2f0de2f91c86f551179541cf784b1cfdc1562dcb951955f46d54d930a3879931a980e32a46b598acaea274728dbe068deca919
@@ -10428,7 +10437,7 @@ __metadata:
     "@mui/icons-material": "npm:5.15.21"
     "@mui/lab": "npm:5.0.0-alpha.170"
     "@mui/material": "npm:5.15.21"
-    "@mui/x-data-grid": "npm:^6.19.4"
+    "@mui/x-data-grid": "npm:^7.0.0"
     "@nivo/boxplot": "npm:^0.87.0"
     "@sentry/react": "npm:^8.0.0"
     "@tanstack/react-query": "npm:^4.36.1"
