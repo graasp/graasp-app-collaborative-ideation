@@ -10476,7 +10476,7 @@ __metadata:
     plotly.js: "npm:^2.29.1"
     prettier: "npm:3.3.2"
     pretty-quick: "npm:4.0.0"
-    qs: "npm:6.12.1"
+    qs: "npm:6.12.2"
     react: "npm:18.3.1"
     react-dom: "npm:18.3.1"
     react-i18next: "npm:14.1.2"
@@ -13731,7 +13731,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qs@npm:6.12.1, qs@npm:^6.10.0":
+"qs@npm:6.12.2":
+  version: 6.12.2
+  resolution: "qs@npm:6.12.2"
+  dependencies:
+    side-channel: "npm:^1.0.6"
+  checksum: 10/f44863a6431fb288aa773dbedb5707abd29058e5c3667666f6e7acfd4ce20c18adc8cd3409d79c699d3bf7e39e064bc8702c10ac8b123773d95950cb063ffe63
+  languageName: node
+  linkType: hard
+
+"qs@npm:^6.10.0":
   version: 6.12.1
   resolution: "qs@npm:6.12.1"
   dependencies:
