@@ -1,5 +1,30 @@
 # Changelog
 
+## [2.9.4](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.9.3...v2.9.4) (2024-07-02)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @graasp/sdk to v4.10.2 ([45dfd77](https://github.com/graasp/graasp-app-collaborative-ideation/commit/45dfd776794f76d4daa1f9be96d7476ea4bb75e2))
+* **deps:** update dependency @graasp/ui to v4.18.2 ([2c9de73](https://github.com/graasp/graasp-app-collaborative-ideation/commit/2c9de73aecb952255b23ece685cc7934c98d1506))
+* **deps:** update dependency @mui/x-data-grid to v6.20.1 ([#346](https://github.com/graasp/graasp-app-collaborative-ideation/issues/346)) ([fd2cf48](https://github.com/graasp/graasp-app-collaborative-ideation/commit/fd2cf48fea19c936d81c0d1b15144988eb791392))
+* **deps:** update dependency @sentry/react to v8.10.0 ([#370](https://github.com/graasp/graasp-app-collaborative-ideation/issues/370)) ([6b22556](https://github.com/graasp/graasp-app-collaborative-ideation/commit/6b22556b76f8a2a6bcccd95fe1364f027d9b9f79))
+* **deps:** update dependency @sentry/react to v8.11.0 ([#374](https://github.com/graasp/graasp-app-collaborative-ideation/issues/374)) ([9e0c697](https://github.com/graasp/graasp-app-collaborative-ideation/commit/9e0c697abe76bd52d3fa2b5222bc399e49624351))
+* **deps:** update dependency @sentry/react to v8.9.2 ([#335](https://github.com/graasp/graasp-app-collaborative-ideation/issues/335)) ([a1d5b76](https://github.com/graasp/graasp-app-collaborative-ideation/commit/a1d5b76a18adbd5a0b3b21725ec592ae965495fc))
+* **deps:** update dependency @uiw/react-codemirror to v4.22.1 ([c99b1c7](https://github.com/graasp/graasp-app-collaborative-ideation/commit/c99b1c7ba3af016186a30586347d7a50486789e1))
+* **deps:** update dependency @uiw/react-codemirror to v4.22.2 ([b8f1f82](https://github.com/graasp/graasp-app-collaborative-ideation/commit/b8f1f82bd66bf283d12b60f1158f5dc219206680))
+* **deps:** update dependency i18next to v23.11.5 ([bf73f70](https://github.com/graasp/graasp-app-collaborative-ideation/commit/bf73f70b098f454c0f593390be35a9e36546b34a))
+* **deps:** update dependency liquidjs to v10.13.1 ([9e8c6b7](https://github.com/graasp/graasp-app-collaborative-ideation/commit/9e8c6b7169d53a6068ff2697ff4dfbeb61ee8698))
+* **deps:** update dependency liquidjs to v10.14.0 ([#363](https://github.com/graasp/graasp-app-collaborative-ideation/issues/363)) ([c027d2b](https://github.com/graasp/graasp-app-collaborative-ideation/commit/c027d2b3c4569d619c48a44b6ee13e4562c1164a))
+* **deps:** update dependency plotly.js to v2.33.0 ([#353](https://github.com/graasp/graasp-app-collaborative-ideation/issues/353)) ([0bf80e4](https://github.com/graasp/graasp-app-collaborative-ideation/commit/0bf80e4e3c8fe880871ce2c941a1e44d002e337b))
+* **deps:** update dependency qs to v6.12.2 ([dfebcf0](https://github.com/graasp/graasp-app-collaborative-ideation/commit/dfebcf0828638a47b8efe30fec1bb3dd2bfff495))
+* **deps:** update dependency react-i18next to v14.1.2 ([793ba5a](https://github.com/graasp/graasp-app-collaborative-ideation/commit/793ba5a67c96138cb427b428572e038804a375a7))
+* **deps:** update dependency typescript to v5.5.2 ([#373](https://github.com/graasp/graasp-app-collaborative-ideation/issues/373)) ([2ffdf6b](https://github.com/graasp/graasp-app-collaborative-ideation/commit/2ffdf6bdd5c6cac885681d66ac318d811083eafb))
+* **deps:** update mui (non-major) ([60493c5](https://github.com/graasp/graasp-app-collaborative-ideation/commit/60493c534d23ce3cee1f143e5490cb3e0ff745ac))
+* **deps:** update mui (non-major) to v5.15.18 ([6501065](https://github.com/graasp/graasp-app-collaborative-ideation/commit/65010655c65735b46abad77f139fed512756e631))
+* **deps:** update mui (non-major) to v5.15.20 ([e610845](https://github.com/graasp/graasp-app-collaborative-ideation/commit/e610845da08efd49d77bd9350aec39578c22098e))
+* **deps:** update mui (non-major) to v5.15.21 ([9d85174](https://github.com/graasp/graasp-app-collaborative-ideation/commit/9d8517456bd1f5549a4eb0451cb2d4ba7279bd97))
+
 ## [2.9.3](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.9.2...v2.9.3) (2024-05-15)
 
 
