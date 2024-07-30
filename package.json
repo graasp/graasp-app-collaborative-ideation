@@ -33,7 +33,7 @@
     "@graasp/sdk": "4.10.2",
     "@graasp/ui": "4.18.2",
     "@mui/icons-material": "5.16.5",
-    "@mui/lab": "5.0.0-alpha.170",
+    "@mui/lab": "5.0.0-alpha.173",
     "@mui/material": "5.16.5",
     "@mui/x-data-grid": "^6.19.4",
     "@nivo/boxplot": "^0.87.0",
