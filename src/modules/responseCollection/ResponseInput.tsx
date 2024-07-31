@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { LoadingButton } from '@mui/lab';
 import {
   Alert,
-  AlertTitle,
   Collapse,
   InputAdornment,
   Stack,
@@ -50,7 +49,9 @@ const ResponseInput: FC<{
   const { t: generalT } = useTranslation('translations');
   const { postResponse } = useActivityContext();
   const [isWaitingOnBot, setIsWaitingOnBot] = useState<boolean>(false);
-  const [response, setResponse] = useState<string>('');
+  const [response, setResponse] = useState<string>(
+    parent?.data?.response ?? '',
+  );
   const promisePostIdea = useRef<Promise<AppData>>();
   const { generateSingleResponse, reformulateResponse } = useAssistants();
   const promiseBotRequest = useRef<Promise<void>>();
@@ -126,12 +127,12 @@ const ResponseInput: FC<{
       <Collapse in={tooLong}>
         <Alert severity="error">{t('RESPONSE_TOO_LONG_ALERT')}</Alert>
       </Collapse>
-      {parent && (
+      {/* {parent && (
         <Alert severity="info">
           <AlertTitle>{t('CUE_PARENT_RESPONSE_TITLE')}</AlertTitle>
           <q>{parent.data.response}</q>
         </Alert>
-      )}
+      )} */}
       <TextField
         helperText={t('HELPER')}
         sx={{ width: { md: '75ch', sm: '100%' }, maxWidth: '100%' }}

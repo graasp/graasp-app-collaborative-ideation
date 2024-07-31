@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -30,6 +30,7 @@ const Response: FC<{
   evaluationType?: EvaluationType;
   onDelete?: (id: string) => void;
   showRatings?: boolean;
+  onParentIdeaClick?: (id: string) => void;
 }> = ({
   response,
   onSelect,
@@ -37,15 +38,22 @@ const Response: FC<{
   enableBuildAction = true,
   evaluationType = EvaluationType.None,
   showRatings = false,
+  onParentIdeaClick = (id: string) =>
+    // eslint-disable-next-line no-console
+    console.debug(`The user clicked on link to idea ${id}`),
 }) => {
   const { t } = useTranslation('translations', { keyPrefix: 'RESPONSE_CARD' });
   const { t: generalT } = useTranslation('translations');
   const { memberId } = useLocalContext();
 
   const { id, data, creator } = response;
-  const { response: responseContent, round } = data;
+  const { response: responseContent, round, parentId, assistantId } = data;
 
-  const isOwn = creator?.id === memberId;
+  const isOwn = creator?.id === memberId && typeof assistantId === 'undefined';
+  const isAiGenerated = useMemo(
+    () => typeof assistantId !== 'undefined',
+    [assistantId],
+  );
 
   const showSelectButton = typeof onSelect !== 'undefined';
   const showDeleteButton = typeof onDelete !== 'undefined' && isOwn;
@@ -66,6 +74,7 @@ const Response: FC<{
 
   return (
     <Card
+      id={id}
       variant="outlined"
       sx={{
         minWidth: '160pt',
@@ -85,6 +94,20 @@ const Response: FC<{
         >
           <Typography variant="body2" sx={{ color: grey.A700 }}>
             {generalT('ROUND', { round })}
+            {parentId && (
+              <>
+                {' • '}
+                <a
+                  href={`#${parentId}`}
+                  onClick={() => {
+                    document.getElementById(parentId)?.scrollIntoView();
+                    onParentIdeaClick(parentId);
+                  }}
+                >
+                  {t('PARENT_IDEA')}
+                </a>
+              </>
+            )}
           </Typography>
           {isOwn && (
             <Chip
@@ -93,6 +116,15 @@ const Response: FC<{
               size="small"
               color="info"
               label={t('OWN')}
+            />
+          )}
+          {isAiGenerated && (
+            <Chip
+              sx={{ ml: '1rem' }}
+              variant="outlined"
+              size="small"
+              color="success"
+              label={t('AI_GENERATED')}
             />
           )}
         </Box>
