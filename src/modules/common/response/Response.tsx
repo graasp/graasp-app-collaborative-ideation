@@ -23,6 +23,12 @@ import DimensionsOfGlobalIssueRating from './evaluation/DimensionsOfGlobalIssueR
 import RatingsVisualization from './visualization/RatingsVisualization';
 import SFERARating from './evaluation/SFERARating';
 
+const ResponsePart: FC<{ children: string }> = ({ children }) => (
+  <Typography variant="body1" sx={{ overflowWrap: 'break-word' }}>
+    {children}
+  </Typography>
+);
+
 const Response: FC<{
   response: ResponseAppData;
   onSelect?: (id: string) => void;
@@ -31,6 +37,7 @@ const Response: FC<{
   onDelete?: (id: string) => void;
   showRatings?: boolean;
   onParentIdeaClick?: (id: string) => void;
+  highlight?: boolean;
 }> = ({
   response,
   onSelect,
@@ -41,6 +48,7 @@ const Response: FC<{
   onParentIdeaClick = (id: string) =>
     // eslint-disable-next-line no-console
     console.debug(`The user clicked on link to idea ${id}`),
+  highlight = false,
 }) => {
   const { t } = useTranslation('translations', { keyPrefix: 'RESPONSE_CARD' });
   const { t: generalT } = useTranslation('translations');
@@ -78,13 +86,22 @@ const Response: FC<{
       variant="outlined"
       sx={{
         minWidth: '160pt',
+        backgroundColor: highlight ? 'hsla(0, 100%, 90%, 0.3)' : 'transparent',
+        boxShadow: highlight ? '0 0 8pt 4pt hsla(0, 100%, 90%, 0.3)' : 'none',
       }}
       data-cy={RESPONSE_CY}
     >
       <CardContent sx={{ minHeight: '32pt' }}>
-        <Typography variant="body1" sx={{ overflowWrap: 'break-word' }}>
-          {responseContent}
-        </Typography>
+        {typeof responseContent === 'string' ? (
+          <ResponsePart>{responseContent}</ResponsePart>
+        ) : (
+          responseContent?.map((r, index) => (
+            <>
+              <ResponsePart key={index}>{r}</ResponsePart>
+              <br />
+            </>
+          ))
+        )}
         <Box
           sx={{
             display: 'flex',

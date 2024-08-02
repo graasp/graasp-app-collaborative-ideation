@@ -1,4 +1,4 @@
-import { FC, useMemo, useRef, useState } from 'react';
+import { FC, ReactElement, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { LoadingButton } from '@mui/lab';
@@ -26,6 +26,10 @@ import { Loader } from '@graasp/ui';
 import { useActivityContext } from '../context/ActivityContext';
 import { useSettings } from '../context/SettingsContext';
 
+const PreviousResponse: FC<{ children: ReactElement | string }> = ({
+  children,
+}) => <Typography>{children}</Typography>;
+
 const ResponseInput: FC<{
   onCancel: () => void;
   currentRound?: number;
@@ -49,9 +53,7 @@ const ResponseInput: FC<{
   const { t: generalT } = useTranslation('translations');
   const { postResponse } = useActivityContext();
   const [isWaitingOnBot, setIsWaitingOnBot] = useState<boolean>(false);
-  const [response, setResponse] = useState<string>(
-    parent?.data?.response ?? '',
-  );
+  const [response, setResponse] = useState<string>('');
   const promisePostIdea = useRef<Promise<AppData>>();
   const { generateSingleResponse, reformulateResponse } = useAssistants();
   const promiseBotRequest = useRef<Promise<void>>();
@@ -85,17 +87,27 @@ const ResponseInput: FC<{
   const submit = async (): Promise<void> => {
     setIsPosting(true);
 
+    const processedResponse = reformulateResponses
+      ? ((await reformulateResponse(response))?.data.completion ?? response)
+      : response;
+
+    // eslint-disable-next-line no-nested-ternary
+    const responseToSubmit = parent
+      ? typeof parent.data.response === 'string'
+        ? [parent.data.response, processedResponse]
+        : [...parent.data.response, processedResponse]
+      : processedResponse;
+
     const newIdeaData: ResponseData = reformulateResponses
       ? {
           parentId: parent?.id,
-          response:
-            (await reformulateResponse(response))?.data.completion ?? response,
+          response: responseToSubmit,
           round: currentRound,
           bot: actAsBot,
           originalResponse: response,
         }
       : {
-          response,
+          response: responseToSubmit,
           parentId: parent?.id,
           round: currentRound,
           bot: actAsBot,
@@ -133,6 +145,14 @@ const ResponseInput: FC<{
           <q>{parent.data.response}</q>
         </Alert>
       )} */}
+      {parent &&
+        (typeof parent.data.response === 'string' ? (
+          <PreviousResponse>{parent.data.response}</PreviousResponse>
+        ) : (
+          parent.data.response.map((r, index) => (
+            <PreviousResponse key={index}>{r}</PreviousResponse>
+          ))
+        ))}
       <TextField
         helperText={t('HELPER')}
         sx={{ width: { md: '75ch', sm: '100%' }, maxWidth: '100%' }}

@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -21,6 +21,9 @@ interface ResponseChooseProps {
 
 const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
   const { t } = useTranslation();
+
+  const [highlightId, setHighlightId] = useState<string>();
+
   const { isLoading, invalidateAppData, deleteAppData } = useAppDataContext();
   const { instructions } = useSettings();
   const chooseInstructions = useMemo(
@@ -72,6 +75,8 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
                   response={response}
                   onSelect={handleChoose}
                   onDelete={() => deleteAppData({ id: response.id })}
+                  highlight={highlightId === response.id}
+                  onParentIdeaClick={(id: string) => setHighlightId(id)}
                 />
               </Grid>
             ))

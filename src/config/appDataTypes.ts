@@ -15,7 +15,7 @@ export enum AppDataTypes {
 }
 
 export type ResponseData<T = UsefulnessNoveltyRatings> = {
-  response: string;
+  response: string | Array<string>;
   round?: number;
   bot?: boolean;
   assistantId?: AssistantId;

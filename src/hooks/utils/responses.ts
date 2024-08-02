@@ -127,3 +127,7 @@ export const isOwnResponse = (
 ): boolean =>
   response.creator?.id === memberId &&
   typeof response.data?.assistantId === 'undefined';
+
+export const joinMultipleResponses = (
+  response: string | Array<string>,
+): string => (typeof response === 'string' ? response : response.join('\n'));
