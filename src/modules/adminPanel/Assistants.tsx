@@ -11,6 +11,7 @@ import {
 } from '@/config/prompts';
 import useAssistants from '@/hooks/useAssistants';
 
+import { joinMultipleResponses } from '@/hooks/utils/responses';
 import { useActivityContext } from '../context/ActivityContext';
 import { useSettings } from '../context/SettingsContext';
 
@@ -37,9 +38,12 @@ const Assistants: FC = () => {
             set.data.assistant === persona.id && set.data.round === round - 1,
         );
         if (assistantSet) {
-          const responses = assistantSet.data.responses.map(
-            (r) => allResponses.find(({ id }) => r === id)?.data.response || '',
-          );
+          const responses = assistantSet.data.responses
+            .map(
+              (r) =>
+                allResponses.find(({ id }) => r === id)?.data.response || '',
+            )
+            .map((r) => joinMultipleResponses(r));
           return promptAssistant(
             persona,
             promptForSingleResponseAndProvideResponses(

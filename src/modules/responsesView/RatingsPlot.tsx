@@ -4,6 +4,7 @@ import Plot from 'react-plotly.js';
 import Container from '@mui/material/Container';
 import { useTheme } from '@mui/material/styles';
 
+import { joinMultipleResponses } from '@/hooks/utils/responses';
 import { useActivityContext } from '../context/ActivityContext';
 
 const RatingsPlot: FC = () => {
@@ -12,7 +13,9 @@ const RatingsPlot: FC = () => {
 
   const x = allResponses.map(({ data }) => data?.ratings?.novelty || 0);
   const y = allResponses.map(({ data }) => data?.ratings?.usefulness || 0);
-  const labels = allResponses.map(({ data }) => data.response);
+  const labels = allResponses.map(({ data }) =>
+    joinMultipleResponses(data.response),
+  );
 
   return (
     <Container>

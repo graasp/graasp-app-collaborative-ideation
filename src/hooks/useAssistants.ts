@@ -16,6 +16,7 @@ import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { useTranslation } from 'react-i18next';
 import { useActivityContext } from '@/modules/context/ActivityContext';
+import { joinMultipleResponses } from './utils/responses';
 
 interface UseAssistantsValues {
   generateSingleResponse: () => Promise<ChatbotResponseAppData | undefined>;
@@ -152,8 +153,10 @@ const useAssistants = (): UseAssistantsValues => {
             set.data.assistant === persona.id && set.data.round === round - 1,
         );
         if (assistantSet) {
-          const responses = assistantSet.data.responses.map(
-            (r) => allResponses.find(({ id }) => r === id)?.data.response || '',
+          const responses = assistantSet.data.responses.map((r) =>
+            joinMultipleResponses(
+              allResponses.find(({ id }) => r === id)?.data.response || '',
+            ),
           );
           return promptAssistant(
             persona,

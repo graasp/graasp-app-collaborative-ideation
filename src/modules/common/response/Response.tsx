@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -23,6 +23,12 @@ import DimensionsOfGlobalIssueRating from './evaluation/DimensionsOfGlobalIssueR
 import RatingsVisualization from './visualization/RatingsVisualization';
 import SFERARating from './evaluation/SFERARating';
 
+const ResponsePart: FC<{ children: string }> = ({ children }) => (
+  <Typography variant="body1" sx={{ overflowWrap: 'break-word', mb: 1 }}>
+    {children}
+  </Typography>
+);
+
 const Response: FC<{
   response: ResponseAppData;
   onSelect?: (id: string) => void;
@@ -30,6 +36,8 @@ const Response: FC<{
   evaluationType?: EvaluationType;
   onDelete?: (id: string) => void;
   showRatings?: boolean;
+  onParentIdeaClick?: (id: string) => void;
+  highlight?: boolean;
 }> = ({
   response,
   onSelect,
@@ -37,15 +45,23 @@ const Response: FC<{
   enableBuildAction = true,
   evaluationType = EvaluationType.None,
   showRatings = false,
+  onParentIdeaClick = (id: string) =>
+    // eslint-disable-next-line no-console
+    console.debug(`The user clicked on link to idea ${id}`),
+  highlight = false,
 }) => {
   const { t } = useTranslation('translations', { keyPrefix: 'RESPONSE_CARD' });
   const { t: generalT } = useTranslation('translations');
   const { memberId } = useLocalContext();
 
   const { id, data, creator } = response;
-  const { response: responseContent, round } = data;
+  const { response: responseContent, round, parentId, assistantId } = data;
 
-  const isOwn = creator?.id === memberId;
+  const isOwn = creator?.id === memberId && typeof assistantId === 'undefined';
+  const isAiGenerated = useMemo(
+    () => typeof assistantId !== 'undefined',
+    [assistantId],
+  );
 
   const showSelectButton = typeof onSelect !== 'undefined';
   const showDeleteButton = typeof onDelete !== 'undefined' && isOwn;
@@ -66,16 +82,26 @@ const Response: FC<{
 
   return (
     <Card
+      id={id}
       variant="outlined"
       sx={{
         minWidth: '160pt',
+        backgroundColor: highlight ? 'hsla(0, 100%, 90%, 0.3)' : 'transparent',
+        boxShadow: highlight ? '0 0 8pt 4pt hsla(0, 100%, 90%, 0.3)' : 'none',
       }}
       data-cy={RESPONSE_CY}
     >
       <CardContent sx={{ minHeight: '32pt' }}>
-        <Typography variant="body1" sx={{ overflowWrap: 'break-word' }}>
-          {responseContent}
-        </Typography>
+        {typeof responseContent === 'string' ? (
+          <ResponsePart>{responseContent}</ResponsePart>
+        ) : (
+          responseContent?.map((r, index) => (
+            <>
+              {/* {index !== 0 && <br />} */}
+              <ResponsePart key={index}>{r}</ResponsePart>
+            </>
+          ))
+        )}
         <Box
           sx={{
             display: 'flex',
@@ -85,6 +111,20 @@ const Response: FC<{
         >
           <Typography variant="body2" sx={{ color: grey.A700 }}>
             {generalT('ROUND', { round })}
+            {parentId && (
+              <>
+                {' • '}
+                <a
+                  href={`#${parentId}`}
+                  onClick={() => {
+                    document.getElementById(parentId)?.scrollIntoView();
+                    onParentIdeaClick(parentId);
+                  }}
+                >
+                  {t('PARENT_IDEA')}
+                </a>
+              </>
+            )}
           </Typography>
           {isOwn && (
             <Chip
@@ -93,6 +133,15 @@ const Response: FC<{
               size="small"
               color="info"
               label={t('OWN')}
+            />
+          )}
+          {isAiGenerated && (
+            <Chip
+              sx={{ ml: '1rem' }}
+              variant="outlined"
+              size="small"
+              color="success"
+              label={t('AI_GENERATED')}
             />
           )}
         </Box>
