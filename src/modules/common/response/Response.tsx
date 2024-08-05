@@ -24,7 +24,7 @@ import RatingsVisualization from './visualization/RatingsVisualization';
 import SFERARating from './evaluation/SFERARating';
 
 const ResponsePart: FC<{ children: string }> = ({ children }) => (
-  <Typography variant="body1" sx={{ overflowWrap: 'break-word' }}>
+  <Typography variant="body1" sx={{ overflowWrap: 'break-word', mb: 1 }}>
     {children}
   </Typography>
 );
@@ -97,8 +97,8 @@ const Response: FC<{
         ) : (
           responseContent?.map((r, index) => (
             <>
+              {/* {index !== 0 && <br />} */}
               <ResponsePart key={index}>{r}</ResponsePart>
-              <br />
             </>
           ))
         )}
