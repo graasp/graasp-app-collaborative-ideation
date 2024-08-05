@@ -48,6 +48,11 @@ export type AssistantsSetting = {
   includeDetails?: boolean;
 };
 
+export type PromptsSetting = {
+  selectedSet?: string;
+  maxNumberOfQueries?: number;
+};
+
 export type NotParticipatingSetting = { ids: Member['id'][] };
 
 export type AllSettingsType = {
@@ -59,6 +64,7 @@ export type AllSettingsType = {
     systemPrompt: string;
   };
   assistants: AssistantsSetting;
+  prompts: PromptsSetting;
 };
 
 // default values for the data property of settings by name
@@ -128,5 +134,9 @@ export const defaultSettingsValues: AllSettingsType = {
     assistants: [],
     promptMode: PromptMode.Problem,
     includeDetails: false,
+  },
+  prompts: {
+    selectedSet: undefined,
+    maxNumberOfQueries: undefined,
   },
 };

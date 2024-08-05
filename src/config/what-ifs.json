@@ -1,6 +1,27 @@
 {
   "sets": [
     {
+      "id": "test",
+      "name": "Test set",
+      "description": "Those prompts are made for testing purpose.",
+      "author": "Jérémy La Scala",
+      "link": "",
+      "categories": ["question"],
+      "set": [
+        {
+          "title": "Imagine that you have unlimited resources to bring your idea to life.",
+          "details": "",
+          "category": "question"
+        },
+        {
+          "title": "Imagine that your idea must work if everyone works from home.",
+          "details": "",
+          "category": "question"
+        }
+      ]
+    },
+    {
+      "id": "explorerLabs-52cards",
       "name": "52 Sustainability Ideation & Brainstorm Cards",
       "description": "These cards help you quickly generate sustainability focused radical & disruptive business ideas to take forward & test with your key ecosystem stakeholders.\n\nThey help you think critically & creatively by asking questions from 4P sustainability lenses. People, Planet, Profit & Progress.",
       "author": "Explorer Labs",

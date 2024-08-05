@@ -15,6 +15,7 @@ import {
   InstructionsSetting,
   NotParticipatingSetting,
   OrchestratorSetting,
+  PromptsSetting,
 } from '@/config/appSettingsType';
 import { SETTINGS_VIEW_CY } from '@/config/selectors';
 import { useSettings } from '@/modules/context/SettingsContext';
@@ -25,6 +26,7 @@ import OrchestratorSettings from './OrchestratorSettings';
 import ParticipantsSettings from './ParticipantsSettings';
 import ActivitySettings from './activity/ActivitySettings';
 import Assistant from './assistant/Assistant';
+import PromptsSettings from './prompts/Prompts';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface SettingsProps {}
@@ -38,6 +40,7 @@ const Settings: FC<SettingsProps> = () => {
     activity: activitySaved,
     assistants: assistantsSaved,
     notParticipating: notParticipatingSaved,
+    prompts: promptsSaved,
   } = useSettings();
 
   const [instructions, setInstructions] =
@@ -54,12 +57,15 @@ const Settings: FC<SettingsProps> = () => {
   const [notParticipating, setNotParticipating] =
     useState<NotParticipatingSetting>(notParticipatingSaved);
 
+  const [prompts, setPrompts] = useState<PromptsSetting>(promptsSaved);
+
   const handleSave = (): void => {
     saveSettings('instructions', instructions);
     saveSettings('orchestrator', orchestrator);
     saveSettings('activity', activity);
     saveSettings('assistants', assistants);
     saveSettings('notParticipating', notParticipating);
+    saveSettings('prompts', prompts);
   };
 
   const isSaved = useMemo(
@@ -68,7 +74,8 @@ const Settings: FC<SettingsProps> = () => {
       isEqual(orchestrator, orchestratorSaved) &&
       isEqual(activity, activitySaved) &&
       isEqual(assistants, assistantsSaved) &&
-      isEqual(notParticipating, notParticipatingSaved),
+      isEqual(notParticipating, notParticipatingSaved) &&
+      isEqual(prompts, promptsSaved),
     [
       activity,
       activitySaved,
@@ -80,6 +87,8 @@ const Settings: FC<SettingsProps> = () => {
       notParticipatingSaved,
       orchestrator,
       orchestratorSaved,
+      prompts,
+      promptsSaved,
     ],
   );
 
@@ -107,6 +116,7 @@ const Settings: FC<SettingsProps> = () => {
         onChange={setNotParticipating}
       />
       <ActivitySettings activity={activity} onChange={setActivity} />
+      <PromptsSettings prompts={prompts} onChange={setPrompts} />
       <Assistant assistants={assistants} onChange={setAssistants} />
       <Box>
         <Button disabled={isSaved} onClick={handleSave}>

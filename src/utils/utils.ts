@@ -11,3 +11,6 @@ export const sortAppDataByMostRecentlyUpdated = <T extends AppData>(
   a: T,
   b: T,
 ): number => compareDesc(a.updatedAt, b.updatedAt);
+
+export const getRandomInteger = (min: number, max: number): number =>
+  Math.floor(Math.random() * (max - min)) + min;
