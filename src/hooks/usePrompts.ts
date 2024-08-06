@@ -1,22 +1,27 @@
 import { AppDataTypes, PromptsAppData } from '@/config/appDataTypes';
-import { Prompt, PromptsData } from '@/interfaces/prompt';
+import { FullPromptCategory, Prompt, PromptsData } from '@/interfaces/prompt';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { useLocalContext } from '@graasp/apps-query-client';
-import { AppData, AppDataVisibility } from '@graasp/sdk';
+import { AppData, AppDataVisibility, PermissionLevel } from '@graasp/sdk';
 import { useEffect, useMemo, useState } from 'react';
 import whatIfs from '@/config/what-ifs.json';
 import { getRandomInteger } from '@/utils/utils';
+import { CATEGORY_COLORS } from '@/config/constants';
 
 const { sets } = whatIfs;
 
 interface UsePromptsValues extends Partial<PromptsData> {
   getNewPrompt: () => void;
+  promptsReady: boolean;
+  categories: Array<FullPromptCategory>;
+  resetAllPrompts: () => Promise<void>;
 }
 
 const usePrompts = (): UsePromptsValues => {
-  const { appData, postAppData, patchAppData } = useAppDataContext();
-  const { memberId } = useLocalContext();
+  const { appData, postAppData, patchAppData, deleteAppData } =
+    useAppDataContext();
+  const { memberId, permission } = useLocalContext();
 
   const { prompts: promptsSettings } = useSettings();
   const { selectedSet } = promptsSettings;
@@ -24,6 +29,18 @@ const usePrompts = (): UsePromptsValues => {
     () => sets.find((s) => s.id === selectedSet),
     [selectedSet],
   );
+
+  const categories: Array<FullPromptCategory> = useMemo(
+    () =>
+      prompts?.categories.map((category, index) =>
+        typeof category === 'string'
+          ? { name: category, color: CATEGORY_COLORS[index] }
+          : category,
+      ) || [],
+    [prompts],
+  );
+
+  const promptsReady = useMemo(() => Boolean(prompts), [prompts]);
 
   const [currentPrompt, setCurrentPrompt] = useState<Prompt>();
   const [pastPrompts, setPastPrompts] = useState<Array<Prompt>>();
@@ -78,10 +95,27 @@ const usePrompts = (): UsePromptsValues => {
       setNewPrompt(newPrompt);
     }
   };
+
+  const resetAllPrompts = async (): Promise<void> => {
+    if (permission !== PermissionLevel.Admin) {
+      throw Error(
+        'You must be admin to delete all prompts data for all users.',
+      );
+    } else {
+      const allIds = appData.filter(
+        ({ type }) => type === AppDataTypes.Prompts,
+      ) as Array<PromptsAppData>;
+      allIds.forEach(({ id }) => deleteAppData({ id }));
+    }
+  };
+
   return {
     currentPrompt,
     pastPrompts,
     getNewPrompt,
+    promptsReady,
+    categories,
+    resetAllPrompts,
   };
 };
 

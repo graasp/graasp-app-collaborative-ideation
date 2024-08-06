@@ -147,7 +147,8 @@
   },
   "PROMPTS": {
     "NEW_PROMPT_BUTTON": "I need a creative impulsion!",
-    "CHANGE_PROMPT_BUTTON": "I need another creative impulsion"
+    "CHANGE_PROMPT_BUTTON": "Give me a new creative impulsion",
+    "NO_PROMPTS_HIDDEN_MESSAGE": "The admin can set helping prompts to support the activity."
   },
   "SAVE": "Save",
   "NO_IDEAS_TO_SHOW_TEXT": "The other participants have not submitted enough ideas yet. Once they have, these ideas will appear here.",
