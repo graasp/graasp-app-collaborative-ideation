@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Stack from '@mui/material/Stack';
@@ -9,6 +9,8 @@ import whatIfs from '@/config/what-ifs.json';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
+import FormControl from '@mui/material/FormControl';
+import Input from '@mui/material/Input';
 import SettingsSection from '../../common/SettingsSection';
 
 const { sets } = whatIfs;
@@ -23,7 +25,19 @@ const PromptsSettings: FC<PromptsSettingsProps> = ({ prompts, onChange }) => {
     keyPrefix: 'SETTINGS.PROMPTS',
   });
 
-  const { selectedSet } = prompts;
+  const [maxQueriesNaNError, setMaxQueriesNaNError] = useState(false);
+
+  const { selectedSet, maxNumberOfQueries } = prompts;
+
+  const handleMaxQueriesChange = (newVal: string): void => {
+    const newValNbr = newVal.length === 0 ? 0 : parseInt(newVal, 10);
+    if (Number.isNaN(newValNbr)) {
+      setMaxQueriesNaNError(true);
+    } else {
+      setMaxQueriesNaNError(false);
+      onChange({ ...prompts, maxNumberOfQueries: newValNbr });
+    }
+  };
 
   return (
     <SettingsSection title={t('TITLE')}>
@@ -48,6 +62,18 @@ const PromptsSettings: FC<PromptsSettingsProps> = ({ prompts, onChange }) => {
             />
           ))}
         </RadioGroup>
+        <FormControl error={maxQueriesNaNError}>
+          <FormControlLabel
+            control={
+              <Input
+                value={maxNumberOfQueries}
+                onChange={(e) => handleMaxQueriesChange(e.target.value)}
+              />
+            }
+            labelPlacement="top"
+            label={t('MAX_QUERIES_LABEL')}
+          />
+        </FormControl>
       </Stack>
     </SettingsSection>
   );

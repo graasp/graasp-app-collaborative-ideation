@@ -88,7 +88,8 @@
     },
     "PROMPTS": {
       "TITLE": "Prompts",
-      "NO_SET_SELECTED": "No prompts."
+      "NO_SET_SELECTED": "No prompts.",
+      "MAX_QUERIES_LABEL": "Max number of prompts the user can query"
     },
     "EVALUATION_TYPE_SELECTION": {
       "TITLE": "Evaluation type",
