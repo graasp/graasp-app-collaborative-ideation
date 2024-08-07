@@ -75,7 +75,10 @@ const BuilderView = (): JSX.Element => {
 
   return (
     <Stack data-cy={BUILDER_VIEW_CY} direction="row" spacing={2} width="100%">
-      <Paper elevation={0} sx={{ width: isAdmin ? '66%' : '100%' }}>
+      <Paper
+        elevation={0}
+        sx={{ width: isAdmin ? '66%' : '100%', backgroundColor: 'transparent' }}
+      >
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs
             value={selectedTab}

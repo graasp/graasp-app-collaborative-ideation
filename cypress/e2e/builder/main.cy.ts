@@ -5,7 +5,7 @@ import {
   BUILDER_VIEW_CY,
   NEXT_ROUND_BTN_CY,
   PLAY_PAUSE_BUTTON_CY,
-  PROPOSE_NEW_RESPONSE_BTN,
+  PROPOSE_NEW_RESPONSE_BTN_CY,
   RESPONSE_COLLECTION_VIEW_CY,
   SETTINGS_TAB_CY,
   SETTINGS_VIEW_CY,
@@ -47,7 +47,7 @@ describe('Builder View with admin rights, no settings', () => {
 
     cy.get(buildDataCy(RESPONSE_COLLECTION_VIEW_CY)).within(() => {
       newIdeas.forEach((idea) => {
-        cy.get(buildDataCy(PROPOSE_NEW_RESPONSE_BTN)).click();
+        cy.get(buildDataCy(PROPOSE_NEW_RESPONSE_BTN_CY)).click();
         cy.get('#input-response').type('a');
         cy.get('#input-response').type('{backspace}');
         cy.get('#input-response').should('be.enabled');

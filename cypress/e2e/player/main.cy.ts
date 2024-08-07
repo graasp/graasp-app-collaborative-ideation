@@ -6,6 +6,8 @@ import {
   LIKERT_RATING_CY,
   NEXT_STEP_BTN_CY,
   ORCHESTRATION_BAR_CY,
+  PROMPTS_CY,
+  PROPOSE_NEW_RESPONSE_BTN_CY,
   RESPONSE_COLLECTION_VIEW_CY,
   RESPONSE_CY,
   RESPONSE_EVALUATION_VIEW_CY,
@@ -51,6 +53,21 @@ describe('Player with read rights and collection activity.', () => {
     cy.get(buildDataCy(DETAILS_INSTRUCTIONS_CY)).should(
       'contain.text',
       ALL_SETTINGS_OBJECT.instructions.details?.content,
+    );
+  });
+
+  it('checks the prompts', () => {
+    cy.get(buildDataCy(PROPOSE_NEW_RESPONSE_BTN_CY)).click();
+
+    cy.get(buildDataCy(PROMPTS_CY.DASHBOARD)).should('be.visible');
+    cy.get(buildDataCy(PROMPTS_CY.PROMPT)).should('not.be.visible');
+
+    cy.get(buildDataCy(PROMPTS_CY.REQUEST_BUTTON)).click();
+
+    cy.get(buildDataCy(PROMPTS_CY.PROMPT)).should('be.visible');
+    cy.get(buildDataCy(PROMPTS_CY.PROMPT_STEP)).should(
+      'have.length',
+      ALL_SETTINGS_OBJECT.prompts.maxNumberOfQueries,
     );
   });
 });

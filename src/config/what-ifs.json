@@ -1,0 +1,99 @@
+{
+  "sets": [
+    {
+      "id": "test",
+      "name": "Test set",
+      "description": "Those prompts are made for testing purpose.",
+      "author": ["Jérémy La Scala"],
+      "link": "",
+      "categories": ["question"],
+      "set": [
+        {
+          "title": "Imagine that you have unlimited resources to bring your idea to life.",
+          "details": "",
+          "category": "question"
+        },
+        {
+          "title": "Imagine that your idea must work if everyone works from home.",
+          "details": "",
+          "category": "question"
+        }
+      ]
+    },
+    {
+      "id": "explorerLabs-52cards",
+      "name": "52 Sustainability Ideation & Brainstorm Cards",
+      "description": "These cards help you quickly generate sustainability focused radical & disruptive business ideas to take forward & test with your key ecosystem stakeholders.\n\nThey help you think critically & creatively by asking questions from 4P sustainability lenses. People, Planet, Profit & Progress.",
+      "author": ["Explorer Labs"],
+      "link": "https://www.explorerlabs.co/tools-canvases/52-sustainability-ideation-brainstorm-cards",
+      "categories": ["people", "planet", "profit", "progress"],
+      "set": [
+        {
+          "title": "What if: your employees moved country every week?",
+          "details": "Imagine your employees shifted country every week, enabled by digital-nomadic lifestyles. How could this bring you new business opportunities? Which new ways of working & collaborating could emerge? The average digital nomad is aged 32 yrs, works 40 hours /week & earns ~$100k+ /yr.",
+          "category": "people"
+        },
+        {
+          "title": "What if: all your customers only bought from net-zero GHG companies?",
+          "details": "Imagine all your customers refused to buy from non-net-zero companies. What immediate steps would you need to take to become net-zero in the shortest amount of time? Company targets for net-zero at Ørsted, Wipro, AstraZeneca have already been independently validated by Science Based Targets (SBTi).",
+          "category": "people"
+        },
+        {
+          "title": "What if: truth no longer existed in society?",
+          "details": "Imagine there was no such thing as objective truth any more. Who would provide an authentic voice? If your customers trusted no-one, where would they get their information? How will they make informed buying decisions? How would they believe your approach to addressing sustainability challenges? Report: The Real Inconvenient Truth (MIT).",
+          "category": "people"
+        },
+        {
+          "title": "What if: lockdowns occurred every 4 months for 30 days?",
+          "details": "Imagine new COVID variants create the need to lockdown for 30 days, three times a year. How would this impact your company’s carbon footprint? Which new ways of working would this trigger? How would you keep track & quantify your annual GHG/Co2 emissions? How could you take advantage of this? Think: #antifragile",
+          "category": "people"
+        },
+        {
+          "title": "What if: climate hacktivists leaked all your company data?",
+          "details": "Imagine climate hacktivists leaked all your digital databases & files, creating 100% transparency on your real global sustainability impact. How would you respond? Would there be a gap between what you claim you’re doing vs what you’re actually doing? How can you bridge this gap? Example: BBC leaked report on how companies are subverting scientific reports on climate change.",
+          "category": "people"
+        },
+        {
+          "title": "What if: your customers became your stakeholders?",
+          "details": "Imagine your customers become your key business stakeholders. They can influence your internal operations. Companies like Airbnb, Salesforce, Alltrue & Southwest Airlines have created programs of giving-back & including their customers as stakeholder in key business decisions & strategic direction. How would this change your business?",
+          "category": "people"
+        },
+        {
+          "title": "What if: 90% of the population relocated to rural areas?",
+          "details": "Imagine if most people wanted to get back in touch with nature. Health & wellbeing valued above all else. Counterurbanization or deurbanization is a reality & on the rise due to the pandemic, rising stress, prices resulting in re-prioritization of human needs & quality of life. How should your organisation respond to thrive from this social living shift?",
+          "category": "people"
+        },
+        {
+          "title": "What if: your main partners were suddenly subject to trade sanctions?",
+          "details": "Imagine your key business partners were subject to overnight trade sanctions due to their carbon footprint being too high. How would you adjust your business model & operations? What scenarios would you create? How would you pivot, fast? Example: EU’s Environmental Crime laws & legislation.",
+          "category": "people"
+        },
+        {
+          "title": "What if: working from home was mandatory 50% time?",
+          "details": "Imagine government legislation forces all employees to work from home 50% of the time, indefinitely to reduce speed of climate change. How would this affect your business model? Could you still operative profitably in the long term? If not, how would you need to change & adjust accordingly? #workfromanywhere",
+          "category": "people"
+        },
+        {
+          "title": "What if: all your employees went on strike due to lack of sustainability focus?",
+          "details": "Imagine your employee’s decided to enforce sustainability change by striking or walking-out. What drastic sustainability improvements would you be prepared to make as part of the negotiation process? In 2020, 300+ Amazon employees went on strike to draw attention to poor environmental business practices.",
+          "category": "people"
+        },
+        {
+          "title": "What if: all companies were capped at 10k employees globally?",
+          "details": "Imagine companies could no longer hold more than 10k employees as part of a global agreement. How would this impact your ability to deliver customer & sustainability value? Who would you need to partner with? How would you reorganize the business? #sustainabilitysizeperformance",
+          "category": "people"
+        },
+        {
+          "title": "What if: buying local was the only option?",
+          "details": "Imagine your customers refused to buy your products & services unless they were produced entirely in their home country. Would you seek different customers entirely? How would you need to modify your value chain? Protectionism is on the rise due to the current economic uncertainties, inflation, interest rates & cost of living crisis...",
+          "category": "people"
+        },
+        {
+          "title": "What if: customers showed you were greenwashing?",
+          "details": "Imagine your customers determined your ‘sustainability mission’ merely made tiny alterations to your sustainability footprint & accused you of greenwashing. How would you need to modify your products, services, offers & business model to actually deliver sustainability impact? Examples: The infamous Volkswagen emissions tests cheating scandal & BP’s name change to Beyond Petroleum.",
+          "category": "people"
+        }
+      ]
+    }
+  ]
+}

@@ -86,6 +86,11 @@
         "ADD_STEP": "Add a step"
       }
     },
+    "PROMPTS": {
+      "TITLE": "Prompts",
+      "NO_SET_SELECTED": "No prompts.",
+      "MAX_QUERIES_LABEL": "Max number of prompts the user can query"
+    },
     "EVALUATION_TYPE_SELECTION": {
       "TITLE": "Evaluation type",
       "NONE_BTN": "Do not evaluate the responses.",
@@ -140,6 +145,11 @@
       "INPUT_STEP_LABEL": "Submit your response",
       "CHOOSE_STEP_LABEL": "Read the responses of other participants"
     }
+  },
+  "PROMPTS": {
+    "NEW_PROMPT_BUTTON": "I need a creative impulsion!",
+    "CHANGE_PROMPT_BUTTON": "Give me a new creative impulsion",
+    "NO_PROMPTS_HIDDEN_MESSAGE": "The admin can set helping prompts to support the activity."
   },
   "SAVE": "Save",
   "NO_IDEAS_TO_SHOW_TEXT": "The other participants have not submitted enough ideas yet. Once they have, these ideas will appear here.",

@@ -5,6 +5,7 @@ import { ChatbotResponseData } from '@/interfaces/chatbot';
 import { EvaluationType } from '@/interfaces/evaluationType';
 import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
 import { UsefulnessNoveltyRatings } from '@/interfaces/ratings';
+import { PromptsData } from '@/interfaces/prompt';
 
 export enum AppDataTypes {
   Response = 'response',
@@ -12,6 +13,7 @@ export enum AppDataTypes {
   CurrentState = 'current-state',
   Ratings = 'ratings',
   ChatbotResponse = 'chatbot-response',
+  Prompts = 'prompts',
 }
 
 export type ResponseData<T = UsefulnessNoveltyRatings> = {
@@ -23,6 +25,7 @@ export type ResponseData<T = UsefulnessNoveltyRatings> = {
   encoding?: 'raw' | 'markdown';
   originalResponse?: string;
   ratings?: T;
+  givenPrompt?: string;
 };
 
 export type ResponseAppData = AppData & {
@@ -68,5 +71,11 @@ export type RatingsAppData<T> = AppData & {
 export type ChatbotResponseAppData = AppData & {
   type: AppDataTypes.ChatbotResponse;
   data: ChatbotResponseData;
+  visibility: AppDataVisibility.Member;
+};
+
+export type PromptsAppData = AppData & {
+  type: AppDataTypes.Prompts;
+  data: PromptsData;
   visibility: AppDataVisibility.Member;
 };

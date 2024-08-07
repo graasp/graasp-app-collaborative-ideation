@@ -90,6 +90,10 @@ export const ALL_SETTINGS_OBJECT: AllSettingsType = {
   assistants: {
     assistants: [],
   },
+  prompts: {
+    selectedSet: 'test',
+    maxNumberOfQueries: 5,
+  },
 };
 
 export const ALL_SETTINGS = Object.entries(ALL_SETTINGS_OBJECT).map(

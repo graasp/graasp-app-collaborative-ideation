@@ -17,6 +17,7 @@ const ALL_SETTING_NAMES = [
   'notParticipating',
   'chatbot',
   'assistants',
+  'prompts',
 ] as const;
 
 // automatically generated types

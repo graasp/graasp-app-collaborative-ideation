@@ -25,10 +25,15 @@ import useAssistants from '@/hooks/useAssistants';
 import { Loader } from '@graasp/ui';
 import { useActivityContext } from '../context/ActivityContext';
 import { useSettings } from '../context/SettingsContext';
+import Prompts from './prompts/Prompts';
 
 const PreviousResponse: FC<{ children: ReactElement | string }> = ({
   children,
-}) => <Typography>{children}</Typography>;
+}) => (
+  <Typography maxWidth="100%" sx={{ overflowWrap: 'break-word' }}>
+    {children}
+  </Typography>
+);
 
 const ResponseInput: FC<{
   onCancel: () => void;
@@ -58,6 +63,7 @@ const ResponseInput: FC<{
   const { generateSingleResponse, reformulateResponse } = useAssistants();
   const promiseBotRequest = useRef<Promise<void>>();
   const [isPosting, setIsPosting] = useState(false);
+  const [givenPrompt, setGivenPrompt] = useState<string>();
 
   const inputInstructions = useMemo(
     () =>
@@ -103,6 +109,7 @@ const ResponseInput: FC<{
           parentId: parent?.id,
           response: responseToSubmit,
           round: currentRound,
+          givenPrompt,
           bot: actAsBot,
           originalResponse: response,
         }
@@ -110,6 +117,7 @@ const ResponseInput: FC<{
           response: responseToSubmit,
           parentId: parent?.id,
           round: currentRound,
+          givenPrompt,
           bot: actAsBot,
         };
 
@@ -136,15 +144,7 @@ const ResponseInput: FC<{
       {inputInstructions && (
         <Alert severity="info">{inputInstructions.content}</Alert>
       )}
-      <Collapse in={tooLong}>
-        <Alert severity="error">{t('RESPONSE_TOO_LONG_ALERT')}</Alert>
-      </Collapse>
-      {/* {parent && (
-        <Alert severity="info">
-          <AlertTitle>{t('CUE_PARENT_RESPONSE_TITLE')}</AlertTitle>
-          <q>{parent.data.response}</q>
-        </Alert>
-      )} */}
+      <Prompts onChange={(p) => setGivenPrompt(p)} />
       {parent &&
         (typeof parent.data.response === 'string' ? (
           <PreviousResponse>{parent.data.response}</PreviousResponse>
@@ -178,6 +178,9 @@ const ResponseInput: FC<{
         }}
         data-cy={RESPONSE_INPUT_FIELD_CY}
       />
+      <Collapse in={tooLong}>
+        <Alert severity="error">{t('RESPONSE_TOO_LONG_ALERT')}</Alert>
+      </Collapse>
       <Stack direction="row" spacing={2}>
         <Button
           onClick={submit}
