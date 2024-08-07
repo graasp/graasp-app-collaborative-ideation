@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '@mui/material/Button';
 import usePrompts from '@/hooks/usePrompts';
@@ -10,7 +10,13 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
-import styled from '@mui/material/styles/styled';
+import { styled } from '@mui/material/styles';
+import { PromptUsage } from '@/interfaces/prompt';
+import PromptStep from './PromptStep';
+
+interface PromptsProps {
+  onChange: (prompt: string) => void;
+}
 
 const AnimatedArrow = styled(KeyboardArrowDownIcon)(({ theme }) => ({
   transition: theme.transitions.create(['transform'], {
@@ -18,16 +24,31 @@ const AnimatedArrow = styled(KeyboardArrowDownIcon)(({ theme }) => ({
   }),
 }));
 
-interface PromptsProps {
-  onChange: (prompt: string) => void;
-}
-
 const Prompts: FC<PromptsProps> = () => {
   const { t } = useTranslation('translations', { keyPrefix: 'PROMPTS' });
 
-  const { currentPrompt, getNewPrompt, promptsReady } = usePrompts();
+  const {
+    currentPrompt,
+    getNewPrompt,
+    promptsReady,
+    allowMorePrompts,
+    pastPrompts,
+    maxNumberOfQueries,
+  } = usePrompts();
 
   const [showDetails, setShowDetails] = useState(false);
+
+  const promptRequests = useMemo(() => {
+    const numberOfPastPrompts = pastPrompts?.length ?? -1;
+    return Array.from({ length: maxNumberOfQueries }, (v, i) =>
+      // eslint-disable-next-line no-nested-ternary
+      i < numberOfPastPrompts
+        ? PromptUsage.USED
+        : i === numberOfPastPrompts
+          ? PromptUsage.CURRENT
+          : PromptUsage.REMAINING,
+    );
+  }, [maxNumberOfQueries, pastPrompts]);
 
   if (!promptsReady) {
     return <p hidden>{t('NO_PROMPTS_HIDDEN_MESSAGE')}</p>;
@@ -51,13 +72,7 @@ const Prompts: FC<PromptsProps> = () => {
             <TipsAndUpdatesIcon
               htmlColor="#ffc920"
               sx={{
-                // height: '3rem',
-                // width: '3rem',
-                // ml: 1,
                 mr: 1,
-                // p: 1,
-                // borderRadius: '50%',
-                // backgroundColor: '#ffc920',
               }}
             />
             <Typography variant="h3" mb={1}>
@@ -79,8 +94,29 @@ const Prompts: FC<PromptsProps> = () => {
           </Collapse>
         </Paper>
       </Collapse>
-      <Paper>
-        <Button onClick={getNewPrompt}>
+      <Paper
+        sx={{
+          p: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Stack direction="row" spacing={1}>
+          {promptRequests.map((pU, index) => {
+            const n = index + 1;
+            return (
+              <PromptStep key={index} usageStatus={pU}>
+                {n}
+              </PromptStep>
+            );
+          })}
+        </Stack>
+        <Button
+          disabled={!allowMorePrompts}
+          onClick={getNewPrompt}
+          sx={{ m: 2 }}
+        >
           {typeof currentPrompt === 'undefined'
             ? t('NEW_PROMPT_BUTTON')
             : t('CHANGE_PROMPT_BUTTON')}

@@ -8,6 +8,7 @@ import { useEffect, useMemo, useState } from 'react';
 import whatIfs from '@/config/what-ifs.json';
 import { getRandomInteger } from '@/utils/utils';
 import { CATEGORY_COLORS } from '@/config/constants';
+import useActions from './useActions';
 
 const { sets } = whatIfs;
 
@@ -16,6 +17,8 @@ interface UsePromptsValues extends Partial<PromptsData> {
   promptsReady: boolean;
   categories: Array<FullPromptCategory>;
   resetAllPrompts: () => Promise<void>;
+  allowMorePrompts: boolean;
+  maxNumberOfQueries: number;
 }
 
 const usePrompts = (): UsePromptsValues => {
@@ -23,8 +26,10 @@ const usePrompts = (): UsePromptsValues => {
     useAppDataContext();
   const { memberId, permission } = useLocalContext();
 
+  const { postRequestPromptAction } = useActions();
+
   const { prompts: promptsSettings } = useSettings();
-  const { selectedSet } = promptsSettings;
+  const { selectedSet, maxNumberOfQueries } = promptsSettings;
   const prompts = useMemo(
     () => sets.find((s) => s.id === selectedSet),
     [selectedSet],
@@ -45,6 +50,14 @@ const usePrompts = (): UsePromptsValues => {
   const [currentPrompt, setCurrentPrompt] = useState<Prompt>();
   const [pastPrompts, setPastPrompts] = useState<Array<Prompt>>();
   const [currentId, setCurrentId] = useState<AppData['id']>();
+
+  const allowMorePrompts = useMemo(
+    () =>
+      (pastPrompts?.length ?? 0) + 1 <
+      ((maxNumberOfQueries === 0 ? Infinity : maxNumberOfQueries) ?? 0),
+    [maxNumberOfQueries, pastPrompts?.length],
+  );
+
   useEffect(() => {
     const promptsAppData = appData.find(
       ({ type, creator }) =>
@@ -84,10 +97,14 @@ const usePrompts = (): UsePromptsValues => {
         type: AppDataTypes.Prompts,
       });
     }
+    postRequestPromptAction({
+      prompt: newPrompt,
+      promptRequestNumber: newPastPrompts.length,
+    });
   };
 
   const getNewPrompt = (): void => {
-    if (prompts) {
+    if (prompts && allowMorePrompts) {
       const { set } = prompts;
       const maxIndex = set.length - 1;
 
@@ -116,6 +133,8 @@ const usePrompts = (): UsePromptsValues => {
     promptsReady,
     categories,
     resetAllPrompts,
+    allowMorePrompts,
+    maxNumberOfQueries: maxNumberOfQueries ?? 0,
   };
 };
 

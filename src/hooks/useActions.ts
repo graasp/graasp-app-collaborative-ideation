@@ -12,6 +12,7 @@ import {
   PauseActivityAction,
   PlayActivityAction,
   PreviousStepAction,
+  RequestPromptAction,
   SubmitNewResponseAction,
 } from '@/config/appActionsTypes';
 import {
@@ -35,6 +36,7 @@ interface UseActionsValues {
   postPreviousStepAction: (step: ActivityStep, stepIndex: number) => void;
   postPlayActivityAction: (data?: Data) => void;
   postPauseActivityAction: (data?: Data) => void;
+  postRequestPromptAction: (data: RequestPromptAction['data']) => void;
 }
 
 const useActions = (): UseActionsValues => {
@@ -155,6 +157,17 @@ const useActions = (): UseActionsValues => {
     [postAppAction],
   );
 
+  const postRequestPromptAction = useCallback(
+    (data: RequestPromptAction['data']) => {
+      const action: RequestPromptAction = {
+        type: AppActionTypes.RequestPrompt,
+        data,
+      };
+      postAppAction(action);
+    },
+    [postAppAction],
+  );
+
   return {
     postSubmitNewResponseAction,
     postDeleteResponseAction,
@@ -165,6 +178,7 @@ const useActions = (): UseActionsValues => {
     postPreviousStepAction,
     postPlayActivityAction,
     postPauseActivityAction,
+    postRequestPromptAction,
   };
 };
 

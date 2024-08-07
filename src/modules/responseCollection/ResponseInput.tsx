@@ -25,7 +25,7 @@ import useAssistants from '@/hooks/useAssistants';
 import { Loader } from '@graasp/ui';
 import { useActivityContext } from '../context/ActivityContext';
 import { useSettings } from '../context/SettingsContext';
-import Prompts from './Prompts';
+import Prompts from './prompts/Prompts';
 
 const PreviousResponse: FC<{ children: ReactElement | string }> = ({
   children,

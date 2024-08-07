@@ -2,6 +2,7 @@ import { Data, LocalContext } from '@graasp/apps-query-client';
 import { AppAction, AppData } from '@graasp/sdk';
 
 import { ActivityStep } from '@/interfaces/interactionProcess';
+import { Prompt } from '@/interfaces/prompt';
 import {
   CurrentStateData,
   RatingsData,
@@ -21,6 +22,7 @@ export enum AppActionTypes {
   PreviousStep = 'previous-step',
   PlayActivity = 'play-activity',
   PauseActivity = 'pause-activity',
+  RequestPrompt = 'request-prompt',
 }
 
 type AppDataRef<T extends Data> = Pick<AppData<T>, 'id' | 'type' | 'data'> &
@@ -72,4 +74,9 @@ export type PlayActivityAction = Pick<AppAction, 'type' | 'data'> & {
 
 export type PauseActivityAction = Pick<AppAction, 'type' | 'data'> & {
   type: AppActionTypes.PauseActivity;
+};
+
+export type RequestPromptAction = Pick<AppAction, 'type' | 'data'> & {
+  type: AppActionTypes.RequestPrompt;
+  data: { prompt: Prompt; promptRequestNumber: number };
 };

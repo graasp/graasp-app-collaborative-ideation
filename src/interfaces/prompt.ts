@@ -24,3 +24,9 @@ export type PromptsData = {
   currentPrompt: Prompt;
   pastPrompts: Array<Prompt>;
 };
+
+export enum PromptUsage {
+  USED,
+  CURRENT,
+  REMAINING,
+}
