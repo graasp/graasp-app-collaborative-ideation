@@ -37,6 +37,8 @@ const Prompts: FC<PromptsProps> = () => {
     maxNumberOfQueries,
   } = usePrompts();
 
+  const showPrompt = typeof currentPrompt !== 'undefined';
+
   const [showDetails, setShowDetails] = useState(false);
 
   const promptRequests = useMemo(() => {
@@ -56,10 +58,12 @@ const Prompts: FC<PromptsProps> = () => {
   }
 
   return (
-    <Stack direction="row" spacing={2}>
+    <Stack direction={{ md: 'row', sm: 'column-reverse' }} spacing={2}>
       <Collapse
-        in={typeof currentPrompt !== 'undefined'}
+        in={showPrompt}
         orientation="horizontal"
+        collapsedSize={0}
+        sx={{ height: showPrompt ? 'auto' : 0 }}
       >
         <Paper
           sx={{
@@ -96,7 +100,7 @@ const Prompts: FC<PromptsProps> = () => {
           </Collapse>
         </Paper>
       </Collapse>
-      <Paper
+      <Box
         sx={{
           p: 1,
           display: 'flex',
@@ -105,7 +109,7 @@ const Prompts: FC<PromptsProps> = () => {
         }}
         data-cy={PROMPTS_CY.DASHBOARD}
       >
-        <Stack direction="row" spacing={1}>
+        <Stack direction="row" spacing={1} flexWrap="wrap">
           {promptRequests.map((pU, index) => {
             const n = index + 1;
             return (
@@ -125,7 +129,7 @@ const Prompts: FC<PromptsProps> = () => {
             ? t('NEW_PROMPT_BUTTON')
             : t('CHANGE_PROMPT_BUTTON')}
         </Button>
-      </Paper>
+      </Box>
     </Stack>
   );
 };

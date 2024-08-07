@@ -29,7 +29,11 @@ import Prompts from './prompts/Prompts';
 
 const PreviousResponse: FC<{ children: ReactElement | string }> = ({
   children,
-}) => <Typography>{children}</Typography>;
+}) => (
+  <Typography maxWidth="100%" sx={{ overflowWrap: 'break-word' }}>
+    {children}
+  </Typography>
+);
 
 const ResponseInput: FC<{
   onCancel: () => void;
@@ -140,9 +144,6 @@ const ResponseInput: FC<{
       {inputInstructions && (
         <Alert severity="info">{inputInstructions.content}</Alert>
       )}
-      <Collapse in={tooLong}>
-        <Alert severity="error">{t('RESPONSE_TOO_LONG_ALERT')}</Alert>
-      </Collapse>
       <Prompts onChange={(p) => setGivenPrompt(p)} />
       {parent &&
         (typeof parent.data.response === 'string' ? (
@@ -177,6 +178,9 @@ const ResponseInput: FC<{
         }}
         data-cy={RESPONSE_INPUT_FIELD_CY}
       />
+      <Collapse in={tooLong}>
+        <Alert severity="error">{t('RESPONSE_TOO_LONG_ALERT')}</Alert>
+      </Collapse>
       <Stack direction="row" spacing={2}>
         <Button
           onClick={submit}
