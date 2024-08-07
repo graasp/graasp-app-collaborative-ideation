@@ -1,3 +1,4 @@
+import { PROMPTS_CY } from '@/config/selectors';
 import { PromptUsage } from '@/interfaces/prompt';
 import Box from '@mui/material/Box';
 import styled from '@mui/material/styles/styled';
@@ -53,7 +54,7 @@ const PromptStep: FC<{
   }, [usageStatus]);
 
   return (
-    <OuterBox sx={style}>
+    <OuterBox sx={style} data-cy={PROMPTS_CY.PROMPT_STEP}>
       <Typography>{children}</Typography>
     </OuterBox>
   );

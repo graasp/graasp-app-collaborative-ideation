@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 
 import { ResponseAppData } from '@/config/appDataTypes';
-import { PROPOSE_NEW_RESPONSE_BTN } from '@/config/selectors';
+import { PROPOSE_NEW_RESPONSE_BTN_CY } from '@/config/selectors';
 import Response from '@/modules/common/response/Response';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
@@ -62,7 +62,7 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
       <Button
         startIcon={<AddCircleOutlineIcon />}
         onClick={() => handleChoose()}
-        data-cy={PROPOSE_NEW_RESPONSE_BTN}
+        data-cy={PROPOSE_NEW_RESPONSE_BTN_CY}
       >
         {t('PROPOSE_NEW_RESPONSE')}
       </Button>

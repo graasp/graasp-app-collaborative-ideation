@@ -12,6 +12,7 @@ import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import { styled } from '@mui/material/styles';
 import { PromptUsage } from '@/interfaces/prompt';
+import { PROMPTS_CY } from '@/config/selectors';
 import PromptStep from './PromptStep';
 
 interface PromptsProps {
@@ -67,6 +68,7 @@ const Prompts: FC<PromptsProps> = () => {
             width: { md: '75ch', sm: '100%' },
             maxWidth: '100%',
           }}
+          data-cy={PROMPTS_CY.PROMPT}
         >
           <Stack direction="row">
             <TipsAndUpdatesIcon
@@ -101,6 +103,7 @@ const Prompts: FC<PromptsProps> = () => {
           flexDirection: 'column',
           alignItems: 'center',
         }}
+        data-cy={PROMPTS_CY.DASHBOARD}
       >
         <Stack direction="row" spacing={1}>
           {promptRequests.map((pU, index) => {
@@ -116,6 +119,7 @@ const Prompts: FC<PromptsProps> = () => {
           disabled={!allowMorePrompts}
           onClick={getNewPrompt}
           sx={{ m: 2 }}
+          data-cy={PROMPTS_CY.REQUEST_BUTTON}
         >
           {typeof currentPrompt === 'undefined'
             ? t('NEW_PROMPT_BUTTON')
