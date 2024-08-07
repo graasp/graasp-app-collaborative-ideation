@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.11.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.10.0...v2.11.0) (2024-08-07)
+
+
+### Features
+
+* pre-determined creative prompts ([#417](https://github.com/graasp/graasp-app-collaborative-ideation/issues/417)) ([9740921](https://github.com/graasp/graasp-app-collaborative-ideation/commit/974092128990d999b8863aeefae08268372ded6e))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @graasp/ui to v4.24.0 ([#361](https://github.com/graasp/graasp-app-collaborative-ideation/issues/361)) ([6a383dd](https://github.com/graasp/graasp-app-collaborative-ideation/commit/6a383dd947b4d34eda7ac7afb0675f35aad0a308))
+
 ## [2.10.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.9.3...v2.10.0) (2024-08-05)
 
 
