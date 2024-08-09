@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.11.1](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.11.0...v2.11.1) (2024-08-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @graasp/sdk to v4.23.0 ([#418](https://github.com/graasp/graasp-app-collaborative-ideation/issues/418)) ([ce5efb5](https://github.com/graasp/graasp-app-collaborative-ideation/commit/ce5efb53edcf7fb6e5c6786f920fcdc7d054c4ed))
+* **deps:** update dependency @graasp/sdk to v4.24.0 ([#423](https://github.com/graasp/graasp-app-collaborative-ideation/issues/423)) ([5f4415f](https://github.com/graasp/graasp-app-collaborative-ideation/commit/5f4415f72c5cfd9692dafdbcc026a7b2398afb04))
+* **deps:** update dependency @sentry/react to v8.24.0 ([#416](https://github.com/graasp/graasp-app-collaborative-ideation/issues/416)) ([9e32653](https://github.com/graasp/graasp-app-collaborative-ideation/commit/9e326533027edaa106f00f18d7cd971f1383d23f))
+* **deps:** update dependency @sentry/react to v8.25.0 ([#425](https://github.com/graasp/graasp-app-collaborative-ideation/issues/425)) ([e54396e](https://github.com/graasp/graasp-app-collaborative-ideation/commit/e54396ed458b632601ea132fdfd41e03f1902ac8))
+* **deps:** update dependency react-i18next to v15.0.1 ([#419](https://github.com/graasp/graasp-app-collaborative-ideation/issues/419)) ([96809a4](https://github.com/graasp/graasp-app-collaborative-ideation/commit/96809a4152eeb4b8352fa9276e326d02c872adb4))
+* **deps:** update mui (non-major) to v5.16.7 ([#424](https://github.com/graasp/graasp-app-collaborative-ideation/issues/424)) ([07da7ba](https://github.com/graasp/graasp-app-collaborative-ideation/commit/07da7baa596c64901ebbc03747809ebaae5f019b))
+
 ## [2.11.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.10.0...v2.11.0) (2024-08-07)
 
 
