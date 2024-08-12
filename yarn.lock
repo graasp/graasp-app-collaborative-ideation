@@ -2081,14 +2081,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cypress/code-coverage@npm:3.12.44":
-  version: 3.12.44
-  resolution: "@cypress/code-coverage@npm:3.12.44"
+"@cypress/code-coverage@npm:3.12.45":
+  version: 3.12.45
+  resolution: "@cypress/code-coverage@npm:3.12.45"
   dependencies:
     "@cypress/webpack-preprocessor": "npm:^6.0.0"
     chalk: "npm:4.1.2"
     dayjs: "npm:1.11.12"
-    debug: "npm:4.3.5"
+    debug: "npm:4.3.6"
     execa: "npm:4.1.0"
     globby: "npm:11.1.0"
     istanbul-lib-coverage: "npm:^3.0.0"
@@ -2100,7 +2100,7 @@ __metadata:
     babel-loader: ^8.3 || ^9
     cypress: "*"
     webpack: ^4 || ^5
-  checksum: 10/154a7002ac5ffa2dd1341789b619c9206b15bf66fbfcb7099b578b160b97989540263d985f3e8c93a5bb6ad0fc352cad0a4299fd38bd7c861ebe031a12d9104d
+  checksum: 10/95ef341f0ed5f5673823b2d89224a0c5d5eb41a9eb759606b214c48b1b292f7905a0f284e0db42b0c4ff04d3a897c8765ae7c3832f9b92e210162136726f15b1
   languageName: node
   linkType: hard
 
@@ -7878,7 +7878,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.3, debug@npm:^4.3.4, debug@npm:^4.3.5":
+"debug@npm:4, debug@npm:4.3.6, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.3, debug@npm:^4.3.4, debug@npm:^4.3.5":
   version: 4.3.6
   resolution: "debug@npm:4.3.6"
   dependencies:
@@ -7887,18 +7887,6 @@ __metadata:
     supports-color:
       optional: true
   checksum: 10/d3adb9af7d57a9e809a68f404490cf776122acca16e6359a2702c0f462e510e91f9765c07f707b8ab0d91e03bad57328f3256f5082631cefb5393d0394d50fb7
-  languageName: node
-  linkType: hard
-
-"debug@npm:4.3.5":
-  version: 4.3.5
-  resolution: "debug@npm:4.3.5"
-  dependencies:
-    ms: "npm:2.1.2"
-  peerDependenciesMeta:
-    supports-color:
-      optional: true
-  checksum: 10/cb6eab424c410e07813ca1392888589972ce9a32b8829c6508f5e1f25f3c3e70a76731610ae55b4bbe58d1a2fffa1424b30e97fa8d394e49cd2656a9643aedd2
   languageName: node
   linkType: hard
 
@@ -10354,7 +10342,7 @@ __metadata:
     "@commitlint/cli": "npm:19.4.0"
     "@commitlint/config-conventional": "npm:19.2.2"
     "@commitlint/types": "npm:^19.0.0"
-    "@cypress/code-coverage": "npm:3.12.44"
+    "@cypress/code-coverage": "npm:3.12.45"
     "@emotion/react": "npm:11.13.0"
     "@emotion/styled": "npm:11.13.0"
     "@graasp/apps-query-client": "npm:^3.5.0"
