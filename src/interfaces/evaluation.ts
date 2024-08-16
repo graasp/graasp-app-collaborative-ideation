@@ -2,7 +2,6 @@ export enum EvaluationType {
   Rate = 'rate',
   Vote = 'vote',
   Rank = 'rank',
-  None = 'none',
 }
 
 export type RatingDescription = {
@@ -16,4 +15,5 @@ export type RatingDescription = {
 export type EvaluationParameters = {
   maxNumberOfVotes?: number;
   ratings?: Array<RatingDescription>;
+  ratingsName?: string;
 };

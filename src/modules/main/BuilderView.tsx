@@ -16,7 +16,6 @@ import {
   SETTINGS_TAB_CY,
 } from '@/config/selectors';
 
-import AdminControl from '../adminPanel/AdminPanel';
 import TabPanel from '../common/TabPanel';
 import ResponsesView from '../responsesView/ResponsesView';
 import SettingsView from '../settings/Settings';
@@ -77,7 +76,7 @@ const BuilderView = (): JSX.Element => {
     <Stack data-cy={BUILDER_VIEW_CY} direction="row" spacing={2} width="100%">
       <Paper
         elevation={0}
-        sx={{ width: isAdmin ? '66%' : '100%', backgroundColor: 'transparent' }}
+        sx={{ width: '100%', backgroundColor: 'transparent' }}
       >
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs
@@ -96,7 +95,7 @@ const BuilderView = (): JSX.Element => {
           </TabPanel>
         ))}
       </Paper>
-      {isAdmin && <AdminControl width="33%" />}
+      {/* {isAdmin && <AdminControl width="33%" />} */}
     </Stack>
   );
 };

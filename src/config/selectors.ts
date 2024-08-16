@@ -37,6 +37,8 @@ export const RESPONSE_CY = 'response';
 
 export const LIKERT_RATING_CY = 'likert-rating';
 
+export const EVALUATION_RATE_CY = 'evaluation-rate-component-actions';
+
 export const PROMPTS_CY = {
   REQUEST_BUTTON: 'prompts-request-button',
   PROMPT_STEP: 'prompt-step-indicator',

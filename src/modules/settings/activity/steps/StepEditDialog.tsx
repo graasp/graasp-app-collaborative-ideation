@@ -12,28 +12,21 @@ import TextField from '@mui/material/TextField';
 import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { EvaluationType, EvaluationParameters } from '@/interfaces/evaluation';
-import EvaluationSettings from '../EvaluationSettings';
-
-// eslint-disable-next-line react/display-name
-// const Transition = forwardRef(
-//   (
-//     props: TransitionProps & {
-//       children: ReactElement;
-//     },
-//     ref: Ref<unknown>,
-//   ) => <Slide direction="up" ref={ref} {...props} />,
-// );
+import CancelButton from '@/modules/common/CancelButton';
+import EvaluationSettings from './evaluation/EvaluationSettings';
 
 interface StepEditDialogProps {
   open: boolean;
-  onClose: () => void;
+  onSave: () => void;
+  onCancel: () => void;
   step: ActivityStep;
   onChange: (newStep: ActivityStep) => void;
 }
 
 const StepEditDialog: FC<StepEditDialogProps> = ({
   open,
-  onClose,
+  onSave,
+  onCancel,
   step,
   onChange,
 }) => {
@@ -51,6 +44,7 @@ const StepEditDialog: FC<StepEditDialogProps> = ({
   }, [time]);
 
   const renderStepDescription = (activityType: ActivityType): string => {
+    // TODO: Translate
     switch (activityType) {
       case ActivityType.Collection:
         return 'In this step, participants will share their responses in the app.';
@@ -142,7 +136,13 @@ const StepEditDialog: FC<StepEditDialogProps> = ({
         <SaveButton
           disabled={false}
           onSave={() => {
-            onClose();
+            onSave();
+          }}
+        />
+        <CancelButton
+          disabled={false}
+          onCancel={() => {
+            onCancel();
           }}
         />
       </DialogActions>

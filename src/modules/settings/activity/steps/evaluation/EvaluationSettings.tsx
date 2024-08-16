@@ -12,6 +12,7 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
+import RateSettings from './RateSettings';
 
 interface EvaluationSettingsProps {
   evaluationType?: EvaluationType;
@@ -27,7 +28,7 @@ const EvaluationSettings: FC<EvaluationSettingsProps> = ({
   evaluationParameters: evaluationParametersProp,
   onChange,
 }) => {
-  const evaluationType = evaluationTypeProp ?? EvaluationType.None;
+  const evaluationType = evaluationTypeProp ?? EvaluationType.Vote;
   const evaluationParameters = evaluationParametersProp ?? {};
   const { t: tEvaluationType } = useTranslation('translations', {
     keyPrefix: 'EVALUATION_TYPE',
@@ -70,6 +71,12 @@ const EvaluationSettings: FC<EvaluationSettingsProps> = ({
     }
   };
 
+  const handleRateSettingsChange = (
+    rateSettings: EvaluationParameters,
+  ): void => {
+    onChange(evaluationType, rateSettings);
+  };
+
   const renderEvaluationParametersControls = (
     eT: EvaluationType,
   ): JSX.Element | null => {
@@ -84,6 +91,15 @@ const EvaluationSettings: FC<EvaluationSettingsProps> = ({
             />
           </Box>
         );
+      case EvaluationType.Rate:
+        return (
+          <Box>
+            <RateSettings
+              evaluationParameters={evaluationParameters}
+              onChange={handleRateSettingsChange}
+            />
+          </Box>
+        );
       default:
         return null;
     }
@@ -95,18 +111,13 @@ const EvaluationSettings: FC<EvaluationSettingsProps> = ({
         <FormLabel>{tSettings('EVALUATION_TYPE_SELECTION.TITLE')}</FormLabel>
         <RadioGroup
           aria-labelledby="evaluation-type-radio-button"
-          defaultValue={EvaluationType.None}
+          defaultValue={EvaluationType.Vote}
           value={evaluationType}
           name="radio-buttons-group"
           onChange={(event: ChangeEvent<HTMLInputElement>) => {
             handleEvaluationTypeChange(event.target.value as EvaluationType);
           }}
         >
-          <FormControlLabel
-            value={EvaluationType.None}
-            control={<Radio />}
-            label={tEvaluationType('NONE')}
-          />
           <FormControlLabel
             value={EvaluationType.Rate}
             control={<Radio />}

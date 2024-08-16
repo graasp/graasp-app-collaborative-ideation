@@ -17,7 +17,11 @@ import Chip from '@mui/material/Chip';
 import { useLocalContext } from '@graasp/apps-query-client';
 import Box from '@mui/material/Box';
 import { RESPONSE_CY } from '@/config/selectors';
+import { EvaluationType } from '@/interfaces/evaluation';
 import RatingsVisualization from './visualization/RatingsVisualization';
+// import Rate from './evaluation/Rate';
+import Vote from './evaluation/Vote';
+import Rate from './evaluation/Rate';
 
 const ResponsePart: FC<{ children: string }> = ({ children }) => (
   <Typography variant="body1" sx={{ overflowWrap: 'break-word', mb: 1 }}>
@@ -33,10 +37,12 @@ const Response: FC<{
   showRatings?: boolean;
   onParentIdeaClick?: (id: string) => void;
   highlight?: boolean;
+  evaluationType?: EvaluationType;
 }> = ({
   response,
   onSelect,
   onDelete,
+  evaluationType,
   enableBuildAction = true,
   showRatings = false,
   onParentIdeaClick = (id: string) =>
@@ -61,18 +67,18 @@ const Response: FC<{
   const showDeleteButton = typeof onDelete !== 'undefined' && isOwn;
   const showActions = showDeleteButton || showSelectButton;
 
-  // const renderEvaluationComponent = (): JSX.Element => {
-  //   if (evaluationType === EvaluationType.UsefulnessNoveltyRating) {
-  //     return <UsefulnessNoveltyRating responseId={id} />;
-  //   }
-  //   if (evaluationType === EvaluationType.DimensionsOfGIRating) {
-  //     return <DimensionsOfGlobalIssueRating responseId={id} />;
-  //   }
-  //   if (evaluationType === EvaluationType.SFERARating) {
-  //     return <SFERARating responseId={id} />;
-  //   }
-  //   return <p>Vote</p>; // TODO: implement
-  // };
+  const renderEvaluationComponent = (): JSX.Element | null => {
+    switch (evaluationType) {
+      case EvaluationType.Vote:
+        return <Vote responseId={id} />;
+      case EvaluationType.Rate:
+        return <Rate responseId={id} />;
+      // case EvaluationType.Rank:
+      //   return <Rank responseId={id} />;
+      default:
+        return null;
+    }
+  };
 
   return (
     <Card
@@ -140,7 +146,7 @@ const Response: FC<{
           )}
         </Box>
       </CardContent>
-      {/* {evaluationType !== EvaluationType.None && renderEvaluationComponent()} */}
+      {renderEvaluationComponent()}
       {showRatings && <RatingsVisualization response={response} />}
       {showActions && (
         <>

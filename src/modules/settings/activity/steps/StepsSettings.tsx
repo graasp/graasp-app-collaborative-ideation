@@ -9,26 +9,10 @@ import Step from './Step';
 interface StepsSettingsProps {
   steps: ActivityStep[];
   onChange: (newEvaluationType: ActivityStep[]) => void;
+  onSave: () => void;
 }
 
-// const validateSteps = <T,>(
-//   prompt: string,
-//   callbacks: {
-//     onSuccess?: () => void;
-//     onError?: () => void;
-//   },
-// ): T | undefined => {
-//   try {
-//     const jsonNewChatbotPrompt = JSON.parse(prompt);
-//     callbacks.onSuccess?.();
-//     return jsonNewChatbotPrompt;
-//   } catch {
-//     callbacks.onError?.();
-//   }
-//   return undefined;
-// };
-
-const StepsSettings: FC<StepsSettingsProps> = ({ steps, onChange }) => {
+const StepsSettings: FC<StepsSettingsProps> = ({ steps, onChange, onSave }) => {
   const { t } = useTranslation('translations', {
     keyPrefix: 'SETTINGS.ACTIVITY.STEPS',
   });
@@ -62,6 +46,7 @@ const StepsSettings: FC<StepsSettingsProps> = ({ steps, onChange }) => {
             position={index}
             onChange={handleChangeStep}
             onDelete={handleDeleteStep}
+            onSave={onSave}
           />
         </Grid>
       ))}

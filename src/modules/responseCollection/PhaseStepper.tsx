@@ -9,8 +9,6 @@ const PhasesStepper = (props: {
   activeStep: number;
   selectStep?: (step: number) => void;
 }): React.JSX.Element => {
-  // TODO: remove when using the `selectStep` prop.
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { activeStep, steps, selectStep } = props;
   const sortedSteps = steps.sort((a, b) => a.phase - b.phase);
   return (

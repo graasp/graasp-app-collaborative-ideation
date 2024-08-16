@@ -170,7 +170,12 @@
   "RESPONSE_EVALUATION": {
     "TITLE": "Response Evaluation"
   },
-  "RATINGS": {
+  "EVALUATION": {
+    "VOTE": {
+      "REMOVE_VOTE_FOR_THIS_RESPONSE": "Remove your vote",
+      "VOTE_FOR_THIS_RESPONSE": "Vote for this",
+      "VOTES_LEFT": "{{availableVotes}} votes left out of {{maxNumberOfVotes}}"
+    },
     "NO_VISUALIZATION": "No visualization is available for this type of evaluation.",
     "USEFULNESS_NOVELTY": {
       "COMMON": "Common",

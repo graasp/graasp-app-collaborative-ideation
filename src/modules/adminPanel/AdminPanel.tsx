@@ -66,6 +66,7 @@ const AdminPanel: FC<AdminPanelProps> = ({ width }): JSX.Element => {
         <IdeaInput
           actAsBot
           onCancel={() => {
+            // TODO: Implement
             // eslint-disable-next-line no-console
             console.warn('Nothing to do here.');
           }}

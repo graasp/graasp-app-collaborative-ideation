@@ -9,6 +9,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import Stack from '@mui/material/Stack';
 import Switch from '@mui/material/Switch';
+import clone from 'lodash.clone';
 
 import { ActivitySetting } from '@/config/appSettingsType';
 import {
@@ -17,6 +18,7 @@ import {
 } from '@/interfaces/interactionProcess';
 
 import Box from '@mui/material/Box';
+import { useSettings } from '@/modules/context/SettingsContext';
 import SettingsSection from '../../common/SettingsSection';
 import StepsSettings from './steps/StepsSettings';
 
@@ -32,6 +34,8 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
   const { t } = useTranslation('translations', {
     keyPrefix: 'SETTINGS.ACTIVITY',
   });
+
+  const { saveSettings } = useSettings();
 
   const {
     mode,
@@ -80,10 +84,11 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
   };
 
   const handleChangeSteps = (newSteps: ActivityStep[]): void => {
-    onChange({
+    const newActivity = {
       ...activity,
-      steps: newSteps,
-    });
+      steps: clone(newSteps),
+    };
+    onChange(newActivity);
   };
   return (
     <SettingsSection title={t('TITLE')}>
@@ -172,7 +177,11 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
           </FormControl>
         </Box>
       </Stack>
-      <StepsSettings steps={steps} onChange={handleChangeSteps} />
+      <StepsSettings
+        steps={steps}
+        onChange={handleChangeSteps}
+        onSave={() => saveSettings('activity', activity)}
+      />
     </SettingsSection>
   );
 };

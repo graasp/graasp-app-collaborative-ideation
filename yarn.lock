@@ -5132,6 +5132,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash.clone@npm:^4":
+  version: 4.5.9
+  resolution: "@types/lodash.clone@npm:4.5.9"
+  dependencies:
+    "@types/lodash": "npm:*"
+  checksum: 10/6b9333ce69a9162ae09665f62eca936e362ebee2572359cff776c7f68a2c40cfdcdaacabefed7bf07c64014e71e6e5ed6ea98a4dc04b5c987ca9b0d937584e78
+  languageName: node
+  linkType: hard
+
 "@types/lodash.clonedeep@npm:^4.5.9":
   version: 4.5.9
   resolution: "@types/lodash.clonedeep@npm:4.5.9"
@@ -5159,7 +5168,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:*":
+"@types/lodash@npm:*, @types/lodash@npm:^4.17.7":
   version: 4.17.7
   resolution: "@types/lodash@npm:4.17.7"
   checksum: 10/b8177f19cf962414a66989837481b13f546afc2e98e8d465bec59e6ac03a59c584eb7053ce511cde3a09c5f3096d22a5ae22cfb56b23f3b0da75b0743b6b1a44
@@ -10775,6 +10784,8 @@ __metadata:
     "@trivago/prettier-plugin-sort-imports": "npm:4.3.0"
     "@types/d3": "npm:^7.4.3"
     "@types/i18n": "npm:0.13.12"
+    "@types/lodash": "npm:^4.17.7"
+    "@types/lodash.clone": "npm:^4"
     "@types/lodash.clonedeep": "npm:^4.5.9"
     "@types/lodash.isequal": "npm:^4.5.8"
     "@types/lodash.shuffle": "npm:^4.2.9"
@@ -10807,6 +10818,7 @@ __metadata:
     i18next: "npm:23.15.1"
     jsdom: "npm:^25.0.0"
     liquidjs: "npm:^10.10.1"
+    lodash.clone: "npm:^4.5.0"
     lodash.clonedeep: "npm:^4.5.0"
     lodash.isequal: "npm:^4.5.0"
     lodash.shuffle: "npm:^4.2.0"
@@ -12375,6 +12387,13 @@ __metadata:
   version: 4.3.0
   resolution: "lodash.camelcase@npm:4.3.0"
   checksum: 10/c301cc379310441dc73cd6cebeb91fb254bea74e6ad3027f9346fc43b4174385153df420ffa521654e502fd34c40ef69ca4e7d40ee7129a99e06f306032bfc65
+  languageName: node
+  linkType: hard
+
+"lodash.clone@npm:^4.5.0":
+  version: 4.5.0
+  resolution: "lodash.clone@npm:4.5.0"
+  checksum: 10/387ca92bb9182197dd8de48cd51f846589abbfbf2b03d7f739eafadcd8f5968be5f4f170d848277edfc2a9b05a23732a1435799b13ddbd85c533c64ea7375dfd
   languageName: node
   linkType: hard
 

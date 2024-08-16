@@ -5,7 +5,7 @@ import { ChatbotResponseData } from '@/interfaces/chatbot';
 import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
 import { UsefulnessNoveltyRatings } from '@/interfaces/ratings';
 import { PromptsData } from '@/interfaces/prompt';
-import { RatingDescription } from '@/interfaces/evaluation';
+import { EvaluationParameters } from '@/interfaces/evaluation';
 
 export enum AppDataTypes {
   Response = 'response',
@@ -60,14 +60,23 @@ export type CurrentStateAppData = AppData & {
 };
 
 export type RatingData = {
-  ideaRef: string;
-  name: RatingDescription['name'];
-  rating: number;
+  responseRef: string;
+  name: EvaluationParameters['ratingsName'];
+  ratings: Array<{
+    name: string;
+    value: number;
+  }>;
 };
 
 export type RatingAppData = AppData & {
   type: AppDataTypes.Rating;
   data: RatingData;
+  visibility: AppDataVisibility.Item;
+};
+
+export type VoteAppData = AppData & {
+  type: AppDataTypes.Vote;
+  data: { responseRef: string };
   visibility: AppDataVisibility.Item;
 };
 

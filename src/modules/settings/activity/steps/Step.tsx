@@ -10,14 +10,6 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import StepEditDialog from './StepEditDialog';
 
-interface StepProps {
-  position: number;
-  // eslint-disable-next-line react/no-unused-prop-types
-  onChange: (newStep: ActivityStep, position: number) => void;
-  onDelete: (position: number) => void;
-  step: ActivityStep;
-}
-
 const getIcon = (type: ActivityType): JSX.Element => {
   switch (type) {
     case ActivityType.Collection:
@@ -29,8 +21,16 @@ const getIcon = (type: ActivityType): JSX.Element => {
   }
 };
 
+interface StepProps {
+  position: number;
+  onChange: (newStep: ActivityStep, position: number) => void;
+  onDelete: (position: number) => void;
+  onSave: () => void;
+  step: ActivityStep;
+}
+
 const Step: FC<StepProps> = (props) => {
-  const { position, step, onChange, onDelete } = props;
+  const { position, step, onChange, onDelete, onSave } = props;
   const { type } = step;
 
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -62,7 +62,11 @@ const Step: FC<StepProps> = (props) => {
       </Paper>
       <StepEditDialog
         open={dialogOpen}
-        onClose={() => setDialogOpen(false)}
+        onCancel={() => setDialogOpen(false)}
+        onSave={() => {
+          onSave();
+          setDialogOpen(false);
+        }}
         step={step}
         onChange={(newStep) => {
           onChange(newStep, position);
