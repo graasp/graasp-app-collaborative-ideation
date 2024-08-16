@@ -5,7 +5,6 @@ import { ActivityStep } from '@/interfaces/interactionProcess';
 import { Prompt } from '@/interfaces/prompt';
 import {
   CurrentStateData,
-  RatingsData,
   ResponseAppData,
   ResponseData,
 } from './appDataTypes';
@@ -51,10 +50,10 @@ export type OpenAppAction = Pick<AppAction, 'type' | 'data'> & {
   };
 };
 
-export type EvaluateResponseAction<T> = Pick<AppAction, 'type' | 'data'> & {
-  type: AppActionTypes.EvaluateResponse;
-  data: AppDataRef<RatingsData<T>>;
-};
+// export type EvaluateResponseAction<T> = Pick<AppAction, 'type' | 'data'> & {
+//   type: AppActionTypes.EvaluateResponse;
+//   data: AppDataRef<RatingsData<T>>;
+// };
 
 type StepAction = Pick<AppAction, 'type' | 'data'> & {
   data: ActivityStep & { stepIndex: number };

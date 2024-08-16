@@ -11,6 +11,12 @@
   "GOOD": "Good",
   "OKAY": "Okay",
   "BAD": "Bad",
+  "EVALUATION_TYPE": {
+    "VOTE": "Vote",
+    "RANK": "Rank",
+    "RATE": "Rate",
+    "NONE": "None"
+  },
   "WAIT_TO_START_SCREEN": {
     "MAIN_INSTRUCTION": "The activity will start soon. In the meantime, please, read the following instructions:",
     "STEP1": "At the beginning, you will be presented with an instruction or a challenge.",

@@ -1,7 +1,6 @@
 import { Member } from '@graasp/sdk';
 
 import { AssistantPersona, PromptMode } from '@/interfaces/assistant';
-import { EvaluationType } from '@/interfaces/evaluationType';
 import {
   ActivityStep,
   ActivityType,
@@ -37,7 +36,6 @@ export type ActivitySetting = {
   numberOfResponsesPerSet: number;
   numberOfBotResponsesPerSet: number;
   exclusiveResponseDistribution: boolean;
-  evaluationType: EvaluationType;
   steps: ActivityStep[];
   reformulateResponses: boolean;
 };
@@ -97,7 +95,6 @@ export const defaultSettingsValues: AllSettingsType = {
     numberOfResponsesPerSet: 3,
     numberOfBotResponsesPerSet: 1,
     exclusiveResponseDistribution: false,
-    evaluationType: EvaluationType.UsefulnessNoveltyRating,
     reformulateResponses: false,
     steps: [
       {

@@ -3,13 +3,11 @@ import { Context, PermissionLevel } from '@graasp/sdk';
 import {
   ADMIN_PANEL_CY,
   DETAILS_INSTRUCTIONS_CY,
-  LIKERT_RATING_CY,
   NEXT_STEP_BTN_CY,
   ORCHESTRATION_BAR_CY,
   PROMPTS_CY,
   PROPOSE_NEW_RESPONSE_BTN_CY,
   RESPONSE_COLLECTION_VIEW_CY,
-  RESPONSE_CY,
   RESPONSE_EVALUATION_VIEW_CY,
   RESPONSE_RESULTS_VIEW_CY,
   TITLE_INSTRUCTIONS_CY,
@@ -131,15 +129,15 @@ describe('Player with read rights, configured with one assistant and no data.', 
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(MEAN_WAITING_TIME);
 
-    cy.get(buildDataCy(RESPONSE_CY))
-      .first()
-      .within(() => {
-        cy.get(buildDataCy(LIKERT_RATING_CY))
-          .first()
-          .within(() => {
-            cy.get('input[value=5]').click({ force: true });
-          });
-      });
+    // cy.get(buildDataCy(RESPONSE_CY))
+    //   .first()
+    //   .within(() => {
+    //     cy.get(buildDataCy(LIKERT_RATING_CY))
+    //       .first()
+    //       .within(() => {
+    //         cy.get('input[value=5]').click({ force: true });
+    //       });
+    //   });
 
     cy.get(buildDataCy(NEXT_STEP_BTN_CY)).click();
 

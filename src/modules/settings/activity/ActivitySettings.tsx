@@ -11,7 +11,6 @@ import Stack from '@mui/material/Stack';
 import Switch from '@mui/material/Switch';
 
 import { ActivitySetting } from '@/config/appSettingsType';
-import { EvaluationType } from '@/interfaces/evaluationType';
 import {
   ActivityStep,
   ResponseVisibilityMode,
@@ -19,8 +18,7 @@ import {
 
 import Box from '@mui/material/Box';
 import SettingsSection from '../../common/SettingsSection';
-import EvaluationTypeSelection from './EvaluationTypeSelection';
-import StepsSettings from './StepsSettings';
+import StepsSettings from './steps/StepsSettings';
 
 interface ActivitySettingsProps {
   activity: ActivitySetting;
@@ -37,7 +35,6 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
 
   const {
     mode,
-    evaluationType,
     exclusiveResponseDistribution,
     numberOfBotResponsesPerSet,
     numberOfResponsesPerSet,
@@ -79,15 +76,6 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
     onChange({
       ...activity,
       numberOfBotResponsesPerSet: newValNbr,
-    });
-  };
-
-  const handleEvaluationTypeChange = (
-    newEvaluationType: EvaluationType,
-  ): void => {
-    onChange({
-      ...activity,
-      evaluationType: newEvaluationType,
     });
   };
 
@@ -184,10 +172,6 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
           </FormControl>
         </Box>
       </Stack>
-      <EvaluationTypeSelection
-        evaluationType={evaluationType}
-        onChange={handleEvaluationTypeChange}
-      />
       <StepsSettings steps={steps} onChange={handleChangeSteps} />
     </SettingsSection>
   );

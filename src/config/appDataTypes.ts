@@ -2,16 +2,19 @@ import { AppData, AppDataVisibility } from '@graasp/sdk';
 
 import { AssistantId } from '@/interfaces/assistant';
 import { ChatbotResponseData } from '@/interfaces/chatbot';
-import { EvaluationType } from '@/interfaces/evaluationType';
 import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
 import { UsefulnessNoveltyRatings } from '@/interfaces/ratings';
 import { PromptsData } from '@/interfaces/prompt';
+import { RatingDescription } from '@/interfaces/evaluation';
 
 export enum AppDataTypes {
   Response = 'response',
   ResponsesSet = 'responses-set',
   CurrentState = 'current-state',
-  Ratings = 'ratings',
+  Evaluation = 'evaluation',
+  Ranking = 'ranking',
+  Rating = 'rating',
+  Vote = 'Vote',
   ChatbotResponse = 'chatbot-response',
   Prompts = 'prompts',
 }
@@ -56,16 +59,16 @@ export type CurrentStateAppData = AppData & {
   data: CurrentStateData;
 };
 
-export type RatingsData<T> = {
+export type RatingData = {
   ideaRef: string;
-  type: EvaluationType;
-  ratings: T;
+  name: RatingDescription['name'];
+  rating: number;
 };
 
-export type RatingsAppData<T> = AppData & {
-  type: AppDataTypes.Ratings;
-  data: RatingsData<T>;
-  visibility: AppDataVisibility.Member;
+export type RatingAppData = AppData & {
+  type: AppDataTypes.Rating;
+  data: RatingData;
+  visibility: AppDataVisibility.Item;
 };
 
 export type ChatbotResponseAppData = AppData & {

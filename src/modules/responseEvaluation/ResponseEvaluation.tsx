@@ -11,16 +11,17 @@ import Pausable from '@/modules/common/Pausable';
 import Response from '@/modules/common/response/Response';
 
 import { Loader } from '@graasp/ui';
+// import { EvaluationType } from '@/interfaces/evaluation';
+// import useSteps from '@/hooks/useSteps';
 import { useActivityContext } from '../context/ActivityContext';
 import { useAppDataContext } from '../context/AppDataContext';
-import { useSettings } from '../context/SettingsContext';
 import Instructions from '../common/Instructions';
 
 const ResponseEvaluation: FC = () => {
   const { t } = useTranslation();
   const { availableResponses } = useActivityContext();
-  const { activity } = useSettings();
-  const { evaluationType } = activity;
+  // const { currentStep } = useSteps();
+  // const evaluationType = currentStep?.evaluationType ?? EvaluationType.None;
   const responses = availableResponses;
 
   const { invalidateAppData, isLoading } = useAppDataContext();
@@ -52,7 +53,7 @@ const ResponseEvaluation: FC = () => {
                   <Response
                     key={response.id}
                     response={response}
-                    evaluationType={evaluationType}
+                    // evaluationType={evaluationType}
                   />
                 </Grid>
               ))

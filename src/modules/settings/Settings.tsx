@@ -2,7 +2,6 @@ import { FC, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
@@ -27,6 +26,7 @@ import ParticipantsSettings from './ParticipantsSettings';
 import ActivitySettings from './activity/ActivitySettings';
 import Assistant from './assistant/Assistant';
 import PromptsSettings from './prompts/Prompts';
+import SaveButton from '../common/SaveButton';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface SettingsProps {}
@@ -119,9 +119,7 @@ const Settings: FC<SettingsProps> = () => {
       <PromptsSettings prompts={prompts} onChange={setPrompts} />
       <Assistant assistants={assistants} onChange={setAssistants} />
       <Box>
-        <Button disabled={isSaved} onClick={handleSave}>
-          {t('SAVE')}
-        </Button>
+        <SaveButton disabled={isSaved} onSave={handleSave} />
         <ResetSetsButton enable />
       </Box>
     </Stack>

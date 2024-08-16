@@ -1,4 +1,5 @@
 import { t } from 'i18next';
+import { EvaluationParameters, EvaluationType } from './evaluation';
 
 export enum IdeationPhases {
   Input = 1,
@@ -26,6 +27,8 @@ export type ActivityStep = {
   type: ActivityType;
   round?: number;
   time?: number; // Time in seconds
+  evaluationType?: EvaluationType;
+  evaluationParameters?: EvaluationParameters;
 };
 
 export type Phase = {

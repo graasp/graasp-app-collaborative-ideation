@@ -2,12 +2,12 @@ import { AppSetting } from '@graasp/sdk';
 
 import { AllSettingsType } from '@/config/appSettingsType';
 import { DEFAULT_SYSTEM_PROMPT } from '@/config/prompts';
-import { EvaluationType } from '@/interfaces/evaluationType';
 import {
   ActivityType,
   ResponseVisibilityMode,
 } from '@/interfaces/interactionProcess';
 
+import { EvaluationType } from '@/interfaces/evaluation';
 import { MEMBERS } from './members';
 import { MOCK_SERVER_DISCRIMINATED_ITEM } from './mockItem';
 
@@ -63,7 +63,6 @@ export const ALL_SETTINGS_OBJECT: AllSettingsType = {
     numberOfResponsesPerSet: 3,
     numberOfBotResponsesPerSet: 1,
     exclusiveResponseDistribution: true,
-    evaluationType: EvaluationType.UsefulnessNoveltyRating,
     steps: [
       {
         type: ActivityType.Collection,
@@ -130,6 +129,10 @@ SETTINGS_WITH_ASSISTANT_OBJECT.activity.steps = [
     type: ActivityType.Evaluation,
     round: 2,
     time: 1,
+    evaluationType: EvaluationType.Vote,
+    evaluationParameters: {
+      maxNumberOfVotes: 3,
+    },
   },
   {
     type: ActivityType.Results,
