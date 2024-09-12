@@ -10669,7 +10669,7 @@ __metadata:
     eslint-plugin-react: "npm:^7.33.2"
     eslint-plugin-react-hooks: "npm:4.6.2"
     husky: "npm:9.1.5"
-    i18next: "npm:23.13.0"
+    i18next: "npm:23.15.1"
     jsdom: "npm:^25.0.0"
     liquidjs: "npm:^10.10.1"
     lodash.clonedeep: "npm:^4.5.0"
@@ -10982,12 +10982,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:23.13.0":
-  version: 23.13.0
-  resolution: "i18next@npm:23.13.0"
+"i18next@npm:23.15.1":
+  version: 23.15.1
+  resolution: "i18next@npm:23.15.1"
   dependencies:
     "@babel/runtime": "npm:^7.23.2"
-  checksum: 10/73b11880354626aa82b41b1ad5a2d77abe8248c8be7a260ad27d89146d7a7fa7ad384da60459e975d1e4bf115518232e060af4b1be67e7d67b59c8dfbf99809b
+  checksum: 10/bfd4935517ddd68bd12ccc0b7bd454f1a19403b627d79a2fe81c9059380674f085804f8d7475dd248a887f90d9e2da0f9be64179ddf32e9eebac47e4b9f92889
   languageName: node
   linkType: hard
 
