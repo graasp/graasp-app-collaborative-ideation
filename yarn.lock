@@ -1652,12 +1652,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.16.3, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.18.6, @babel/runtime@npm:^7.23.2, @babel/runtime@npm:^7.23.9, @babel/runtime@npm:^7.24.8, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.8.7, @babel/runtime@npm:^7.9.2":
+"@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.16.3, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.18.6, @babel/runtime@npm:^7.23.2, @babel/runtime@npm:^7.23.9, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.8.7, @babel/runtime@npm:^7.9.2":
   version: 7.25.0
   resolution: "@babel/runtime@npm:7.25.0"
   dependencies:
     regenerator-runtime: "npm:^0.14.0"
   checksum: 10/6870e9e0e9125075b3aeba49a266f442b10820bfc693019eb6c1785c5a0edbe927e98b8238662cdcdba17842107c040386c3b69f39a0a3b217f9d00ffe685b27
+  languageName: node
+  linkType: hard
+
+"@babel/runtime@npm:^7.25.0":
+  version: 7.25.6
+  resolution: "@babel/runtime@npm:7.25.6"
+  dependencies:
+    regenerator-runtime: "npm:^0.14.0"
+  checksum: 10/0c4134734deb20e1005ffb9165bf342e1074576621b246d8e5e41cc7cb315a885b7d98950fbf5c63619a2990a56ae82f444d35fe8c4691a0b70c2fe5673667dc
   languageName: node
   linkType: hard
 
@@ -10809,7 +10818,7 @@ __metadata:
     qs: "npm:6.13.0"
     react: "npm:18.3.1"
     react-dom: "npm:18.3.1"
-    react-i18next: "npm:15.0.1"
+    react-i18next: "npm:15.0.2"
     react-plotly.js: "npm:^2.6.0"
     react-router-dom: "npm:^6.22.1"
     stylis-plugin-rtl: "npm:^2.1.1"
@@ -14450,11 +14459,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-i18next@npm:15.0.1":
-  version: 15.0.1
-  resolution: "react-i18next@npm:15.0.1"
+"react-i18next@npm:15.0.2":
+  version: 15.0.2
+  resolution: "react-i18next@npm:15.0.2"
   dependencies:
-    "@babel/runtime": "npm:^7.24.8"
+    "@babel/runtime": "npm:^7.25.0"
     html-parse-stringify: "npm:^3.0.1"
   peerDependencies:
     i18next: ">= 23.2.3"
@@ -14464,7 +14473,7 @@ __metadata:
       optional: true
     react-native:
       optional: true
-  checksum: 10/2998565bdcdc37ba8d2b3531e36441e00c8bb7fb7c1cac35364a81722cb4e5a363288906566c91f3ad835abc5b0b78e14d8511f57b154a8e5c057a8e6096cb07
+  checksum: 10/25e6a611e2d1f250103120023ceb5dbf285e796cc0a2ab7685844438c3f698793d68bc454025aa0ca3379708bd468c9acfe6603c7b64f850358f2deb9b37a570
   languageName: node
   linkType: hard
 
