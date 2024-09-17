@@ -2089,9 +2089,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cypress/code-coverage@npm:3.12.48":
-  version: 3.12.48
-  resolution: "@cypress/code-coverage@npm:3.12.48"
+"@cypress/code-coverage@npm:3.12.49":
+  version: 3.12.49
+  resolution: "@cypress/code-coverage@npm:3.12.49"
   dependencies:
     "@cypress/webpack-preprocessor": "npm:^6.0.0"
     chalk: "npm:4.1.2"
@@ -2108,7 +2108,7 @@ __metadata:
     babel-loader: ^8.3 || ^9
     cypress: "*"
     webpack: ^4 || ^5
-  checksum: 10/7e7f4ccb0252de5ec75e93149d373fffe0c6de6f6c9e0ee59fe5b3b65ece9a5dcf966be3594e9a91b87aba176971cd88993bccd8ddfa2fb5de59dcffb08fe768
+  checksum: 10/72d770c0f30cd63b9aa804470b34ba450f6d98e3710437b093bdb1f868f21554ebf33ed408d042b67b6df4066c7a8d0b222c9f989976a64251a78ed55c47604a
   languageName: node
   linkType: hard
 
@@ -5330,13 +5330,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.3.5":
-  version: 18.3.5
-  resolution: "@types/react@npm:18.3.5"
+"@types/react@npm:18.3.6":
+  version: 18.3.6
+  resolution: "@types/react@npm:18.3.6"
   dependencies:
     "@types/prop-types": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 10/ba0477c5ad4a762157c6262a199af6ccf9e24576877a26a7f516d5a9ba35374a6ac7f8686a10e5e8030513214f02bcb66e8363e43905afb7cd313deaf673de05
+  checksum: 10/ba0d337244347ecbf921de174d9db9bb80b03d41ad3ae7aa65500b3339925852c97e501d7657b5cd629ffed9f7fe3820a63069847e7b8529e4d02934d0f182e9
   languageName: node
   linkType: hard
 
@@ -10758,7 +10758,7 @@ __metadata:
     "@commitlint/cli": "npm:19.5.0"
     "@commitlint/config-conventional": "npm:19.5.0"
     "@commitlint/types": "npm:^19.0.0"
-    "@cypress/code-coverage": "npm:3.12.48"
+    "@cypress/code-coverage": "npm:3.12.49"
     "@emotion/react": "npm:11.13.3"
     "@emotion/styled": "npm:11.13.0"
     "@graasp/apps-query-client": "npm:^3.5.0"
@@ -10779,7 +10779,7 @@ __metadata:
     "@types/lodash.isequal": "npm:^4.5.8"
     "@types/lodash.shuffle": "npm:^4.2.9"
     "@types/node": "npm:20.16.5"
-    "@types/react": "npm:18.3.5"
+    "@types/react": "npm:18.3.6"
     "@types/react-dom": "npm:18.3.0"
     "@types/react-plotly.js": "npm:^2.6.3"
     "@types/uuid": "npm:10.0.0"
