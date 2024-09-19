@@ -1,14 +1,8 @@
 /* eslint-disable arrow-body-style */
-import { ResponseAppData } from '@/config/appDataTypes';
 import { TRANSLATIONS_NS } from '@/config/i18n';
 import { useTranslation } from 'react-i18next';
 
-const RatingsVisualization = ({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  response,
-}: {
-  response: ResponseAppData;
-}): JSX.Element => {
+const RatingsVisualization = (): JSX.Element => {
   const { t } = useTranslation(TRANSLATIONS_NS);
   // const { activity } = useSettings();
   // const { evaluationType } = activity;

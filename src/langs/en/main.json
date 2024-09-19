@@ -36,6 +36,7 @@
       "REFRESH_DATA": "Refresh data",
       "LABEL_STEP_COLLECTION": "Collecting responses, round {{ round }}",
       "LABEL_STEP_EVALUATION": "Evaluating responses",
+      "LABEL_STEP_RESULTS": "Results",
       "NO_STEP": "The current activity is not defined"
     },
     "WARNING_PREVIOUS_STEP_DIALOG": {

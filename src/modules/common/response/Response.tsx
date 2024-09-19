@@ -18,10 +18,11 @@ import { useLocalContext } from '@graasp/apps-query-client';
 import Box from '@mui/material/Box';
 import { RESPONSE_CY } from '@/config/selectors';
 import { EvaluationType } from '@/interfaces/evaluation';
+import { ResponseEvaluation } from '@/interfaces/response';
 import RatingsVisualization from './visualization/RatingsVisualization';
-// import Rate from './evaluation/Rate';
 import Vote from './evaluation/Vote';
 import Rate from './evaluation/Rate';
+import Votes from './visualization/Votes';
 
 const ResponsePart: FC<{ children: string }> = ({ children }) => (
   <Typography variant="body1" sx={{ overflowWrap: 'break-word', mb: 1 }}>
@@ -29,8 +30,8 @@ const ResponsePart: FC<{ children: string }> = ({ children }) => (
   </Typography>
 );
 
-const Response: FC<{
-  response: ResponseAppData;
+interface ResponseProps {
+  response: ResponseAppData<ResponseEvaluation>;
   onSelect?: (id: string) => void;
   enableBuildAction?: boolean;
   onDelete?: (id: string) => void;
@@ -38,7 +39,10 @@ const Response: FC<{
   onParentIdeaClick?: (id: string) => void;
   highlight?: boolean;
   evaluationType?: EvaluationType;
-}> = ({
+  nbrOfVotes?: number;
+}
+
+const Response: FC<ResponseProps> = ({
   response,
   onSelect,
   onDelete,
@@ -49,6 +53,7 @@ const Response: FC<{
     // eslint-disable-next-line no-console
     console.debug(`The user clicked on link to idea ${id}`),
   highlight = false,
+  nbrOfVotes,
 }) => {
   const { t } = useTranslation('translations', { keyPrefix: 'RESPONSE_CARD' });
   const { t: generalT } = useTranslation('translations');
@@ -147,7 +152,8 @@ const Response: FC<{
         </Box>
       </CardContent>
       {renderEvaluationComponent()}
-      {showRatings && <RatingsVisualization response={response} />}
+      {showRatings && <RatingsVisualization />}
+      {typeof nbrOfVotes !== 'undefined' && <Votes votes={nbrOfVotes} />}
       {showActions && (
         <>
           <Divider />

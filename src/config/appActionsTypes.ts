@@ -3,11 +3,8 @@ import { AppAction, AppData } from '@graasp/sdk';
 
 import { ActivityStep } from '@/interfaces/interactionProcess';
 import { Prompt } from '@/interfaces/prompt';
-import {
-  CurrentStateData,
-  ResponseAppData,
-  ResponseData,
-} from './appDataTypes';
+import { ResponseData } from '@/interfaces/response';
+import { CurrentStateData, ResponseAppData } from './appDataTypes';
 
 export enum AppActionTypes {
   SubmitNewResponse = 'submit-new-response',

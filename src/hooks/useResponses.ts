@@ -9,7 +9,6 @@ import shuffle from 'lodash.shuffle';
 import {
   AppDataTypes,
   ResponseAppData,
-  ResponseData,
   ResponsesSetAppData,
 } from '@/config/appDataTypes';
 import { AssistantId } from '@/interfaces/assistant';
@@ -18,6 +17,7 @@ import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { appDataArrayToMap } from '@/utils/utils';
 
+import { ResponseData } from '@/interfaces/response';
 import useActions from './useActions';
 import { UseParticipantsValue } from './useParticipants';
 import {

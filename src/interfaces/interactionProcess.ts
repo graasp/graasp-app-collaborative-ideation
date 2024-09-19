@@ -28,6 +28,7 @@ export type ActivityStep = {
   round?: number;
   time?: number; // Time in seconds
   evaluationType?: EvaluationType;
+  resultsType?: EvaluationType;
   evaluationParameters?: EvaluationParameters;
 };
 

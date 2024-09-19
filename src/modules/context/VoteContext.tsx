@@ -7,6 +7,7 @@ import { AppDataVisibility } from '@graasp/sdk';
 import { useAppDataContext } from './AppDataContext';
 
 type VoteContextType = {
+  allVotes: VoteAppData[];
   maxNumberOfVotes: number;
   availableVotes: number;
   voteFor: (responseId: string) => void;
@@ -14,6 +15,7 @@ type VoteContextType = {
   checkIfHasVote: (responseId: string) => boolean;
 };
 const defaultContextValue: VoteContextType = {
+  allVotes: [],
   maxNumberOfVotes: 0,
   availableVotes: 0,
   voteFor: () => null,
@@ -24,7 +26,7 @@ const defaultContextValue: VoteContextType = {
 const VoteContext = createContext<VoteContextType>(defaultContextValue);
 
 type VoteContextProps = {
-  evaluationParameters: EvaluationParameters;
+  evaluationParameters?: EvaluationParameters;
   children: JSX.Element;
 };
 
@@ -35,18 +37,26 @@ export const VoteProvider: FC<VoteContextProps> = ({
   const { memberId } = useLocalContext();
 
   const maxNumberOfVotes = useMemo(
-    () => evaluationParameters.maxNumberOfVotes ?? 0,
-    [evaluationParameters.maxNumberOfVotes],
+    () => evaluationParameters?.maxNumberOfVotes ?? 0,
+    [evaluationParameters],
   );
 
   const { appData, postAppData, deleteAppData } = useAppDataContext();
+
+  const allVotes = useMemo(
+    () =>
+      appData.filter(({ type }) => type === AppDataTypes.Vote) as
+        | VoteAppData[]
+        | [],
+    [appData],
+  );
+
   const votes = useMemo(
     () =>
-      appData.filter(
-        ({ type, creator }) =>
-          type === AppDataTypes.Vote && creator?.id === memberId,
-      ) as VoteAppData[] | undefined,
-    [appData, memberId],
+      allVotes?.filter(({ creator }) => creator?.id === memberId) as
+        | VoteAppData[]
+        | [],
+    [allVotes, memberId],
   );
 
   const nbrOfVotes = votes?.length ?? 0;
@@ -93,13 +103,21 @@ export const VoteProvider: FC<VoteContextProps> = ({
 
   const contextValue = useMemo(
     () => ({
+      allVotes,
       maxNumberOfVotes,
       availableVotes,
       voteFor,
       removeVoteFor,
       checkIfHasVote,
     }),
-    [availableVotes, checkIfHasVote, maxNumberOfVotes, removeVoteFor, voteFor],
+    [
+      allVotes,
+      availableVotes,
+      checkIfHasVote,
+      maxNumberOfVotes,
+      removeVoteFor,
+      voteFor,
+    ],
   );
   return (
     <VoteContext.Provider value={contextValue}>{children}</VoteContext.Provider>

@@ -14,7 +14,7 @@ import Button from '@mui/material/Button';
 
 import { AppData } from '@graasp/sdk';
 
-import { ResponseAppData, ResponseData } from '@/config/appDataTypes';
+import { ResponseAppData } from '@/config/appDataTypes';
 import { RESPONSE_MAXIMUM_LENGTH } from '@/config/constants';
 import {
   RESPONSE_INPUT_FIELD_CY,
@@ -23,6 +23,7 @@ import {
 import useAssistants from '@/hooks/useAssistants';
 
 import { Loader } from '@graasp/ui';
+import { ResponseData } from '@/interfaces/response';
 import { useActivityContext } from '../context/ActivityContext';
 import { useSettings } from '../context/SettingsContext';
 import Prompts from './prompts/Prompts';

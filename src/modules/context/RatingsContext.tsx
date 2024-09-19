@@ -26,7 +26,7 @@ const defaultContextValue: RatingsContextType = {
 const RatingsContext = createContext<RatingsContextType>(defaultContextValue);
 
 type RatingsContextProps = {
-  evaluationParameters: EvaluationParameters;
+  evaluationParameters?: EvaluationParameters;
   children: JSX.Element;
 };
 
@@ -39,8 +39,11 @@ export const RatingsProvider: FC<RatingsContextProps> = ({
   const { appData, postAppData, deleteAppData, patchAppData } =
     useAppDataContext();
 
-  const { ratingsName, ratings } = evaluationParameters;
-
+  const ratingsName = evaluationParameters?.ratingsName ?? '';
+  const ratings = useMemo(
+    () => evaluationParameters?.ratings ?? [],
+    [evaluationParameters?.ratings],
+  );
   const allRatings = useMemo(
     () =>
       appData.filter(

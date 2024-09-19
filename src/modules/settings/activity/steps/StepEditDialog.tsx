@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { EvaluationType, EvaluationParameters } from '@/interfaces/evaluation';
 import CancelButton from '@/modules/common/CancelButton';
 import EvaluationSettings from './evaluation/EvaluationSettings';
+import ResultsSettings from './results/ResultsSettings';
 
 interface StepEditDialogProps {
   open: boolean;
@@ -32,7 +33,8 @@ const StepEditDialog: FC<StepEditDialogProps> = ({
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { t } = useTranslation('translations');
-  const { type, time, evaluationType, evaluationParameters } = step;
+  const { type, time, evaluationType, evaluationParameters, resultsType } =
+    step;
 
   const [timeBuffer, setTimeBuffer] = useState<string>('0');
   const [errorTime, setErrorTime] = useState(false);
@@ -68,6 +70,15 @@ const StepEditDialog: FC<StepEditDialogProps> = ({
     });
   };
 
+  const handleResultsSettingsChange = (
+    newResultsType: EvaluationType,
+  ): void => {
+    onChange({
+      ...step,
+      resultsType: newResultsType,
+    });
+  };
+
   const renderActivitySettings = (
     activityType: ActivityType,
   ): JSX.Element | null => {
@@ -86,7 +97,15 @@ const StepEditDialog: FC<StepEditDialogProps> = ({
           </>
         );
       case ActivityType.Results:
-        return null;
+        return (
+          <>
+            <Divider />
+            <ResultsSettings
+              resultsType={resultsType}
+              onChange={handleResultsSettingsChange}
+            />
+          </>
+        );
       default:
         return null;
     }

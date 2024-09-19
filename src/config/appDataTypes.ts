@@ -3,9 +3,9 @@ import { AppData, AppDataVisibility } from '@graasp/sdk';
 import { AssistantId } from '@/interfaces/assistant';
 import { ChatbotResponseData } from '@/interfaces/chatbot';
 import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
-import { UsefulnessNoveltyRatings } from '@/interfaces/ratings';
 import { PromptsData } from '@/interfaces/prompt';
 import { EvaluationParameters } from '@/interfaces/evaluation';
+import { ResponseData, ResponseEvaluation } from '@/interfaces/response';
 
 export enum AppDataTypes {
   Response = 'response',
@@ -19,23 +19,12 @@ export enum AppDataTypes {
   Prompts = 'prompts',
 }
 
-export type ResponseData<T = UsefulnessNoveltyRatings> = {
-  response: string | Array<string>;
-  round?: number;
-  bot?: boolean;
-  assistantId?: AssistantId;
-  parentId?: string;
-  encoding?: 'raw' | 'markdown';
-  originalResponse?: string;
-  ratings?: T;
-  givenPrompt?: string;
-};
-
-export type ResponseAppData = AppData & {
-  type: AppDataTypes.Response;
-  data: ResponseData;
-  visibility: AppDataVisibility.Item;
-};
+export type ResponseAppData<T extends ResponseEvaluation = undefined> =
+  AppData & {
+    type: AppDataTypes.Response;
+    data: ResponseData<T>;
+    visibility: AppDataVisibility.Item;
+  };
 
 export type ResponsesSetAppData = AppData & {
   type: AppDataTypes.ResponsesSet;

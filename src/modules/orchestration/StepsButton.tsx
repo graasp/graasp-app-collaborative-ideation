@@ -95,6 +95,8 @@ const StepsButton: FC<StepsButtonProps> = ({ enable }) => {
         return t('LABEL_STEP_COLLECTION', { round: step.round });
       case ActivityType.Evaluation:
         return t('LABEL_STEP_EVALUATION');
+      case ActivityType.Results:
+        return t('LABEL_STEP_RESULTS');
       default:
         return t('NO_STEP');
     }
