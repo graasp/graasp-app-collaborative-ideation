@@ -3,7 +3,6 @@ import { Context, PermissionLevel } from '@graasp/sdk';
 import {
   ADMIN_PANEL_CY,
   DETAILS_INSTRUCTIONS_CY,
-  NEXT_STEP_BTN_CY,
   ORCHESTRATION_BAR_CY,
   PROMPTS_CY,
   PROPOSE_NEW_RESPONSE_BTN_CY,
@@ -118,12 +117,12 @@ describe('Player with read rights, configured with one assistant and no data.', 
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(MEAN_WAITING_TIME);
     cy.get(buildDataCy(RESPONSE_COLLECTION_VIEW_CY)).should('exist');
-    cy.get(buildDataCy(NEXT_STEP_BTN_CY)).click();
+    cy.get(buildDataCy(ORCHESTRATION_BAR_CY.NEXT_STEP_BTN)).click();
     cy.get(buildDataCy(RESPONSE_COLLECTION_VIEW_CY)).should('exist');
 
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(MEAN_WAITING_TIME);
-    cy.get(buildDataCy(NEXT_STEP_BTN_CY)).click();
+    cy.get(buildDataCy(ORCHESTRATION_BAR_CY.NEXT_STEP_BTN)).click();
     cy.get(buildDataCy(RESPONSE_EVALUATION_VIEW_CY)).should('exist');
 
     // eslint-disable-next-line cypress/no-unnecessary-waiting
@@ -139,7 +138,7 @@ describe('Player with read rights, configured with one assistant and no data.', 
     //       });
     //   });
 
-    cy.get(buildDataCy(NEXT_STEP_BTN_CY)).click();
+    cy.get(buildDataCy(ORCHESTRATION_BAR_CY.NEXT_STEP_BTN)).click();
 
     cy.get(buildDataCy(RESPONSE_RESULTS_VIEW_CY)).should('exist');
   });

@@ -5,13 +5,13 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import { ActivityStep, ActivityType } from '@/interfaces/interactionProcess';
 import Typography from '@mui/material/Typography';
-import { NEXT_STEP_BTN_CY, PREVIOUS_STEP_BTN_CY } from '@/config/selectors';
 import LinearProgress from '@mui/material/LinearProgress';
 import Stack from '@mui/material/Stack';
 import Tooltip from '@mui/material/Tooltip';
 import useSteps from '@/hooks/useSteps';
 import Collapse from '@mui/material/Collapse';
 import CircularProgress from '@mui/material/CircularProgress';
+import { ORCHESTRATION_BAR_CY } from '@/config/selectors';
 import CommandButton from './CommandButton';
 import WarningPreviousStepDialog from './WarningPreviousStepDialog';
 import useStepTimer from '../common/stepTimer/useStepTimer';
@@ -108,7 +108,7 @@ const StepsButton: FC<StepsButtonProps> = ({ enable }) => {
         startIcon={<NavigateBeforeIcon />}
         onClick={() => setOpenWarningPreviousStepDialog(true)}
         disabled={!enable || disablePreviousStep}
-        data-cy={PREVIOUS_STEP_BTN_CY}
+        data-cy={ORCHESTRATION_BAR_CY.PREVIOUS_STEP_BTN}
         variant="contained"
       >
         {t('PREVIOUS_STEP')}
@@ -124,7 +124,7 @@ const StepsButton: FC<StepsButtonProps> = ({ enable }) => {
           endIcon={<NavigateNextIcon />}
           onClick={tryToMoveToNextStep}
           disabled={!enable || disableNextStep}
-          data-cy={NEXT_STEP_BTN_CY}
+          data-cy={ORCHESTRATION_BAR_CY.NEXT_STEP_BTN}
           variant="contained"
           color={nextStepColor}
         >

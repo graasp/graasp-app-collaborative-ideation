@@ -3,8 +3,7 @@ import { Context, PermissionLevel } from '@graasp/sdk';
 import {
   ADMIN_PANEL_CY,
   BUILDER_VIEW_CY,
-  NEXT_ROUND_BTN_CY,
-  PLAY_PAUSE_BUTTON_CY,
+  ORCHESTRATION_BAR_CY,
   PROPOSE_NEW_RESPONSE_BTN_CY,
   RESPONSE_COLLECTION_VIEW_CY,
   SETTINGS_TAB_CY,
@@ -29,19 +28,25 @@ describe('Builder View with admin rights, no settings', () => {
 
   it('loads the view without initialization', () => {
     cy.get(buildDataCy(BUILDER_VIEW_CY));
-    cy.get(buildDataCy(ADMIN_PANEL_CY)).should('exist');
+    cy.get(buildDataCy(ADMIN_PANEL_CY)).should('not.exist');
   });
 
   it('starts the ideation process with orchestrator', () => {
-    cy.get(buildDataCy(PLAY_PAUSE_BUTTON_CY)).should('have.lengthOf', 1);
-    cy.get(buildDataCy(PLAY_PAUSE_BUTTON_CY)).click();
+    cy.get(buildDataCy(ORCHESTRATION_BAR_CY.PLAY_BUTTON)).should(
+      'have.lengthOf',
+      1,
+    );
+    cy.get(buildDataCy(ORCHESTRATION_BAR_CY.PLAY_BUTTON)).click();
 
     cy.get(buildDataCy(RESPONSE_COLLECTION_VIEW_CY)).should('exist');
   });
 
   it('create some responses, and hit next round', () => {
-    cy.get(buildDataCy(PLAY_PAUSE_BUTTON_CY)).should('have.lengthOf', 1);
-    cy.get(buildDataCy(PLAY_PAUSE_BUTTON_CY)).click();
+    cy.get(buildDataCy(ORCHESTRATION_BAR_CY.PLAY_BUTTON)).should(
+      'have.lengthOf',
+      1,
+    );
+    cy.get(buildDataCy(ORCHESTRATION_BAR_CY.PLAY_BUTTON)).click();
 
     const newIdeas = ['Testing this software', "I don't know.", 'Sleep...'];
 
@@ -56,7 +61,7 @@ describe('Builder View with admin rights, no settings', () => {
       });
     });
 
-    cy.get(buildDataCy(NEXT_ROUND_BTN_CY)).click();
+    cy.get(buildDataCy(ORCHESTRATION_BAR_CY.NEXT_STEP_BTN)).click();
   });
 
   it('visits settings', () => {

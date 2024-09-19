@@ -5,7 +5,6 @@ export const RESPONSE_COLLECTION_VIEW_CY = 'response-collection-view';
 export const RESPONSE_EVALUATION_VIEW_CY = 'response-evaluation-view';
 export const RESPONSE_RESULTS_VIEW_CY = 'response-results-view';
 export const ADMIN_PANEL_CY = 'admin-panel';
-export const PLAY_PAUSE_BUTTON_CY = 'play-pause-button';
 export const INITIALIZE_BTN_CY = 'initialize-button';
 export const CODE_EDITOR_ID_CY = 'code-editor-id';
 export const SETTING_CHATBOT_PROMPT_CODE_EDITOR_CY =
@@ -28,10 +27,9 @@ export const TITLE_INSTRUCTIONS_CY = 'title-instructions';
 export const ORCHESTRATION_BAR_CY = {
   PLAY_BUTTON: 'orchestration-bar-play-button',
   PAUSE_BUTTON: 'orchestration-bar-pause-button',
+  PREVIOUS_STEP_BTN: 'orchestration-bar-previous-step-btn',
+  NEXT_STEP_BTN: 'orchestration-bar-next-step-btn',
 };
-
-export const PREVIOUS_STEP_BTN_CY = 'previous-step-btn';
-export const NEXT_STEP_BTN_CY = 'next-step-btn';
 
 export const RESPONSE_CY = 'response';
 
