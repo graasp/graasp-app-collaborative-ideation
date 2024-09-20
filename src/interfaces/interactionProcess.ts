@@ -19,8 +19,6 @@ export enum ActivityStatus {
   Pause = 'pause',
   Play = 'play',
   Input = 'input',
-  Evaluate = 'evaluate',
-  ShowSummary = 'show-summary',
 }
 
 export type ActivityStep = {
@@ -51,4 +49,5 @@ export enum ResponseVisibilityMode {
   FullyBlind = 'fully-blind',
   PartiallyBlind = 'partially-blind',
   Open = 'open',
+  OpenLive = 'open-live',
 }

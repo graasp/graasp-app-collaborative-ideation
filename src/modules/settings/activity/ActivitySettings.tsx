@@ -107,10 +107,16 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
               );
             }}
           >
+            {/* TODO: translate */}
+            <FormControlLabel
+              value={ResponseVisibilityMode.OpenLive}
+              control={<Radio />}
+              label="Open live (brainstorming)"
+            />
             <FormControlLabel
               value={ResponseVisibilityMode.Open}
               control={<Radio />}
-              label="Open (brainstorming)"
+              label="Open (brainstorming, asynchronous)"
             />
             <FormControlLabel
               value={ResponseVisibilityMode.PartiallyBlind}
