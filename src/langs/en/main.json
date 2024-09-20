@@ -139,6 +139,9 @@
         "SAVE_LABEL": "Save",
         "SAVED_LABEL": "Saved"
       }
+    },
+    "IMPORT_RESPONSES_BUTTON": {
+      "IMPORT_RESPONSES": "Import responses"
     }
   },
   "RESPONSE_COLLECTION": {

@@ -1,7 +1,10 @@
 import { ResponseAppData } from '@/config/appDataTypes';
 import Papa from 'papaparse';
 import { saveAs } from 'file-saver';
-import { ResponseData, ResponseEvaluation } from '@/interfaces/response';
+import {
+  ResponseDataExchangeFormat,
+  ResponseEvaluation,
+} from '@/interfaces/response';
 import cloneDeep from 'lodash.clonedeep';
 
 const exportResponses = async (
@@ -17,10 +20,7 @@ const exportResponses = async (
       // eslint-disable-next-line no-console
       console.warn(error);
     }
-    const dataToExport: ResponseData<ResponseEvaluation> & {
-      id: number;
-      votes?: number;
-    } = {
+    const dataToExport: ResponseDataExchangeFormat = {
       ...responseAppData.data,
       id: index,
     };

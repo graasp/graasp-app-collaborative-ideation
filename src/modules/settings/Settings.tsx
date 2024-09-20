@@ -27,6 +27,7 @@ import ActivitySettings from './activity/ActivitySettings';
 import Assistant from './assistant/Assistant';
 import PromptsSettings from './prompts/Prompts';
 import SaveButton from '../common/SaveButton';
+import ImportResponsesButton from './ImportResponsesButton';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface SettingsProps {}
@@ -118,6 +119,9 @@ const Settings: FC<SettingsProps> = () => {
       <ActivitySettings activity={activity} onChange={setActivity} />
       <PromptsSettings prompts={prompts} onChange={setPrompts} />
       <Assistant assistants={assistants} onChange={setAssistants} />
+      <Box>
+        <ImportResponsesButton />
+      </Box>
       <Box>
         <SaveButton disabled={isSaved} onSave={handleSave} />
         <ResetSetsButton enable />
