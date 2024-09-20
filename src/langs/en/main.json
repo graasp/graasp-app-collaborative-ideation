@@ -11,6 +11,8 @@
   "GOOD": "Good",
   "OKAY": "Okay",
   "BAD": "Bad",
+  "EXPORT_RESPONSES": "Export responses",
+  "EXPORTING": "Exporting",
   "EVALUATION_TYPE": {
     "VOTE": "Vote",
     "RANK": "Rank",
