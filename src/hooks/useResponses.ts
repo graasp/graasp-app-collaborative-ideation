@@ -17,7 +17,10 @@ import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { appDataArrayToMap } from '@/utils/utils';
 
-import { ResponseData } from '@/interfaces/response';
+import {
+  ResponseData,
+  ResponseDataExchangeFormat,
+} from '@/interfaces/response';
 import useActions from './useActions';
 import { UseParticipantsValue } from './useParticipants';
 import {
@@ -44,6 +47,9 @@ export interface UseResponsesValues {
   deleteResponsesSetsForRound: (roundToDelete: number) => Promise<void>;
   deleteAllResponsesSet: () => Promise<void>;
   deleteResponse: (id: ResponseAppData['id']) => Promise<void>;
+  importResponses: (
+    responsesDataJson: Array<ResponseDataExchangeFormat>,
+  ) => Promise<void>;
 }
 
 interface UseResponsesProps {
@@ -259,6 +265,22 @@ const useResponses = ({
       postDeleteResponseAction(id);
     });
 
+  const importResponses = async (
+    responsesData: Array<ResponseDataExchangeFormat>,
+  ): Promise<void> => {
+    responsesData.forEach((r) =>
+      postResponse({
+        response: r.response,
+        round: r?.round,
+        bot: r?.bot,
+        assistantId: r?.assistantId,
+        encoding: r?.encoding,
+        originalResponse: r?.originalResponse,
+        givenPrompt: r?.givenPrompt,
+      }),
+    );
+  };
+
   return {
     availableResponses,
     allResponses,
@@ -271,6 +293,7 @@ const useResponses = ({
     deleteAllResponsesSet,
     deleteResponse,
     deleteResponsesSetsForRound,
+    importResponses,
   };
 };
 

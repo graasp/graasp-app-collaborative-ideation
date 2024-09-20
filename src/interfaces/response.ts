@@ -26,3 +26,8 @@ export type ResponseData<
   givenPrompt?: string;
   evaluation?: EvaluationType;
 };
+
+export type ResponseDataExchangeFormat = ResponseData<ResponseEvaluation> & {
+  id: number;
+  votes?: number;
+};

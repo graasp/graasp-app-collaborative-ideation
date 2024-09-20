@@ -31,6 +31,7 @@ const defaultContextValue: ActivityContextType = {
   pauseActivity: () => undefined,
   availableResponses: [],
   updateActivityState: () => undefined,
+  importResponses: () => Promise.resolve(),
 };
 
 const ActivityContext = createContext<ActivityContextType>(defaultContextValue);
