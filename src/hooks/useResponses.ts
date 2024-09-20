@@ -123,7 +123,10 @@ const useResponses = ({
   }, [appData, orchestrator]);
 
   const availableResponses = useMemo((): ResponseAppData[] => {
-    const responses = getResponses(appData).filter((r) => {
+    if (visibilityMode === ResponseVisibilityMode.OpenLive) {
+      return allResponses;
+    }
+    const responses = allResponses.filter((r) => {
       const { id } = r;
       let okay = false;
       // Checks that the response has been assigned to the user.
@@ -135,7 +138,7 @@ const useResponses = ({
       return okay || isOwnResponse(r as ResponseAppData, memberId);
     }) as ResponseAppData[];
     return responses;
-  }, [appData, memberId, myResponsesSets]);
+  }, [allResponses, memberId, myResponsesSets, visibilityMode]);
 
   const postResponse = (
     data: ResponseData,
