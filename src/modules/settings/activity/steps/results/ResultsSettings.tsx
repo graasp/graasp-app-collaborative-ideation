@@ -10,6 +10,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import { EvaluationType } from '@/interfaces/evaluation';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
+import { DEFAULT_EVALUATION_TYPE } from '@/config/constants';
 
 interface ResultsSettingsProps {
   resultsType?: EvaluationType;
@@ -20,7 +21,7 @@ const EvaluationSettings: FC<ResultsSettingsProps> = ({
   resultsType: resultsTypeProp,
   onChange,
 }) => {
-  const resultsType = resultsTypeProp ?? EvaluationType.Vote;
+  const resultsType = resultsTypeProp ?? DEFAULT_EVALUATION_TYPE;
   const { t: tEvaluationType } = useTranslation('translations', {
     keyPrefix: 'EVALUATION_TYPE',
   });
@@ -41,7 +42,7 @@ const EvaluationSettings: FC<ResultsSettingsProps> = ({
         <FormLabel>{tSettings('EVALUATION_TYPE_SELECTION.TITLE')}</FormLabel>
         <RadioGroup
           aria-labelledby="evaluation-type-radio-button"
-          defaultValue={EvaluationType.Vote}
+          defaultValue={DEFAULT_EVALUATION_TYPE}
           value={resultsType}
           name="radio-buttons-group"
           onChange={(event: ChangeEvent<HTMLInputElement>) => {

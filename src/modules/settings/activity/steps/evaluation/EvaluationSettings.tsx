@@ -12,6 +12,7 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
+import { DEFAULT_EVALUATION_TYPE } from '@/config/constants';
 import RateSettings from './RateSettings';
 
 interface EvaluationSettingsProps {
@@ -111,7 +112,7 @@ const EvaluationSettings: FC<EvaluationSettingsProps> = ({
         <FormLabel>{tSettings('EVALUATION_TYPE_SELECTION.TITLE')}</FormLabel>
         <RadioGroup
           aria-labelledby="evaluation-type-radio-button"
-          defaultValue={EvaluationType.Vote}
+          defaultValue={DEFAULT_EVALUATION_TYPE}
           value={evaluationType}
           name="radio-buttons-group"
           onChange={(event: ChangeEvent<HTMLInputElement>) => {

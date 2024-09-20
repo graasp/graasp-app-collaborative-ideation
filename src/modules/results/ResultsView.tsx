@@ -2,6 +2,7 @@ import Container from '@mui/material/Container';
 import { RESPONSE_RESULTS_VIEW_CY } from '@/config/selectors';
 import useSteps from '@/hooks/useSteps';
 import { EvaluationType } from '@/interfaces/evaluation';
+import { DEFAULT_EVALUATION_TYPE } from '@/config/constants';
 import Instructions from '../common/Instructions';
 import Pausable from '../common/Pausable';
 import { RatingsProvider } from '../context/RatingsContext';
@@ -13,7 +14,7 @@ interface ResultsViewProps {}
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ResultsView = (props: ResultsViewProps): JSX.Element => {
   const { currentStep } = useSteps();
-  const resultsType = currentStep?.resultsType;
+  const resultsType = currentStep?.resultsType ?? DEFAULT_EVALUATION_TYPE;
 
   const renderResultsContext = (): JSX.Element | null => {
     switch (resultsType) {

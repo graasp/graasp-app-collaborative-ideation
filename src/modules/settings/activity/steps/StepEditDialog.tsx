@@ -138,11 +138,13 @@ const StepEditDialog: FC<StepEditDialogProps> = ({
       <DialogTitle>Edit the step</DialogTitle>
       <DialogContent sx={{ p: 1 }}>
         <Select value={type} label="Type" onChange={handleChangeType}>
+          {/* TODO: Translate */}
           <MenuItem value={ActivityType.Collection}>Collection</MenuItem>
           <MenuItem value={ActivityType.Evaluation}>Evaluation</MenuItem>
           <MenuItem value={ActivityType.Results}>Results</MenuItem>
         </Select>
         <TextField
+          // TODO: Translate
           label="Time"
           value={timeBuffer}
           onChange={handleTimeChange}
