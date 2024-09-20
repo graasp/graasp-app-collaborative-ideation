@@ -107,6 +107,7 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
               );
             }}
           >
+            {/* TODO: translate */}
             <FormControlLabel
               value={ResponseVisibilityMode.OpenLive}
               control={<Radio />}
