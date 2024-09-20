@@ -12,16 +12,17 @@ import Typography from '@mui/material/Typography';
 import grey from '@mui/material/colors/grey';
 
 import { ResponseAppData } from '@/config/appDataTypes';
-import { EvaluationType } from '@/interfaces/evaluationType';
 
 import Chip from '@mui/material/Chip';
 import { useLocalContext } from '@graasp/apps-query-client';
 import Box from '@mui/material/Box';
 import { RESPONSE_CY } from '@/config/selectors';
-import UsefulnessNoveltyRating from './evaluation/UsefulnessNoveltyRating';
-import DimensionsOfGlobalIssueRating from './evaluation/DimensionsOfGlobalIssueRating';
+import { EvaluationType } from '@/interfaces/evaluation';
+import { ResponseEvaluation } from '@/interfaces/response';
 import RatingsVisualization from './visualization/RatingsVisualization';
-import SFERARating from './evaluation/SFERARating';
+import Vote from './evaluation/Vote';
+import Rate from './evaluation/Rate';
+import Votes from './visualization/Votes';
 
 const ResponsePart: FC<{ children: string }> = ({ children }) => (
   <Typography variant="body1" sx={{ overflowWrap: 'break-word', mb: 1 }}>
@@ -29,26 +30,30 @@ const ResponsePart: FC<{ children: string }> = ({ children }) => (
   </Typography>
 );
 
-const Response: FC<{
-  response: ResponseAppData;
+interface ResponseProps {
+  response: ResponseAppData<ResponseEvaluation>;
   onSelect?: (id: string) => void;
   enableBuildAction?: boolean;
-  evaluationType?: EvaluationType;
   onDelete?: (id: string) => void;
   showRatings?: boolean;
   onParentIdeaClick?: (id: string) => void;
   highlight?: boolean;
-}> = ({
+  evaluationType?: EvaluationType;
+  nbrOfVotes?: number;
+}
+
+const Response: FC<ResponseProps> = ({
   response,
   onSelect,
   onDelete,
+  evaluationType,
   enableBuildAction = true,
-  evaluationType = EvaluationType.None,
   showRatings = false,
   onParentIdeaClick = (id: string) =>
     // eslint-disable-next-line no-console
     console.debug(`The user clicked on link to idea ${id}`),
   highlight = false,
+  nbrOfVotes,
 }) => {
   const { t } = useTranslation('translations', { keyPrefix: 'RESPONSE_CARD' });
   const { t: generalT } = useTranslation('translations');
@@ -67,17 +72,17 @@ const Response: FC<{
   const showDeleteButton = typeof onDelete !== 'undefined' && isOwn;
   const showActions = showDeleteButton || showSelectButton;
 
-  const renderEvaluationComponent = (): JSX.Element => {
-    if (evaluationType === EvaluationType.UsefulnessNoveltyRating) {
-      return <UsefulnessNoveltyRating responseId={id} />;
+  const renderEvaluationComponent = (): JSX.Element | null => {
+    switch (evaluationType) {
+      case EvaluationType.Vote:
+        return <Vote responseId={id} />;
+      case EvaluationType.Rate:
+        return <Rate responseId={id} />;
+      // case EvaluationType.Rank:
+      //   return <Rank responseId={id} />;
+      default:
+        return null;
     }
-    if (evaluationType === EvaluationType.DimensionsOfGIRating) {
-      return <DimensionsOfGlobalIssueRating responseId={id} />;
-    }
-    if (evaluationType === EvaluationType.SFERARating) {
-      return <SFERARating responseId={id} />;
-    }
-    return <p>Vote</p>; // TODO: implement
   };
 
   return (
@@ -146,8 +151,9 @@ const Response: FC<{
           )}
         </Box>
       </CardContent>
-      {evaluationType !== EvaluationType.None && renderEvaluationComponent()}
-      {showRatings && <RatingsVisualization response={response} />}
+      {renderEvaluationComponent()}
+      {showRatings && <RatingsVisualization />}
+      {typeof nbrOfVotes !== 'undefined' && <Votes votes={nbrOfVotes} />}
       {showActions && (
         <>
           <Divider />

@@ -16,7 +16,6 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Typography from '@mui/material/Typography';
 
-import { PLAY_PAUSE_BUTTON_CY } from '@/config/selectors';
 import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
 
 import { useActivityContext } from '../context/ActivityContext';
@@ -117,10 +116,7 @@ const Orchestration: FC<OrchestrationProps> = () => {
               <PauseCircleOutlineIcon />
             </IconButton>
           ) : (
-            <IconButton
-              onClick={() => playActivity()}
-              data-cy={PLAY_PAUSE_BUTTON_CY}
-            >
+            <IconButton onClick={() => playActivity()}>
               <PlayCircleOutlineIcon />
             </IconButton>
           )}

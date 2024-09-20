@@ -2,6 +2,7 @@ import { AppDataVisibility } from '@graasp/sdk';
 
 import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
 
+import { EvaluationType } from '@/interfaces/evaluation';
 import {
   AppDataTypes,
   ChatbotResponseAppData,
@@ -45,6 +46,8 @@ export const DEFAULT_CHATBOT_RESPONSE_APP_DATA: Pick<
 export const DEFAULT_BOT_USERNAME = 'GraaspBot';
 export const SHORT_TIME_LIMIT = 10; // seconds
 export const DEFAULT_LANG = 'en';
+
+export const DEFAULT_EVALUATION_TYPE = EvaluationType.Vote;
 
 export const CATEGORY_COLORS = [
   '#ffadad',

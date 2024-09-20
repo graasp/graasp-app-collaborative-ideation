@@ -6,7 +6,6 @@ import {
   AppActionTypes,
   ChooseResponseAction,
   DeleteResponseAction,
-  EvaluateResponseAction,
   NextStepAction,
   OpenAppAction,
   PauseActivityAction,
@@ -15,11 +14,7 @@ import {
   RequestPromptAction,
   SubmitNewResponseAction,
 } from '@/config/appActionsTypes';
-import {
-  CurrentStateData,
-  RatingsAppData,
-  ResponseAppData,
-} from '@/config/appDataTypes';
+import { CurrentStateData, ResponseAppData } from '@/config/appDataTypes';
 import { mutations } from '@/config/queryClient';
 import { ActivityStep } from '@/interfaces/interactionProcess';
 
@@ -31,7 +26,7 @@ interface UseActionsValues {
     currentState?: CurrentStateData,
     context?: LocalContext,
   ) => void;
-  postEvaluateResponseAction: <T>(evaluation: RatingsAppData<T>) => void;
+  // postEvaluateResponseAction: <T>(evaluation: RatingsAppData<T>) => void;
   postNextStepAction: (step: ActivityStep, stepIndex: number) => void;
   postPreviousStepAction: (step: ActivityStep, stepIndex: number) => void;
   postPlayActivityAction: (data?: Data) => void;
@@ -91,21 +86,21 @@ const useActions = (): UseActionsValues => {
     [postAppAction],
   );
 
-  const postEvaluateResponseAction = useMemo(
-    () =>
-      <T>(evaluation: RatingsAppData<T>) => {
-        const action: EvaluateResponseAction<T> = {
-          type: AppActionTypes.EvaluateResponse,
-          data: {
-            id: evaluation.id,
-            type: evaluation.type,
-            data: evaluation.data,
-          },
-        };
-        postAppAction(action);
-      },
-    [postAppAction],
-  );
+  // const postEvaluateResponseAction = useMemo(
+  //   () =>
+  //     <T>(evaluation: RatingsAppData<T>) => {
+  //       const action: EvaluateResponseAction<T> = {
+  //         type: AppActionTypes.EvaluateResponse,
+  //         data: {
+  //           id: evaluation.id,
+  //           type: evaluation.type,
+  //           data: evaluation.data,
+  //         },
+  //       };
+  //       postAppAction(action);
+  //     },
+  //   [postAppAction],
+  // );
 
   const postNextStepAction = useCallback(
     (step: ActivityStep, stepIndex: number) => {
@@ -173,7 +168,7 @@ const useActions = (): UseActionsValues => {
     postDeleteResponseAction,
     postChooseResponseAction,
     postOpenAppAction,
-    postEvaluateResponseAction,
+    // postEvaluateResponseAction,
     postNextStepAction,
     postPreviousStepAction,
     postPlayActivityAction,

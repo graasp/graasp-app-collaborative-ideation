@@ -12,13 +12,10 @@ import { PermissionLevel } from '@graasp/sdk';
 import {
   ACTIVITY_TAB_CY,
   BUILDER_VIEW_CY,
-  RESPONSES_TAB_CY,
   SETTINGS_TAB_CY,
 } from '@/config/selectors';
 
-import AdminControl from '../adminPanel/AdminPanel';
 import TabPanel from '../common/TabPanel';
-import ResponsesView from '../responsesView/ResponsesView';
 import SettingsView from '../settings/Settings';
 import Activity from './Activity';
 
@@ -59,25 +56,25 @@ const BuilderView = (): JSX.Element => {
     [t],
   );
 
-  const ideasViewTab = useMemo(
-    () => ({
-      tabLabel: t('RESPONSES_VIEW_TAB'),
-      tabChild: <ResponsesView />,
-      tabSelector: RESPONSES_TAB_CY,
-    }),
-    [t],
-  );
+  // const ideasViewTab = useMemo(
+  //   () => ({
+  //     tabLabel: t('RESPONSES_VIEW_TAB'),
+  //     tabChild: <ResponsesView />,
+  //     tabSelector: RESPONSES_TAB_CY,
+  //   }),
+  //   [t],
+  // );
 
   const tabs: TabType[] = useMemo(
-    () => (isAdmin ? [activityTab, ideasViewTab, settingsTab] : [activityTab]),
-    [isAdmin, activityTab, ideasViewTab, settingsTab],
+    () => (isAdmin ? [activityTab, settingsTab] : [activityTab]),
+    [isAdmin, activityTab, settingsTab],
   );
 
   return (
     <Stack data-cy={BUILDER_VIEW_CY} direction="row" spacing={2} width="100%">
       <Paper
         elevation={0}
-        sx={{ width: isAdmin ? '66%' : '100%', backgroundColor: 'transparent' }}
+        sx={{ width: '100%', backgroundColor: 'transparent' }}
       >
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs
@@ -96,7 +93,7 @@ const BuilderView = (): JSX.Element => {
           </TabPanel>
         ))}
       </Paper>
-      {isAdmin && <AdminControl width="33%" />}
+      {/* {isAdmin && <AdminControl width="33%" />} */}
     </Stack>
   );
 };

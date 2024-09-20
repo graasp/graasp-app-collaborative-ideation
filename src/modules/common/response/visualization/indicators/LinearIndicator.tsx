@@ -61,17 +61,6 @@ const LinearIndicator = ({
     return <CustomTickLabel label={label} p={p} />;
   };
   return (
-    //   const currentProps = useMemo(() => {
-    //     const sortedThresholds = thresholds.sort((tA, tB) => tB.value - tA.value);
-    //     // eslint-disable-next-line no-restricted-syntax
-    //     for (const threshold of sortedThresholds) {
-    //       if (threshold.value < value) {
-    //         return threshold;
-    //       }
-    //     }
-    //     return sortedThresholds[0];
-    //   }, [thresholds, value]);
-
     <BoxPlot
       data={data}
       minValue={0}

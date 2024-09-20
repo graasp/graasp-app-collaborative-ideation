@@ -9,18 +9,18 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import Stack from '@mui/material/Stack';
 import Switch from '@mui/material/Switch';
+import clone from 'lodash.clone';
 
 import { ActivitySetting } from '@/config/appSettingsType';
-import { EvaluationType } from '@/interfaces/evaluationType';
 import {
   ActivityStep,
   ResponseVisibilityMode,
 } from '@/interfaces/interactionProcess';
 
 import Box from '@mui/material/Box';
+import { useSettings } from '@/modules/context/SettingsContext';
 import SettingsSection from '../../common/SettingsSection';
-import EvaluationTypeSelection from './EvaluationTypeSelection';
-import StepsSettings from './StepsSettings';
+import StepsSettings from './steps/StepsSettings';
 
 interface ActivitySettingsProps {
   activity: ActivitySetting;
@@ -35,9 +35,10 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
     keyPrefix: 'SETTINGS.ACTIVITY',
   });
 
+  const { saveSettings } = useSettings();
+
   const {
     mode,
-    evaluationType,
     exclusiveResponseDistribution,
     numberOfBotResponsesPerSet,
     numberOfResponsesPerSet,
@@ -82,20 +83,12 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
     });
   };
 
-  const handleEvaluationTypeChange = (
-    newEvaluationType: EvaluationType,
-  ): void => {
-    onChange({
-      ...activity,
-      evaluationType: newEvaluationType,
-    });
-  };
-
   const handleChangeSteps = (newSteps: ActivityStep[]): void => {
-    onChange({
+    const newActivity = {
       ...activity,
-      steps: newSteps,
-    });
+      steps: clone(newSteps),
+    };
+    onChange(newActivity);
   };
   return (
     <SettingsSection title={t('TITLE')}>
@@ -184,11 +177,11 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
           </FormControl>
         </Box>
       </Stack>
-      <EvaluationTypeSelection
-        evaluationType={evaluationType}
-        onChange={handleEvaluationTypeChange}
+      <StepsSettings
+        steps={steps}
+        onChange={handleChangeSteps}
+        onSave={() => saveSettings('activity', activity)}
       />
-      <StepsSettings steps={steps} onChange={handleChangeSteps} />
     </SettingsSection>
   );
 };
