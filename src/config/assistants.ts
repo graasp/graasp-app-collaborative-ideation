@@ -1,13 +1,16 @@
 import { ChatbotRole } from '@graasp/sdk';
 
 import systemsThinkerIcon from '@/../public/assets/personas-icons/systems-thinker.svg';
-import { AssistantPersonaPreset } from '@/interfaces/assistant';
+import {
+  AssistantPersonaPreset,
+  LLMAssistantConfiguration,
+} from '@/interfaces/assistant';
 
-const SystemsThinker: AssistantPersonaPreset = {
+const SystemsThinker: AssistantPersonaPreset<LLMAssistantConfiguration> = {
   iconUrl: systemsThinkerIcon,
   description: 'A systems thinker assistant',
   name: 'Systems thinker',
-  message: [
+  configuration: [
     {
       role: ChatbotRole.System,
       content: '',

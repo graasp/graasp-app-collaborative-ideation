@@ -2,14 +2,17 @@ import { useMemo } from 'react';
 
 import { Member } from '@graasp/sdk';
 
-import { AssistantPersona } from '@/interfaces/assistant';
+import {
+  AssistantConfiguration,
+  AssistantPersona,
+} from '@/interfaces/assistant';
 import { Participant, ParticipantType } from '@/interfaces/participant';
 import { useMembersContext } from '@/modules/context/MembersContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 
 export type UseParticipantsValue = {
   members: Array<Participant<Member>>;
-  assistants: Array<Participant<AssistantPersona>>;
+  assistants: Array<Participant<AssistantPersona<AssistantConfiguration>>>;
 };
 
 const useParticipants = (): UseParticipantsValue => {
@@ -20,11 +23,17 @@ const useParticipants = (): UseParticipantsValue => {
     () =>
       rawMembers
         .filter(({ id }) => !notParticipating.ids.includes(id))
-        .map((m) => ({ type: ParticipantType.Account, ...m })),
+        .map((m) => ({ memberType: ParticipantType.Account, ...m })),
     [notParticipating, rawMembers],
   );
-  const assistantsParticipants: Participant<AssistantPersona>[] = useMemo(
-    () => assistants.map((a) => ({ type: ParticipantType.Bot, ...a })),
+  const assistantsParticipants: Participant<
+    AssistantPersona<AssistantConfiguration>
+  >[] = useMemo(
+    () =>
+      assistants.map((a) => ({
+        ...a,
+        memberType: ParticipantType.Bot,
+      })),
     [assistants],
   );
   return { members, assistants: assistantsParticipants };

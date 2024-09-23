@@ -1,4 +1,7 @@
-import { ActivityStep } from '@/interfaces/interactionProcess';
+import {
+  ActivityStep,
+  ResponseVisibilityMode,
+} from '@/interfaces/interactionProcess';
 import { useActivityContext } from '@/modules/context/ActivityContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { useMemo } from 'react';
@@ -29,7 +32,7 @@ const useSteps = (): UseStepsValues => {
 
   const { postNextStepAction, postPreviousStepAction } = useActions();
   const { activity } = useSettings();
-  const { steps } = activity;
+  const { steps, mode } = activity;
 
   const stepIndex = useMemo(
     () => activityState?.data.stepIndex,
@@ -77,7 +80,10 @@ const useSteps = (): UseStepsValues => {
 
     const nextStepIndex = (stepIndex ?? 0) + 1;
 
-    if ((nextStep?.round || 0) > round) {
+    if (
+      (nextStep?.round || 0) > round &&
+      mode !== ResponseVisibilityMode.OpenLive
+    ) {
       // TODO: Insane amount of work here. REFACTOR!
       await generateResponsesWithEachAssistant()
         .then((p) => Promise.all(p))

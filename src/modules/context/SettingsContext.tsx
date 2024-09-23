@@ -15,7 +15,6 @@ const ALL_SETTING_NAMES = [
   'orchestrator',
   'activity',
   'notParticipating',
-  'chatbot',
   'assistants',
   'prompts',
 ] as const;

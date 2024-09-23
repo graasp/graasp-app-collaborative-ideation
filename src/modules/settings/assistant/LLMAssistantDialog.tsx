@@ -25,8 +25,12 @@ import { ChatBotMessage } from '@graasp/sdk';
 
 import { DEFAULT_BOT_USERNAME, SMALL_BORDER_RADIUS } from '@/config/constants';
 import { SETTING_CHATBOT_PROMPT_CODE_EDITOR_CY } from '@/config/selectors';
-import { AssistantPersona } from '@/interfaces/assistant';
+import {
+  AssistantPersona,
+  LLMAssistantConfiguration,
+} from '@/interfaces/assistant';
 import CodeEditor from '@/modules/common/CodeEditor';
+import CancelButton from '@/modules/common/CancelButton';
 
 const TextArea = styled(TextareaAutosize)(({ theme }) => ({
   borderRadius: SMALL_BORDER_RADIUS,
@@ -50,16 +54,18 @@ const TextArea = styled(TextareaAutosize)(({ theme }) => ({
   },
 }));
 
-interface AssistantDialogProps {
-  assistant: AssistantPersona;
-  onSave: (newAssistant: AssistantPersona) => void;
+interface LLMAssistantDialogProps {
+  assistant: AssistantPersona<LLMAssistantConfiguration>;
+  onSave: (newAssistant: AssistantPersona<LLMAssistantConfiguration>) => void;
+  onCancel: () => void;
   open: boolean;
 }
 
-const AssistantDialog: FC<AssistantDialogProps> = ({
+const LLMAssistantDialog: FC<LLMAssistantDialogProps> = ({
   assistant,
   onSave,
   open,
+  onCancel,
 }) => {
   const { t } = useTranslation('translations', {
     keyPrefix: 'SETTINGS.ASSISTANT.EDIT_DIALOG',
@@ -67,7 +73,7 @@ const AssistantDialog: FC<AssistantDialogProps> = ({
   const [unsavedChanges, setUnsavedChanges] = useState(false);
   const [formattingError, setFormattingError] = useState(false);
   const chatbotPrompt = assistant.description;
-  const initialPrompt = assistant.message || [];
+  const initialPrompt = assistant.configuration || [];
   const stringifiedJsonPrompt = JSON.stringify(initialPrompt, null, 2);
   const chatbotCue = assistant.description;
   const chatbotName = assistant.name || DEFAULT_BOT_USERNAME;
@@ -132,7 +138,7 @@ const AssistantDialog: FC<AssistantDialogProps> = ({
         ...assistant,
         name: newChatbotName,
         description: newChatbotCue,
-        message: jsonNewChatbotPrompt,
+        configuration: jsonNewChatbotPrompt,
       });
     }
   };
@@ -257,6 +263,7 @@ const AssistantDialog: FC<AssistantDialogProps> = ({
               />
             </Box>
             <Box alignSelf="flex-end">
+              <CancelButton onCancel={onCancel} disabled={false} />
               <Button
                 onClick={handleSave}
                 disabled={!unsavedChanges}
@@ -271,4 +278,4 @@ const AssistantDialog: FC<AssistantDialogProps> = ({
     </Dialog>
   );
 };
-export default AssistantDialog;
+export default LLMAssistantDialog;

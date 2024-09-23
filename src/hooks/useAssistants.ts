@@ -1,32 +1,39 @@
-import { ChatbotRole, GPTVersion } from '@graasp/sdk';
+import { AppDataVisibility, ChatbotRole, GPTVersion } from '@graasp/sdk';
 
-import { ChatbotResponseAppData, ResponseAppData } from '@/config/appDataTypes';
+import {
+  AppDataTypes,
+  ChatbotResponseAppData,
+  ListAssistantStateAppData,
+  ResponseAppData,
+} from '@/config/appDataTypes';
 import {
   DEFAULT_CHATBOT_RESPONSE_APP_DATA,
   RESPONSE_MAXIMUM_LENGTH,
 } from '@/config/constants';
 import {
-  getSingleResponsePrompt,
   promptForSingleResponse,
   promptForSingleResponseAndProvideResponses,
 } from '@/config/prompts';
 import { mutations } from '@/config/queryClient';
-import { AssistantPersona } from '@/interfaces/assistant';
+import {
+  AssistantPersona,
+  AssistantType,
+  ListAssistantConfiguration,
+  ListAssistantStateData,
+  LLMAssistantConfiguration,
+} from '@/interfaces/assistant';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { useTranslation } from 'react-i18next';
 import { useActivityContext } from '@/modules/context/ActivityContext';
+import { useMemo } from 'react';
 import { joinMultipleResponses } from './utils/responses';
 
 interface UseAssistantsValues {
-  generateSingleResponse: () => Promise<ChatbotResponseAppData | undefined>;
   promptAssistant: (
-    assistant: AssistantPersona,
+    assistant: AssistantPersona<LLMAssistantConfiguration>,
     prompt: string,
   ) => Promise<ChatbotResponseAppData | undefined>;
-  promptAllAssistants: (
-    prompt: string,
-  ) => Promise<Promise<ChatbotResponseAppData | undefined>[]>;
   reformulateResponse: (
     response: string,
   ) => Promise<ChatbotResponseAppData | undefined>;
@@ -41,17 +48,24 @@ const useAssistants = (): UseAssistantsValues => {
     GPTVersion.GPT_4_O, // TODO: Allow user to choose which model to use.
   );
   const {
-    chatbot,
     instructions: generalPrompt,
     assistants,
     instructions,
   } = useSettings();
 
   const { includeDetails, promptMode } = assistants;
-  const { postAppDataAsync } = useAppDataContext();
+  const { postAppDataAsync, appData, patchAppDataAsync } = useAppDataContext();
 
   const { assistantsResponsesSets, round, allResponses, postResponse } =
     useActivityContext();
+
+  const listAssistantsStates = useMemo(
+    () =>
+      appData.filter(
+        (a) => a.type === AppDataTypes.ListAssistantState,
+      ) as Array<ListAssistantStateAppData>,
+    [appData],
+  );
 
   const reformulateResponse = (
     response: string,
@@ -91,117 +105,152 @@ const useAssistants = (): UseAssistantsValues => {
       return a;
     });
 
-  /**
-   *
-   * @deprecated
-   */
-  const generateSingleResponse = async (): Promise<
-    ChatbotResponseAppData | undefined
-  > =>
-    postChatBot([
-      {
-        role: ChatbotRole.System,
-        content: chatbot.systemPrompt,
-      },
-      {
-        role: ChatbotRole.User,
-        content: getSingleResponsePrompt(generalPrompt.title.content),
-      },
-    ]).then((ans) => {
-      const a = postAppDataAsync({
-        ...DEFAULT_CHATBOT_RESPONSE_APP_DATA,
-        data: {
-          ...ans,
-        },
-      }) as Promise<ChatbotResponseAppData>;
-      return a;
-    });
-
   const promptAssistant = async (
-    assistant: AssistantPersona,
+    assistant: AssistantPersona<LLMAssistantConfiguration>,
     prompt: string,
-  ): Promise<ChatbotResponseAppData | undefined> =>
-    postChatBot([
-      ...assistant.message,
-      {
-        role: ChatbotRole.User,
-        content: prompt,
-      },
-    ]).then((ans) => {
-      const a = postAppDataAsync({
-        ...DEFAULT_CHATBOT_RESPONSE_APP_DATA,
-        data: {
-          ...ans, // Be careful. Destructure.
-          assistantId: assistant.id,
+  ): Promise<ChatbotResponseAppData | undefined> => {
+    if (assistant.type === AssistantType.LLM) {
+      return postChatBot([
+        ...assistant.configuration,
+        {
+          role: ChatbotRole.User,
+          content: prompt,
         },
-      }) as Promise<ChatbotResponseAppData>;
-      return a;
-    });
+      ]).then((ans) => {
+        const a = postAppDataAsync({
+          ...DEFAULT_CHATBOT_RESPONSE_APP_DATA,
+          data: {
+            ...ans, // Be careful. Destructure.
+            assistantId: assistant.id,
+          },
+        }) as Promise<ChatbotResponseAppData>;
+        return a;
+      });
+    }
+    throw Error('This assistant is not configured to use an LLM.');
+    return undefined;
+  };
 
-  const promptAllAssistants = async (
-    prompt: string,
-  ): Promise<Promise<ChatbotResponseAppData | undefined>[]> =>
-    assistants.assistants.map((p) => promptAssistant(p, prompt));
+  const generateResponseWithLLMAssistant = async (
+    assistant: AssistantPersona<LLMAssistantConfiguration>,
+  ): Promise<ResponseAppData | undefined> => {
+    let promise: Promise<ChatbotResponseAppData | undefined>;
+    const assistantSet = assistantsResponsesSets.find(
+      (set) =>
+        set.data.assistant === assistant.id && set.data.round === round - 1,
+    );
+    if (assistantSet) {
+      const responses = assistantSet.data.responses.map((r) =>
+        joinMultipleResponses(
+          allResponses.find(({ id }) => r === id)?.data.response || '',
+        ),
+      );
+      promise = promptAssistant(
+        assistant,
+        promptForSingleResponseAndProvideResponses(
+          instructions.title.content,
+          responses,
+          t,
+          includeDetails ? instructions.details?.content : undefined,
+          promptMode,
+        ),
+      );
+    }
+    promise = promptAssistant(
+      assistant,
+      promptForSingleResponse(
+        instructions.title.content,
+        t,
+        includeDetails ? instructions.details?.content : undefined,
+        promptMode,
+      ),
+    );
+    return promise.then(async (assistantResponseAppData) => {
+      if (assistantResponseAppData) {
+        const { completion: response, assistantId } =
+          assistantResponseAppData.data;
+        return postResponse({
+          response,
+          round,
+          bot: true,
+          assistantId,
+        });
+      }
+      return assistantResponseAppData;
+    });
+  };
+
+  const updateListAssistantState = async (
+    data: ListAssistantStateData,
+  ): Promise<void> => {
+    const state = listAssistantsStates.find(
+      (s) => s.data.assistantRef === data.assistantRef,
+    );
+    if (state) {
+      patchAppDataAsync({
+        id: state.id,
+        data,
+      });
+    } else {
+      postAppDataAsync({
+        data,
+        visibility: AppDataVisibility.Item,
+        type: AppDataTypes.ListAssistantState,
+      });
+    }
+  };
+
+  const generateResponseWithListAssistant = async (
+    assistant: AssistantPersona<ListAssistantConfiguration>,
+  ): Promise<ResponseAppData | undefined> => {
+    const { id, configuration } = assistant;
+    const state = listAssistantsStates.find((s) => s.data.assistantRef === id);
+    let indexToMark: number | undefined;
+    const response = configuration.find((_, index) => {
+      indexToMark = index;
+      return !(index in (state?.data.postedIndex ?? []));
+    });
+    if (typeof indexToMark !== 'undefined') {
+      const postedIndex =
+        typeof state?.data?.postedIndex !== 'undefined'
+          ? [...state.data.postedIndex, indexToMark]
+          : [indexToMark];
+      updateListAssistantState({
+        assistantRef: id,
+        postedIndex,
+      });
+    }
+    if (response) {
+      return postResponse({
+        response,
+        round,
+        bot: true,
+        assistantId: id,
+      });
+    }
+    return undefined;
+  };
 
   const generateResponsesWithEachAssistant = async (): Promise<
     Promise<ResponseAppData | undefined>[]
   > => {
-    const responsesAssistants = assistants.assistants
-      .map((persona) => {
-        const assistantSet = assistantsResponsesSets.find(
-          (set) =>
-            set.data.assistant === persona.id && set.data.round === round - 1,
-        );
-        if (assistantSet) {
-          const responses = assistantSet.data.responses.map((r) =>
-            joinMultipleResponses(
-              allResponses.find(({ id }) => r === id)?.data.response || '',
-            ),
-          );
-          return promptAssistant(
-            persona,
-            promptForSingleResponseAndProvideResponses(
-              instructions.title.content,
-              responses,
-              t,
-              includeDetails ? instructions.details?.content : undefined,
-              promptMode,
-            ),
-          );
-        }
-        return promptAssistant(
-          persona,
-          promptForSingleResponse(
-            instructions.title.content,
-            t,
-            includeDetails ? instructions.details?.content : undefined,
-            promptMode,
-          ),
-        );
-      })
-      .map((promise) =>
-        promise.then(async (assistantResponseAppData) => {
-          if (assistantResponseAppData) {
-            const { completion: response, assistantId } =
-              assistantResponseAppData.data;
-            return postResponse({
-              response,
-              round,
-              bot: true,
-              assistantId,
-            });
-          }
-          return assistantResponseAppData;
-        }),
-      );
-
-    return responsesAssistants;
+    const lLMAssistants = assistants.assistants.filter(
+      (a) => a.type === AssistantType.LLM,
+    ) as Array<AssistantPersona<LLMAssistantConfiguration>>;
+    const listAssistants = assistants.assistants.filter(
+      (a) => a.type === AssistantType.LIST,
+    ) as Array<AssistantPersona<ListAssistantConfiguration>>;
+    const responsesLLMAssistants = lLMAssistants.map((a) =>
+      generateResponseWithLLMAssistant(a),
+    );
+    const responseListAssistants = listAssistants.map((a) =>
+      generateResponseWithListAssistant(a),
+    );
+    return [...responseListAssistants, ...responsesLLMAssistants];
   };
 
   return {
-    generateSingleResponse,
     promptAssistant,
-    promptAllAssistants,
     reformulateResponse,
     generateResponsesWithEachAssistant,
   };

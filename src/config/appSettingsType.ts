@@ -1,6 +1,10 @@
 import { Member } from '@graasp/sdk';
 
-import { AssistantPersona, PromptMode } from '@/interfaces/assistant';
+import {
+  AssistantConfiguration,
+  AssistantPersona,
+  PromptMode,
+} from '@/interfaces/assistant';
 import {
   ActivityStep,
   ActivityType,
@@ -8,7 +12,6 @@ import {
 } from '@/interfaces/interactionProcess';
 
 import { t } from 'i18next';
-import { DEFAULT_SYSTEM_PROMPT } from './prompts';
 
 type InstructionFormatType = 'html' | 'markdown' | 'plain-text';
 
@@ -41,7 +44,7 @@ export type ActivitySetting = {
 };
 
 export type AssistantsSetting = {
-  assistants: AssistantPersona[];
+  assistants: AssistantPersona<AssistantConfiguration>[];
   promptMode?: PromptMode;
   includeDetails?: boolean;
 };
@@ -58,9 +61,6 @@ export type AllSettingsType = {
   orchestrator: OrchestratorSetting;
   activity: ActivitySetting;
   notParticipating: NotParticipatingSetting;
-  chatbot: {
-    systemPrompt: string;
-  };
   assistants: AssistantsSetting;
   prompts: PromptsSetting;
 };
@@ -124,9 +124,6 @@ export const defaultSettingsValues: AllSettingsType = {
     ],
   },
   notParticipating: { ids: [] },
-  chatbot: {
-    systemPrompt: DEFAULT_SYSTEM_PROMPT,
-  },
   assistants: {
     assistants: [],
     promptMode: PromptMode.Problem,

@@ -8,13 +8,18 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
 
-import { AssistantPersona } from '@/interfaces/assistant';
+import {
+  AssistantConfiguration,
+  AssistantPersona,
+} from '@/interfaces/assistant';
 import ChatbotAvatar from '@/modules/common/ChatbotAvatar';
 
 interface AssistantCardProps {
-  assistant: AssistantPersona;
-  onEdit: (assistantToEdit: AssistantPersona) => void;
-  onDelete: (assistantToDelete: AssistantPersona) => void;
+  assistant: AssistantPersona<AssistantConfiguration>;
+  onEdit: (assistantToEdit: AssistantPersona<AssistantConfiguration>) => void;
+  onDelete: (
+    assistantToDelete: AssistantPersona<AssistantConfiguration>,
+  ) => void;
 }
 
 const AssistantCard: FC<AssistantCardProps> = ({
@@ -26,7 +31,14 @@ const AssistantCard: FC<AssistantCardProps> = ({
   const { name, description } = assistant;
   return (
     <Card>
-      <CardHeader avatar={<ChatbotAvatar />} title={name} />
+      <CardHeader
+        avatar={<ChatbotAvatar />}
+        title={name}
+        subheader={
+          // TODO: Make it nicer.
+          <Typography variant="caption">Type: {assistant.type}</Typography>
+        }
+      />
       <CardContent>
         <Typography variant="body1">{description}</Typography>
       </CardContent>

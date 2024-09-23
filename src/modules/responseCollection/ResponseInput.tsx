@@ -1,7 +1,6 @@
 import { FC, ReactElement, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { LoadingButton } from '@mui/lab';
 import {
   Alert,
   Collapse,
@@ -42,15 +41,8 @@ const ResponseInput: FC<{
   parent?: ResponseAppData;
   onSubmitted?: (id: string) => void;
   actAsBot?: boolean;
-  enableAssistants?: boolean;
-}> = ({
-  onCancel,
-  parent,
-  currentRound,
-  onSubmitted,
-  actAsBot,
-  enableAssistants,
-}) => {
+  // enableAssistants?: boolean;
+}> = ({ onCancel, parent, currentRound, onSubmitted, actAsBot }) => {
   const { t } = useTranslation('translations', {
     keyPrefix: 'RESPONSE_COLLECTION.INPUT',
   });
@@ -58,11 +50,11 @@ const ResponseInput: FC<{
   const { reformulateResponses } = activity;
   const { t: generalT } = useTranslation('translations');
   const { postResponse } = useActivityContext();
-  const [isWaitingOnBot, setIsWaitingOnBot] = useState<boolean>(false);
+  // const [isWaitingOnBot, setIsWaitingOnBot] = useState<boolean>(false);
   const [response, setResponse] = useState<string>('');
   const promisePostIdea = useRef<Promise<AppData>>();
-  const { generateSingleResponse, reformulateResponse } = useAssistants();
-  const promiseBotRequest = useRef<Promise<void>>();
+  const { reformulateResponse } = useAssistants();
+  // const promiseBotRequest = useRef<Promise<void>>();
   const [isPosting, setIsPosting] = useState(false);
   const [givenPrompt, setGivenPrompt] = useState<string>();
 
@@ -74,22 +66,22 @@ const ResponseInput: FC<{
     [instructions],
   );
 
-  const askBot = (): void => {
-    setIsWaitingOnBot(true);
-    promiseBotRequest.current = generateSingleResponse().then(
-      (ans) => {
-        if (ans) {
-          setResponse(ans.data.completion);
-          setIsWaitingOnBot(false);
-        }
-      },
-      (reason: unknown) => {
-        // eslint-disable-next-line no-console
-        console.warn(reason);
-        setIsWaitingOnBot(false);
-      },
-    );
-  };
+  // const askBot = (): void => {
+  //   setIsWaitingOnBot(true);
+  //   promiseBotRequest.current = generateSingleResponse().then(
+  //     (ans) => {
+  //       if (ans) {
+  //         setResponse(ans.data.completion);
+  //         setIsWaitingOnBot(false);
+  //       }
+  //     },
+  //     (reason: unknown) => {
+  //       // eslint-disable-next-line no-console
+  //       console.warn(reason);
+  //       setIsWaitingOnBot(false);
+  //     },
+  //   );
+  // };
 
   const submit = async (): Promise<void> => {
     setIsPosting(true);
@@ -138,8 +130,9 @@ const ResponseInput: FC<{
     );
   };
   const tooLong = response.length > RESPONSE_MAXIMUM_LENGTH;
-  const disableSubmission =
-    isPosting || tooLong || response.length === 0 || isWaitingOnBot;
+  // const disableSubmission =
+  //   isPosting || tooLong || response.length === 0 || isWaitingOnBot;
+  const disableSubmission = isPosting || tooLong || response.length === 0;
   return (
     <>
       {inputInstructions && (
@@ -192,6 +185,7 @@ const ResponseInput: FC<{
           {t('SUBMIT')}
         </Button>
         <Button onClick={onCancel}>{generalT('CANCEL')}</Button>
+        {/*         
         {enableAssistants && (
           <LoadingButton
             loadingIndicator="Waiting for the bot to reply."
@@ -200,7 +194,7 @@ const ResponseInput: FC<{
           >
             Ask the bot
           </LoadingButton>
-        )}
+        )} */}
       </Stack>
       <Collapse in={isPosting}>
         <Stack direction="row" spacing={1}>
