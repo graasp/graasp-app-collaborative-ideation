@@ -32,7 +32,7 @@
     "@graasp/apps-query-client": "3.7.0",
     "@graasp/sdk": "4.29.1",
     "@graasp/stylis-plugin-rtl": "2.2.0",
-    "@graasp/ui": "4.23.0",
+    "@graasp/ui": "5.2.0",
     "@mui/icons-material": "5.16.7",
     "@mui/lab": "5.0.0-alpha.173",
     "@mui/material": "5.16.7",
