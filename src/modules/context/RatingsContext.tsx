@@ -34,7 +34,7 @@ export const RatingsProvider: FC<RatingsContextProps> = ({
   evaluationParameters,
   children,
 }) => {
-  const { memberId } = useLocalContext();
+  const { accountId } = useLocalContext();
 
   const { appData, postAppData, deleteAppData, patchAppData } =
     useAppDataContext();
@@ -53,8 +53,8 @@ export const RatingsProvider: FC<RatingsContextProps> = ({
   );
 
   const myRatings = useMemo(
-    () => allRatings.filter(({ creator }) => creator?.id === memberId),
-    [allRatings, memberId],
+    () => allRatings.filter(({ creator }) => creator?.id === accountId),
+    [allRatings, accountId],
   );
 
   const rate = useCallback(

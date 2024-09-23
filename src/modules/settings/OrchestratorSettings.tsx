@@ -34,7 +34,7 @@ const OrchestratorSettings: FC<OrchestratorSettingsProps> = ({
     <SettingsSection title={t('TITLE')}>
       <FormGroup>
         <Autocomplete
-          options={members.map((member) => member.id)}
+          options={members.map((account) => account.id)}
           getOptionLabel={(option) =>
             members.find(({ id }) => id === option)?.name || ''
           }

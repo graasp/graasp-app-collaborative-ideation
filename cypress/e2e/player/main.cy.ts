@@ -35,7 +35,7 @@ describe('Player with read rights and collection activity.', () => {
       {
         context: Context.Player,
         permission: PermissionLevel.Read,
-        memberId: MEMBERS.ANNA.id,
+        accountId: MEMBERS.ANNA.id,
       },
     );
     cy.visit('/');
@@ -79,7 +79,7 @@ describe('Player with read rights and evaluation activity.', () => {
       {
         context: Context.Player,
         permission: PermissionLevel.Read,
-        memberId: MEMBERS.ANNA.id,
+        accountId: MEMBERS.ANNA.id,
       },
     );
     cy.visit('/');
@@ -101,7 +101,7 @@ describe('Player with read rights, configured with one assistant and no data.', 
       {
         context: Context.Player,
         permission: PermissionLevel.Read,
-        memberId: MEMBERS.ANNA.id,
+        accountId: MEMBERS.ANNA.id,
       },
     );
     cy.visit('/');

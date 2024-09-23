@@ -24,7 +24,7 @@ interface UsePromptsValues extends Partial<PromptsData> {
 const usePrompts = (): UsePromptsValues => {
   const { appData, postAppData, patchAppData, deleteAppData } =
     useAppDataContext();
-  const { memberId, permission } = useLocalContext();
+  const { accountId, permission } = useLocalContext();
 
   const { postRequestPromptAction } = useActions();
 
@@ -61,14 +61,14 @@ const usePrompts = (): UsePromptsValues => {
   useEffect(() => {
     const promptsAppData = appData.find(
       ({ type, creator }) =>
-        type === AppDataTypes.Prompts && memberId === creator?.id,
+        type === AppDataTypes.Prompts && accountId === creator?.id,
     ) as PromptsAppData;
     if (typeof promptsAppData !== 'undefined') {
       setCurrentId(promptsAppData.id);
       setCurrentPrompt(promptsAppData.data.currentPrompt);
       setPastPrompts(promptsAppData.data.pastPrompts);
     }
-  }, [appData, memberId]);
+  }, [appData, accountId]);
 
   const setNewPrompt = (newPrompt: Prompt): void => {
     let newPastPrompts: Array<Prompt> = [];

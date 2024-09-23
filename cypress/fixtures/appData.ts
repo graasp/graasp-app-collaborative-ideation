@@ -12,7 +12,7 @@ const appDataFactory = (
   type: AppDataTypes,
   data: AppData['data'],
   visibility: AppDataVisibility,
-  member: Member,
+  account: Member,
   creator: Member,
 ): AppData => {
   const id = appDataCounter.toString();
@@ -25,18 +25,21 @@ const appDataFactory = (
     data,
     type,
     visibility,
-    member,
+    account,
     creator,
   };
 };
 
-const responseFactory = (responseData: ResponseData, member: Member): AppData =>
+const responseFactory = (
+  responseData: ResponseData,
+  account: Member,
+): AppData =>
   appDataFactory(
     AppDataTypes.Response,
     {},
     AppDataVisibility.Member,
-    member,
-    member,
+    account,
+    account,
   );
 
 export const currentStateInitial = appDataFactory(

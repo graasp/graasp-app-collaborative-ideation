@@ -57,12 +57,12 @@ const Response: FC<ResponseProps> = ({
 }) => {
   const { t } = useTranslation('translations', { keyPrefix: 'RESPONSE_CARD' });
   const { t: generalT } = useTranslation('translations');
-  const { memberId } = useLocalContext();
+  const { accountId } = useLocalContext();
 
   const { id, data, creator } = response;
   const { response: responseContent, round, parentId, assistantId } = data;
 
-  const isOwn = creator?.id === memberId && typeof assistantId === 'undefined';
+  const isOwn = creator?.id === accountId && typeof assistantId === 'undefined';
   const isAiGenerated = useMemo(
     () => typeof assistantId !== 'undefined',
     [assistantId],

@@ -34,7 +34,7 @@ export const VoteProvider: FC<VoteContextProps> = ({
   evaluationParameters,
   children,
 }) => {
-  const { memberId } = useLocalContext();
+  const { accountId } = useLocalContext();
 
   const maxNumberOfVotes = useMemo(
     () => evaluationParameters?.maxNumberOfVotes ?? 0,
@@ -53,10 +53,10 @@ export const VoteProvider: FC<VoteContextProps> = ({
 
   const votes = useMemo(
     () =>
-      allVotes?.filter(({ creator }) => creator?.id === memberId) as
+      allVotes?.filter(({ creator }) => creator?.id === accountId) as
         | VoteAppData[]
         | [],
-    [allVotes, memberId],
+    [allVotes, accountId],
   );
 
   const nbrOfVotes = votes?.length ?? 0;

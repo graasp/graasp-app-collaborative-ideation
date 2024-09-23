@@ -50,13 +50,13 @@ const AdminPanel: FC<AdminPanelProps> = ({ width }): JSX.Element => {
         <Assistants />
         <SectionTitle>{t('PARTICIPANTS')}</SectionTitle>
         <Stack sx={{ m: 1 }} direction="row" spacing={2}>
-          {members?.map((member) => (
-            <Tooltip title={member.name} key={member.id}>
+          {members?.map((account) => (
+            <Tooltip title={account.name} key={account.id}>
               <Avatar
-                sx={{ bgcolor: stringToColor(member.name) }}
-                alt={member.name}
+                sx={{ bgcolor: stringToColor(account.name) }}
+                alt={account.name}
               >
-                {member.name[0]}
+                {account.name[0]}
               </Avatar>
             </Tooltip>
           ))}

@@ -37,7 +37,7 @@ const App = (): JSX.Element => {
     if (['development', 'staging'].includes(SENTRY_ENV)) {
       if (isSuccess) {
         const m = appContext?.members?.find(
-          ({ id }) => id === context.memberId,
+          ({ id }) => id === context.accountId,
         );
         if (m) {
           Sentry.setUser({

@@ -74,15 +74,15 @@ test('extracting zero responses gives empty array', () => {
 test('extracting more responses than available gives all available', () => {
   const mapResponses = getMapResponses();
   const n = mapResponses.size + 2;
-  const memberId = mockMembers[0].id;
+  const accountId = mockMembers[0].id;
 
   const [r] = extractNResponsesThatDontHaveMemberAsCreator(
     mapResponses,
     n,
-    memberId,
+    accountId,
   );
   expect(r.length).to.be.lessThan(n);
-  expect(r.map(({ creator }) => creator?.id !== memberId))
+  expect(r.map(({ creator }) => creator?.id !== accountId))
     .to.be.an('array')
     .that.does.not.include(false);
 });

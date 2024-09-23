@@ -10,11 +10,11 @@ import Response from '@/modules/common/response/Response';
 import { useActivityContext } from '../context/ActivityContext';
 
 const MyResponses: FC = () => {
-  const { memberId } = useLocalContext();
+  const { accountId } = useLocalContext();
   const { myResponses, deleteResponse, round } = useActivityContext();
 
   const handleDelete = async (id: string): Promise<void> => deleteResponse(id);
-  if (memberId) {
+  if (accountId) {
     return (
       <>
         <Typography sx={{ fontSize: '18pt' }} variant="h4">

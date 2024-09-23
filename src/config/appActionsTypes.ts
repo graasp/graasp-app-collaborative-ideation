@@ -1,5 +1,5 @@
-import { Data, LocalContext } from '@graasp/apps-query-client';
-import { AppAction, AppData } from '@graasp/sdk';
+import { Data } from '@graasp/apps-query-client';
+import { AppAction, AppData, LocalContext } from '@graasp/sdk';
 
 import { ActivityStep } from '@/interfaces/interactionProcess';
 import { Prompt } from '@/interfaces/prompt';
