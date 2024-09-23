@@ -23,13 +23,13 @@ const getActivityComponent = (activity: ActivityType): JSX.Element => {
 
 const Activity: FC = () => {
   const { activityState } = useActivityContext();
-  const { memberId } = useLocalContext();
+  const { accountId } = useLocalContext();
   const { orchestrator } = useSettings();
 
   const { activity } = activityState.data;
   return (
     <>
-      {orchestrator.id === memberId && <OrchestrationBar />}
+      {orchestrator.id === accountId && <OrchestrationBar />}
       {getActivityComponent(activity)}
     </>
   );

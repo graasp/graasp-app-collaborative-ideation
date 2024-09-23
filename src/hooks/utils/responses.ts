@@ -7,12 +7,12 @@ import { AppDataTypes, ResponseAppData } from '@/config/appDataTypes';
 export const extractNResponsesThatDontHaveMemberAsCreator = (
   responses: Map<string, ResponseAppData>,
   n: number,
-  memberId: Member['id'],
+  accountId: Member['id'],
   keepExtracted = false,
 ): [ResponseAppData[], Map<string, ResponseAppData>] => {
   // console.log('Responses to extract: ', responses);
   // console.log('n: ', n);
-  // console.log('memberId: ', memberId);
+  // console.log('accountId: ', accountId);
   const responsesIterator = responses.entries();
   const toDelete: string[] = [];
   const responsesArray = [];
@@ -22,7 +22,7 @@ export const extractNResponsesThatDontHaveMemberAsCreator = (
       break;
     } else {
       const [id, response] = iterResult.value;
-      if (response.creator?.id !== memberId) {
+      if (response.creator?.id !== accountId) {
         toDelete.push(id);
         responsesArray.push(response);
         i += 1;
@@ -123,9 +123,9 @@ export const filterBotResponses = (
 
 export const isOwnResponse = (
   response: ResponseAppData,
-  memberId: string,
+  accountId: string,
 ): boolean =>
-  response.creator?.id === memberId &&
+  response.creator?.id === accountId &&
   typeof response.data?.assistantId === 'undefined';
 
 export const joinMultipleResponses = (

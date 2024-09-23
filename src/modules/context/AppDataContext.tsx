@@ -16,7 +16,7 @@ type PostAppDataType = {
   data: Data;
   type: string;
   visibility?: AppData<Data>['visibility'];
-  memberId?: string;
+  accountId?: string;
 };
 
 type PatchAppDataType = {

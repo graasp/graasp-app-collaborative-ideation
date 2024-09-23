@@ -20,7 +20,7 @@ describe('Builder View with admin rights, no settings', () => {
       {
         context: Context.Builder,
         permission: PermissionLevel.Admin,
-        memberId: MEMBERS.ANNA.id,
+        accountId: MEMBERS.ANNA.id,
       },
     );
     cy.visit('/');

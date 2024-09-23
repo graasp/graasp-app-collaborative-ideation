@@ -69,7 +69,7 @@ const useResponses = ({
     invalidateAppData,
     refetchAppData,
   } = useAppDataContext();
-  const { memberId } = useLocalContext();
+  const { accountId } = useLocalContext();
   const { orchestrator, activity } = useSettings();
   const { postSubmitNewResponseAction, postDeleteResponseAction } =
     useActions();
@@ -83,10 +83,10 @@ const useResponses = ({
   const myResponses = useMemo((): ResponseAppData[] => {
     const responses = appData.filter(
       ({ creator, type }) =>
-        creator?.id === memberId && type === AppDataTypes.Response,
+        creator?.id === accountId && type === AppDataTypes.Response,
     ) as ResponseAppData[];
     return responses;
-  }, [appData, memberId]);
+  }, [appData, accountId]);
 
   const allResponses = useMemo(
     (): ResponseAppData[] => getResponses(appData),
@@ -103,14 +103,14 @@ const useResponses = ({
 
   const myResponsesSets = useMemo((): ResponsesSetAppData[] => {
     const responses = appData.filter(
-      ({ creator, type, member, data }) =>
+      ({ creator, type, account, data }) =>
         creator?.id === orchestrator.id &&
         type === AppDataTypes.ResponsesSet &&
-        member.id === memberId &&
+        account.id === accountId &&
         typeof data?.assistant === 'undefined',
     ) as ResponsesSetAppData[];
     return responses;
-  }, [appData, memberId, orchestrator]);
+  }, [appData, accountId, orchestrator]);
 
   const assistantsResponsesSets = useMemo((): ResponsesSetAppData[] => {
     const responses = appData.filter(
@@ -135,10 +135,10 @@ const useResponses = ({
           okay = true;
         }
       });
-      return okay || isOwnResponse(r as ResponseAppData, memberId);
+      return okay || isOwnResponse(r as ResponseAppData, accountId ?? '');
     }) as ResponseAppData[];
     return responses;
-  }, [allResponses, memberId, myResponsesSets, visibilityMode]);
+  }, [allResponses, accountId, myResponsesSets, visibilityMode]);
 
   const postResponse = (
     data: ResponseData,
@@ -168,7 +168,7 @@ const useResponses = ({
         responses: responsesSet,
         assistant: forAssistant ? id : undefined,
       },
-      memberId: forAssistant ? memberId : id,
+      accountId: forAssistant ? accountId : id,
       type: AppDataTypes.ResponsesSet,
       visibility: AppDataVisibility.Item,
     };

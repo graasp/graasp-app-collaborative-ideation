@@ -1,11 +1,13 @@
-import type { Database, LocalContext } from '@graasp/apps-query-client';
+import type { Database } from '@graasp/apps-query-client';
 import {
+  AccountType,
   AppData,
   AppDataVisibility,
   AppItemFactory,
   CompleteMember,
   Context,
   ItemType,
+  LocalContext,
   MemberFactory,
   PermissionLevel,
 } from '@graasp/sdk';
@@ -17,19 +19,19 @@ import { buildMockResponses } from './mockResponses';
 
 export const mockMembers: CompleteMember[] = [
   MemberFactory({
-    id: 'mock-member-id-1',
-    name: 'I (current member)',
+    id: 'mock-account-id-1',
+    name: 'I (current account)',
     email: 'i@graasp.org',
-    type: 'individual',
+    type: AccountType.Individual,
     createdAt: new Date('1996-09-08T19:00:00').toISOString(),
     updatedAt: new Date().toISOString(),
     enableSaveActions: true,
   }),
   MemberFactory({
-    id: 'mock-member-id-2',
+    id: 'mock-account-id-2',
     name: 'You',
     email: 'you@graasp.org',
-    type: 'individual',
+    type: AccountType.Individual,
     createdAt: new Date('1995-02-02T15:00:00').toISOString(),
     updatedAt: new Date().toISOString(),
     enableSaveActions: true,
@@ -64,7 +66,7 @@ const mockAppData: AppData[] = [
     item: mockItem,
     creator: mockMembers[0],
     type: AppDataTypes.ResponsesSet,
-    member: mockMembers[0],
+    account: mockMembers[0],
     visibility: AppDataVisibility.Member,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
@@ -80,7 +82,7 @@ export const defaultMockContext: LocalContext = {
   permission: PermissionLevel.Admin,
   context: Context.Builder,
   itemId: mockItem.id,
-  memberId: mockMembers[0].id,
+  accountId: mockMembers[0].id,
 };
 
 const buildDatabase = (members?: CompleteMember[]): Database => ({
@@ -89,6 +91,7 @@ const buildDatabase = (members?: CompleteMember[]): Database => ({
   members: members ?? mockMembers,
   appSettings: [],
   items: [mockItem],
+  uploadedFiles: [],
 });
 
 export default buildDatabase;

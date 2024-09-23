@@ -1,6 +1,7 @@
 /// <reference types="../../src/window" />
-import { Database, LocalContext } from '@graasp/apps-query-client';
+import { Database } from '@graasp/apps-query-client';
 
+import { LocalContext } from '@graasp/sdk';
 import { ALL_SETTINGS } from '../fixtures/appSettings';
 import { CURRENT_MEMBER, MEMBERS } from '../fixtures/members';
 import { MOCK_SERVER_ITEM } from '../fixtures/mockItem';
@@ -26,7 +27,7 @@ Cypress.Commands.add('setUpApi', (database, appContext) => {
     win.indexedDB.deleteDatabase('graasp-app-cypress');
     // eslint-disable-next-line no-param-reassign
     win.appContext = {
-      memberId: CURRENT_MEMBER.id,
+      accountId: CURRENT_MEMBER.id,
       itemId: MOCK_SERVER_ITEM.id,
       apiHost: Cypress.env('VITE_API_HOST'),
       ...appContext,

@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 
-import { Data, LocalContext } from '@graasp/apps-query-client';
+import { Data } from '@graasp/apps-query-client';
 
 import {
   AppActionTypes,
@@ -17,6 +17,7 @@ import {
 import { CurrentStateData, ResponseAppData } from '@/config/appDataTypes';
 import { mutations } from '@/config/queryClient';
 import { ActivityStep } from '@/interfaces/interactionProcess';
+import { LocalContext } from '@graasp/sdk';
 
 interface UseActionsValues {
   postSubmitNewResponseAction: (response: ResponseAppData) => void;

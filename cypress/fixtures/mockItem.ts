@@ -4,7 +4,8 @@ import { MEMBERS } from './members';
 
 export const MOCK_SERVER_ITEM = {
   id: '123456789',
-  name: 'app-starter-ts-vite',
+  name: 'collaborative ideation app',
+  displayName: 'Collaborative ideation app',
   description: null,
   path: '',
   settings: {},

@@ -20,7 +20,7 @@ const useParticipants = (): UseParticipantsValue => {
     () =>
       rawMembers
         .filter(({ id }) => !notParticipating.ids.includes(id))
-        .map((m) => ({ type: ParticipantType.Member, ...m })),
+        .map((m) => ({ type: ParticipantType.Account, ...m })),
     [notParticipating, rawMembers],
   );
   const assistantsParticipants: Participant<AssistantPersona>[] = useMemo(
