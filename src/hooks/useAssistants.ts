@@ -26,8 +26,13 @@ import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { useTranslation } from 'react-i18next';
 import { useActivityContext } from '@/modules/context/ActivityContext';
-import { useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
+import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
 import { joinMultipleResponses } from './utils/responses';
+
+// TODO: Factor out
+const LAST_RECORDED_NUMBER_OF_RESPONSES_SESSION_STORE_KEY =
+  'lastRecordedNumberOfResponses';
 
 interface UseAssistantsValues {
   promptAssistant: (
@@ -51,10 +56,12 @@ const useAssistants = (): UseAssistantsValues => {
     instructions: generalPrompt,
     assistants,
     instructions,
+    activity,
   } = useSettings();
 
   const { includeDetails, promptMode } = assistants;
   const { postAppDataAsync, appData, patchAppDataAsync } = useAppDataContext();
+  const { mode } = activity;
 
   const { assistantsResponsesSets, round, allResponses, postResponse } =
     useActivityContext();
@@ -105,133 +112,155 @@ const useAssistants = (): UseAssistantsValues => {
       return a;
     });
 
-  const promptAssistant = async (
-    assistant: AssistantPersona<LLMAssistantConfiguration>,
-    prompt: string,
-  ): Promise<ChatbotResponseAppData | undefined> => {
-    if (assistant.type === AssistantType.LLM) {
-      return postChatBot([
-        ...assistant.configuration,
-        {
-          role: ChatbotRole.User,
-          content: prompt,
-        },
-      ]).then((ans) => {
-        const a = postAppDataAsync({
-          ...DEFAULT_CHATBOT_RESPONSE_APP_DATA,
-          data: {
-            ...ans, // Be careful. Destructure.
-            assistantId: assistant.id,
+  const promptAssistant = useCallback(
+    async (
+      assistant: AssistantPersona<LLMAssistantConfiguration>,
+      prompt: string,
+    ): Promise<ChatbotResponseAppData | undefined> => {
+      if (assistant.type === AssistantType.LLM) {
+        return postChatBot([
+          ...assistant.configuration,
+          {
+            role: ChatbotRole.User,
+            content: prompt,
           },
-        }) as Promise<ChatbotResponseAppData>;
-        return a;
-      });
-    }
-    throw Error('This assistant is not configured to use an LLM.');
-    return undefined;
-  };
+        ]).then((ans) => {
+          const a = postAppDataAsync({
+            ...DEFAULT_CHATBOT_RESPONSE_APP_DATA,
+            data: {
+              ...ans, // Be careful. Destructure.
+              assistantId: assistant.id,
+            },
+          }) as Promise<ChatbotResponseAppData>;
+          return a;
+        });
+      }
+      throw Error('This assistant is not configured to use an LLM.');
+      return undefined;
+    },
+    [postAppDataAsync, postChatBot],
+  );
 
-  const generateResponseWithLLMAssistant = async (
-    assistant: AssistantPersona<LLMAssistantConfiguration>,
-  ): Promise<ResponseAppData | undefined> => {
-    let promise: Promise<ChatbotResponseAppData | undefined>;
-    const assistantSet = assistantsResponsesSets.find(
-      (set) =>
-        set.data.assistant === assistant.id && set.data.round === round - 1,
-    );
-    if (assistantSet) {
-      const responses = assistantSet.data.responses.map((r) =>
-        joinMultipleResponses(
-          allResponses.find(({ id }) => r === id)?.data.response || '',
-        ),
+  const generateResponseWithLLMAssistant = useCallback(
+    async (
+      assistant: AssistantPersona<LLMAssistantConfiguration>,
+    ): Promise<ResponseAppData | undefined> => {
+      let promise: Promise<ChatbotResponseAppData | undefined>;
+      const assistantSet = assistantsResponsesSets.find(
+        (set) =>
+          set.data.assistant === assistant.id && set.data.round === round - 1,
       );
+      if (assistantSet) {
+        const responses = assistantSet.data.responses.map((r) =>
+          joinMultipleResponses(
+            allResponses.find(({ id }) => r === id)?.data.response || '',
+          ),
+        );
+        promise = promptAssistant(
+          assistant,
+          promptForSingleResponseAndProvideResponses(
+            instructions.title.content,
+            responses,
+            t,
+            includeDetails ? instructions.details?.content : undefined,
+            promptMode,
+          ),
+        );
+      }
       promise = promptAssistant(
         assistant,
-        promptForSingleResponseAndProvideResponses(
+        promptForSingleResponse(
           instructions.title.content,
-          responses,
           t,
           includeDetails ? instructions.details?.content : undefined,
           promptMode,
         ),
       );
-    }
-    promise = promptAssistant(
-      assistant,
-      promptForSingleResponse(
-        instructions.title.content,
-        t,
-        includeDetails ? instructions.details?.content : undefined,
-        promptMode,
-      ),
-    );
-    return promise.then(async (assistantResponseAppData) => {
-      if (assistantResponseAppData) {
-        const { completion: response, assistantId } =
-          assistantResponseAppData.data;
+      return promise.then(async (assistantResponseAppData) => {
+        if (assistantResponseAppData) {
+          const { completion: response, assistantId } =
+            assistantResponseAppData.data;
+          return postResponse({
+            response,
+            round,
+            bot: true,
+            assistantId,
+          });
+        }
+        return assistantResponseAppData;
+      });
+    },
+    [
+      allResponses,
+      assistantsResponsesSets,
+      includeDetails,
+      instructions,
+      postResponse,
+      promptAssistant,
+      promptMode,
+      round,
+      t,
+    ],
+  );
+
+  const updateListAssistantState = useCallback(
+    async (data: ListAssistantStateData): Promise<void> => {
+      const state = listAssistantsStates.find(
+        (s) => s.data.assistantRef === data.assistantRef,
+      );
+      if (state) {
+        patchAppDataAsync({
+          id: state.id,
+          data,
+        });
+      } else {
+        postAppDataAsync({
+          data,
+          visibility: AppDataVisibility.Item,
+          type: AppDataTypes.ListAssistantState,
+        });
+      }
+    },
+    [listAssistantsStates, patchAppDataAsync, postAppDataAsync],
+  );
+
+  const generateResponseWithListAssistant = useCallback(
+    async (
+      assistant: AssistantPersona<ListAssistantConfiguration>,
+    ): Promise<ResponseAppData | undefined> => {
+      const { id, configuration } = assistant;
+      const state = listAssistantsStates.find(
+        (s) => s.data.assistantRef === id,
+      );
+      let indexToMark: number | undefined;
+      const response = configuration.find((_, index) => {
+        indexToMark = index;
+        return !(index in (state?.data.postedIndex ?? []));
+      });
+      if (typeof indexToMark !== 'undefined') {
+        const postedIndex =
+          typeof state?.data?.postedIndex !== 'undefined'
+            ? [...state.data.postedIndex, indexToMark]
+            : [indexToMark];
+        updateListAssistantState({
+          assistantRef: id,
+          postedIndex,
+        });
+      }
+      if (response) {
         return postResponse({
           response,
           round,
           bot: true,
-          assistantId,
+          assistantId: id,
         });
       }
-      return assistantResponseAppData;
-    });
-  };
+      return undefined;
+    },
+    [listAssistantsStates, postResponse, round, updateListAssistantState],
+  );
 
-  const updateListAssistantState = async (
-    data: ListAssistantStateData,
-  ): Promise<void> => {
-    const state = listAssistantsStates.find(
-      (s) => s.data.assistantRef === data.assistantRef,
-    );
-    if (state) {
-      patchAppDataAsync({
-        id: state.id,
-        data,
-      });
-    } else {
-      postAppDataAsync({
-        data,
-        visibility: AppDataVisibility.Item,
-        type: AppDataTypes.ListAssistantState,
-      });
-    }
-  };
-
-  const generateResponseWithListAssistant = async (
-    assistant: AssistantPersona<ListAssistantConfiguration>,
-  ): Promise<ResponseAppData | undefined> => {
-    const { id, configuration } = assistant;
-    const state = listAssistantsStates.find((s) => s.data.assistantRef === id);
-    let indexToMark: number | undefined;
-    const response = configuration.find((_, index) => {
-      indexToMark = index;
-      return !(index in (state?.data.postedIndex ?? []));
-    });
-    if (typeof indexToMark !== 'undefined') {
-      const postedIndex =
-        typeof state?.data?.postedIndex !== 'undefined'
-          ? [...state.data.postedIndex, indexToMark]
-          : [indexToMark];
-      updateListAssistantState({
-        assistantRef: id,
-        postedIndex,
-      });
-    }
-    if (response) {
-      return postResponse({
-        response,
-        round,
-        bot: true,
-        assistantId: id,
-      });
-    }
-    return undefined;
-  };
-
-  const generateResponsesWithEachAssistant = async (): Promise<
+  const generateResponsesWithEachAssistant = useCallback(async (): Promise<
     Promise<ResponseAppData | undefined>[]
   > => {
     const lLMAssistants = assistants.assistants.filter(
@@ -247,7 +276,44 @@ const useAssistants = (): UseAssistantsValues => {
       generateResponseWithListAssistant(a),
     );
     return [...responseListAssistants, ...responsesLLMAssistants];
-  };
+  }, [
+    assistants,
+    generateResponseWithLLMAssistant,
+    generateResponseWithListAssistant,
+  ]);
+
+  // Automatic responses generation effect for live mode
+  useEffect(() => {
+    if (mode === ResponseVisibilityMode.OpenLive) {
+      const previousNumberOfResponses = parseInt(
+        sessionStorage.getItem(
+          LAST_RECORDED_NUMBER_OF_RESPONSES_SESSION_STORE_KEY,
+        ) ?? '0',
+        10,
+      );
+      const currentNumberOfResponses = allResponses.length;
+      // TODO: Move the cst '3' to a setting
+      if (previousNumberOfResponses + 3 < currentNumberOfResponses) {
+        generateResponsesWithEachAssistant();
+        try {
+          sessionStorage.setItem(
+            LAST_RECORDED_NUMBER_OF_RESPONSES_SESSION_STORE_KEY,
+            (currentNumberOfResponses + assistants.assistants.length).toString(
+              10,
+            ),
+          );
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(error);
+        }
+      }
+    }
+  }, [
+    allResponses.length,
+    assistants,
+    generateResponsesWithEachAssistant,
+    mode,
+  ]);
 
   return {
     promptAssistant,
