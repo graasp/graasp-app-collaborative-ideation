@@ -59,3 +59,11 @@ export const CATEGORY_COLORS = [
   '#bdb2ff',
   '#ffc6ff',
 ];
+
+export const RESPONSES_TOP_COLORS = [
+  '#DBF9E7',
+  '#E8C9FA',
+  '#EFE9B7',
+  '#F6CCB0',
+  '#B0E1FA',
+];
