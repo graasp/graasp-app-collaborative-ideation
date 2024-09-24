@@ -113,6 +113,8 @@
       "TITLE": "Assistants",
       "USE_DETAILS": "Use instructions details when prompting assistants.",
       "PROMPT_MODE_LABEL": "Select the prompting mode",
+      "ADD_LLM": "Add an AI assistant",
+      "ADD_LIST": "Add an assistant with predetermined answers",
       "PROMPT_MODE_ITEMS": {
         "INSTRUCTIONS": "Instructions",
         "PROBLEM": "Problem"
