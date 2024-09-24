@@ -11,6 +11,14 @@
   "GOOD": "Bien",
   "OKAY": "À réviser",
   "BAD": "Mauvais",
+  "EXPORT_RESPONSES": "Exporter les réponses",
+  "EXPORTING": "Exportation en cours",
+  "EVALUATION_TYPE": {
+    "VOTE": "Vote",
+    "RANK": "Rank",
+    "RATE": "Noter",
+    "NONE": "Aucun"
+  },
   "WAIT_TO_START_SCREEN": {
     "MAIN_INSTRUCTION": "L'activité va bientôt commencer. En attendant, merci de lire les instructions suivantes :",
     "STEP1": "Au départ, il vous sera présenté une instruction ou un défi.",
@@ -30,6 +38,7 @@
       "REFRESH_DATA": "Rafraîchir les données",
       "LABEL_STEP_COLLECTION": "Collection des réponses, round {{ round }}",
       "LABEL_STEP_EVALUATION": "Évaluation des réponses",
+      "LABEL_STEP_RESULTS": "Résultats",
       "NO_STEP": "L'activité courante n'est pas définie."
     },
     "WARNING_PREVIOUS_STEP_DIALOG": {
@@ -48,7 +57,9 @@
   },
   "RESPONSE_CARD": {
     "BUILD_ON_THIS": "Développer ceci",
-    "OWN": "Vous avez écrit ça"
+    "OWN": "Vous avez écrit ça",
+    "AI_GENERATED": "Générer par IA",
+    "PARENT_IDEA": "Réponse parente"
   },
   "SETTINGS": {
     "TITLE": "Paramètres",
@@ -84,6 +95,11 @@
         "ADD_STEP": "Ajouter une étape"
       }
     },
+    "PROMPTS": {
+      "TITLE": "Prompts",
+      "NO_SET_SELECTED": "Pas de prompts.",
+      "MAX_QUERIES_LABEL": "Nombre maximum de prompts qu'un utilisateur peut demander."
+    },
     "EVALUATION_TYPE_SELECTION": {
       "TITLE": "Type d'évaluation",
       "NONE_BTN": "Ne pas évaluer les réponses.",
@@ -95,28 +111,21 @@
     },
     "ASSISTANT": {
       "TITLE": "Assistants",
+      "USE_DETAILS": "Utiliser le détail des instruction pour prompter les assistants.",
+      "PROMPT_MODE_LABEL": "Séléctionner le mode de prompt",
+      "PROMPT_MODE_ITEMS": {
+        "INSTRUCTIONS": "Instructions",
+        "PROBLEM": "Problème"
+      },
       "ADD": "Ajouter un assistant",
       "EDIT_DIALOG": {
         "CHATBOT_NAME_LABEL": "Nom du chatbot",
-        "CHATBOT_NAME_HELPER": "This is the name that users will see when they interact with the chatbot",
-        "CHATBOT_NAME_DEFAULT_MESSAGE": "by default",
-        "CHATBOT_PROMPT_LABEL": "Chatbot Prompt",
-        "CHATBOT_PROMPT_HELPER_LABEL": "In-depth technical description",
-        "CHATBOT_PROMPT_HELPER": "This is the name that users will see when they interact with the chatbot",
-        "CHATBOT_PROMPT_FORMAT_HELPER": "To describe the initial situation, create an object at the start of the array with 2 keys: 'role' and 'content'. For the initial description the role must be 'system'. Place your description of the initial situation in the 'content' key. Add interaction examples after that. Add one object per message with the role corresponding to either 'assistant' or 'user'.",
-        "CHATBOT_PROMPT_FORMAT_EXAMPLE": "Here is an example",
-        "CHATBOT_PROMPT_API_REFERENCE": "See the API reference",
-        "CHATBOT_CUE_LABEL": "Cue",
-        "CHATBOT_CUE_HELPER": "This defines the content of the first message of the chatbot. You can change it to better orient the conversation with the user.",
-        "CHATBOT_CUE_EMPTY_MESSAGE": "The cue is empty.",
-        "CHATBOT_CONFIGURATION_MISSING": "This chatbot has not been configured yet.",
-        "CANCEL_LABEL": "Cancel",
-        "EDIT_LABEL": "Edit",
         "CHATBOT_SETTING_TITLE": "Chatbot",
-        "ERROR_PROMPT_NOT_IN_JSON_FORMAT": "Prompt has to be in JSON format.",
         "SAVE_LABEL": "Sauvegarder",
         "SAVED_LABEL": "Sauvegardé"
       }
+    },
+    "IMPORT_RESPONSES_BUTTON": {
     }
   },
   "RESPONSE_COLLECTION": {
@@ -133,6 +142,11 @@
       "CHOOSE_STEP_LABEL": "Consulter les réponses des autres participants"
     }
   },
+  "PROMPTS": {
+    "NEW_PROMPT_BUTTON": "J'ai besoin d'une impulsion créative!",
+    "CHANGE_PROMPT_BUTTON": "Donnez-moi une nouvelle impulsion créative",
+    "NO_PROMPTS_HIDDEN_MESSAGE": "L'administrateur peut paramétrer des prompts d'aide pour soutenir l'activité."
+  },
   "SAVE": "Sauvegarder",
   "NO_IDEAS_TO_SHOW_TEXT": "Les autres participants n'ont pas soumis suffisamment de réponses pour le moment. Lorsque ce sera le cas, ces réponses apparaîtront ici.",
   "BOT_NAME": "GraaspBot",
@@ -146,7 +160,13 @@
   "RESPONSE_EVALUATION": {
     "TITLE": "Évaluation des réponses"
   },
-  "RATINGS": {
+  "EVALUATION": {
+    "VOTE": {
+      "REMOVE_VOTE_FOR_THIS_RESPONSE": "Retirer le vote",
+      "VOTE_FOR_THIS_RESPONSE": "Voter",
+      "VOTES_LEFT": "{{availableVotes}} votes restants sur {{maxNumberOfVotes}}"
+    },
+    "NO_VISUALIZATION": "Aucune visualisation n'est disponible pour ce type d'évaluation.",
     "USEFULNESS_NOVELTY": {
       "COMMON": "Commun",
       "NOVEL": "Nouveau",
@@ -154,24 +174,8 @@
       "USEFUL": "Utile"
     },
     "DIMENSIONS_OF_GI": {
-      "COORDINATION_LABEL": "Demande une coordination à grande échelle.",
-      "SOCIOTECHNIC_LABEL": "A des dimensions sociales et techniques.",
-      "GLOBAL_LABEL": "Est global.",
-      "COORDINATION_LABEL_VIZ": "Coordination",
-      "SOCIOTECHNIC_LABEL_VIZ": "Dimensions sociales et techniques",
-      "GLOBAL_LABEL_VIZ": "Global"
     },
     "SFERA": {
-      "LOCAL_PROBLEM": "Problème local",
-      "GLOBAL_PROBLEM": "Problème global",
-      "PERSONAL_INTEREST": "Intérêt personnel",
-      "GENERAL_INTEREST": "Intérêt général",
-      "PERSONAL": "Personnel",
-      "GENERAL": "Général",
-      "LOCAL": "Local",
-      "GLOBAL": "Global",
-      "INTEREST_LABEL_VIZ": "Intérêt pour le problème",
-      "SCOPE_LABEL_VIZ": "Portée du problème"
     }
   },
   "ADMIN_PANEL": {
