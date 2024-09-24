@@ -9,9 +9,14 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { AssistantsSetting } from '@/config/appSettingsType';
 import {
+  AssistantConfiguration,
   AssistantPersona,
+  AssistantType,
+  LLMAssistantConfiguration,
+  ListAssistantConfiguration,
   PromptMode,
-  makeEmptyAssistant,
+  makeEmptyLLMAssistant,
+  makeEmptyListAssistant,
 } from '@/interfaces/assistant';
 import SectionTitle from '@/modules/adminPanel/SectionTitle';
 
@@ -22,8 +27,9 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import AssistantDialog from './AssistantDialog';
+import LLMAssistantDialog from './LLMAssistantDialog';
 import AssistantCard from './AssistantCard';
+import ListAssistantDialog from './ListAssistantDialog';
 
 interface AssistantProps {
   assistants: AssistantsSetting;
@@ -37,7 +43,8 @@ const Assistant: FC<AssistantProps> = ({
   const { t } = useTranslation('translations', {
     keyPrefix: 'SETTINGS.ASSISTANT',
   });
-  const [editedAssistant, setEditedAssistant] = useState<AssistantPersona>();
+  const [editedAssistant, setEditedAssistant] =
+    useState<AssistantPersona<AssistantConfiguration>>();
   const { assistants, includeDetails, promptMode } = assistantsSetting;
 
   const handleIncludeDetailsChange = (
@@ -57,7 +64,9 @@ const Assistant: FC<AssistantProps> = ({
     });
   };
 
-  const handleSave = (newAssistant: AssistantPersona): void => {
+  const handleSave = (
+    newAssistant: AssistantPersona<AssistantConfiguration>,
+  ): void => {
     const newAssistants = cloneDeep(assistants);
     const index = newAssistants.findIndex((p) => p.id === newAssistant.id);
     if (index === -1) {
@@ -72,15 +81,23 @@ const Assistant: FC<AssistantProps> = ({
     setEditedAssistant(undefined);
   };
 
-  const deleteAssistant = (assistantToDelete: AssistantPersona): void => {
+  const deleteAssistant = (
+    assistantToDelete: AssistantPersona<AssistantConfiguration>,
+  ): void => {
     onChange({
       assistants: assistants.filter((a) => a.id !== assistantToDelete.id),
     });
   };
 
-  const addAssistant = (): void => {
-    setEditedAssistant(makeEmptyAssistant(uuidv4()));
+  const addLLMAssistant = (): void => {
+    setEditedAssistant(makeEmptyLLMAssistant(uuidv4()));
   };
+
+  const addListAssistant = (): void => {
+    setEditedAssistant(makeEmptyListAssistant(uuidv4()));
+  };
+
+  const handleCancel = (): void => setEditedAssistant(undefined);
 
   const isEditing = typeof editedAssistant !== 'undefined';
 
@@ -126,14 +143,28 @@ const Assistant: FC<AssistantProps> = ({
           </Grid>
         ))}
       </Grid>
-      <Button onClick={addAssistant}>{t('ADD')}</Button>
-      {isEditing && (
-        <AssistantDialog
-          assistant={editedAssistant}
-          onSave={handleSave}
-          open={isEditing}
-        />
-      )}
+      <Button onClick={addLLMAssistant}>{t('ADD_LLM')}</Button>
+      <Button onClick={addListAssistant}>{t('ADD_LIST')}</Button>
+      {isEditing &&
+        (editedAssistant.type === AssistantType.LLM ? (
+          <LLMAssistantDialog
+            assistant={
+              editedAssistant as AssistantPersona<LLMAssistantConfiguration>
+            }
+            onSave={handleSave}
+            open={isEditing}
+            onCancel={handleCancel}
+          />
+        ) : (
+          <ListAssistantDialog
+            assistant={
+              editedAssistant as AssistantPersona<ListAssistantConfiguration>
+            }
+            onSave={handleSave}
+            open={isEditing}
+            onCancel={handleCancel}
+          />
+        ))}
     </>
   );
 };

@@ -14,7 +14,6 @@ import stringToColor from '@/utils/stringToColor';
 
 import { useActivityContext } from '../context/ActivityContext';
 import IdeaInput from '../responseCollection/ResponseInput';
-import Assistants from './Assistants';
 import Orchestration from './Orchestration';
 import SectionTitle from './SectionTitle';
 
@@ -47,7 +46,6 @@ const AdminPanel: FC<AdminPanelProps> = ({ width }): JSX.Element => {
         </Typography>
         <Divider />
         <Orchestration />
-        <Assistants />
         <SectionTitle>{t('PARTICIPANTS')}</SectionTitle>
         <Stack sx={{ m: 1 }} direction="row" spacing={2}>
           {members?.map((account) => (

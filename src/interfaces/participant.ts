@@ -6,5 +6,7 @@ export enum ParticipantType {
 }
 
 export type Participant<T = MemberType> = T & {
-  type: T extends MemberType ? ParticipantType.Account : ParticipantType.Bot;
+  memberType: T extends MemberType
+    ? ParticipantType.Account
+    : ParticipantType.Bot;
 };

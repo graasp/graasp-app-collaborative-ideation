@@ -1,6 +1,6 @@
 import { AppData, AppDataVisibility } from '@graasp/sdk';
 
-import { AssistantId } from '@/interfaces/assistant';
+import { AssistantId, ListAssistantStateData } from '@/interfaces/assistant';
 import { ChatbotResponseData } from '@/interfaces/chatbot';
 import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
 import { PromptsData } from '@/interfaces/prompt';
@@ -17,6 +17,7 @@ export enum AppDataTypes {
   Vote = 'Vote',
   ChatbotResponse = 'chatbot-response',
   Prompts = 'prompts',
+  ListAssistantState = 'list-assistant-state',
 }
 
 export type ResponseAppData<T extends ResponseEvaluation = undefined> =
@@ -79,4 +80,10 @@ export type PromptsAppData = AppData & {
   type: AppDataTypes.Prompts;
   data: PromptsData;
   visibility: AppDataVisibility.Member;
+};
+
+export type ListAssistantStateAppData = AppData & {
+  type: AppDataTypes.ListAssistantState;
+  data: ListAssistantStateData;
+  visibility: AppDataVisibility.Item;
 };

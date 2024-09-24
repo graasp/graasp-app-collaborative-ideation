@@ -3,9 +3,6 @@ import { TFunction } from 'i18next';
 import { RESPONSE_MAXIMUM_LENGTH } from '@/config/constants';
 import { PromptMode } from '@/interfaces/assistant';
 
-export const DEFAULT_SYSTEM_PROMPT =
-  'You are part of a group of designers trying to solve a wicked problem. Help your group by proposing new ideas';
-
 export const getSingleResponsePrompt = (prompt: string): string =>
   `We are given the following wicked problem: "${prompt}"
   
