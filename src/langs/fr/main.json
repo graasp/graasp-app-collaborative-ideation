@@ -113,6 +113,8 @@
       "TITLE": "Assistants",
       "USE_DETAILS": "Utiliser le détail des instruction pour prompter les assistants.",
       "PROMPT_MODE_LABEL": "Séléctionner le mode de prompt",
+      "ADD_LLM": "Ajouter un assistant IA",
+      "ADD_LIST": "Ajouter un assistant avec réponses prédéterminées",
       "PROMPT_MODE_ITEMS": {
         "INSTRUCTIONS": "Instructions",
         "PROBLEM": "Problème"
