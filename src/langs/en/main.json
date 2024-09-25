@@ -90,6 +90,7 @@
       "REFORMULATE_RESPONSE_LABEL": "Reformulate responses with AI upon submission",
       "NUMBER_RESP_SET_LABEL": "Number of responses per set",
       "NUMBER_BOT_RESP_SET_LABEL": "Number of bot responses per set",
+      "NUMBER_OF_PARTICIPANTS_RESPONSES_TRIGGERING_RESPONSES_GENERATION": "Number of participants responses required to trigger the generation of new responses by the assistants",
       "STEPS": {
         "ERROR_PROMPT_NOT_IN_JSON_FORMAT": "Prompt has to be in JSON format.",
         "ADD_STEP": "Add a step"

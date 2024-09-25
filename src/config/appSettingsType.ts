@@ -41,6 +41,7 @@ export type ActivitySetting = {
   exclusiveResponseDistribution: boolean;
   steps: ActivityStep[];
   reformulateResponses: boolean;
+  numberOfParticipantsResponsesTriggeringResponsesGeneration: number;
 };
 
 export type AssistantsSetting = {
@@ -94,6 +95,7 @@ export const defaultSettingsValues: AllSettingsType = {
     mode: ResponseVisibilityMode.Open,
     numberOfResponsesPerSet: 3,
     numberOfBotResponsesPerSet: 1,
+    numberOfParticipantsResponsesTriggeringResponsesGeneration: 1,
     exclusiveResponseDistribution: false,
     reformulateResponses: false,
     steps: [
