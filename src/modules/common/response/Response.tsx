@@ -9,7 +9,6 @@ import CardContent from '@mui/material/CardContent';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import grey from '@mui/material/colors/grey';
 
 import { ResponseAppData } from '@/config/appDataTypes';
 
@@ -25,6 +24,7 @@ import { Theme } from '@mui/material/styles/createTheme';
 import { RESPONSES_TOP_COLORS } from '@/config/constants';
 import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
 import { useSettings } from '@/modules/context/SettingsContext';
+import Link from '@mui/material/Link';
 import RatingsVisualization from './visualization/RatingsVisualization';
 import Vote from './evaluation/Vote';
 import Rate from './evaluation/Rate';
@@ -143,7 +143,17 @@ const Response: FC<ResponseProps> = ({
 
   if (responseContent) {
     return (
-      <Box minWidth="160pt" borderRadius="4px" sx={getTopAnnotationBoxStyle()}>
+      <Box
+        minWidth="160pt"
+        borderRadius="4px"
+        sx={{
+          ...getTopAnnotationBoxStyle(),
+          boxShadow: highlight
+            ? '0 0 8pt 4pt hsla(47.8, 100%, 50%, 0.8)'
+            : 'none',
+          transition: 'box-shadow 500ms',
+        }}
+      >
         <Stack
           height="2em"
           direction="row"
@@ -157,10 +167,7 @@ const Response: FC<ResponseProps> = ({
           variant="outlined"
           sx={{
             width: '100%',
-            backgroundColor: highlight ? 'hsla(0, 100%, 90%, 0.3)' : 'white',
-            boxShadow: highlight
-              ? '0 0 8pt 4pt hsla(0, 100%, 90%, 0.3)'
-              : 'none',
+            // backgroundColor: highlight ? 'hsla(0, 100%, 90%, 0.3)' : 'white',
           }}
           data-cy={RESPONSE_CY}
         >
@@ -182,12 +189,19 @@ const Response: FC<ResponseProps> = ({
                 justifyContent: 'space-between',
               }}
             >
-              <Typography variant="body2" sx={{ color: grey.A700 }}>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: isAiGenerated
+                    ? theme.palette.grey.A400
+                    : theme.palette.grey.A700,
+                }}
+              >
                 {!isLive && generalT('ROUND', { round })}
                 {parentId && (
                   <>
                     {' • '}
-                    <a
+                    <Link
                       href={`#${parentId}`}
                       onClick={() => {
                         document.getElementById(parentId)?.scrollIntoView();
@@ -195,7 +209,7 @@ const Response: FC<ResponseProps> = ({
                       }}
                     >
                       {t('PARENT_IDEA')}
-                    </a>
+                    </Link>
                   </>
                 )}
               </Typography>
