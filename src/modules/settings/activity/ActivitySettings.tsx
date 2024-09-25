@@ -42,6 +42,7 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
     exclusiveResponseDistribution,
     numberOfBotResponsesPerSet,
     numberOfResponsesPerSet,
+    numberOfParticipantsResponsesTriggeringResponsesGeneration,
     reformulateResponses,
     steps,
   } = activity;
@@ -82,6 +83,15 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
       numberOfBotResponsesPerSet: newValNbr,
     });
   };
+
+  const handleNumberOfParticipantsResponsesTriggeringResponsesGenerationChange =
+    (newVal: string): void => {
+      const newValNbr = parseInt(newVal, 10);
+      onChange({
+        ...activity,
+        numberOfParticipantsResponsesTriggeringResponsesGeneration: newValNbr,
+      });
+    };
 
   const handleChangeSteps = (newSteps: ActivityStep[]): void => {
     const newActivity = {
@@ -165,6 +175,7 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
                   onChange={(e) => handleNbrRespSetChange(e.target.value)}
                 />
               }
+              disabled={mode !== ResponseVisibilityMode.PartiallyBlind}
               labelPlacement="top"
               label={t('NUMBER_RESP_SET_LABEL')}
             />
@@ -177,8 +188,30 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
                   onChange={(e) => handleNbrBotRespSetChange(e.target.value)}
                 />
               }
+              disabled={mode !== ResponseVisibilityMode.PartiallyBlind}
               labelPlacement="top"
               label={t('NUMBER_BOT_RESP_SET_LABEL')}
+            />
+          </FormControl>
+          <FormControl>
+            <FormControlLabel
+              control={
+                <Input
+                  value={
+                    numberOfParticipantsResponsesTriggeringResponsesGeneration
+                  }
+                  onChange={(e) =>
+                    handleNumberOfParticipantsResponsesTriggeringResponsesGenerationChange(
+                      e.target.value,
+                    )
+                  }
+                />
+              }
+              disabled={mode !== ResponseVisibilityMode.OpenLive}
+              labelPlacement="top"
+              label={t(
+                'NUMBER_OF_PARTICIPANTS_RESPONSES_TRIGGERING_RESPONSES_GENERATION',
+              )}
             />
           </FormControl>
         </Box>

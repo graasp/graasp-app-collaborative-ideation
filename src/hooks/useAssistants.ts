@@ -8,6 +8,7 @@ import {
 } from '@/config/appDataTypes';
 import {
   DEFAULT_CHATBOT_RESPONSE_APP_DATA,
+  LAST_RECORDED_NUMBER_OF_RESPONSES_SESSION_STORE_KEY,
   RESPONSE_MAXIMUM_LENGTH,
 } from '@/config/constants';
 import {
@@ -28,11 +29,8 @@ import { useTranslation } from 'react-i18next';
 import { useActivityContext } from '@/modules/context/ActivityContext';
 import { useCallback, useEffect, useMemo } from 'react';
 import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
+import { useLocalContext } from '@graasp/apps-query-client';
 import { joinMultipleResponses } from './utils/responses';
-
-// TODO: Factor out
-const LAST_RECORDED_NUMBER_OF_RESPONSES_SESSION_STORE_KEY =
-  'lastRecordedNumberOfResponses';
 
 interface UseAssistantsValues {
   promptAssistant: (
@@ -52,16 +50,19 @@ const useAssistants = (): UseAssistantsValues => {
   const { mutateAsync: postChatBot } = mutations.usePostChatBot(
     GPTVersion.GPT_4_O, // TODO: Allow user to choose which model to use.
   );
+  const { accountId, itemId } = useLocalContext();
   const {
     instructions: generalPrompt,
     assistants,
     instructions,
     activity,
+    orchestrator,
   } = useSettings();
 
   const { includeDetails, promptMode } = assistants;
   const { postAppDataAsync, appData, patchAppDataAsync } = useAppDataContext();
-  const { mode } = activity;
+  const { mode, numberOfParticipantsResponsesTriggeringResponsesGeneration } =
+    activity;
 
   const { assistantsResponsesSets, round, allResponses, postResponse } =
     useActivityContext();
@@ -284,20 +285,26 @@ const useAssistants = (): UseAssistantsValues => {
 
   // Automatic responses generation effect for live mode
   useEffect(() => {
-    if (mode === ResponseVisibilityMode.OpenLive) {
+    if (
+      mode === ResponseVisibilityMode.OpenLive &&
+      orchestrator.id === accountId
+    ) {
       const previousNumberOfResponses = parseInt(
         sessionStorage.getItem(
-          LAST_RECORDED_NUMBER_OF_RESPONSES_SESSION_STORE_KEY,
+          LAST_RECORDED_NUMBER_OF_RESPONSES_SESSION_STORE_KEY(itemId),
         ) ?? '0',
         10,
       );
       const currentNumberOfResponses = allResponses.length;
-      // TODO: Move the cst '3' to a setting
-      if (previousNumberOfResponses + 3 < currentNumberOfResponses) {
+      if (
+        previousNumberOfResponses +
+          numberOfParticipantsResponsesTriggeringResponsesGeneration <=
+        currentNumberOfResponses
+      ) {
         generateResponsesWithEachAssistant();
         try {
           sessionStorage.setItem(
-            LAST_RECORDED_NUMBER_OF_RESPONSES_SESSION_STORE_KEY,
+            LAST_RECORDED_NUMBER_OF_RESPONSES_SESSION_STORE_KEY(itemId),
             (currentNumberOfResponses + assistants.assistants.length).toString(
               10,
             ),
@@ -309,10 +316,14 @@ const useAssistants = (): UseAssistantsValues => {
       }
     }
   }, [
+    accountId,
     allResponses.length,
     assistants,
     generateResponsesWithEachAssistant,
+    itemId,
     mode,
+    numberOfParticipantsResponsesTriggeringResponsesGeneration,
+    orchestrator,
   ]);
 
   return {

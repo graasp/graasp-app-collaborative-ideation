@@ -43,6 +43,10 @@ export const DEFAULT_CHATBOT_RESPONSE_APP_DATA: Pick<
   },
 };
 
+export const LAST_RECORDED_NUMBER_OF_RESPONSES_SESSION_STORE_KEY = (
+  itemId: string,
+): string => `last-recorded-number-of-responses-for-${itemId}`;
+
 export const DEFAULT_BOT_USERNAME = 'GraaspBot';
 export const SHORT_TIME_LIMIT = 10; // seconds
 export const DEFAULT_LANG = 'en';
