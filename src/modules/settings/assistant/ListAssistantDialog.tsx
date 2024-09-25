@@ -126,6 +126,12 @@ const ListAssistantDialog: FC<ListAssistantDialogProps> = ({
                 <Typography variant="caption" color="text.secondary">
                   {t('CHATBOT_PROMPT_HELPER')}
                 </Typography>
+                <TextArea
+                  value={responses}
+                  onChange={({ target: { value } }) =>
+                    handleChangeResponses(value)
+                  }
+                />
               </Stack>
             </Box>
             <Box>
@@ -134,12 +140,6 @@ const ListAssistantDialog: FC<ListAssistantDialogProps> = ({
                 <Typography variant="caption" color="text.secondary">
                   {t('CHATBOT_CUE_HELPER')}
                 </Typography>
-                <TextArea
-                  value={responses}
-                  onChange={({ target: { value } }) =>
-                    handleChangeResponses(value)
-                  }
-                />
               </Stack>
               <TextArea
                 id={SETTING_CHATBOT_PROMPT_CODE_EDITOR_CY}
