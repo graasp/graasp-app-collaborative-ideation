@@ -26,7 +26,7 @@ const VoteResults: FC<VoteResultsProps> = () => {
       <Grid container spacing={2}>
         {sortedResponses
           ? sortedResponses.map((response) => (
-              <Grid item key={response.id} md={6} sm={12} xs={12}>
+              <Grid item key={response.id} xl={2} sm={4} xs={6}>
                 <Response
                   response={response}
                   nbrOfVotes={response.data.evaluation?.votes}

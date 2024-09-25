@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from 'react';
+import { FC, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -12,6 +12,7 @@ import Response from '@/modules/common/response/Response';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
 import { Loader } from '@graasp/ui';
+import { HIGHLIGHT_RESPONSE_TIME_MS } from '@/config/constants';
 import { useSettings } from '../context/SettingsContext';
 
 interface ResponseChooseProps {
@@ -23,6 +24,7 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
   const { t } = useTranslation();
 
   const [highlightId, setHighlightId] = useState<string>();
+  const highlightTimeout = useRef<NodeJS.Timeout>();
 
   const { isLoading, invalidateAppData, deleteAppData } = useAppDataContext();
   const { instructions } = useSettings();
@@ -69,14 +71,22 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
       <Grid container spacing={2}>
         {responses
           ? responses.map((response) => (
-              <Grid key={response.id} item xl={6} lg={6} xs={12}>
+              <Grid key={response.id} item xl={2} sm={4} xs={6}>
                 <Response
                   key={response.id}
                   response={response}
                   onSelect={handleChoose}
                   onDelete={() => deleteAppData({ id: response.id })}
                   highlight={highlightId === response.id}
-                  onParentIdeaClick={(id: string) => setHighlightId(id)}
+                  onParentIdeaClick={(id: string) => {
+                    setHighlightId(id);
+                    highlightTimeout.current = setTimeout(() => {
+                      setHighlightId(undefined);
+                      if (highlightTimeout?.current) {
+                        clearTimeout(highlightTimeout.current);
+                      }
+                    }, HIGHLIGHT_RESPONSE_TIME_MS);
+                  }}
                 />
               </Grid>
             ))

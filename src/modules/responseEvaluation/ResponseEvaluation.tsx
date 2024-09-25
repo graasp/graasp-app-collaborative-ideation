@@ -84,7 +84,7 @@ const ResponseEvaluation: FC = () => {
             <Grid container spacing={2}>
               {responses
                 ? responses.map((response) => (
-                    <Grid item key={response.id} md={6} sm={12} xs={12}>
+                    <Grid item key={response.id} xl={2} sm={4} xs={6}>
                       <Response
                         key={response.id}
                         response={response}

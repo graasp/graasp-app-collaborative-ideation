@@ -49,6 +49,8 @@ export const DEFAULT_LANG = 'en';
 
 export const DEFAULT_EVALUATION_TYPE = EvaluationType.Vote;
 
+export const HIGHLIGHT_RESPONSE_TIME_MS = 2000;
+
 export const CATEGORY_COLORS = [
   '#ffadad',
   '#ffd6a5',
@@ -58,4 +60,12 @@ export const CATEGORY_COLORS = [
   '#a0c4ff',
   '#bdb2ff',
   '#ffc6ff',
+];
+
+export const RESPONSES_TOP_COLORS = [
+  '#DBF9E7',
+  '#E8C9FA',
+  '#EFE9B7',
+  '#F6CCB0',
+  '#B0E1FA',
 ];

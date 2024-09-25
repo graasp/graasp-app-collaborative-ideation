@@ -9,16 +9,22 @@ import CardContent from '@mui/material/CardContent';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import grey from '@mui/material/colors/grey';
 
 import { ResponseAppData } from '@/config/appDataTypes';
 
-import Chip from '@mui/material/Chip';
 import { useLocalContext } from '@graasp/apps-query-client';
 import Box from '@mui/material/Box';
 import { RESPONSE_CY } from '@/config/selectors';
 import { EvaluationType } from '@/interfaces/evaluation';
 import { ResponseEvaluation } from '@/interfaces/response';
+import Stack from '@mui/material/Stack';
+import styled from '@mui/material/styles/styled';
+import { SxProps, useTheme } from '@mui/material/styles';
+import { Theme } from '@mui/material/styles/createTheme';
+import { RESPONSES_TOP_COLORS } from '@/config/constants';
+import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
+import { useSettings } from '@/modules/context/SettingsContext';
+import Link from '@mui/material/Link';
 import RatingsVisualization from './visualization/RatingsVisualization';
 import Vote from './evaluation/Vote';
 import Rate from './evaluation/Rate';
@@ -29,6 +35,11 @@ const ResponsePart: FC<{ children: string }> = ({ children }) => (
     {children}
   </Typography>
 );
+
+const TopAnnotationTypography = styled(Typography)(() => ({
+  fontWeight: 'bold',
+  textTransform: 'uppercase',
+}));
 
 interface ResponseProps {
   response: ResponseAppData<ResponseEvaluation>;
@@ -58,9 +69,11 @@ const Response: FC<ResponseProps> = ({
   const { t } = useTranslation('translations', { keyPrefix: 'RESPONSE_CARD' });
   const { t: generalT } = useTranslation('translations');
   const { accountId } = useLocalContext();
+  const theme = useTheme();
 
   const { id, data, creator } = response;
   const { response: responseContent, round, parentId, assistantId } = data;
+  const { activity } = useSettings();
 
   const isOwn = creator?.id === accountId && typeof assistantId === 'undefined';
   const isAiGenerated = useMemo(
@@ -71,6 +84,7 @@ const Response: FC<ResponseProps> = ({
   const showSelectButton = typeof onSelect !== 'undefined';
   const showDeleteButton = typeof onDelete !== 'undefined' && isOwn;
   const showActions = showDeleteButton || showSelectButton;
+  const isLive = activity.mode === ResponseVisibilityMode.OpenLive;
 
   const renderEvaluationComponent = (): JSX.Element | null => {
     switch (evaluationType) {
@@ -85,108 +99,161 @@ const Response: FC<ResponseProps> = ({
     }
   };
 
-  return (
-    <Card
-      id={id}
-      variant="outlined"
-      sx={{
-        minWidth: '160pt',
-        backgroundColor: highlight ? 'hsla(0, 100%, 90%, 0.3)' : 'transparent',
-        boxShadow: highlight ? '0 0 8pt 4pt hsla(0, 100%, 90%, 0.3)' : 'none',
-      }}
-      data-cy={RESPONSE_CY}
-    >
-      <CardContent sx={{ minHeight: '32pt' }}>
-        {typeof responseContent === 'string' ? (
-          <ResponsePart>{responseContent}</ResponsePart>
-        ) : (
-          responseContent?.map((r, index) => (
-            <>
-              {/* {index !== 0 && <br />} */}
-              <ResponsePart key={index}>{r}</ResponsePart>
-            </>
-          ))
-        )}
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}
+  const renderTopResponseAnnotation = (): JSX.Element => {
+    if (isAiGenerated) {
+      return (
+        <TopAnnotationTypography variant="caption" color="primary">
+          {t('AI_GENERATED')}
+        </TopAnnotationTypography>
+      );
+    }
+    if (isOwn) {
+      return (
+        <TopAnnotationTypography color="GrayText" variant="caption">
+          {t('OWN')}
+        </TopAnnotationTypography>
+      );
+    }
+    return <div />;
+  };
+
+  const getTopAnnotationBoxStyle = (): SxProps<Theme> => {
+    if (isAiGenerated) {
+      return {
+        backgroundColor: 'white',
+      };
+    }
+    const rLength =
+      typeof responseContent === 'string'
+        ? responseContent.length
+        : responseContent.length;
+    const colorIndex = rLength % RESPONSES_TOP_COLORS.length;
+    return {
+      backgroundColor: RESPONSES_TOP_COLORS[colorIndex],
+    };
+  };
+
+  const getCardActionStyle = (): SxProps<Theme> | undefined =>
+    isAiGenerated
+      ? {
+          backgroundColor: theme.palette.primary.main,
+          color: theme.palette.primary.contrastText,
+        }
+      : undefined;
+
+  if (responseContent) {
+    return (
+      <Box
+        minWidth="160pt"
+        borderRadius="4px"
+        sx={{
+          ...getTopAnnotationBoxStyle(),
+          boxShadow: highlight
+            ? '0 0 8pt 4pt hsla(47.8, 100%, 50%, 0.8)'
+            : 'none',
+          transition: 'box-shadow 500ms',
+        }}
+      >
+        <Stack
+          height="2em"
+          direction="row"
+          alignItems="center"
+          justifyContent="center"
         >
-          <Typography variant="body2" sx={{ color: grey.A700 }}>
-            {generalT('ROUND', { round })}
-            {parentId && (
-              <>
-                {' • '}
-                <a
-                  href={`#${parentId}`}
-                  onClick={() => {
-                    document.getElementById(parentId)?.scrollIntoView();
-                    onParentIdeaClick(parentId);
-                  }}
-                >
-                  {t('PARENT_IDEA')}
-                </a>
-              </>
+          {renderTopResponseAnnotation()}
+        </Stack>
+        <Card
+          id={id}
+          variant="outlined"
+          sx={{
+            width: '100%',
+            // backgroundColor: highlight ? 'hsla(0, 100%, 90%, 0.3)' : 'white',
+          }}
+          data-cy={RESPONSE_CY}
+        >
+          <CardContent sx={{ minHeight: '32pt', ...getCardActionStyle() }}>
+            {typeof responseContent === 'string' ? (
+              <ResponsePart>{responseContent}</ResponsePart>
+            ) : (
+              responseContent?.map((r, index) => (
+                <>
+                  {/* {index !== 0 && <br />} */}
+                  <ResponsePart key={index}>{r}</ResponsePart>
+                </>
+              ))
             )}
-          </Typography>
-          {isOwn && (
-            <Chip
-              sx={{ ml: '1rem' }}
-              variant="outlined"
-              size="small"
-              color="info"
-              label={t('OWN')}
-            />
-          )}
-          {isAiGenerated && (
-            <Chip
-              sx={{ ml: '1rem' }}
-              variant="outlined"
-              size="small"
-              color="success"
-              label={t('AI_GENERATED')}
-            />
-          )}
-        </Box>
-      </CardContent>
-      {renderEvaluationComponent()}
-      {showRatings && <RatingsVisualization />}
-      {typeof nbrOfVotes !== 'undefined' && <Votes votes={nbrOfVotes} />}
-      {showActions && (
-        <>
-          <Divider />
-          <CardActions
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-          >
-            {showSelectButton && (
-              <Button
-                disabled={!enableBuildAction}
-                onClick={() => {
-                  if (typeof onSelect !== 'undefined') onSelect(id);
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}
+            >
+              <Typography
+                variant="body2"
+                sx={{
+                  color: isAiGenerated
+                    ? theme.palette.grey.A400
+                    : theme.palette.grey.A700,
                 }}
               >
-                {t('BUILD_ON_THIS')}
-              </Button>
-            )}
-            {showDeleteButton && (
-              <IconButton
-                sx={{ marginLeft: 'auto' }}
-                onClick={() => onDelete(id)}
+                {!isLive && generalT('ROUND', { round })}
+                {parentId && (
+                  <>
+                    {' • '}
+                    <Link
+                      href={`#${parentId}`}
+                      onClick={() => {
+                        document.getElementById(parentId)?.scrollIntoView();
+                        onParentIdeaClick(parentId);
+                      }}
+                    >
+                      {t('PARENT_IDEA')}
+                    </Link>
+                  </>
+                )}
+              </Typography>
+            </Box>
+          </CardContent>
+          {renderEvaluationComponent()}
+          {showRatings && <RatingsVisualization />}
+          {typeof nbrOfVotes !== 'undefined' && <Votes votes={nbrOfVotes} />}
+          {showActions && (
+            <>
+              <Divider />
+              <CardActions
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}
               >
-                <DeleteIcon />
-              </IconButton>
-            )}
-          </CardActions>
-        </>
-      )}
-    </Card>
-  );
+                {showSelectButton && (
+                  <Button
+                    disabled={!enableBuildAction}
+                    onClick={() => {
+                      if (typeof onSelect !== 'undefined') onSelect(id);
+                    }}
+                  >
+                    {t('BUILD_ON_THIS')}
+                  </Button>
+                )}
+                {showDeleteButton && (
+                  <IconButton
+                    sx={{ marginLeft: 'auto' }}
+                    onClick={() => onDelete(id)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                )}
+              </CardActions>
+            </>
+          )}
+        </Card>
+      </Box>
+    );
+  }
+  return null;
 };
 
 export default Response;
