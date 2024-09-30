@@ -22,7 +22,7 @@ The **Collaborative Ideation** app in Graasp was made to organise blended and on
 
 ## Related publications
 
-This app is related to the following publication:
+This app was presented or used in the following publications:
 
 - (_preprint_) La Scala, J. A., Bartłomiejczyk, N., Gillet, D., & Holzer, A. C. (2025). Fostering Innovation with Generative AI: A Study on Human-AI Collaborative Ideation and User Anonymity. 58th Hawaii International Conference on System Sciences. https://infoscience.epfl.ch/handle/20.500.14299/241341
 
@@ -46,6 +46,10 @@ VITE_GRAASP_APP_KEY=02052cf4-cc45-45c6-b0b8-61102244ed11
 VITE_VERSION=latest
 VITE_WS_HOST=ws://localhost:3000/ws
 ```
+
+To serve the app with the _full Graasp stack_, use `yarn dev`. If you want to try the app without the stack, use `yarn dev:mock`.
+
+> ⚠️ If you don't use the full Graasp stack, please note that you won't be able to save the state of the application and use the collaboration.
 
 ## Running the tests
 
