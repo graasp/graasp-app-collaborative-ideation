@@ -51,7 +51,7 @@ export const DEFAULT_BOT_USERNAME = 'GraaspBot';
 export const SHORT_TIME_LIMIT = 10; // seconds
 export const DEFAULT_LANG = 'en';
 
-export const DEFAULT_EVALUATION_TYPE = EvaluationType.Vote;
+export const DEFAULT_EVALUATION_TYPE = EvaluationType.None;
 
 export const HIGHLIGHT_RESPONSE_TIME_MS = 2000;
 
