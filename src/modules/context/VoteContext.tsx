@@ -4,6 +4,7 @@ import { EvaluationParameters } from '@/interfaces/evaluation';
 import { AppDataTypes, VoteAppData } from '@/config/appDataTypes';
 import { useLocalContext } from '@graasp/apps-query-client';
 import { AppDataVisibility } from '@graasp/sdk';
+import useActions from '@/hooks/useActions';
 import { useAppDataContext } from './AppDataContext';
 
 type VoteContextType = {
@@ -41,7 +42,8 @@ export const VoteProvider: FC<VoteContextProps> = ({
     [evaluationParameters],
   );
 
-  const { appData, postAppData, deleteAppData } = useAppDataContext();
+  const { appData, postAppDataAsync, deleteAppDataAsync } = useAppDataContext();
+  const { postVoteForAction, postRemoveVoteAction } = useActions();
 
   const allVotes = useMemo(
     () =>
@@ -72,10 +74,14 @@ export const VoteProvider: FC<VoteContextProps> = ({
             responseRef: responseId,
           },
         };
-        postAppData(newAppData);
+        postAppDataAsync(newAppData).then((recordedAppData) => {
+          if (recordedAppData) {
+            postVoteForAction(recordedAppData as VoteAppData);
+          }
+        });
       }
     },
-    [availableVotes, postAppData],
+    [availableVotes, postAppDataAsync, postVoteForAction],
   );
 
   const findVoteFor = useCallback(
@@ -88,12 +94,14 @@ export const VoteProvider: FC<VoteContextProps> = ({
     async (responseId: string): Promise<void> => {
       const voteToRemove = findVoteFor(responseId);
       if (voteToRemove) {
-        deleteAppData({ id: voteToRemove?.id });
+        deleteAppDataAsync({ id: voteToRemove?.id }).then(() => {
+          postRemoveVoteAction(voteToRemove);
+        });
       } else {
         throw Error(`Response with id ${responseId} not found.`);
       }
     },
-    [deleteAppData, findVoteFor],
+    [deleteAppDataAsync, findVoteFor, postRemoveVoteAction],
   );
 
   const checkIfHasVote = useCallback(

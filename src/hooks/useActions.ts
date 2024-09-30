@@ -11,10 +11,16 @@ import {
   PauseActivityAction,
   PlayActivityAction,
   PreviousStepAction,
+  RemoveVoteAction,
   RequestPromptAction,
   SubmitNewResponseAction,
+  VoteForAction,
 } from '@/config/appActionsTypes';
-import { CurrentStateData, ResponseAppData } from '@/config/appDataTypes';
+import {
+  CurrentStateData,
+  ResponseAppData,
+  VoteAppData,
+} from '@/config/appDataTypes';
 import { mutations } from '@/config/queryClient';
 import { ActivityStep } from '@/interfaces/interactionProcess';
 import { LocalContext } from '@graasp/sdk';
@@ -33,6 +39,8 @@ interface UseActionsValues {
   postPlayActivityAction: (data?: Data) => void;
   postPauseActivityAction: (data?: Data) => void;
   postRequestPromptAction: (data: RequestPromptAction['data']) => void;
+  postVoteForAction: (data: VoteAppData) => void;
+  postRemoveVoteAction: (data: VoteAppData) => void;
 }
 
 const useActions = (): UseActionsValues => {
@@ -102,6 +110,35 @@ const useActions = (): UseActionsValues => {
   //     },
   //   [postAppAction],
   // );
+
+  const postVoteForAction = useCallback(
+    (data: VoteAppData): void => {
+      const action: VoteForAction = {
+        type: AppActionTypes.VoteFor,
+        data: {
+          id: data.id,
+          type: data.type,
+          data: data.data,
+        },
+      };
+      postAppAction(action);
+    },
+    [postAppAction],
+  );
+  const postRemoveVoteAction = useCallback(
+    (data: VoteAppData): void => {
+      const action: RemoveVoteAction = {
+        type: AppActionTypes.RemoveVote,
+        data: {
+          id: data.id,
+          type: data.type,
+          data: data.data,
+        },
+      };
+      postAppAction(action);
+    },
+    [postAppAction],
+  );
 
   const postNextStepAction = useCallback(
     (step: ActivityStep, stepIndex: number) => {
@@ -175,6 +212,8 @@ const useActions = (): UseActionsValues => {
     postPlayActivityAction,
     postPauseActivityAction,
     postRequestPromptAction,
+    postVoteForAction,
+    postRemoveVoteAction,
   };
 };
 
