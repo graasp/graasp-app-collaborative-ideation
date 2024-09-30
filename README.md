@@ -65,3 +65,7 @@ VITE_VERSION=latest
 # dont open browser
 BROWSER=none
 ```
+
+# Contributors
+
+This app was designed, implemented, and is currently maintained by [Jérémy La Scala](https://people.epfl.ch/jeremy.lascala) (@swouf) from École Polytechnique Fédérale de Lausanne.
