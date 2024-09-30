@@ -4,6 +4,7 @@ import { EvaluationParameters } from '@/interfaces/evaluation';
 import { AppDataTypes, VoteAppData } from '@/config/appDataTypes';
 import { useLocalContext } from '@graasp/apps-query-client';
 import { AppDataVisibility } from '@graasp/sdk';
+import useActions from '@/hooks/useActions';
 import { useAppDataContext } from './AppDataContext';
 
 type VoteContextType = {
@@ -41,7 +42,8 @@ export const VoteProvider: FC<VoteContextProps> = ({
     [evaluationParameters],
   );
 
-  const { appData, postAppData, deleteAppData } = useAppDataContext();
+  const { appData, postAppDataAsync, deleteAppData } = useAppDataContext();
+  const { postVoteForAction } = useActions();
 
   const allVotes = useMemo(
     () =>
@@ -72,10 +74,14 @@ export const VoteProvider: FC<VoteContextProps> = ({
             responseRef: responseId,
           },
         };
-        postAppData(newAppData);
+        postAppDataAsync(newAppData).then((recordedAppData) => {
+          if (recordedAppData) {
+            postVoteForAction(recordedAppData as VoteAppData);
+          }
+        });
       }
     },
-    [availableVotes, postAppData],
+    [availableVotes, postAppDataAsync, postVoteForAction],
   );
 
   const findVoteFor = useCallback(

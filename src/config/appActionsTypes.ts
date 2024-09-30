@@ -4,7 +4,7 @@ import { AppAction, AppData, LocalContext } from '@graasp/sdk';
 import { ActivityStep } from '@/interfaces/interactionProcess';
 import { Prompt } from '@/interfaces/prompt';
 import { ResponseData } from '@/interfaces/response';
-import { CurrentStateData, ResponseAppData } from './appDataTypes';
+import { CurrentStateData, ResponseAppData, VoteAppData } from './appDataTypes';
 
 export enum AppActionTypes {
   SubmitNewResponse = 'submit-new-response',
@@ -19,6 +19,8 @@ export enum AppActionTypes {
   PlayActivity = 'play-activity',
   PauseActivity = 'pause-activity',
   RequestPrompt = 'request-prompt',
+  VoteFor = 'vote-for',
+  RemoveVote = 'remove-vote',
 }
 
 type AppDataRef<T extends Data> = Pick<AppData<T>, 'id' | 'type' | 'data'> &
@@ -75,4 +77,9 @@ export type PauseActivityAction = Pick<AppAction, 'type' | 'data'> & {
 export type RequestPromptAction = Pick<AppAction, 'type' | 'data'> & {
   type: AppActionTypes.RequestPrompt;
   data: { prompt: Prompt; promptRequestNumber: number };
+};
+
+export type VoteForAction = Pick<AppAction, 'type' | 'data'> & {
+  type: AppActionTypes.VoteFor;
+  data: AppDataRef<VoteAppData['data']>;
 };
