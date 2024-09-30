@@ -11,6 +11,7 @@ import {
   PauseActivityAction,
   PlayActivityAction,
   PreviousStepAction,
+  RemoveVoteAction,
   RequestPromptAction,
   SubmitNewResponseAction,
   VoteForAction,
@@ -39,6 +40,7 @@ interface UseActionsValues {
   postPauseActivityAction: (data?: Data) => void;
   postRequestPromptAction: (data: RequestPromptAction['data']) => void;
   postVoteForAction: (data: VoteAppData) => void;
+  postRemoveVoteAction: (data: VoteAppData) => void;
 }
 
 const useActions = (): UseActionsValues => {
@@ -123,7 +125,20 @@ const useActions = (): UseActionsValues => {
     },
     [postAppAction],
   );
-  // const postRemoveVoteAction = useCallback(() => {}, []);
+  const postRemoveVoteAction = useCallback(
+    (data: VoteAppData): void => {
+      const action: RemoveVoteAction = {
+        type: AppActionTypes.RemoveVote,
+        data: {
+          id: data.id,
+          type: data.type,
+          data: data.data,
+        },
+      };
+      postAppAction(action);
+    },
+    [postAppAction],
+  );
 
   const postNextStepAction = useCallback(
     (step: ActivityStep, stepIndex: number) => {
@@ -198,6 +213,7 @@ const useActions = (): UseActionsValues => {
     postPauseActivityAction,
     postRequestPromptAction,
     postVoteForAction,
+    postRemoveVoteAction,
   };
 };
 

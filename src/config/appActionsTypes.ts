@@ -83,3 +83,8 @@ export type VoteForAction = Pick<AppAction, 'type' | 'data'> & {
   type: AppActionTypes.VoteFor;
   data: AppDataRef<VoteAppData['data']>;
 };
+
+export type RemoveVoteAction = Pick<AppAction, 'type' | 'data'> & {
+  type: AppActionTypes.RemoveVote;
+  data: AppDataRef<VoteAppData['data']>;
+};

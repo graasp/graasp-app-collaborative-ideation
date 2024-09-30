@@ -42,8 +42,8 @@ export const VoteProvider: FC<VoteContextProps> = ({
     [evaluationParameters],
   );
 
-  const { appData, postAppDataAsync, deleteAppData } = useAppDataContext();
-  const { postVoteForAction } = useActions();
+  const { appData, postAppDataAsync, deleteAppDataAsync } = useAppDataContext();
+  const { postVoteForAction, postRemoveVoteAction } = useActions();
 
   const allVotes = useMemo(
     () =>
@@ -94,12 +94,14 @@ export const VoteProvider: FC<VoteContextProps> = ({
     async (responseId: string): Promise<void> => {
       const voteToRemove = findVoteFor(responseId);
       if (voteToRemove) {
-        deleteAppData({ id: voteToRemove?.id });
+        deleteAppDataAsync({ id: voteToRemove?.id }).then(() => {
+          postRemoveVoteAction(voteToRemove);
+        });
       } else {
         throw Error(`Response with id ${responseId} not found.`);
       }
     },
-    [deleteAppData, findVoteFor],
+    [deleteAppDataAsync, findVoteFor, postRemoveVoteAction],
   );
 
   const checkIfHasVote = useCallback(
