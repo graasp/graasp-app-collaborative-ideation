@@ -1,4 +1,5 @@
 export enum EvaluationType {
+  None = 'none',
   Rate = 'rate',
   Vote = 'vote',
   Rank = 'rank',

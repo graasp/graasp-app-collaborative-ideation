@@ -8,6 +8,7 @@ import Pausable from '../common/Pausable';
 import { RatingsProvider } from '../context/RatingsContext';
 import { VoteProvider } from '../context/VoteContext';
 import VoteResults from './VoteResults';
+import NoEvaluationResults from './NoEvaluationResults';
 
 interface ResultsViewProps {}
 
@@ -31,7 +32,7 @@ const ResultsView = (props: ResultsViewProps): JSX.Element => {
           </RatingsProvider>
         );
       default:
-        return null;
+        return <NoEvaluationResults />;
     }
   };
 

@@ -50,6 +50,11 @@ const EvaluationSettings: FC<ResultsSettingsProps> = ({
           }}
         >
           <FormControlLabel
+            value={EvaluationType.None}
+            control={<Radio />}
+            label={tEvaluationType('NONE')}
+          />
+          <FormControlLabel
             value={EvaluationType.Rate}
             control={<Radio />}
             label={tEvaluationType('RATE')}
