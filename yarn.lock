@@ -2057,7 +2057,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cypress/request@npm:^3.0.1":
+"@cypress/request@npm:^3.0.4":
   version: 3.0.5
   resolution: "@cypress/request@npm:3.0.5"
   dependencies:
@@ -6604,11 +6604,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:13.14.2":
-  version: 13.14.2
-  resolution: "cypress@npm:13.14.2"
+"cypress@npm:13.15.0":
+  version: 13.15.0
+  resolution: "cypress@npm:13.15.0"
   dependencies:
-    "@cypress/request": "npm:^3.0.1"
+    "@cypress/request": "npm:^3.0.4"
     "@cypress/xvfb": "npm:^1.2.4"
     "@types/sinonjs__fake-timers": "npm:8.1.1"
     "@types/sizzle": "npm:^2.3.2"
@@ -6652,7 +6652,7 @@ __metadata:
     yauzl: "npm:^2.10.0"
   bin:
     cypress: bin/cypress
-  checksum: 10/e1366579f1361e95f78b54df7ccd2576301496b7a55351ea350af71d45f284a4422aa8e5bbebeaa420e403d33f575d7d6a9413b7e3b1a5ad72f7072eaeff7d8f
+  checksum: 10/eb1012234716ae912ad579839dee63f4abcfcfcfd1e5f9281d3d4d69f164d6ba98fac9ecee6432924c72344f5e3c58e694f4a0066ae9ba4b9b81e7fd0aa64f9f
   languageName: node
   linkType: hard
 
@@ -9248,7 +9248,7 @@ __metadata:
     "@vitejs/plugin-react": "npm:^4.2.1"
     "@vitest/browser": "npm:^2.0.0"
     concurrently: "npm:9.0.1"
-    cypress: "npm:13.14.2"
+    cypress: "npm:13.15.0"
     date-fns: "npm:^4.0.0"
     env-cmd: "npm:10.1.0"
     eslint: "npm:8.57.1"
