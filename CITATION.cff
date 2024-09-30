@@ -1,15 +1,46 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
 cff-version: 1.2.0
-message: If you use this software, please cite it as below.
+title: Collaborative Ideation
+message: >-
+  If you use this software, please cite it using these
+  metadata.
+type: software
 authors:
-  - family-names: La Scala
-    given-names: Jérémy
+  - given-names: Jérémy
+    family-names: La Scala
     email: jeremy.lascala@epfl.ch
-    website: https://github.com/swouf
-    orcid: https://orcid.org/0000-0002-8057-7787
-title: "Collaborative ideation"
-version: 2.9.3
-date-released: 2024-05-15
+    orcid: 'https://orcid.org/0000-0002-8057-7787'
+    affiliation: École Polytechnique Fédérale de Lausanne
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.13862314
+    description: DOI of the record on Zenodo. Valid for all versions.
+  - type: doi
+    value: 10.5281/zenodo.13862315
+    description: DOI of version 3.0.0
+  - type: url
+    value: >-
+      https://github.com/graasp/graasp-app-collaborative-ideation
+    description: Repository
+repository-code: >-
+  https://github.com/graasp/graasp-app-collaborative-ideation
+abstract: >-
+  The Collaborative Ideation app in Graasp was made to
+  organize blended and online activities where participants
+  can share their inputs and react on them in real time.
+  This app was designed and implemented inside the Graasp
+  platform and is not independent from it.
 keywords:
   - creativity
   - ideation
   - collaboration
+  - learning
+  - education
+  - blended
+  - hybrid
+license: AGPL-3.0-only
+commit: ea9f04805d47f6cfe49a74280e504f3331db99c7
+version: 3.0.0
+date-released: '2024-09-30'
