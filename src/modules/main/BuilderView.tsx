@@ -1,4 +1,4 @@
-import { SyntheticEvent, useMemo, useState } from 'react';
+import { lazy, Suspense, SyntheticEvent, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Paper, Stack } from '@mui/material';
@@ -16,8 +16,8 @@ import {
 } from '@/config/selectors';
 
 import TabPanel from '../common/TabPanel';
-import SettingsView from '../settings/Settings';
 import Activity from './Activity';
+import Loader from '../common/Loader';
 
 interface TabType {
   tabLabel: string;
@@ -26,6 +26,7 @@ interface TabType {
 }
 
 const BuilderView = (): JSX.Element => {
+  const SettingsView = lazy(() => import('../settings/Settings.js'));
   const [selectedTab, setSelectedTab] = useState<number>(0);
   const { t } = useTranslation();
   const handleChange = (event: SyntheticEvent, value: number): void => {
@@ -50,10 +51,14 @@ const BuilderView = (): JSX.Element => {
   const settingsTab = useMemo(
     () => ({
       tabLabel: t('SETTINGS_TAB'),
-      tabChild: <SettingsView />,
+      tabChild: (
+        <Suspense fallback={<Loader />}>
+          <SettingsView />
+        </Suspense>
+      ),
       tabSelector: SETTINGS_TAB_CY,
     }),
-    [t],
+    [SettingsView, t],
   );
 
   // const ideasViewTab = useMemo(
