@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.1](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.0.0...v3.0.1) (2024-10-01)
+
+
+### Performance Improvements
+
+* split imports into smaller chunks ([#528](https://github.com/graasp/graasp-app-collaborative-ideation/issues/528)) ([2c087de](https://github.com/graasp/graasp-app-collaborative-ideation/commit/2c087deb61d57448c0719a6adc555468135e558b))
+
 ## [3.0.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v2.11.1...v3.0.0) (2024-09-30)
 
 
