@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.1](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.1.0...v3.1.1) (2024-10-02)
+
+
+### Bug Fixes
+
+* prompt assistants with responses ([#538](https://github.com/graasp/graasp-app-collaborative-ideation/issues/538)) ([b25c0e4](https://github.com/graasp/graasp-app-collaborative-ideation/commit/b25c0e4524b1c4298d42e1719f5e479bbf27534f))
+
 ## [3.1.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.0.1...v3.1.0) (2024-10-02)
 
 
