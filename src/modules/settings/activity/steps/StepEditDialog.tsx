@@ -33,17 +33,32 @@ const StepEditDialog: FC<StepEditDialogProps> = ({
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { t } = useTranslation('translations');
-  const { type, time, evaluationType, evaluationParameters, resultsType } =
-    step;
+  const {
+    type,
+    time,
+    evaluationType,
+    evaluationParameters,
+    resultsType,
+    round,
+  } = step;
 
   const [timeBuffer, setTimeBuffer] = useState<string>('0');
   const [errorTime, setErrorTime] = useState(false);
+
+  const [roundBuffer, setRoundBuffer] = useState<string>('0');
+  const [errorRound, setErrorRound] = useState(false);
 
   useEffect(() => {
     if (time) {
       setTimeBuffer(time.toString(10));
     }
   }, [time]);
+
+  useEffect(() => {
+    if (round) {
+      setRoundBuffer(round.toString(10));
+    }
+  }, [round]);
 
   const renderStepDescription = (activityType: ActivityType): string => {
     // TODO: Translate
@@ -133,8 +148,24 @@ const StepEditDialog: FC<StepEditDialogProps> = ({
       });
     }
   };
+
+  const handleRoundChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    const newRoundStr = event.target.value;
+    setRoundBuffer(newRoundStr);
+    const newRound = parseInt(newRoundStr, 10);
+    if (Number.isNaN(newRound)) {
+      setErrorRound(true);
+    } else {
+      setErrorRound(false);
+      onChange({
+        ...step,
+        round: newRound,
+      });
+    }
+  };
   return (
     <Dialog open={open}>
+      {/* TODO: Translate */}
       <DialogTitle>Edit the step</DialogTitle>
       <DialogContent sx={{ p: 1 }}>
         <Select value={type} label="Type" onChange={handleChangeType}>
@@ -149,6 +180,13 @@ const StepEditDialog: FC<StepEditDialogProps> = ({
           value={timeBuffer}
           onChange={handleTimeChange}
           error={errorTime}
+        />
+        <TextField
+          // TODO: Translate
+          label="Round"
+          value={roundBuffer}
+          onChange={handleRoundChange}
+          error={errorRound}
         />
         <DialogContentText>{renderStepDescription(type)}</DialogContentText>
         {renderActivitySettings(type)}
