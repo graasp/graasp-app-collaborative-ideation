@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.1.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.0.1...v3.1.0) (2024-10-02)
+
+
+### Features
+
+* add field to modify round for each step in settings ([#534](https://github.com/graasp/graasp-app-collaborative-ideation/issues/534)) ([3b8978f](https://github.com/graasp/graasp-app-collaborative-ideation/commit/3b8978f2b55d3ef3b6925bde17b0c64109289921))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @graasp/ui to v5.2.1 ([44f140f](https://github.com/graasp/graasp-app-collaborative-ideation/commit/44f140f364ed3d448135863390bd617112bcb4c8))
+* **deps:** update dependency lucide-react to ^0.447.0 ([#532](https://github.com/graasp/graasp-app-collaborative-ideation/issues/532)) ([2fda47d](https://github.com/graasp/graasp-app-collaborative-ideation/commit/2fda47d62076e365b111e0878c43e4bd074964b7))
+
 ## [3.0.1](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.0.0...v3.0.1) (2024-10-01)
 
 
