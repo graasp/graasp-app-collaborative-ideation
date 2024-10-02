@@ -167,16 +167,17 @@ const useAssistants = (): UseAssistantsValues => {
             promptMode,
           ),
         );
+      } else {
+        promise = promptAssistant(
+          assistant,
+          promptForSingleResponse(
+            instructions.title.content,
+            t,
+            includeDetails ? instructions.details?.content : undefined,
+            promptMode,
+          ),
+        );
       }
-      promise = promptAssistant(
-        assistant,
-        promptForSingleResponse(
-          instructions.title.content,
-          t,
-          includeDetails ? instructions.details?.content : undefined,
-          promptMode,
-        ),
-      );
       return promise.then(async (assistantResponseAppData) => {
         if (assistantResponseAppData) {
           const { completion: response, assistantId } =
