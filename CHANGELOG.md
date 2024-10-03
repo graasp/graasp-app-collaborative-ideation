@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.1.2](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.1.1...v3.1.2) (2024-10-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/react to v8.33.0 ([#537](https://github.com/graasp/graasp-app-collaborative-ideation/issues/537)) ([d2d8fd2](https://github.com/graasp/graasp-app-collaborative-ideation/commit/d2d8fd2fe95d556a288a55bd384708ee074c4fb4))
+* **deps:** update dependency @uiw/react-codemirror to v4.23.4 ([de744ff](https://github.com/graasp/graasp-app-collaborative-ideation/commit/de744ff0f35cfd364824ee6fa760a21520111254))
+
 ## [3.1.1](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.1.0...v3.1.1) (2024-10-02)
 
 
