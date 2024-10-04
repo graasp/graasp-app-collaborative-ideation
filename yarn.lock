@@ -2530,9 +2530,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graasp/sdk@npm:4.31.0":
-  version: 4.31.0
-  resolution: "@graasp/sdk@npm:4.31.0"
+"@graasp/sdk@npm:4.32.0":
+  version: 4.32.0
+  resolution: "@graasp/sdk@npm:4.32.0"
   dependencies:
     "@faker-js/faker": "npm:9.0.1"
     filesize: "npm:10.1.6"
@@ -2541,7 +2541,7 @@ __metadata:
   peerDependencies:
     date-fns: ^3 || ^4.0.0
     uuid: ^9 || ^10
-  checksum: 10/9b2bf85a51cc12b6f2bdefeb7bbc0c615db9ea3188ace6d460b14e61503763aeab13fd2aa1c4135cee602c2c58465895569b2845b91d942982f96f5594dfd1d4
+  checksum: 10/76f56a3e10e61ee59d8f778903126ff9e07b7a0512c0b42ff63a8735c2bd263c0ee5abb1a74320ab3c8632689b8e359ad63e9b9dbaed63dbeffeb0bc2066d676
   languageName: node
   linkType: hard
 
@@ -9264,7 +9264,7 @@ __metadata:
     "@emotion/react": "npm:11.13.3"
     "@emotion/styled": "npm:11.13.0"
     "@graasp/apps-query-client": "npm:3.7.0"
-    "@graasp/sdk": "npm:4.31.0"
+    "@graasp/sdk": "npm:4.32.0"
     "@graasp/stylis-plugin-rtl": "npm:2.2.0"
     "@graasp/ui": "npm:5.2.1"
     "@mui/icons-material": "npm:5.16.7"
