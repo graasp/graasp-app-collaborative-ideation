@@ -1,6 +1,6 @@
 {
   "name": "graasp-app-collaborative-ideation",
-  "version": "3.1.2",
+  "version": "3.1.3",
   "license": "AGPL-3.0-only",
   "author": "Graasp",
   "contributors": [
@@ -30,7 +30,7 @@
     "@emotion/react": "11.13.3",
     "@emotion/styled": "11.13.0",
     "@graasp/apps-query-client": "3.7.0",
-    "@graasp/sdk": "4.32.0",
+    "@graasp/sdk": "4.31.0",
     "@graasp/stylis-plugin-rtl": "2.2.0",
     "@graasp/ui": "5.2.1",
     "@mui/icons-material": "5.16.7",
