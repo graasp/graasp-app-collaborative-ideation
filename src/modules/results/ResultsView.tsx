@@ -12,7 +12,7 @@ import { VoteProvider } from '../context/VoteContext';
 import NoEvaluationResults from './NoEvaluationResults';
 import VoteResults from './VoteResults';
 
-interface ResultsViewProps {}
+type ResultsViewProps = unknown;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ResultsView = (props: ResultsViewProps): JSX.Element => {
