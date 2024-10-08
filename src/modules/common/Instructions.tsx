@@ -10,7 +10,7 @@ import {
 
 import { useSettings } from '../context/SettingsContext';
 
-interface InstructionsProps {}
+type InstructionsProps = unknown;
 
 const Instructions: FC<InstructionsProps> = () => {
   const { instructions } = useSettings();

@@ -10,7 +10,7 @@ import ExportResponsesButton from '../common/ExportRepsonsesButton';
 import { useActivityContext } from '../context/ActivityContext';
 import { useVoteContext } from '../context/VoteContext';
 
-interface VoteResultsProps {}
+type VoteResultsProps = unknown;
 
 const VoteResults: FC<VoteResultsProps> = () => {
   const { allResponses } = useActivityContext();

@@ -8,7 +8,7 @@ import Response from '@/modules/common/response/Response';
 import ExportResponsesButton from '../common/ExportRepsonsesButton';
 import { useActivityContext } from '../context/ActivityContext';
 
-interface NoEvaluationResultsProps {}
+type NoEvaluationResultsProps = unknown;
 
 const NoEvaluationResults: FC<NoEvaluationResultsProps> = () => {
   const { allResponses } = useActivityContext();

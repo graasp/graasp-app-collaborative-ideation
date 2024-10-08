@@ -29,7 +29,7 @@ import ActivitySettings from './activity/ActivitySettings';
 import Assistant from './assistant/Assistant';
 import PromptsSettings from './prompts/Prompts';
 
-interface SettingsProps {}
+type SettingsProps = unknown;
 
 const Settings: FC<SettingsProps> = () => {
   const { t } = useTranslation();

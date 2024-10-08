@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 import cloneDeep from 'lodash.clonedeep';
 import { afterAll, beforeAll, expect, test, vi } from 'vitest';
 
@@ -27,7 +26,7 @@ afterAll(() => {
 test('the mocks are good', () => {
   const mapResponses = getMapResponses();
   expect(mapResponses).to.be.a('map');
-  expect(mapResponses).not.to.be.undefined;
+  expect(mapResponses).not.toBeUndefined();
   // This value should more or less correspond to the mocks.
   expect(mapResponses.size).to.be.greaterThanOrEqual(12);
 });
@@ -67,7 +66,7 @@ test('extracting zero responses gives empty array', () => {
     n,
     mockMembers[0].id,
   );
-  expect(r).to.be.empty;
+  expect(r).to.be.empty('');
   expect(newMapR).to.be.deep.equals(copyOfMapResponses);
 });
 
@@ -97,7 +96,7 @@ test('recursively create all sets', () => {
     3,
     1,
   );
-  expect(sets).not.to.be.empty;
+  expect(sets.size).not.toBe(0);
   expect(sets).to.have.keys(mockMembers.map(({ id }) => id));
 });
 
