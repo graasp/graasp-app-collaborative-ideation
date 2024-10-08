@@ -28,7 +28,7 @@ export default [
       '**/.husky',
       '**/.nyc_output',
       '**/.yarn',
-      '**/commitlint.config.cjs',
+      '**/commitlint.config.ts',
     ],
   },
   ...fixupConfigRules(
