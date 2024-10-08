@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.1.4](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.1.3...v3.1.4) (2024-10-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @graasp/sdk to v4.32.0 ([#550](https://github.com/graasp/graasp-app-collaborative-ideation/issues/550)) ([0c06726](https://github.com/graasp/graasp-app-collaborative-ideation/commit/0c06726b7fa79e11fcd668fbe2505c66c1fadc78))
+* **deps:** update dependency @graasp/sdk to v4.32.1 ([#554](https://github.com/graasp/graasp-app-collaborative-ideation/issues/554)) ([ea0beef](https://github.com/graasp/graasp-app-collaborative-ideation/commit/ea0beef0bea20bb6266339a478dbda3989304708))
+* **deps:** update dependency lucide-react to ^0.451.0 ([#553](https://github.com/graasp/graasp-app-collaborative-ideation/issues/553)) ([d61550c](https://github.com/graasp/graasp-app-collaborative-ideation/commit/d61550cedac6828962f1015d698e74dd40dbbb7e))
+* **eslint:** update to v9 and fix config ([#555](https://github.com/graasp/graasp-app-collaborative-ideation/issues/555)) ([5fe28c7](https://github.com/graasp/graasp-app-collaborative-ideation/commit/5fe28c79a219889e47cab542740bedbebf60368e))
+* **ts:** update ts, typescript-eslint, and fix code ([#556](https://github.com/graasp/graasp-app-collaborative-ideation/issues/556)) ([1ddd394](https://github.com/graasp/graasp-app-collaborative-ideation/commit/1ddd3947c0b3ecdd87d220de1fa801fa9a0c3085))
+
 ## [3.1.3](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.1.2...v3.1.3) (2024-10-07)
 
 
