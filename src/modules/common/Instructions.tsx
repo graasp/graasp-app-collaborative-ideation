@@ -9,8 +9,7 @@ import {
 
 import Paper from '@mui/material/Paper';
 import { useSettings } from '../context/SettingsContext';
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+ 
 interface InstructionsProps {}
 
 const Instructions: FC<InstructionsProps> = () => {

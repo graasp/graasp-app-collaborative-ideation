@@ -1,5 +1,4 @@
-/* eslint-disable arrow-body-style */
-import { TRANSLATIONS_NS } from '@/config/i18n';
+ import { TRANSLATIONS_NS } from '@/config/i18n';
 import { useTranslation } from 'react-i18next';
 
 const RatingsVisualization = (): JSX.Element => {

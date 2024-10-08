@@ -29,7 +29,6 @@ import PromptsSettings from './prompts/Prompts';
 import SaveButton from '../common/SaveButton';
 import ImportResponsesButton from './ImportResponsesButton';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface SettingsProps {}
 
 const Settings: FC<SettingsProps> = () => {

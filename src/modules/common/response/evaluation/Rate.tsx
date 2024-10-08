@@ -57,7 +57,6 @@ const Rate: FC<{
         {typeof ratings !== 'undefined' &&
           ratings.map((r, index) => (
             <LikertScale
-              // eslint-disable-next-line no-console
               onChange={(rating) => updateRating(rating, r.name)}
               minLabel={r.minLabel}
               maxLabel={r.maxLabel}
