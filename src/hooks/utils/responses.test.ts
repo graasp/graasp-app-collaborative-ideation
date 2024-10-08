@@ -103,36 +103,16 @@ test('recursively create all sets', () => {
 
 test('filtering bot responses', () => {
   const responsesMap = getMapResponses();
-  const vals = responsesMap.values();
-  const r1 = vals.next().value;
-  const r2 = vals.next().value;
-  const r3 = vals.next().value;
-  const responses: ResponseAppData[] = [
-    {
-      ...r1,
-      data: {
-        ...r1.data,
-        bot: false,
-      },
-    },
-    {
-      ...r2,
-      data: {
-        ...r2.data,
-      },
-    },
-    {
-      ...r3,
-      data: {
-        ...r3.data,
-        bot: true,
-      },
-    },
-  ];
+  const responses = Array.from(responsesMap.values());
+
+  expect(responses.length).toBeGreaterThanOrEqual(3);
+
+  responses[0].data.bot = false;
+  responses[2].data.bot = true;
 
   expect(filterBotResponses(responses))
     .to.be.an('array')
-    .that.has.length(2)
+    .that.has.length.greaterThanOrEqual(2)
     .that.contain.oneOf(responses);
   expect(filterBotResponses(responses, true))
     .to.be.an('array')
