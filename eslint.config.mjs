@@ -46,8 +46,6 @@ export default [
     plugins: {
       '@typescript-eslint': fixupPluginRules(typescriptEslint),
       'react-hooks': fixupPluginRules(reactHooks),
-      // 'prettier': fixupConfigRules(prettierEslint),
-      // 'cypress': fixupConfigRules(cypressEslint),
     },
 
     languageOptions: {
@@ -101,7 +99,6 @@ export default [
       }
     ],
     "import/prefer-default-export": "off",
-    // "prettier/prettier": "error",
     "import/extensions": [
       "error",
       "ignorePackages",
