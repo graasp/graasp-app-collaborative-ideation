@@ -1,8 +1,9 @@
+import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import useTheme from '@mui/material/styles/useTheme';
-import { FC } from 'react';
-import { useTranslation } from 'react-i18next';
 
 interface RoundProps {
   round: number;

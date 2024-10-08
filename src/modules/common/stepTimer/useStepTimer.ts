@@ -1,8 +1,10 @@
-import useSteps from '@/hooks/useSteps';
-import { useActivityContext } from '@/modules/context/ActivityContext';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
 import { addSeconds } from 'date-fns/addSeconds';
 import { differenceInSeconds } from 'date-fns/differenceInSeconds';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
+import useSteps from '@/hooks/useSteps';
+import { useActivityContext } from '@/modules/context/ActivityContext';
 
 const useStepTimer = (onTimeout?: () => void): boolean => {
   const { activityState } = useActivityContext();

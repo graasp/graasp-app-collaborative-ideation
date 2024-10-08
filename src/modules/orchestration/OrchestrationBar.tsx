@@ -4,13 +4,13 @@ import { useTranslation } from 'react-i18next';
 import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import Paper from '@mui/material/Paper';
-
-import { ORCHESTRATION_BAR_CY } from '@/config/selectors';
-import { ActivityStatus } from '@/interfaces/interactionProcess';
-
 import Blue from '@mui/material/colors/blue';
 import useTheme from '@mui/material/styles/useTheme';
+
+import { ORCHESTRATION_BAR_CY } from '@/config/selectors';
 import useSteps from '@/hooks/useSteps';
+import { ActivityStatus } from '@/interfaces/interactionProcess';
+
 import { useActivityContext } from '../context/ActivityContext';
 import CommandButton from './CommandButton';
 import StepsButton from './StepsButton';

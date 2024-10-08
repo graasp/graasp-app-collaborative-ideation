@@ -9,6 +9,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 import usePrompts from '@/hooks/usePrompts';
+
 import { useActivityContext } from '../context/ActivityContext';
 
 interface ResetSetsButtonProps {

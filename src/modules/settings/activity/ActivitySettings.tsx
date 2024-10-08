@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
@@ -9,6 +10,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import Stack from '@mui/material/Stack';
 import Switch from '@mui/material/Switch';
+
 import clone from 'lodash.clone';
 
 import { ActivitySetting } from '@/config/appSettingsType';
@@ -16,9 +18,8 @@ import {
   ActivityStep,
   ResponseVisibilityMode,
 } from '@/interfaces/interactionProcess';
-
-import Box from '@mui/material/Box';
 import { useSettings } from '@/modules/context/SettingsContext';
+
 import SettingsSection from '../../common/SettingsSection';
 import StepsSettings from './steps/StepsSettings';
 

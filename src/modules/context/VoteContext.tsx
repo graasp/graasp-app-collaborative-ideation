@@ -1,10 +1,12 @@
 import { FC, createContext, useCallback, useContext, useMemo } from 'react';
 
-import { EvaluationParameters } from '@/interfaces/evaluation';
-import { AppDataTypes, VoteAppData } from '@/config/appDataTypes';
 import { useLocalContext } from '@graasp/apps-query-client';
 import { AppDataVisibility } from '@graasp/sdk';
+
+import { AppDataTypes, VoteAppData } from '@/config/appDataTypes';
 import useActions from '@/hooks/useActions';
+import { EvaluationParameters } from '@/interfaces/evaluation';
+
 import { useAppDataContext } from './AppDataContext';
 
 type VoteContextType = {

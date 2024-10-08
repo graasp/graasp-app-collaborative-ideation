@@ -1,5 +1,6 @@
-import { ActivityStep, ActivityType } from '@/interfaces/interactionProcess';
-import SaveButton from '@/modules/common/SaveButton';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -9,10 +10,12 @@ import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
-import { ChangeEvent, FC, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { EvaluationType, EvaluationParameters } from '@/interfaces/evaluation';
+
+import { EvaluationParameters, EvaluationType } from '@/interfaces/evaluation';
+import { ActivityStep, ActivityType } from '@/interfaces/interactionProcess';
 import CancelButton from '@/modules/common/CancelButton';
+import SaveButton from '@/modules/common/SaveButton';
+
 import EvaluationSettings from './evaluation/EvaluationSettings';
 import ResultsSettings from './results/ResultsSettings';
 

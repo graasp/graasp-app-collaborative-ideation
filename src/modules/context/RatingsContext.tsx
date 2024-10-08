@@ -2,8 +2,10 @@ import { FC, createContext, useCallback, useContext, useMemo } from 'react';
 
 import { useLocalContext } from '@graasp/apps-query-client';
 import { AppDataVisibility } from '@graasp/sdk';
+
 import { AppDataTypes, RatingAppData, RatingData } from '@/config/appDataTypes';
 import { EvaluationParameters } from '@/interfaces/evaluation';
+
 import { useAppDataContext } from './AppDataContext';
 
 type RatingsContextType = {

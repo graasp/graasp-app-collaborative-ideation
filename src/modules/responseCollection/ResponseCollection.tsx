@@ -9,16 +9,16 @@ import Stack from '@mui/material/Stack';
 import { ResponseAppData } from '@/config/appDataTypes';
 import { RESPONSE_COLLECTION_VIEW_CY } from '@/config/selectors';
 import useActions from '@/hooks/useActions';
+import useSteps from '@/hooks/useSteps';
 import { IdeationPhases } from '@/interfaces/interactionProcess';
 import Instructions from '@/modules/common/Instructions';
 import Pausable from '@/modules/common/Pausable';
 
-import useSteps from '@/hooks/useSteps';
+import Round from '../common/Round';
+import Timer from '../common/Timer';
 import { useActivityContext } from '../context/ActivityContext';
 import IdeaChoose from './ResponseChoose';
 import IdeaInput from './ResponseInput';
-import Round from '../common/Round';
-import Timer from '../common/Timer';
 
 const ResponseCollection: FC = () => {
   const { t } = useTranslation('translations');

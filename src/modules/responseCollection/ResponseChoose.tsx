@@ -6,13 +6,14 @@ import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 
+import { Loader } from '@graasp/ui';
+
 import { ResponseAppData } from '@/config/appDataTypes';
+import { HIGHLIGHT_RESPONSE_TIME_MS } from '@/config/constants';
 import { PROPOSE_NEW_RESPONSE_BTN_CY } from '@/config/selectors';
 import Response from '@/modules/common/response/Response';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
-import { Loader } from '@graasp/ui';
-import { HIGHLIGHT_RESPONSE_TIME_MS } from '@/config/constants';
 import { useSettings } from '../context/SettingsContext';
 
 interface ResponseChooseProps {

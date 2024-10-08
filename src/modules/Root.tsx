@@ -14,9 +14,9 @@ import {
   WithTokenContext,
   useObjectState,
 } from '@graasp/apps-query-client';
+import { Loader } from '@graasp/ui';
 
 import { defaultMockContext, mockMembers } from '@/mocks/db';
-import { Loader } from '@graasp/ui';
 
 import i18nConfig from '../config/i18n';
 import {
@@ -25,8 +25,8 @@ import {
   hooks,
   queryClient,
 } from '../config/queryClient';
-import App from './main/App';
 import ErrorBoundary from './ErrorBoundary';
+import App from './main/App';
 
 // declare the module to enable theme modification
 declare module '@mui/material/styles' {

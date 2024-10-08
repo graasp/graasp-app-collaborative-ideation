@@ -2,9 +2,10 @@ import React, { createContext, useMemo } from 'react';
 
 import { Data } from '@graasp/apps-query-client';
 import { AppData } from '@graasp/sdk';
+import { Loader } from '@graasp/ui';
 
 import { UseQueryResult } from '@tanstack/react-query';
-import { Loader } from '@graasp/ui';
+
 import {
   QUERY_KEYS,
   hooks,

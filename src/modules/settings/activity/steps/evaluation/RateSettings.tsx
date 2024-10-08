@@ -1,8 +1,10 @@
-import { RatingsSet } from '@/config/ratings/Ratings';
-import { EvaluationParameters } from '@/interfaces/evaluation';
+import { FC, useEffect, useState } from 'react';
+
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { FC, useEffect, useState } from 'react';
+
+import { RatingsSet } from '@/config/ratings/Ratings';
+import { EvaluationParameters } from '@/interfaces/evaluation';
 
 interface RateSettingsProps {
   onChange: (newRateSettings: EvaluationParameters) => void;

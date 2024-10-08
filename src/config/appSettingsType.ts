@@ -1,5 +1,7 @@
 import { Member } from '@graasp/sdk';
 
+import { t } from 'i18next';
+
 import {
   AssistantConfiguration,
   AssistantPersona,
@@ -10,8 +12,6 @@ import {
   ActivityType,
   ResponseVisibilityMode,
 } from '@/interfaces/interactionProcess';
-
-import { t } from 'i18next';
 
 type InstructionFormatType = 'html' | 'markdown' | 'plain-text';
 

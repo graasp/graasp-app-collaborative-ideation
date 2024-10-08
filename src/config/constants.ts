@@ -1,8 +1,8 @@
 import { AppDataVisibility } from '@graasp/sdk';
 
+import { EvaluationType } from '@/interfaces/evaluation';
 import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
 
-import { EvaluationType } from '@/interfaces/evaluation';
 import {
   AppDataTypes,
   ChatbotResponseAppData,

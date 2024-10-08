@@ -1,10 +1,11 @@
+import { useMemo } from 'react';
+
 import Box from '@mui/material/Box';
 import CircularProgress, {
   CircularProgressProps,
 } from '@mui/material/CircularProgress';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { useMemo } from 'react';
 
 const CircularProgressWithLabel = (
   props: CircularProgressProps & { label: string },

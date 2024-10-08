@@ -2,32 +2,33 @@ import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import DeleteIcon from '@mui/icons-material/Delete';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-
-import { ResponseAppData } from '@/config/appDataTypes';
-
-import { useLocalContext } from '@graasp/apps-query-client';
-import Box from '@mui/material/Box';
-import { RESPONSE_CY } from '@/config/selectors';
-import { EvaluationType } from '@/interfaces/evaluation';
-import { ResponseEvaluation } from '@/interfaces/response';
+import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
-import styled from '@mui/material/styles/styled';
+import Typography from '@mui/material/Typography';
 import { SxProps, useTheme } from '@mui/material/styles';
 import { Theme } from '@mui/material/styles/createTheme';
+import styled from '@mui/material/styles/styled';
+
+import { useLocalContext } from '@graasp/apps-query-client';
+
+import { ResponseAppData } from '@/config/appDataTypes';
 import { RESPONSES_TOP_COLORS } from '@/config/constants';
+import { RESPONSE_CY } from '@/config/selectors';
+import { EvaluationType } from '@/interfaces/evaluation';
 import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
+import { ResponseEvaluation } from '@/interfaces/response';
 import { useSettings } from '@/modules/context/SettingsContext';
-import Link from '@mui/material/Link';
-import RatingsVisualization from './visualization/RatingsVisualization';
-import Vote from './evaluation/Vote';
+
 import Rate from './evaluation/Rate';
+import Vote from './evaluation/Vote';
+import RatingsVisualization from './visualization/RatingsVisualization';
 import Votes from './visualization/Votes';
 
 const ResponsePart: FC<{ children: string }> = ({ children }) => (

@@ -5,11 +5,11 @@ import { Context } from '@graasp/sdk';
 
 import * as Sentry from '@sentry/react';
 
+import { DEFAULT_LANG } from '@/config/constants';
 import { SENTRY_ENV } from '@/config/env';
 import { hooks } from '@/config/queryClient';
 import useActions from '@/hooks/useActions';
 
-import { DEFAULT_LANG } from '@/config/constants';
 import i18n from '../../config/i18n';
 import { ActivityProvider } from '../context/ActivityContext';
 import { AppDataProvider } from '../context/AppDataContext';

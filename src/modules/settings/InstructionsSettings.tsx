@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import Alert from '@mui/material/Alert';
 import TextField from '@mui/material/TextField';
 
 import { InstructionsSetting } from '@/config/appSettingsType';
 
-import Alert from '@mui/material/Alert';
 import SettingsSection from '../common/SettingsSection';
 
 interface InstructionsSettingsProps {

@@ -4,6 +4,7 @@ import { AppAction, AppData, LocalContext } from '@graasp/sdk';
 import { ActivityStep } from '@/interfaces/interactionProcess';
 import { Prompt } from '@/interfaces/prompt';
 import { ResponseData } from '@/interfaces/response';
+
 import { CurrentStateData, ResponseAppData, VoteAppData } from './appDataTypes';
 
 export enum AppActionTypes {

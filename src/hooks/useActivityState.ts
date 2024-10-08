@@ -13,6 +13,7 @@ import {
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { getAllStates, getCurrentState } from '@/utils/state';
+
 import useActions from './useActions';
 
 export interface UseActivityStateValues {

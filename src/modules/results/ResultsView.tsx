@@ -1,14 +1,16 @@
 import Container from '@mui/material/Container';
+
+import { DEFAULT_EVALUATION_TYPE } from '@/config/constants';
 import { RESPONSE_RESULTS_VIEW_CY } from '@/config/selectors';
 import useSteps from '@/hooks/useSteps';
 import { EvaluationType } from '@/interfaces/evaluation';
-import { DEFAULT_EVALUATION_TYPE } from '@/config/constants';
+
 import Instructions from '../common/Instructions';
 import Pausable from '../common/Pausable';
 import { RatingsProvider } from '../context/RatingsContext';
 import { VoteProvider } from '../context/VoteContext';
-import VoteResults from './VoteResults';
 import NoEvaluationResults from './NoEvaluationResults';
+import VoteResults from './VoteResults';
 
 interface ResultsViewProps {}
 

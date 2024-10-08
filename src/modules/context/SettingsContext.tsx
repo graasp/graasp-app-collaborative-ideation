@@ -1,11 +1,12 @@
 import { FC, ReactElement, createContext, useContext } from 'react';
 
+import { Loader } from '@graasp/ui';
+
 import {
   AllSettingsType,
   defaultSettingsValues,
 } from '@/config/appSettingsType';
 
-import { Loader } from '@graasp/ui';
 import { hooks, mutations } from '../../config/queryClient';
 
 // list of the settings names

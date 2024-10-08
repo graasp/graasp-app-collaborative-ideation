@@ -1,21 +1,23 @@
 import { FC, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
-import { ActivityStep, ActivityType } from '@/interfaces/interactionProcess';
-import Typography from '@mui/material/Typography';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import CircularProgress from '@mui/material/CircularProgress';
+import Collapse from '@mui/material/Collapse';
 import LinearProgress from '@mui/material/LinearProgress';
 import Stack from '@mui/material/Stack';
 import Tooltip from '@mui/material/Tooltip';
-import useSteps from '@/hooks/useSteps';
-import Collapse from '@mui/material/Collapse';
-import CircularProgress from '@mui/material/CircularProgress';
+import Typography from '@mui/material/Typography';
+
 import { ORCHESTRATION_BAR_CY } from '@/config/selectors';
-import CommandButton from './CommandButton';
-import WarningPreviousStepDialog from './WarningPreviousStepDialog';
+import useSteps from '@/hooks/useSteps';
+import { ActivityStep, ActivityType } from '@/interfaces/interactionProcess';
+
 import useStepTimer from '../common/stepTimer/useStepTimer';
+import CommandButton from './CommandButton';
 import WarningNextStepDialog from './WarningNextStepDialog';
+import WarningPreviousStepDialog from './WarningPreviousStepDialog';
 
 interface StepsButtonProps {
   enable: boolean;

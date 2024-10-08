@@ -1,9 +1,11 @@
+import { FC, useMemo } from 'react';
+
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import styled from '@mui/material/styles/styled';
+
 import { PROMPTS_CY } from '@/config/selectors';
 import { PromptUsage } from '@/interfaces/prompt';
-import Box from '@mui/material/Box';
-import styled from '@mui/material/styles/styled';
-import Typography from '@mui/material/Typography';
-import { FC, useMemo } from 'react';
 
 const OuterBox = styled(Box)(({ theme }) => ({
   borderRadius: '50%',

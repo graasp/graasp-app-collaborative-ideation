@@ -13,14 +13,14 @@ import {
 } from '@/config/appDataTypes';
 import { AssistantId } from '@/interfaces/assistant';
 import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
-import { useAppDataContext } from '@/modules/context/AppDataContext';
-import { useSettings } from '@/modules/context/SettingsContext';
-import { appDataArrayToMap } from '@/utils/utils';
-
 import {
   ResponseData,
   ResponseDataExchangeFormat,
 } from '@/interfaces/response';
+import { useAppDataContext } from '@/modules/context/AppDataContext';
+import { useSettings } from '@/modules/context/SettingsContext';
+import { appDataArrayToMap } from '@/utils/utils';
+
 import useActions from './useActions';
 import { UseParticipantsValue } from './useParticipants';
 import {

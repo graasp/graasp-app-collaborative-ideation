@@ -2,8 +2,8 @@
 import { FC } from 'react';
 
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 
 const Votes: FC<{
   votes: number;

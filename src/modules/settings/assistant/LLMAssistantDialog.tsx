@@ -29,8 +29,8 @@ import {
   AssistantPersona,
   LLMAssistantConfiguration,
 } from '@/interfaces/assistant';
-import CodeEditor from '@/modules/common/CodeEditor';
 import CancelButton from '@/modules/common/CancelButton';
+import CodeEditor from '@/modules/common/CodeEditor';
 
 const TextArea = styled(TextareaAutosize)(({ theme }) => ({
   borderRadius: SMALL_BORDER_RADIUS,

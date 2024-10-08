@@ -6,19 +6,20 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 
+import { Loader } from '@graasp/ui';
+
 import { RESPONSE_EVALUATION_VIEW_CY } from '@/config/selectors';
+import useSteps from '@/hooks/useSteps';
+import { EvaluationType } from '@/interfaces/evaluation';
 import Pausable from '@/modules/common/Pausable';
 import Response from '@/modules/common/response/Response';
 
-import { Loader } from '@graasp/ui';
-import useSteps from '@/hooks/useSteps';
-import { EvaluationType } from '@/interfaces/evaluation';
+import Instructions from '../common/Instructions';
 import { useActivityContext } from '../context/ActivityContext';
 import { useAppDataContext } from '../context/AppDataContext';
-import Instructions from '../common/Instructions';
+import { RatingsProvider } from '../context/RatingsContext';
 import { VoteProvider } from '../context/VoteContext';
 import VoteToolbar from './VoteToolbar';
-import { RatingsProvider } from '../context/RatingsContext';
 
 const ResponseEvaluation: FC = () => {
   const { t } = useTranslation();

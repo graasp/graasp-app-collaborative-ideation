@@ -6,6 +6,7 @@ import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
+
 import { LIKERT_RATING_CY } from '@/config/selectors';
 
 interface LikertScaleProps {

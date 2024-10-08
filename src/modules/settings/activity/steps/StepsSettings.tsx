@@ -1,9 +1,11 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { ActivityStep, ActivityType } from '@/interfaces/interactionProcess';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
+
+import { ActivityStep, ActivityType } from '@/interfaces/interactionProcess';
+
 import Step from './Step';
 
 interface StepsSettingsProps {

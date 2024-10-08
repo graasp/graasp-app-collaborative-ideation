@@ -1,23 +1,24 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import FormLabel from '@mui/material/FormLabel';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import TextareaAutosize from '@mui/material/TextareaAutosize';
+import Typography from '@mui/material/Typography';
+import styled from '@mui/material/styles/styled';
+
 import { DEFAULT_BOT_USERNAME, SMALL_BORDER_RADIUS } from '@/config/constants';
 import { SETTING_CHATBOT_PROMPT_CODE_EDITOR_CY } from '@/config/selectors';
 import {
   AssistantPersona,
   ListAssistantConfiguration,
 } from '@/interfaces/assistant';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
-import styled from '@mui/material/styles/styled';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import Typography from '@mui/material/Typography';
-import DialogContent from '@mui/material/DialogContent';
-import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
-import FormLabel from '@mui/material/FormLabel';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
 import CancelButton from '@/modules/common/CancelButton';
 
 const TextArea = styled(TextareaAutosize)(({ theme }) => ({

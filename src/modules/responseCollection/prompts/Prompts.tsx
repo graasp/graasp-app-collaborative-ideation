@@ -1,18 +1,21 @@
 import { FC, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Button from '@mui/material/Button';
-import usePrompts from '@/hooks/usePrompts';
-import Paper from '@mui/material/Paper';
+
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Collapse from '@mui/material/Collapse';
+import IconButton from '@mui/material/IconButton';
+import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import IconButton from '@mui/material/IconButton';
-import Box from '@mui/material/Box';
-import Collapse from '@mui/material/Collapse';
 import { styled } from '@mui/material/styles';
-import { PromptUsage } from '@/interfaces/prompt';
+
 import { PROMPTS_CY } from '@/config/selectors';
+import usePrompts from '@/hooks/usePrompts';
+import { PromptUsage } from '@/interfaces/prompt';
+
 import PromptStep from './PromptStep';
 
 interface PromptsProps {
