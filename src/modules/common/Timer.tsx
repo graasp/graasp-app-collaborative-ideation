@@ -1,7 +1,9 @@
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
-import { addSeconds, differenceInSeconds } from 'date-fns';
-import CircularProgress from '@mui/material/CircularProgress';
+
 import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+
+import { addSeconds, differenceInSeconds } from 'date-fns';
 
 interface TimerProps {
   startTime: Date;

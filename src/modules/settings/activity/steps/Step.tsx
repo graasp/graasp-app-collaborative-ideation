@@ -1,13 +1,16 @@
-import { ActivityStep, ActivityType } from '@/interfaces/interactionProcess';
-import Paper from '@mui/material/Paper';
 import { FC, useState } from 'react';
-import TungstenIcon from '@mui/icons-material/Tungsten';
-import HelpIcon from '@mui/icons-material/Help';
-import GradingIcon from '@mui/icons-material/Grading';
-import Typography from '@mui/material/Typography';
-import EditIcon from '@mui/icons-material/Edit';
-import IconButton from '@mui/material/IconButton';
+
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import GradingIcon from '@mui/icons-material/Grading';
+import HelpIcon from '@mui/icons-material/Help';
+import TungstenIcon from '@mui/icons-material/Tungsten';
+import IconButton from '@mui/material/IconButton';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+
+import { ActivityStep, ActivityType } from '@/interfaces/interactionProcess';
+
 import StepEditDialog from './StepEditDialog';
 
 const getIcon = (type: ActivityType): JSX.Element => {

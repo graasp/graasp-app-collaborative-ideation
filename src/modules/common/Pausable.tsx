@@ -2,6 +2,7 @@ import { FC, ReactElement } from 'react';
 
 import { ActivityStatus } from '@/interfaces/interactionProcess';
 import WaitingScreen from '@/modules/common/WaitingScreen';
+
 import { useActivityContext } from '../context/ActivityContext';
 
 const Pausable: FC<{ children: ReactElement }> = ({ children }) => {

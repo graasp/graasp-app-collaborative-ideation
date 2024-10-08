@@ -1,5 +1,6 @@
 import { FC } from 'react';
 
+import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
 import {
@@ -7,9 +8,8 @@ import {
   TITLE_INSTRUCTIONS_CY,
 } from '@/config/selectors';
 
-import Paper from '@mui/material/Paper';
 import { useSettings } from '../context/SettingsContext';
- 
+
 interface InstructionsProps {}
 
 const Instructions: FC<InstructionsProps> = () => {

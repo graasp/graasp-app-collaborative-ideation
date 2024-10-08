@@ -4,13 +4,10 @@ import i18n from 'i18next';
 
 import mainEn from '../langs/en/main.json';
 import promptsEn from '../langs/en/prompts.json';
-
-import mainFr from '../langs/fr/main.json';
-import promptsFr from '../langs/fr/prompts.json';
-
 import mainEs from '../langs/es/main.json';
 import promptsEs from '../langs/es/prompts.json';
-
+import mainFr from '../langs/fr/main.json';
+import promptsFr from '../langs/fr/prompts.json';
 import { DEFAULT_LANG } from './constants';
 
 export const TRANSLATIONS_NS = 'translations';

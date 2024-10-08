@@ -1,13 +1,16 @@
+import { useEffect, useMemo, useState } from 'react';
+
+import { useLocalContext } from '@graasp/apps-query-client';
+import { AppData, AppDataVisibility, PermissionLevel } from '@graasp/sdk';
+
 import { AppDataTypes, PromptsAppData } from '@/config/appDataTypes';
+import { CATEGORY_COLORS } from '@/config/constants';
+import whatIfs from '@/config/what-ifs.json';
 import { FullPromptCategory, Prompt, PromptsData } from '@/interfaces/prompt';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
-import { useLocalContext } from '@graasp/apps-query-client';
-import { AppData, AppDataVisibility, PermissionLevel } from '@graasp/sdk';
-import { useEffect, useMemo, useState } from 'react';
-import whatIfs from '@/config/what-ifs.json';
 import { getRandomInteger } from '@/utils/utils';
-import { CATEGORY_COLORS } from '@/config/constants';
+
 import useActions from './useActions';
 
 const { sets } = whatIfs;

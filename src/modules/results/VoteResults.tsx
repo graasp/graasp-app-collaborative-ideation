@@ -1,11 +1,14 @@
 import { FC, useMemo } from 'react';
+
 import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
+
 import { sortResponsesByNumberOfVote } from '@/hooks/utils/evaluation';
 import Response from '@/modules/common/response/Response';
-import Stack from '@mui/material/Stack';
+
+import ExportResponsesButton from '../common/ExportRepsonsesButton';
 import { useActivityContext } from '../context/ActivityContext';
 import { useVoteContext } from '../context/VoteContext';
-import ExportResponsesButton from '../common/ExportRepsonsesButton';
 
 interface VoteResultsProps {}
 

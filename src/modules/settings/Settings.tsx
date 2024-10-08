@@ -20,14 +20,14 @@ import { SETTINGS_VIEW_CY } from '@/config/selectors';
 import { useSettings } from '@/modules/context/SettingsContext';
 
 import ResetSetsButton from '../common/ResetSetsButton';
+import SaveButton from '../common/SaveButton';
+import ImportResponsesButton from './ImportResponsesButton';
 import InstructionsSettings from './InstructionsSettings';
 import OrchestratorSettings from './OrchestratorSettings';
 import ParticipantsSettings from './ParticipantsSettings';
 import ActivitySettings from './activity/ActivitySettings';
 import Assistant from './assistant/Assistant';
 import PromptsSettings from './prompts/Prompts';
-import SaveButton from '../common/SaveButton';
-import ImportResponsesButton from './ImportResponsesButton';
 
 interface SettingsProps {}
 

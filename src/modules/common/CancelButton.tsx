@@ -1,6 +1,7 @@
-import Button from '@mui/material/Button';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+
+import Button from '@mui/material/Button';
 
 interface CancelButtonProps {
   disabled: boolean;

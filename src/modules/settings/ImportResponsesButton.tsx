@@ -1,10 +1,13 @@
-import useResponses from '@/hooks/useResponses';
-import LoadingButton from '@mui/lab/LoadingButton';
 import { ChangeEventHandler, FC, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { parse, ParseResult } from 'papaparse';
-import { ResponseDataExchangeFormat } from '@/interfaces/response';
+
 import FileUploadIcon from '@mui/icons-material/FileUpload';
+import LoadingButton from '@mui/lab/LoadingButton';
+
+import { ParseResult, parse } from 'papaparse';
+
+import useResponses from '@/hooks/useResponses';
+import { ResponseDataExchangeFormat } from '@/interfaces/response';
 
 const ImportResponsesButton: FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);

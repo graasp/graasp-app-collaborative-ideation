@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import Button from '@mui/material/Button';
 import CardActions from '@mui/material/CardActions';
 
-import Button from '@mui/material/Button';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { useVoteContext } from '@/modules/context/VoteContext';
 
 const Vote: FC<{

@@ -1,12 +1,13 @@
-import { FC, lazy, Suspense, SuspenseProps } from 'react';
+import { FC, Suspense, SuspenseProps, lazy } from 'react';
+
+import { useLocalContext } from '@graasp/apps-query-client';
 
 import { ActivityType } from '@/interfaces/interactionProcess';
 
-import { useLocalContext } from '@graasp/apps-query-client';
-import { useActivityContext } from '../context/ActivityContext';
-import OrchestrationBar from '../orchestration/OrchestrationBar';
-import { useSettings } from '../context/SettingsContext';
 import Loader from '../common/Loader';
+import { useActivityContext } from '../context/ActivityContext';
+import { useSettings } from '../context/SettingsContext';
+import OrchestrationBar from '../orchestration/OrchestrationBar';
 
 const ActivitySuspense: FC<SuspenseProps> = (props) => (
   <Suspense fallback={<Loader />} {...props}>

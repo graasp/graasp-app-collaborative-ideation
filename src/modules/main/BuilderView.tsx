@@ -1,4 +1,4 @@
-import { lazy, Suspense, SyntheticEvent, useMemo, useState } from 'react';
+import { Suspense, SyntheticEvent, lazy, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Paper, Stack } from '@mui/material';
@@ -15,9 +15,9 @@ import {
   SETTINGS_TAB_CY,
 } from '@/config/selectors';
 
+import Loader from '../common/Loader';
 import TabPanel from '../common/TabPanel';
 import Activity from './Activity';
-import Loader from '../common/Loader';
 
 interface TabType {
   tabLabel: string;

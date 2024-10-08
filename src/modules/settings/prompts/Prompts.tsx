@@ -1,16 +1,16 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Input from '@mui/material/Input';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
 import Stack from '@mui/material/Stack';
 
 import { PromptsSetting } from '@/config/appSettingsType';
-
 import whatIfs from '@/config/what-ifs.json';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Radio from '@mui/material/Radio';
-import FormControl from '@mui/material/FormControl';
-import Input from '@mui/material/Input';
+
 import SettingsSection from '../../common/SettingsSection';
 
 const { sets } = whatIfs;

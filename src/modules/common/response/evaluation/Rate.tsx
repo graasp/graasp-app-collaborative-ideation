@@ -3,10 +3,11 @@ import { FC, useEffect, useState } from 'react';
 import CardActions from '@mui/material/CardActions';
 import Container from '@mui/material/Container';
 
-import { useRatingsContext } from '@/modules/context/RatingsContext';
+import { RatingData } from '@/config/appDataTypes';
 import { EVALUATION_RATE_CY } from '@/config/selectors';
 import { RatingDescription } from '@/interfaces/evaluation';
-import { RatingData } from '@/config/appDataTypes';
+import { useRatingsContext } from '@/modules/context/RatingsContext';
+
 import LikertScale from '../../LikertScale';
 
 const Rate: FC<{

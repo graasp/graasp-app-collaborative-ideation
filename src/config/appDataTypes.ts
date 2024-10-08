@@ -2,9 +2,9 @@ import { AppData, AppDataVisibility } from '@graasp/sdk';
 
 import { AssistantId, ListAssistantStateData } from '@/interfaces/assistant';
 import { ChatbotResponseData } from '@/interfaces/chatbot';
+import { EvaluationParameters } from '@/interfaces/evaluation';
 import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
 import { PromptsData } from '@/interfaces/prompt';
-import { EvaluationParameters } from '@/interfaces/evaluation';
 import { ResponseData, ResponseEvaluation } from '@/interfaces/response';
 
 export enum AppDataTypes {

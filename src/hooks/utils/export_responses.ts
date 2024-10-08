@@ -1,11 +1,12 @@
-import { ResponseAppData } from '@/config/appDataTypes';
-import Papa from 'papaparse';
 import { saveAs } from 'file-saver';
+import cloneDeep from 'lodash.clonedeep';
+import Papa from 'papaparse';
+
+import { ResponseAppData } from '@/config/appDataTypes';
 import {
   ResponseDataExchangeFormat,
   ResponseEvaluation,
 } from '@/interfaces/response';
-import cloneDeep from 'lodash.clonedeep';
 
 const exportResponses = async (
   responses: Array<ResponseAppData<ResponseEvaluation>>,

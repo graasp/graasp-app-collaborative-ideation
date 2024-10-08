@@ -2,12 +2,12 @@ import { AppSetting } from '@graasp/sdk';
 
 import { AllSettingsType } from '@/config/appSettingsType';
 import { DEFAULT_SYSTEM_PROMPT } from '@/config/prompts';
+import { EvaluationType } from '@/interfaces/evaluation';
 import {
   ActivityType,
   ResponseVisibilityMode,
 } from '@/interfaces/interactionProcess';
 
-import { EvaluationType } from '@/interfaces/evaluation';
 import { MEMBERS } from './members';
 import { MOCK_SERVER_DISCRIMINATED_ITEM } from './mockItem';
 

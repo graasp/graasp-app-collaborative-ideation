@@ -12,9 +12,9 @@ import {
   PermissionLevel,
 } from '@graasp/sdk';
 
+import { AppDataTypes } from '@/config/appDataTypes';
 import { API_HOST, PORT } from '@/config/env';
 
-import { AppDataTypes } from '@/config/appDataTypes';
 import { buildMockResponses } from './mockResponses';
 
 export const mockMembers: CompleteMember[] = [

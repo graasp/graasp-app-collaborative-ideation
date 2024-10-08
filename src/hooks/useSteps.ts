@@ -1,10 +1,12 @@
+import { useMemo } from 'react';
+
 import {
   ActivityStep,
   ResponseVisibilityMode,
 } from '@/interfaces/interactionProcess';
 import { useActivityContext } from '@/modules/context/ActivityContext';
 import { useSettings } from '@/modules/context/SettingsContext';
-import { useMemo } from 'react';
+
 import useActions from './useActions';
 import useAssistants from './useAssistants';
 

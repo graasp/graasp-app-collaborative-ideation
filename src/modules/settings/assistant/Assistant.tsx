@@ -2,7 +2,14 @@ import { ChangeEvent, FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
 import Grid from '@mui/material/Grid';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Switch from '@mui/material/Switch';
 
 import cloneDeep from 'lodash.clonedeep';
 import { v4 as uuidv4 } from 'uuid';
@@ -20,15 +27,8 @@ import {
 } from '@/interfaces/assistant';
 import SectionTitle from '@/modules/adminPanel/SectionTitle';
 
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import LLMAssistantDialog from './LLMAssistantDialog';
 import AssistantCard from './AssistantCard';
+import LLMAssistantDialog from './LLMAssistantDialog';
 import ListAssistantDialog from './ListAssistantDialog';
 
 interface AssistantProps {

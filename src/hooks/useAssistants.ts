@@ -1,3 +1,7 @@
+import { useCallback, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { useLocalContext } from '@graasp/apps-query-client';
 import { AppDataVisibility, ChatbotRole, GPTVersion } from '@graasp/sdk';
 
 import {
@@ -19,17 +23,15 @@ import { mutations } from '@/config/queryClient';
 import {
   AssistantPersona,
   AssistantType,
+  LLMAssistantConfiguration,
   ListAssistantConfiguration,
   ListAssistantStateData,
-  LLMAssistantConfiguration,
 } from '@/interfaces/assistant';
+import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
+import { useActivityContext } from '@/modules/context/ActivityContext';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
-import { useTranslation } from 'react-i18next';
-import { useActivityContext } from '@/modules/context/ActivityContext';
-import { useCallback, useEffect, useMemo } from 'react';
-import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
-import { useLocalContext } from '@graasp/apps-query-client';
+
 import { joinMultipleResponses } from './utils/responses';
 
 interface UseAssistantsValues {
