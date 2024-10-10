@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.1.5](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.1.4...v3.1.5) (2024-10-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @graasp/ui to v5.2.2 ([a2567de](https://github.com/graasp/graasp-app-collaborative-ideation/commit/a2567de92ee45aa5387fccd70babc621f79adb9c))
+* **deps:** update dependency typescript to v5.6.3 ([846eba1](https://github.com/graasp/graasp-app-collaborative-ideation/commit/846eba1e6b6db2b381ba6083597f5decef6f16da))
+
 ## [3.1.4](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.1.3...v3.1.4) (2024-10-08)
 
 
