@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.1.5](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.1.4...v3.1.5) (2024-10-16)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @graasp/ui to v5.2.2 ([a2567de](https://github.com/graasp/graasp-app-collaborative-ideation/commit/a2567de92ee45aa5387fccd70babc621f79adb9c))
+* **deps:** update dependency lucide-react to ^0.453.0 ([#566](https://github.com/graasp/graasp-app-collaborative-ideation/issues/566)) ([78d0f43](https://github.com/graasp/graasp-app-collaborative-ideation/commit/78d0f43f7818e2149a03acb599fd9d2dbd6db0d4))
+* **deps:** update dependency react-i18next to v15.0.3 ([da5c192](https://github.com/graasp/graasp-app-collaborative-ideation/commit/da5c192a3577fd614360a37fb9dfd08ca52105de))
+* **deps:** update dependency typescript to v5.6.3 ([846eba1](https://github.com/graasp/graasp-app-collaborative-ideation/commit/846eba1e6b6db2b381ba6083597f5decef6f16da))
+
 ## [3.1.4](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.1.3...v3.1.4) (2024-10-08)
 
 
