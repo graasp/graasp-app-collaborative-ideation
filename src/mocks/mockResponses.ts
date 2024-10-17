@@ -188,4 +188,42 @@ const buildMockResponses = (
   },
 ];
 
-export { buildMockResponses };
+const buildMockBotResponses = (
+  mockItem: DiscriminatedItem,
+  mockMembers: Member[],
+): ResponseAppData[] => [
+  {
+    id: '000-bot',
+    item: mockItem,
+    creator: mockMembers[0],
+    type: AppDataTypes.Response,
+    account: mockMembers[0],
+    visibility: AppDataVisibility.Item,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    data: {
+      response: 'A giant robots factory.',
+      round: 0,
+      bot: true,
+      assistantId: 'assistant-1',
+    },
+  },
+  {
+    id: '001-bot',
+    item: mockItem,
+    creator: mockMembers[0],
+    type: AppDataTypes.Response,
+    account: mockMembers[0],
+    visibility: AppDataVisibility.Item,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    data: {
+      response: 'Downloading human consciousness into robotic bodies.',
+      round: 0,
+      bot: true,
+      assistantId: 'assistant-1',
+    },
+  },
+];
+
+export { buildMockResponses, buildMockBotResponses };

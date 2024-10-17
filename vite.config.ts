@@ -35,6 +35,7 @@ export default ({ mode }: { mode: string }): UserConfigExport => {
         : checker({
             typescript: true,
             eslint: {
+              useFlatConfig: true,
               lintCommand: 'eslint "src/**/*.{ts,tsx}"',
             },
           }),

@@ -10,9 +10,6 @@ export const extractNResponsesThatDontHaveMemberAsCreator = (
   accountId: Member['id'],
   keepExtracted = false,
 ): [ResponseAppData[], Map<string, ResponseAppData>] => {
-  // console.log('Responses to extract: ', responses);
-  // console.log('n: ', n);
-  // console.log('accountId: ', accountId);
   const responsesIterator = responses.entries();
   const toDelete: string[] = [];
   const responsesArray = [];
@@ -57,7 +54,8 @@ export const recursivelyCreateAllPartiallyBlindSets = <
       extractNResponsesThatDontHaveMemberAsCreator(
         botResponsesLocal,
         numberOfBotResponsesPerSet,
-        participantId,
+        '', // Hack: we don't need to filter out the creator because those are
+        // bots ideas
         !exclusiveResponseDistribution,
       );
     const [participantsResponsesForMember, newParticipantsResponses] =

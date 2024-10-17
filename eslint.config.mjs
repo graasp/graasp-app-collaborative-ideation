@@ -33,7 +33,7 @@ export default [
   },
   ...fixupConfigRules(
     compat.extends(
-      "airbnb",
+    "airbnb",
     "plugin:import/typescript", // this is needed because airbnb uses eslint-plugin-import
     "prettier",
     "plugin:cypress/recommended",
