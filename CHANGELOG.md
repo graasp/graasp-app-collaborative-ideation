@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.1.6](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.1.5...v3.1.6) (2024-10-18)
+
+
+### Bug Fixes
+
+* **deps:** update dependency liquidjs to v10.18.0 ([#573](https://github.com/graasp/graasp-app-collaborative-ideation/issues/573)) ([9db48c8](https://github.com/graasp/graasp-app-collaborative-ideation/commit/9db48c8995b71b81122557a2ff22dcb027fc98de))
+* distribute also AI-generated ideas to orchestrator ([#575](https://github.com/graasp/graasp-app-collaborative-ideation/issues/575)) ([1b5c15f](https://github.com/graasp/graasp-app-collaborative-ideation/commit/1b5c15f759ef3eb81bdb43683380ccb50bb8aee6))
+
 ## [3.1.5](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.1.4...v3.1.5) (2024-10-16)
 
 
