@@ -3100,12 +3100,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:20.16.12":
-  version: 20.16.12
-  resolution: "@types/node@npm:20.16.12"
+"@types/node@npm:20.16.13":
+  version: 20.16.13
+  resolution: "@types/node@npm:20.16.13"
   dependencies:
     undici-types: "npm:~6.19.2"
-  checksum: 10/689badb5af2a1a03553a6d21880fa4aabb8cf028b7db1a03be889c0026047a780ac37c83df5dca036f02f5dc3cc4000254fa40d2cadd5df0e9bd6f43dae6eac6
+  checksum: 10/6e7b82119372cc12d28fcc1b0c10d1b8fa560bbb500f87a4c68bc446a0986d42c92e0f583040167841a0c598131979c3399b17c736c9fb8ba4f0dcf2b2048a84
   languageName: node
   linkType: hard
 
@@ -7573,7 +7573,7 @@ __metadata:
     "@types/lodash.clonedeep": "npm:^4.5.9"
     "@types/lodash.isequal": "npm:^4.5.8"
     "@types/lodash.shuffle": "npm:^4.2.9"
-    "@types/node": "npm:20.16.12"
+    "@types/node": "npm:20.16.13"
     "@types/papaparse": "npm:^5"
     "@types/react": "npm:18.3.11"
     "@types/react-dom": "npm:18.3.1"
