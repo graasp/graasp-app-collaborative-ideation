@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.1.6](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.1.5...v3.1.6) (2024-10-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @graasp/ui to v5.3.1 ([b189009](https://github.com/graasp/graasp-app-collaborative-ideation/commit/b1890093c7c970db8ecd4e33c6f71a6563a72ce9))
+* **deps:** update dependency i18next to v23.16.1 ([002bd51](https://github.com/graasp/graasp-app-collaborative-ideation/commit/002bd51803887e92dbd77b8a867b85d98fbb4656))
+* **deps:** update dependency i18next to v23.16.2 ([f2ca7c4](https://github.com/graasp/graasp-app-collaborative-ideation/commit/f2ca7c4718cfebc1c415d6ecab3a7fbb44080f86))
+* **deps:** update dependency liquidjs to v10.18.0 ([#573](https://github.com/graasp/graasp-app-collaborative-ideation/issues/573)) ([9db48c8](https://github.com/graasp/graasp-app-collaborative-ideation/commit/9db48c8995b71b81122557a2ff22dcb027fc98de))
+* distribute also AI-generated ideas to orchestrator ([#575](https://github.com/graasp/graasp-app-collaborative-ideation/issues/575)) ([1b5c15f](https://github.com/graasp/graasp-app-collaborative-ideation/commit/1b5c15f759ef3eb81bdb43683380ccb50bb8aee6))
+
 ## [3.1.5](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.1.4...v3.1.5) (2024-10-16)
 
 
