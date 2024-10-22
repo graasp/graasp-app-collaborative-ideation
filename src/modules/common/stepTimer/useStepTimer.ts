@@ -4,10 +4,10 @@ import { addSeconds } from 'date-fns/addSeconds';
 import { differenceInSeconds } from 'date-fns/differenceInSeconds';
 
 import useSteps from '@/hooks/useSteps';
-import { useActivityContext } from '@/modules/context/ActivityContext';
+import { useActivityStateContext } from '@/modules/context/ActivityStateContext';
 
 const useStepTimer = (onTimeout?: () => void): boolean => {
-  const { activityState } = useActivityContext();
+  const { activityState } = useActivityStateContext();
   const { currentStep } = useSteps();
   const { startTime } = activityState.data;
   const time = currentStep?.time ?? 0;

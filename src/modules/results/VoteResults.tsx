@@ -7,13 +7,13 @@ import { sortResponsesByNumberOfVote } from '@/hooks/utils/evaluation';
 import Response from '@/modules/common/response/Response';
 
 import ExportResponsesButton from '../common/ExportRepsonsesButton';
-import { useActivityContext } from '../context/ActivityContext';
+import { useResponses } from '../context/ResponsesContext';
 import { useVoteContext } from '../context/VoteContext';
 
 type VoteResultsProps = unknown;
 
 const VoteResults: FC<VoteResultsProps> = () => {
-  const { allResponses } = useActivityContext();
+  const { allResponses } = useResponses();
   const { allVotes } = useVoteContext();
   const sortedResponses = useMemo(
     () => sortResponsesByNumberOfVote(allResponses, allVotes),

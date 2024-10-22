@@ -19,7 +19,7 @@ import {
   promptForSingleResponse,
   promptForSingleResponseAndProvideResponses,
 } from '@/config/prompts';
-import { mutations } from '@/config/queryClient';
+import { hooks, mutations } from '@/config/queryClient';
 import {
   AssistantPersona,
   AssistantType,
@@ -28,8 +28,8 @@ import {
   ListAssistantStateData,
 } from '@/interfaces/assistant';
 import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
-import { useActivityContext } from '@/modules/context/ActivityContext';
-import { useAppDataContext } from '@/modules/context/AppDataContext';
+import { useActivityStateContext } from '@/modules/context/ActivityStateContext';
+import { useResponses } from '@/modules/context/ResponsesContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 
 import { joinMultipleResponses } from './utils/responses';
@@ -62,18 +62,24 @@ const useAssistants = (): UseAssistantsValues => {
   } = useSettings();
 
   const { includeDetails, promptMode } = assistants;
-  const { postAppDataAsync, appData, patchAppDataAsync } = useAppDataContext();
+
+  const { data: appData } = hooks.useAppData();
+
+  const { mutateAsync: postAppDataAsync } = mutations.usePostAppData();
+  const { mutateAsync: patchAppDataAsync } = mutations.usePatchAppData();
+
   const { mode, numberOfParticipantsResponsesTriggeringResponsesGeneration } =
     activity;
 
-  const { assistantsResponsesSets, round, allResponses, postResponse } =
-    useActivityContext();
+  const { round } = useActivityStateContext();
+
+  const { assistantsResponsesSets, allResponses, postResponse } =
+    useResponses();
 
   const listAssistantsStates = useMemo(
     () =>
-      appData.filter(
-        (a) => a.type === AppDataTypes.ListAssistantState,
-      ) as Array<ListAssistantStateAppData>,
+      (appData?.filter((a) => a.type === AppDataTypes.ListAssistantState) ??
+        []) as Array<ListAssistantStateAppData>,
     [appData],
   );
 

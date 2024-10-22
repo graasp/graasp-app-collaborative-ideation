@@ -6,12 +6,14 @@ import Typography from '@mui/material/Typography';
 import { useLocalContext } from '@graasp/apps-query-client';
 
 import Response from '@/modules/common/response/Response';
+import { useActivityStateContext } from '@/modules/context/ActivityStateContext';
 
-import { useActivityContext } from '../context/ActivityContext';
+import { useResponses } from '../context/ResponsesContext';
 
 const MyResponses: FC = () => {
   const { accountId } = useLocalContext();
-  const { myResponses, deleteResponse, round } = useActivityContext();
+  const { round } = useActivityStateContext();
+  const { myResponses, deleteResponse } = useResponses();
 
   const handleDelete = async (id: string): Promise<void> => deleteResponse(id);
   if (accountId) {

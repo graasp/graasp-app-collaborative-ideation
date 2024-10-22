@@ -4,10 +4,9 @@ import { useLocalContext } from '@graasp/apps-query-client';
 import { AppDataVisibility } from '@graasp/sdk';
 
 import { AppDataTypes, VoteAppData } from '@/config/appDataTypes';
+import { hooks, mutations } from '@/config/queryClient';
 import useActions from '@/hooks/useActions';
 import { EvaluationParameters } from '@/interfaces/evaluation';
-
-import { useAppDataContext } from './AppDataContext';
 
 type VoteContextType = {
   allVotes: VoteAppData[];
@@ -37,6 +36,7 @@ export const VoteProvider: FC<VoteContextProps> = ({
   evaluationParameters,
   children,
 }) => {
+  console.log('Rendering vote context');
   const { accountId } = useLocalContext();
 
   const maxNumberOfVotes = useMemo(
@@ -44,12 +44,15 @@ export const VoteProvider: FC<VoteContextProps> = ({
     [evaluationParameters],
   );
 
-  const { appData, postAppDataAsync, deleteAppDataAsync } = useAppDataContext();
+  const { data: appData } = hooks.useAppData();
+
+  const { mutateAsync: postAppDataAsync } = mutations.usePostAppData();
+  const { mutateAsync: deleteAppDataAsync } = mutations.useDeleteAppData();
   const { postVoteForAction, postRemoveVoteAction } = useActions();
 
   const allVotes = useMemo(
     () =>
-      appData.filter(({ type }) => type === AppDataTypes.Vote) as
+      (appData?.filter(({ type }) => type === AppDataTypes.Vote) ?? []) as
         | VoteAppData[]
         | [],
     [appData],

@@ -6,16 +6,14 @@ import LoadingButton from '@mui/lab/LoadingButton';
 
 import { ParseResult, parse } from 'papaparse';
 
-import useResponses from '@/hooks/useResponses';
 import { ResponseDataExchangeFormat } from '@/interfaces/response';
+
+import { useResponses } from '../context/ResponsesContext';
 
 const ImportResponsesButton: FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isImporting, setIsImporting] = useState(false);
-  const { importResponses } = useResponses({
-    participants: { members: [], assistants: [] },
-    round: 0,
-  });
+  const { importResponses } = useResponses();
   const { t } = useTranslation('translations', {
     keyPrefix: 'SETTINGS.IMPORT_RESPONSES_BUTTON',
   });

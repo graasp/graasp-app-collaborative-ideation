@@ -1,64 +1,47 @@
-import { FC, createContext, useContext, useMemo } from 'react';
+// import { FC, createContext, useContext, useMemo } from 'react';
 
-import { INITIAL_STATE } from '@/config/constants';
-import useActivityState, {
-  UseActivityStateValues,
-} from '@/hooks/useActivityState';
-import useParticipants, { UseParticipantsValue } from '@/hooks/useParticipants';
-import useResponses, { UseResponsesValues } from '@/hooks/useResponses';
+// import { INITIAL_STATE } from '@/config/constants';
+// import useParticipants, { UseParticipantsValue } from '@/hooks/useParticipants';
 
-type ActivityContextType = UseActivityStateValues &
-  UseResponsesValues & { participants: UseParticipantsValue };
-const defaultContextValue: ActivityContextType = {
-  round: 0,
-  nextRound: () => undefined,
-  activityState: INITIAL_STATE,
-  resetActivityState: () => undefined,
-  allResponses: [],
-  myResponses: [],
-  postResponse: () => undefined,
-  allResponsesSets: [],
-  myResponsesSets: [],
-  assistantsResponsesSets: [],
-  createAllResponsesSet: async () => undefined,
-  deleteResponsesSetsForRound: async () => undefined,
-  deleteAllResponsesSet: async () => undefined,
-  participants: { members: [], assistants: [] },
-  deleteResponse: async () => undefined,
-  stateWarning: false,
-  changeActivity: () => undefined,
-  playActivity: () => undefined,
-  pauseActivity: () => undefined,
-  availableResponses: [],
-  updateActivityState: () => undefined,
-  importResponses: () => Promise.resolve(),
-};
+// type ActivityContextType = UseActivityStateValues & {
+//   participants: UseParticipantsValue;
+// };
+// const defaultContextValue: ActivityContextType = {
+//   round: 0,
+//   nextRound: () => undefined,
+//   activityState: INITIAL_STATE,
+//   resetActivityState: () => undefined,
+//   participants: { members: [], assistants: [] },
+//   stateWarning: false,
+//   changeActivity: () => undefined,
+//   playActivity: () => undefined,
+//   pauseActivity: () => undefined,
+//   updateActivityState: () => undefined,
+// };
 
-const ActivityContext = createContext<ActivityContextType>(defaultContextValue);
+// const ActivityContext = createContext<ActivityContextType>(defaultContextValue);
 
-type ActivityContextProps = {
-  children: JSX.Element;
-};
+// type ActivityContextProps = {
+//   children: JSX.Element;
+// };
 
-export const ActivityProvider: FC<ActivityContextProps> = ({ children }) => {
-  const participants = useParticipants();
-  const activityState = useActivityState();
-  const { round } = activityState;
-  const responses = useResponses({ participants, round });
-  const contextValue = useMemo(
-    () => ({
-      ...activityState,
-      ...responses,
-      participants,
-    }),
-    [activityState, participants, responses],
-  );
-  return (
-    <ActivityContext.Provider value={contextValue}>
-      {children}
-    </ActivityContext.Provider>
-  );
-};
+// export const ActivityProvider: FC<ActivityContextProps> = ({ children }) => {
+//   console.log('Activity context is rendering');
+//   const participants = useParticipants();
+//   const activityState = useActivityState();
+//   const contextValue = useMemo(
+//     () => ({
+//       ...activityState,
+//       participants,
+//     }),
+//     [activityState, participants],
+//   );
+//   return (
+//     <ActivityContext.Provider value={contextValue}>
+//       {children}
+//     </ActivityContext.Provider>
+//   );
+// };
 
-export const useActivityContext = (): ActivityContextType =>
-  useContext(ActivityContext);
+// export const useActivityContext = (): ActivityContextType =>
+//   useContext(ActivityContext);

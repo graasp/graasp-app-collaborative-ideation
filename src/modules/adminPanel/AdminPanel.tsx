@@ -10,9 +10,9 @@ import Typography from '@mui/material/Typography';
 import grey from '@mui/material/colors/grey';
 
 import { ADMIN_PANEL_CY } from '@/config/selectors';
+import useParticipants from '@/hooks/useParticipants';
 import stringToColor from '@/utils/stringToColor';
 
-import { useActivityContext } from '../context/ActivityContext';
 import IdeaInput from '../responseCollection/ResponseInput';
 import Orchestration from './Orchestration';
 import SectionTitle from './SectionTitle';
@@ -24,7 +24,7 @@ interface AdminPanelProps {
 const AdminPanel: FC<AdminPanelProps> = ({ width }): JSX.Element => {
   const { t } = useTranslation();
 
-  const { participants } = useActivityContext();
+  const participants = useParticipants();
 
   const { members } = participants;
 

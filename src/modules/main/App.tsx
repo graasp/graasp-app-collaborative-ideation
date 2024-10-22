@@ -9,10 +9,9 @@ import { DEFAULT_LANG } from '@/config/constants';
 import { SENTRY_ENV } from '@/config/env';
 import { hooks } from '@/config/queryClient';
 import useActions from '@/hooks/useActions';
+import { ActivityStateProvider } from '@/modules/context/ActivityStateContext';
 
 import i18n from '../../config/i18n';
-import { ActivityProvider } from '../context/ActivityContext';
-import { AppDataProvider } from '../context/AppDataContext';
 import { MembersProvider } from '../context/MembersContext';
 import { SettingsProvider } from '../context/SettingsContext';
 import AnalyticsView from './AnalyticsView';
@@ -20,6 +19,7 @@ import BuilderView from './BuilderView';
 import PlayerView from './PlayerView';
 
 const App = (): JSX.Element => {
+  console.log('Rendering app');
   const context = useLocalContext();
   const { data: appContext, isSuccess } = hooks.useAppContext();
   const { postOpenAppAction } = useActions();
@@ -80,9 +80,7 @@ const App = (): JSX.Element => {
   return (
     <MembersProvider>
       <SettingsProvider>
-        <AppDataProvider>
-          <ActivityProvider>{renderContent()}</ActivityProvider>
-        </AppDataProvider>
+        <ActivityStateProvider>{renderContent()}</ActivityStateProvider>
       </SettingsProvider>
     </MembersProvider>
   );

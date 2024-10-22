@@ -10,9 +10,10 @@ import { Loader } from '@graasp/ui';
 
 import { ResponseAppData } from '@/config/appDataTypes';
 import { HIGHLIGHT_RESPONSE_TIME_MS } from '@/config/constants';
+import { hooks, mutations } from '@/config/queryClient';
 import { PROPOSE_NEW_RESPONSE_BTN_CY } from '@/config/selectors';
+import useInvalidateAppData from '@/hooks/useInvalidateAppData';
 import Response from '@/modules/common/response/Response';
-import { useAppDataContext } from '@/modules/context/AppDataContext';
 
 import { useSettings } from '../context/SettingsContext';
 
@@ -27,7 +28,9 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
   const [highlightId, setHighlightId] = useState<string>();
   const highlightTimeout = useRef<NodeJS.Timeout>();
 
-  const { isLoading, invalidateAppData, deleteAppData } = useAppDataContext();
+  const invalidateAppData = useInvalidateAppData();
+  const { mutate: deleteAppData } = mutations.useDeleteAppData();
+  const { isLoading } = hooks.useAppData();
   const { instructions } = useSettings();
   const chooseInstructions = useMemo(
     () =>

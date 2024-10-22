@@ -5,9 +5,9 @@ import { AppData, AppDataVisibility, PermissionLevel } from '@graasp/sdk';
 
 import { AppDataTypes, PromptsAppData } from '@/config/appDataTypes';
 import { CATEGORY_COLORS } from '@/config/constants';
+import { hooks, mutations } from '@/config/queryClient';
 import whatIfs from '@/config/what-ifs.json';
 import { FullPromptCategory, Prompt, PromptsData } from '@/interfaces/prompt';
-import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { getRandomInteger } from '@/utils/utils';
 
@@ -25,8 +25,12 @@ interface UsePromptsValues extends Partial<PromptsData> {
 }
 
 const usePrompts = (): UsePromptsValues => {
-  const { appData, postAppData, patchAppData, deleteAppData } =
-    useAppDataContext();
+  const { data: appData } = hooks.useAppData();
+
+  const { mutate: postAppData } = mutations.usePostAppData();
+  const { mutate: deleteAppData } = mutations.useDeleteAppData();
+  const { mutate: patchAppData } = mutations.usePatchAppData();
+
   const { accountId, permission } = useLocalContext();
 
   const { postRequestPromptAction } = useActions();
@@ -62,7 +66,7 @@ const usePrompts = (): UsePromptsValues => {
   );
 
   useEffect(() => {
-    const promptsAppData = appData.find(
+    const promptsAppData = appData?.find(
       ({ type, creator }) =>
         type === AppDataTypes.Prompts && accountId === creator?.id,
     ) as PromptsAppData;
@@ -122,9 +126,9 @@ const usePrompts = (): UsePromptsValues => {
         'You must be admin to delete all prompts data for all users.',
       );
     } else {
-      const allIds = appData.filter(
+      const allIds = (appData?.filter(
         ({ type }) => type === AppDataTypes.Prompts,
-      ) as Array<PromptsAppData>;
+      ) ?? []) as Array<PromptsAppData>;
       allIds.forEach(({ id }) => deleteAppData({ id }));
     }
   };

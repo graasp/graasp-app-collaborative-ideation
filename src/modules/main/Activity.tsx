@@ -3,9 +3,10 @@ import { FC, Suspense, SuspenseProps, lazy } from 'react';
 import { useLocalContext } from '@graasp/apps-query-client';
 
 import { ActivityType } from '@/interfaces/interactionProcess';
+import { useActivityStateContext } from '@/modules/context/ActivityStateContext';
 
 import Loader from '../common/Loader';
-import { useActivityContext } from '../context/ActivityContext';
+import { ResponsesProvider } from '../context/ResponsesContext';
 import { useSettings } from '../context/SettingsContext';
 import OrchestrationBar from '../orchestration/OrchestrationBar';
 
@@ -58,16 +59,19 @@ const getActivityComponent = (activity: ActivityType): JSX.Element => {
 };
 
 const Activity: FC = () => {
-  const { activityState } = useActivityContext();
+  console.log('Activity is rendering.');
+  const { activityState } = useActivityStateContext();
   const { accountId } = useLocalContext();
   const { orchestrator } = useSettings();
 
   const { activity } = activityState.data;
   return (
-    <>
-      {orchestrator.id === accountId && <OrchestrationBar />}
-      {getActivityComponent(activity)}
-    </>
+    <ResponsesProvider>
+      <>
+        {orchestrator.id === accountId && <OrchestrationBar />}
+        {getActivityComponent(activity)}
+      </>
+    </ResponsesProvider>
   );
 };
 

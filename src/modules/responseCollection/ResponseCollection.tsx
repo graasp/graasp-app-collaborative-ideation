@@ -13,16 +13,18 @@ import useSteps from '@/hooks/useSteps';
 import { IdeationPhases } from '@/interfaces/interactionProcess';
 import Instructions from '@/modules/common/Instructions';
 import Pausable from '@/modules/common/Pausable';
+import { useActivityStateContext } from '@/modules/context/ActivityStateContext';
 
 import Round from '../common/Round';
 import Timer from '../common/Timer';
-import { useActivityContext } from '../context/ActivityContext';
+import { useResponses } from '../context/ResponsesContext';
 import IdeaChoose from './ResponseChoose';
 import IdeaInput from './ResponseInput';
 
 const ResponseCollection: FC = () => {
   const { t } = useTranslation('translations');
-  const { round, activityState, availableResponses } = useActivityContext();
+  const { round, activityState } = useActivityStateContext();
+  const { availableResponses } = useResponses();
   const { currentStep } = useSteps();
   const { postChooseResponseAction } = useActions();
   const [chosenIdea, setChosenIdea] = useState<ResponseAppData>();

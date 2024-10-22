@@ -17,8 +17,8 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Typography from '@mui/material/Typography';
 
 import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
+import { useActivityStateContext } from '@/modules/context/ActivityStateContext';
 
-import { useActivityContext } from '../context/ActivityContext';
 import NextRoundButton from './NextRoundButton';
 import SectionTitle from './SectionTitle';
 
@@ -35,7 +35,7 @@ const Orchestration: FC<OrchestrationProps> = () => {
     changeActivity,
     pauseActivity,
     playActivity,
-  } = useActivityContext();
+  } = useActivityStateContext();
   const { activity } = activityState.data;
   const { status } = activityState.data;
 

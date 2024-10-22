@@ -4,9 +4,10 @@ import { useTranslation } from 'react-i18next';
 import Button from '@mui/material/Button';
 
 import { NEXT_ROUND_BTN_CY } from '@/config/selectors';
+import useInvalidateAppData from '@/hooks/useInvalidateAppData';
+import { useActivityStateContext } from '@/modules/context/ActivityStateContext';
 
-import { useActivityContext } from '../context/ActivityContext';
-import { useAppDataContext } from '../context/AppDataContext';
+import { useResponses } from '../context/ResponsesContext';
 
 interface NextRoundButtonProps {
   enable: boolean;
@@ -17,8 +18,9 @@ const NextRoundButton: FC<NextRoundButtonProps> = ({ enable }) => {
     keyPrefix: 'ADMIN_PANEL.ORCHESTRATION',
   });
   const [isPreparingNextRound, setIsPreparingNextRound] = useState(false);
-  const { invalidateAppData } = useAppDataContext();
-  const { createAllResponsesSet, nextRound } = useActivityContext();
+  const invalidateAppData = useInvalidateAppData();
+  const { nextRound } = useActivityStateContext();
+  const { createAllResponsesSet } = useResponses();
   const promise = useRef<Promise<void>>();
 
   const prepareNextRound = async (): Promise<void> => {

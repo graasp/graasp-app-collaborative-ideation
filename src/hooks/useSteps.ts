@@ -4,7 +4,8 @@ import {
   ActivityStep,
   ResponseVisibilityMode,
 } from '@/interfaces/interactionProcess';
-import { useActivityContext } from '@/modules/context/ActivityContext';
+import { useActivityStateContext } from '@/modules/context/ActivityStateContext';
+import { useResponses } from '@/modules/context/ResponsesContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 
 import useActions from './useActions';
@@ -22,13 +23,10 @@ interface UseStepsValues {
 }
 
 const useSteps = (): UseStepsValues => {
-  const {
-    updateActivityState,
-    activityState,
-    createAllResponsesSet,
-    round,
-    deleteResponsesSetsForRound,
-  } = useActivityContext();
+  const { updateActivityState, activityState, round } =
+    useActivityStateContext();
+
+  const { createAllResponsesSet, deleteResponsesSetsForRound } = useResponses();
 
   const { generateResponsesWithEachAssistant } = useAssistants();
 

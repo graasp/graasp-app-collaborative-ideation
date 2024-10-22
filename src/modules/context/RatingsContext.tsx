@@ -4,9 +4,8 @@ import { useLocalContext } from '@graasp/apps-query-client';
 import { AppDataVisibility } from '@graasp/sdk';
 
 import { AppDataTypes, RatingAppData, RatingData } from '@/config/appDataTypes';
+import { hooks, mutations } from '@/config/queryClient';
 import { EvaluationParameters } from '@/interfaces/evaluation';
-
-import { useAppDataContext } from './AppDataContext';
 
 type RatingsContextType = {
   ratingsName: EvaluationParameters['ratingsName'];
@@ -38,8 +37,10 @@ export const RatingsProvider: FC<RatingsContextProps> = ({
 }) => {
   const { accountId } = useLocalContext();
 
-  const { appData, postAppData, deleteAppData, patchAppData } =
-    useAppDataContext();
+  const { data: appData } = hooks.useAppData();
+  const { mutate: postAppData } = mutations.usePostAppData();
+  const { mutate: deleteAppData } = mutations.useDeleteAppData();
+  const { mutate: patchAppData } = mutations.usePatchAppData();
 
   const ratingsName = evaluationParameters?.ratingsName ?? '';
   const ratings = useMemo(
@@ -48,9 +49,8 @@ export const RatingsProvider: FC<RatingsContextProps> = ({
   );
   const allRatings = useMemo(
     () =>
-      appData.filter(
-        ({ type }) => type === AppDataTypes.Rating,
-      ) as RatingAppData[],
+      (appData?.filter(({ type }) => type === AppDataTypes.Rating) ??
+        []) as RatingAppData[],
     [appData],
   );
 

@@ -8,31 +8,34 @@ import Grid from '@mui/material/Grid';
 
 import { Loader } from '@graasp/ui';
 
+import { hooks } from '@/config/queryClient';
 import { RESPONSE_EVALUATION_VIEW_CY } from '@/config/selectors';
+import useInvalidateAppData from '@/hooks/useInvalidateAppData';
 import useSteps from '@/hooks/useSteps';
 import { EvaluationType } from '@/interfaces/evaluation';
 import Pausable from '@/modules/common/Pausable';
 import Response from '@/modules/common/response/Response';
 
 import Instructions from '../common/Instructions';
-import { useActivityContext } from '../context/ActivityContext';
-import { useAppDataContext } from '../context/AppDataContext';
 import { RatingsProvider } from '../context/RatingsContext';
+import { useResponses } from '../context/ResponsesContext';
 import { VoteProvider } from '../context/VoteContext';
 import VoteToolbar from './VoteToolbar';
 
 const ResponseEvaluation: FC = () => {
   const { t } = useTranslation();
-  const { availableResponses } = useActivityContext();
+  const { availableResponses } = useResponses();
   const { currentStep } = useSteps();
   const evaluationType = currentStep?.evaluationType;
   const evaluationParameters = currentStep?.evaluationParameters ?? {};
   const responses = availableResponses;
 
-  const { invalidateAppData, isLoading } = useAppDataContext();
+  const { isLoading } = hooks.useAppData();
+  const invalidateAppData = useInvalidateAppData();
 
   const renderPlaceHolderForNoResponses = (): ReactNode => {
     if (isLoading) {
+      console.log("Uh uh, it's loading.");
       return <Loader />;
     }
     return (
@@ -74,6 +77,8 @@ const ResponseEvaluation: FC = () => {
         return null;
     }
   };
+
+  console.log('Render ResponseEvaluation');
 
   return (
     <Pausable>

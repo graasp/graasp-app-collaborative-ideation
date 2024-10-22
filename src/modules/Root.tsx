@@ -122,7 +122,7 @@ const Root: FC = () => {
                   }
                   LoadingComponent={<Loader />}
                   useGetLocalContext={hooks.useGetLocalContext}
-                  useAutoResize={hooks.useAutoResize}
+                  // useAutoResize={hooks.useAutoResize}
                   onError={() => {
                     // eslint-disable-next-line no-console
                     console.error(

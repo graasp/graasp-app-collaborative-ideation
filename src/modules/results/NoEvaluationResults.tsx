@@ -6,12 +6,12 @@ import Stack from '@mui/material/Stack';
 import Response from '@/modules/common/response/Response';
 
 import ExportResponsesButton from '../common/ExportRepsonsesButton';
-import { useActivityContext } from '../context/ActivityContext';
+import { useResponses } from '../context/ResponsesContext';
 
 type NoEvaluationResultsProps = unknown;
 
 const NoEvaluationResults: FC<NoEvaluationResultsProps> = () => {
-  const { allResponses } = useActivityContext();
+  const { allResponses } = useResponses();
   return (
     <Stack
       direction="column"

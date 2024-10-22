@@ -23,7 +23,7 @@ import {
 import useAssistants from '@/hooks/useAssistants';
 import { ResponseData } from '@/interfaces/response';
 
-import { useActivityContext } from '../context/ActivityContext';
+import { useResponses } from '../context/ResponsesContext';
 import { useSettings } from '../context/SettingsContext';
 import Prompts from './prompts/Prompts';
 
@@ -49,7 +49,7 @@ const ResponseInput: FC<{
   const { activity, instructions } = useSettings();
   const { reformulateResponses } = activity;
   const { t: generalT } = useTranslation('translations');
-  const { postResponse } = useActivityContext();
+  const { postResponse } = useResponses();
   // const [isWaitingOnBot, setIsWaitingOnBot] = useState<boolean>(false);
   const [response, setResponse] = useState<string>('');
   const promisePostIdea = useRef<Promise<AppData>>();
@@ -65,23 +65,6 @@ const ResponseInput: FC<{
       instructions.collection.input,
     [instructions],
   );
-
-  // const askBot = (): void => {
-  //   setIsWaitingOnBot(true);
-  //   promiseBotRequest.current = generateSingleResponse().then(
-  //     (ans) => {
-  //       if (ans) {
-  //         setResponse(ans.data.completion);
-  //         setIsWaitingOnBot(false);
-  //       }
-  //     },
-  //     (reason: unknown) => {
-  //       // eslint-disable-next-line no-console
-  //       console.warn(reason);
-  //       setIsWaitingOnBot(false);
-  //     },
-  //   );
-  // };
 
   const submit = async (): Promise<void> => {
     setIsPosting(true);

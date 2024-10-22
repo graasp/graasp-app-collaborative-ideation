@@ -128,6 +128,7 @@
     "nyc": "17.1.0",
     "prettier": "3.3.3",
     "pretty-quick": "4.0.0",
+    "react-devtools": "^6.0.1",
     "stylis-plugin-rtl": "^2.1.1",
     "uuid": "^10.0.0",
     "vite": "^5.1.3",
