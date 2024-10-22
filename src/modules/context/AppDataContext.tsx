@@ -2,7 +2,6 @@ import React, { createContext, useMemo } from 'react';
 
 import { Data } from '@graasp/apps-query-client';
 import { AppData } from '@graasp/sdk';
-import { Loader } from '@graasp/ui';
 
 import { UseQueryResult } from '@tanstack/react-query';
 
@@ -114,10 +113,6 @@ export const AppDataProvider = ({ children }: Props): JSX.Element => {
       refetchAppData,
     ],
   );
-
-  if (isLoading) {
-    return <Loader />;
-  }
 
   return (
     <AppDataContext.Provider value={contextValue}>
