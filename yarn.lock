@@ -5022,9 +5022,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:13.15.0":
-  version: 13.15.0
-  resolution: "cypress@npm:13.15.0"
+"cypress@npm:13.15.1":
+  version: 13.15.1
+  resolution: "cypress@npm:13.15.1"
   dependencies:
     "@cypress/request": "npm:^3.0.4"
     "@cypress/xvfb": "npm:^1.2.4"
@@ -5066,11 +5066,12 @@ __metadata:
     semver: "npm:^7.5.3"
     supports-color: "npm:^8.1.1"
     tmp: "npm:~0.2.3"
+    tree-kill: "npm:1.2.2"
     untildify: "npm:^4.0.0"
     yauzl: "npm:^2.10.0"
   bin:
     cypress: bin/cypress
-  checksum: 10/eb1012234716ae912ad579839dee63f4abcfcfcfd1e5f9281d3d4d69f164d6ba98fac9ecee6432924c72344f5e3c58e694f4a0066ae9ba4b9b81e7fd0aa64f9f
+  checksum: 10/fa822dd7db5283d01b81fbad6278743e63b3bbb9e72e689b5bc92f6d7fbe8f62501d644e3db45fa4a11a810dccebae9c999cc59475a8f3d4c22536f7797e415b
   languageName: node
   linkType: hard
 
@@ -7490,7 +7491,7 @@ __metadata:
     "@vitejs/plugin-react": "npm:^4.2.1"
     "@vitest/browser": "npm:^2.0.0"
     concurrently: "npm:9.0.1"
-    cypress: "npm:13.15.0"
+    cypress: "npm:13.15.1"
     date-fns: "npm:^4.0.0"
     env-cmd: "npm:10.1.0"
     eslint: "npm:9.13.0"
@@ -12292,7 +12293,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tree-kill@npm:^1.2.2":
+"tree-kill@npm:1.2.2, tree-kill@npm:^1.2.2":
   version: 1.2.2
   resolution: "tree-kill@npm:1.2.2"
   bin:
