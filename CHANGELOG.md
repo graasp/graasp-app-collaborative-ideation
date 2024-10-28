@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.1.7](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.1.6...v3.1.7) (2024-10-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @uiw/react-codemirror to v4.23.6 ([cfeb5da](https://github.com/graasp/graasp-app-collaborative-ideation/commit/cfeb5da839ce4588162c6bad63ab604d85f42965))
+* **deps:** update dependency i18next to v23.16.4 ([3bfc09f](https://github.com/graasp/graasp-app-collaborative-ideation/commit/3bfc09fec347ddef3ea68e4f580cc537c69fa208))
+* **deps:** update dependency react-i18next to v15.1.0 ([#591](https://github.com/graasp/graasp-app-collaborative-ideation/issues/591)) ([7ca4bba](https://github.com/graasp/graasp-app-collaborative-ideation/commit/7ca4bba527f6b4a152e0b0ab9a32968fceeaccfb))
+* **deps:** update graasp-apps-query-client to 3.7.1 ([bb8e09f](https://github.com/graasp/graasp-app-collaborative-ideation/commit/bb8e09f9255eb0f95bd72e89e01e9cb9431558d9))
+* remove loader in AppDataContext ([#595](https://github.com/graasp/graasp-app-collaborative-ideation/issues/595)) ([bb8e09f](https://github.com/graasp/graasp-app-collaborative-ideation/commit/bb8e09f9255eb0f95bd72e89e01e9cb9431558d9))
+* use debounced autoresize ([bb8e09f](https://github.com/graasp/graasp-app-collaborative-ideation/commit/bb8e09f9255eb0f95bd72e89e01e9cb9431558d9))
+
 ## [3.1.6](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.1.5...v3.1.6) (2024-10-21)
 
 
