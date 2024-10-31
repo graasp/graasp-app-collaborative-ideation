@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.1.8](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.1.7...v3.1.8) (2024-10-31)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/react to v8.36.0 ([#590](https://github.com/graasp/graasp-app-collaborative-ideation/issues/590)) ([7f96b4a](https://github.com/graasp/graasp-app-collaborative-ideation/commit/7f96b4aea07ada23c2dc55747cee7526f01bb4ee))
+* **deps:** update dependency lucide-react to ^0.454.0 ([#609](https://github.com/graasp/graasp-app-collaborative-ideation/issues/609)) ([ec2d154](https://github.com/graasp/graasp-app-collaborative-ideation/commit/ec2d1544fff674d30669555e8274d57275f59dc5))
+
 ## [3.1.7](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.1.6...v3.1.7) (2024-10-28)
 
 
