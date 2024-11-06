@@ -63,7 +63,7 @@ const Rate: FC<{
               maxLabel={r.maxLabel}
               levels={r.levels}
               key={index}
-              value={values.get(r.name) ?? Math.ceil(r.levels / 2)}
+              value={values.get(r.name)}
             />
           ))}
       </Container>

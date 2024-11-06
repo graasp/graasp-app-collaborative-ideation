@@ -1,36 +1,67 @@
-import { useTranslation } from 'react-i18next';
+import { FC, useEffect, useState } from 'react';
 
-import { TRANSLATIONS_NS } from '@/config/i18n';
+import CircularProgress from '@mui/material/CircularProgress';
+import Stack from '@mui/material/Stack';
 
-const RatingsVisualization = (): JSX.Element => {
-  const { t } = useTranslation(TRANSLATIONS_NS);
-  // const { activity } = useSettings();
-  // const { evaluationType } = activity;
-  // const { getRatingsForResponse } = useRatings(evaluationType);
+import { RatingData } from '@/config/appDataTypes';
+import { useRatingsContext } from '@/modules/context/RatingsContext';
 
-  // const ratings = useMemo(
-  //   () => getRatingsForResponse(response.id),
-  //   [getRatingsForResponse, response],
-  // );
+import CircularIndicator from './indicators/CircularIndicator';
 
-  // if (evaluationType === EvaluationType.DimensionsOfGIRating) {
-  //   return (
-  //     <DimensionsOfGlobalIssue
-  //       ratings={ratings as RatingsAppData<DimensionsOfGIRatings>[]}
-  //     />
-  //   );
-  // }
-  // if (evaluationType === EvaluationType.SFERARating) {
-  //   return <SFERAViz ratings={ratings as RatingsAppData<SFERARating>[]} />;
-  // }
-  // if (evaluationType === EvaluationType.UsefulnessNoveltyRating) {
-  //   return (
-  //     <UsefulnessNovelty
-  //       ratings={ratings as RatingsAppData<UsefulnessNoveltyRatings>[]}
-  //     />
-  //   );
-  // }
-  return <>{t('NO_VISUALIZATION')}</>;
+interface RatingsVisualizationProps {
+  responseId: string;
+}
+
+const RatingsVisualization: FC<RatingsVisualizationProps> = ({
+  responseId,
+}): JSX.Element => {
+  const {
+    ratings: ratingsDef,
+    getRatingsStatsForResponse,
+    ratingsThresholds,
+  } = useRatingsContext();
+
+  const [ratings, setRatings] = useState<RatingData['ratings'] | undefined>(
+    undefined,
+  );
+
+  useEffect(() => {
+    getRatingsStatsForResponse(responseId).then((d) => setRatings(d));
+  }, [getRatingsStatsForResponse, responseId]);
+
+  if (typeof ratingsDef === 'undefined' || typeof ratings === 'undefined') {
+    // TODO: Make that look good.
+    return <CircularProgress />;
+  }
+
+  const nbrRatings = ratingsDef?.length ?? 0;
+
+  return (
+    <Stack
+      direction="row"
+      spacing={2}
+      alignItems="stretch"
+      justifyContent="center"
+      m={2}
+    >
+      {ratingsDef.map((singleRatingDefinition, index) => {
+        const { name } = singleRatingDefinition;
+        if (ratings) {
+          const result = ratings[index];
+          return (
+            <CircularIndicator
+              key={index}
+              value={result.value}
+              thresholds={ratingsThresholds}
+              label={name}
+              width={`${100 / nbrRatings}%`}
+            />
+          );
+        }
+        return <CircularProgress key={index} />;
+      })}
+    </Stack>
+  );
 };
 
 export default RatingsVisualization;
