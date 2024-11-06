@@ -103,7 +103,7 @@ const Response: FC<ResponseProps> = ({
   const renderTopResponseAnnotation = (): JSX.Element => {
     if (isAiGenerated) {
       return (
-        <TopAnnotationTypography variant="caption" color="primary">
+        <TopAnnotationTypography variant="caption" color="white">
           {t('AI_GENERATED')}
         </TopAnnotationTypography>
       );
@@ -121,7 +121,7 @@ const Response: FC<ResponseProps> = ({
   const getTopAnnotationBoxStyle = (): SxProps<Theme> => {
     if (isAiGenerated) {
       return {
-        backgroundColor: 'white',
+        backgroundColor: theme.palette.primary.main,
       };
     }
     const rLength =
@@ -133,14 +133,6 @@ const Response: FC<ResponseProps> = ({
       backgroundColor: RESPONSES_TOP_COLORS[colorIndex],
     };
   };
-
-  const getCardActionStyle = (): SxProps<Theme> | undefined =>
-    isAiGenerated
-      ? {
-          backgroundColor: theme.palette.primary.main,
-          color: theme.palette.primary.contrastText,
-        }
-      : undefined;
 
   if (responseContent) {
     return (
@@ -171,7 +163,7 @@ const Response: FC<ResponseProps> = ({
           }}
           data-cy={RESPONSE_CY}
         >
-          <CardContent sx={{ minHeight: '32pt', ...getCardActionStyle() }}>
+          <CardContent sx={{ minHeight: '32pt' }}>
             {typeof responseContent === 'string' ? (
               <ResponsePart>{responseContent}</ResponsePart>
             ) : (
