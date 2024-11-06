@@ -1,5 +1,20 @@
 # Changelog
 
+## [3.2.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.1.8...v3.2.0) (2024-11-06)
+
+
+### Features
+
+* add results for ratings ([#630](https://github.com/graasp/graasp-app-collaborative-ideation/issues/630)) ([1a6f323](https://github.com/graasp/graasp-app-collaborative-ideation/commit/1a6f32301d3d79653e0c7f55f313eaa1e3c1a7e0))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/react to v8.37.0 ([#624](https://github.com/graasp/graasp-app-collaborative-ideation/issues/624)) ([a221130](https://github.com/graasp/graasp-app-collaborative-ideation/commit/a2211301f15a6bec33969c4fb9b47c429c3455ce))
+* **deps:** update dependency @sentry/react to v8.37.1 ([f364d08](https://github.com/graasp/graasp-app-collaborative-ideation/commit/f364d08708157427e186cb15f3b67ef5be962c6a))
+* improve style and accessibility of AI-generated ideas ([1a6f323](https://github.com/graasp/graasp-app-collaborative-ideation/commit/1a6f32301d3d79653e0c7f55f313eaa1e3c1a7e0))
+* rating is empty by default ([1a6f323](https://github.com/graasp/graasp-app-collaborative-ideation/commit/1a6f32301d3d79653e0c7f55f313eaa1e3c1a7e0))
+
 ## [3.1.8](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.1.7...v3.1.8) (2024-10-31)
 
 
