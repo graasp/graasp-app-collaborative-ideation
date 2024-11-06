@@ -10,14 +10,22 @@ import Pausable from '../common/Pausable';
 import { RatingsProvider } from '../context/RatingsContext';
 import { VoteProvider } from '../context/VoteContext';
 import NoEvaluationResults from './NoEvaluationResults';
+import RatingsResults from './RatingsResults';
 import VoteResults from './VoteResults';
 
 type ResultsViewProps = unknown;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ResultsView = (props: ResultsViewProps): JSX.Element => {
-  const { currentStep } = useSteps();
+  const { currentStep, previousStep } = useSteps();
   const resultsType = currentStep?.resultsType ?? DEFAULT_EVALUATION_TYPE;
+  /**
+   * With this mechanism, bear in mind that the configuration of
+   * the previous step is used to determine the evaluation parameters.
+   * Therefore, one need to have the results step immediately after
+   * the evaluation step.
+   */
+  const evaluationParameters = previousStep?.evaluationParameters;
 
   const renderResultsContext = (): JSX.Element | null => {
     switch (resultsType) {
@@ -28,11 +36,15 @@ const ResultsView = (props: ResultsViewProps): JSX.Element => {
           </VoteProvider>
         );
       case EvaluationType.Rate:
-        return (
-          <RatingsProvider>
-            <p>Nothing.</p>
-          </RatingsProvider>
-        );
+        if (evaluationParameters) {
+          return (
+            <RatingsProvider evaluationParameters={evaluationParameters}>
+              <RatingsResults />
+            </RatingsProvider>
+          );
+        }
+        return <NoEvaluationResults />;
+
       default:
         return <NoEvaluationResults />;
     }

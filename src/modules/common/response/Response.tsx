@@ -168,7 +168,6 @@ const Response: FC<ResponseProps> = ({
           variant="outlined"
           sx={{
             width: '100%',
-            // backgroundColor: highlight ? 'hsla(0, 100%, 90%, 0.3)' : 'white',
           }}
           data-cy={RESPONSE_CY}
         >
@@ -217,7 +216,7 @@ const Response: FC<ResponseProps> = ({
             </Box>
           </CardContent>
           {renderEvaluationComponent()}
-          {showRatings && <RatingsVisualization />}
+          {showRatings && <RatingsVisualization responseId={id} />}
           {typeof nbrOfVotes !== 'undefined' && <Votes votes={nbrOfVotes} />}
           {showActions && (
             <>
