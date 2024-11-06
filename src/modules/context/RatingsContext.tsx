@@ -131,32 +131,32 @@ export const RatingsProvider: FC<RatingsContextProps> = ({
     return levels;
   }, [ratings]);
 
-  const computeMeanRatings = (
-    accumulatedRatings: RatingData['ratings'],
-    currentRating: RatingData['ratings'],
-    _index: number,
-    array: RatingData['ratings'][],
-  ): RatingData['ratings'] => {
-    const nbrRatings = array.length;
-    const newAccumulatedRatings: RatingData['ratings'] = currentRating.map(
-      (r, index) => {
-        let prevVal = 0;
-        if (accumulatedRatings.length > index) {
-          prevVal = accumulatedRatings[index].value;
-        }
-        const value =
-          r.value / ((ratingsLevels.get(r.name) ?? 1) * nbrRatings) + prevVal;
-        console.debug(
-          `Accumulating for aspect ${r.name}, current value = ${value} (prevVal=${prevVal})`,
-        );
-        return {
-          ...r,
-          value,
-        };
-      },
-    );
-    return newAccumulatedRatings;
-  };
+  const computeMeanRatings = useCallback(
+    (
+      accumulatedRatings: RatingData['ratings'],
+      currentRating: RatingData['ratings'],
+      _index: number,
+      array: RatingData['ratings'][],
+    ): RatingData['ratings'] => {
+      const nbrRatings = array.length;
+      const newAccumulatedRatings: RatingData['ratings'] = currentRating.map(
+        (r, index) => {
+          let prevVal = 0;
+          if (accumulatedRatings.length > index) {
+            prevVal = accumulatedRatings[index].value;
+          }
+          const value =
+            r.value / ((ratingsLevels.get(r.name) ?? 1) * nbrRatings) + prevVal;
+          return {
+            ...r,
+            value,
+          };
+        },
+      );
+      return newAccumulatedRatings;
+    },
+    [ratingsLevels],
+  );
 
   const getRatingsStatsForResponse = useCallback(
     async (responseId: string): Promise<RatingData['ratings'] | undefined> => {
@@ -175,8 +175,6 @@ export const RatingsProvider: FC<RatingsContextProps> = ({
           computeMeanRatings,
           initialVal,
         );
-        console.debug('Accumulated ratings:');
-        console.debug(accumulatedRatings);
         return accumulatedRatings;
       }
       return undefined;

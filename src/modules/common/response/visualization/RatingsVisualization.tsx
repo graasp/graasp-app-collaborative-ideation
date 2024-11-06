@@ -48,7 +48,6 @@ const RatingsVisualization: FC<RatingsVisualizationProps> = ({
         const { name } = singleRatingDefinition;
         if (ratings) {
           const result = ratings[index];
-          console.info(`For aspect ${name}, result is:`, result.value);
           return (
             <CircularIndicator
               key={index}
