@@ -1,5 +1,22 @@
 # Changelog
 
+## [3.2.1](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.2.0...v3.2.1) (2024-11-12)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @graasp/apps-query-client to v3.7.2 ([1b84dcb](https://github.com/graasp/graasp-app-collaborative-ideation/commit/1b84dcb772601bb758f67859607c186e30a636da))
+* **deps:** update dependency @nivo/boxplot to ^0.88.0 ([#639](https://github.com/graasp/graasp-app-collaborative-ideation/issues/639)) ([58ea1f6](https://github.com/graasp/graasp-app-collaborative-ideation/commit/58ea1f66c4cbc830df688f53ae433022a6abb30b))
+* **deps:** update dependency @sentry/react to v8.38.0 ([#643](https://github.com/graasp/graasp-app-collaborative-ideation/issues/643)) ([c127c92](https://github.com/graasp/graasp-app-collaborative-ideation/commit/c127c9239cdddd81b3c465eb21ca9737df277cd2))
+* **deps:** update dependency i18next to v23.16.5 ([#635](https://github.com/graasp/graasp-app-collaborative-ideation/issues/635)) ([927ba52](https://github.com/graasp/graasp-app-collaborative-ideation/commit/927ba52352ccfd5e3a376f8439e49a549e267dc3))
+* **deps:** update dependency lucide-react to ^0.456.0 ([#636](https://github.com/graasp/graasp-app-collaborative-ideation/issues/636)) ([0e2c7a7](https://github.com/graasp/graasp-app-collaborative-ideation/commit/0e2c7a7c41f51c6ff66e132bb4322f8be9504552))
+* **deps:** update dependency react-i18next to v15.1.1 ([#634](https://github.com/graasp/graasp-app-collaborative-ideation/issues/634)) ([a3be6c9](https://github.com/graasp/graasp-app-collaborative-ideation/commit/a3be6c9da047c1b92ac287991658140a00e055e3))
+
+
+### Performance Improvements
+
+* import material submodules in waiting screen ([725144e](https://github.com/graasp/graasp-app-collaborative-ideation/commit/725144eb3e531bf20e335b33a2ea55005b51307d))
+
 ## [3.2.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.1.8...v3.2.0) (2024-11-06)
 
 
