@@ -5,6 +5,7 @@ import { resolve } from 'path';
 import { UserConfigExport, defineConfig, loadEnv } from 'vite';
 import checker from 'vite-plugin-checker';
 import istanbul from 'vite-plugin-istanbul';
+import { sentryVitePlugin } from "@sentry/vite-plugin";
 
 // https://vitejs.dev/config/
 export default ({ mode }: { mode: string }): UserConfigExport => {
@@ -28,6 +29,7 @@ export default ({ mode }: { mode: string }): UserConfigExport => {
     },
     build: {
       outDir: 'build',
+      sourcemap: true,
     },
     plugins: [
       mode === 'test'
@@ -48,6 +50,12 @@ export default ({ mode }: { mode: string }): UserConfigExport => {
         forceBuildInstrument: mode === 'test',
         checkProd: true,
       }),
+      // Put the Sentry vite plugin after all other plugins
+    sentryVitePlugin({
+      authToken: process.env.SENTRY_AUTH_TOKEN,
+      org: "graasp",
+      project: "graasp-app-collaborative-ideation",
+    }),
     ],
     resolve: {
       alias: {
