@@ -31,6 +31,7 @@ jobs:
           VITE_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
           VITE_VERSION: ${{ github.sha }}
           VITE_WS_HOST: ${{ vars.WS_HOST }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           # add any env variable needed by your app here
         run: yarn build
         shell: bash
