@@ -1,7 +1,10 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Alert, LinearProgress, Stack, Typography } from '@mui/material';
+import Alert from '@mui/material/Alert';
+import LinearProgress from '@mui/material/LinearProgress';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 
 import { ActivityStatus } from '@/interfaces/interactionProcess';
 
