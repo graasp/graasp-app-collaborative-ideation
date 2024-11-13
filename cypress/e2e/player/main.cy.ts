@@ -198,7 +198,7 @@ describe('Player with read rights, configured to rate ideas.', () => {
         cy.get(buildDataCy(LIKERT_RATING_CY))
           .last()
           .within(() => {
-            cy.get('input[value=5]').click({ force: true });
+            cy.get('input[value=2]').click({ force: true });
           });
       });
 
