@@ -165,6 +165,9 @@ export const RatingsProvider: FC<RatingsContextProps> = ({
         const extractedRatings = ratingsForResponse.map(
           ({ data }) => data.ratings,
         );
+        if (extractedRatings.length === 0) {
+          return undefined;
+        }
 
         const initialVal = extractedRatings[0].map((r) => ({
           ...r,

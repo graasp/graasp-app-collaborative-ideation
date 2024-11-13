@@ -1,9 +1,11 @@
 import { FC, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import CircularProgress from '@mui/material/CircularProgress';
+import { LinearProgress, Typography } from '@mui/material';
 import Stack from '@mui/material/Stack';
 
 import { RatingData } from '@/config/appDataTypes';
+import { TRANSLATIONS_NS } from '@/config/i18n';
 import { useRatingsContext } from '@/modules/context/RatingsContext';
 
 import CircularIndicator from './indicators/CircularIndicator';
@@ -15,6 +17,7 @@ interface RatingsVisualizationProps {
 const RatingsVisualization: FC<RatingsVisualizationProps> = ({
   responseId,
 }): JSX.Element => {
+  const { t } = useTranslation(TRANSLATIONS_NS, { keyPrefix: 'EVALUATION' });
   const {
     ratings: ratingsDef,
     getRatingsStatsForResponse,
@@ -29,11 +32,6 @@ const RatingsVisualization: FC<RatingsVisualizationProps> = ({
     getRatingsStatsForResponse(responseId).then((d) => setRatings(d));
   }, [getRatingsStatsForResponse, responseId]);
 
-  if (typeof ratingsDef === 'undefined' || typeof ratings === 'undefined') {
-    // TODO: Make that look good.
-    return <CircularProgress />;
-  }
-
   const nbrRatings = ratingsDef?.length ?? 0;
 
   return (
@@ -44,22 +42,33 @@ const RatingsVisualization: FC<RatingsVisualizationProps> = ({
       justifyContent="center"
       m={2}
     >
-      {ratingsDef.map((singleRatingDefinition, index) => {
-        const { name } = singleRatingDefinition;
-        if (ratings) {
-          const result = ratings[index];
-          return (
-            <CircularIndicator
-              key={index}
-              value={result.value}
-              thresholds={ratingsThresholds}
-              label={name}
-              width={`${100 / nbrRatings}%`}
-            />
-          );
-        }
-        return <CircularProgress key={index} />;
-      })}
+      {typeof ratingsDef === 'undefined' || typeof ratings === 'undefined' ? (
+        <LinearProgress />
+      ) : (
+        ratingsDef.map((singleRatingDefinition, index) => {
+          const { name } = singleRatingDefinition;
+          if (ratings) {
+            const result = ratings[index];
+            if (typeof result === 'undefined') {
+              return (
+                <Typography key={index} variant="caption">
+                  {t('NO_DATA_FOR_RATING', { ratingName: name })}
+                </Typography>
+              );
+            }
+            return (
+              <CircularIndicator
+                key={index}
+                value={result.value}
+                thresholds={ratingsThresholds}
+                label={name}
+                width={`${100 / nbrRatings}%`}
+              />
+            );
+          }
+          return <LinearProgress key={index} />;
+        })
+      )}
     </Stack>
   );
 };

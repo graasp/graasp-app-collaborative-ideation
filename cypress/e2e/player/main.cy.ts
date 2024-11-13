@@ -3,12 +3,15 @@ import { Context, PermissionLevel } from '@graasp/sdk';
 import {
   ADMIN_PANEL_CY,
   DETAILS_INSTRUCTIONS_CY,
+  LIKERT_RATING_CY,
   ORCHESTRATION_BAR_CY,
   PROMPTS_CY,
   PROPOSE_NEW_RESPONSE_BTN_CY,
   RESPONSE_COLLECTION_VIEW_CY,
+  RESPONSE_CY,
   RESPONSE_EVALUATION_VIEW_CY,
   RESPONSE_RESULTS_VIEW_CY,
+  SUBMIT_RESPONSE_BTN_CY,
   TITLE_INSTRUCTIONS_CY,
   buildDataCy,
 } from '@/config/selectors';
@@ -22,6 +25,7 @@ import {
   ALL_SETTINGS,
   ALL_SETTINGS_OBJECT,
   SETTINGS_WITH_ASSISTANT,
+  SETTINGS_WITH_RATINGS,
 } from '../../fixtures/appSettings';
 import { MEMBERS } from '../../fixtures/members';
 
@@ -108,7 +112,7 @@ describe('Player with read rights, configured with one assistant and no data.', 
   });
 
   it('goes through all the steps.', () => {
-    const MEAN_WAITING_TIME = 6000;
+    const MEAN_WAITING_TIME = 4000;
     // Propose a new idea, then go to next step
     cy.get(buildDataCy(ADMIN_PANEL_CY)).should('not.exist');
 
@@ -128,15 +132,75 @@ describe('Player with read rights, configured with one assistant and no data.', 
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(MEAN_WAITING_TIME);
 
-    // cy.get(buildDataCy(RESPONSE_CY))
-    //   .first()
-    //   .within(() => {
-    //     cy.get(buildDataCy(LIKERT_RATING_CY))
-    //       .first()
-    //       .within(() => {
-    //         cy.get('input[value=5]').click({ force: true });
-    //       });
-    //   });
+    cy.get(buildDataCy(ORCHESTRATION_BAR_CY.NEXT_STEP_BTN)).click();
+
+    cy.get(buildDataCy(RESPONSE_RESULTS_VIEW_CY)).should('exist');
+  });
+});
+
+describe('Player with read rights, configured to rate ideas.', () => {
+  beforeEach(() => {
+    cy.setUpApi(
+      {
+        appSettings: SETTINGS_WITH_RATINGS,
+        appData: [],
+      },
+      {
+        context: Context.Player,
+        permission: PermissionLevel.Read,
+        accountId: MEMBERS.ANNA.id,
+      },
+    );
+    cy.visit('/');
+  });
+
+  it('types a few ideas and rate them.', () => {
+    const MEAN_WAITING_TIME = 4000;
+    // Propose a new idea, then go to next step
+    cy.get(buildDataCy(ADMIN_PANEL_CY)).should('not.exist');
+
+    cy.get(buildDataCy(ORCHESTRATION_BAR_CY.PLAY_BUTTON)).click();
+
+    const newIdeas = ['Testing this software', "I don't know.", 'Sleep...'];
+
+    cy.get(buildDataCy(RESPONSE_COLLECTION_VIEW_CY)).within(() => {
+      newIdeas.forEach((idea) => {
+        cy.get(buildDataCy(PROPOSE_NEW_RESPONSE_BTN_CY)).click();
+        cy.get('#input-response').type('a');
+        cy.get('#input-response').type('{backspace}');
+        cy.get('#input-response').should('be.enabled');
+        cy.get('#input-response').type(idea, { delay: 20 });
+        cy.get(buildDataCy(SUBMIT_RESPONSE_BTN_CY)).click();
+      });
+    });
+
+    cy.get(buildDataCy(ORCHESTRATION_BAR_CY.NEXT_STEP_BTN)).click();
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(MEAN_WAITING_TIME);
+
+    cy.get(buildDataCy(RESPONSE_EVALUATION_VIEW_CY)).should('exist');
+
+    cy.get(buildDataCy(RESPONSE_CY))
+      .first()
+      .within(() => {
+        cy.get(buildDataCy(LIKERT_RATING_CY)).should('have.length', 2);
+        cy.get(buildDataCy(LIKERT_RATING_CY))
+          .first()
+          .within(() => {
+            cy.get('input[value=5]').click({ force: true });
+          });
+      });
+
+    cy.get(buildDataCy(RESPONSE_CY))
+      .last()
+      .within(() => {
+        cy.get(buildDataCy(LIKERT_RATING_CY)).should('have.length', 2);
+        cy.get(buildDataCy(LIKERT_RATING_CY))
+          .last()
+          .within(() => {
+            cy.get('input[value=2]').click({ force: true });
+          });
+      });
 
     cy.get(buildDataCy(ORCHESTRATION_BAR_CY.NEXT_STEP_BTN)).click();
 

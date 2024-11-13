@@ -41,7 +41,7 @@ describe('Builder View with admin rights, no settings', () => {
     cy.get(buildDataCy(RESPONSE_COLLECTION_VIEW_CY)).should('exist');
   });
 
-  it('create some responses, and hit next round', () => {
+  it('create some responses, and hit next step', () => {
     cy.get(buildDataCy(ORCHESTRATION_BAR_CY.PLAY_BUTTON)).should(
       'have.lengthOf',
       1,
