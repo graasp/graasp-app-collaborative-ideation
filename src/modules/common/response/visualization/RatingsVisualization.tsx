@@ -1,11 +1,13 @@
 import { FC, useEffect, useState } from 'react';
 
-import CircularProgress from '@mui/material/CircularProgress';
 import Stack from '@mui/material/Stack';
 
 import { RatingData } from '@/config/appDataTypes';
 import { useRatingsContext } from '@/modules/context/RatingsContext';
 
+import { LinearProgress, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { TRANSLATIONS_NS } from '@/config/i18n';
 import CircularIndicator from './indicators/CircularIndicator';
 
 interface RatingsVisualizationProps {
@@ -15,6 +17,7 @@ interface RatingsVisualizationProps {
 const RatingsVisualization: FC<RatingsVisualizationProps> = ({
   responseId,
 }): JSX.Element => {
+  const { t } = useTranslation(TRANSLATIONS_NS, {keyPrefix: 'EVALUATION'});
   const {
     ratings: ratingsDef,
     getRatingsStatsForResponse,
@@ -29,11 +32,6 @@ const RatingsVisualization: FC<RatingsVisualizationProps> = ({
     getRatingsStatsForResponse(responseId).then((d) => setRatings(d));
   }, [getRatingsStatsForResponse, responseId]);
 
-  if (typeof ratingsDef === 'undefined' || typeof ratings === 'undefined') {
-    // TODO: Make that look good.
-    return <CircularProgress />;
-  }
-
   const nbrRatings = ratingsDef?.length ?? 0;
 
   return (
@@ -44,10 +42,17 @@ const RatingsVisualization: FC<RatingsVisualizationProps> = ({
       justifyContent="center"
       m={2}
     >
-      {ratingsDef.map((singleRatingDefinition, index) => {
+      {(typeof ratingsDef === 'undefined' || typeof ratings === 'undefined') ?
+      <LinearProgress /> :
+      ratingsDef.map((singleRatingDefinition, index) => {
         const { name } = singleRatingDefinition;
         if (ratings) {
           const result = ratings[index];
+          if (typeof result === 'undefined') {
+            return <Typography key={index} variant='caption'>
+              {t('NO_DATA_FOR_RATING', { ratingName: name })}
+            </Typography>;
+          }
           return (
             <CircularIndicator
               key={index}
@@ -58,7 +63,7 @@ const RatingsVisualization: FC<RatingsVisualizationProps> = ({
             />
           );
         }
-        return <CircularProgress key={index} />;
+        return <LinearProgress key={index} />;
       })}
     </Stack>
   );

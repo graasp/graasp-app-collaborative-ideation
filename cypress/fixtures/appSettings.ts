@@ -1,15 +1,17 @@
 import { AppSetting } from '@graasp/sdk';
 
 import { AllSettingsType } from '@/config/appSettingsType';
-import { DEFAULT_SYSTEM_PROMPT } from '@/config/prompts';
 import { EvaluationType } from '@/interfaces/evaluation';
 import {
   ActivityType,
   ResponseVisibilityMode,
 } from '@/interfaces/interactionProcess';
 
+import { AssistantType } from '@/interfaces/assistant';
+import cloneDeep from 'lodash.clonedeep';
 import { MEMBERS } from './members';
 import { MOCK_SERVER_DISCRIMINATED_ITEM } from './mockItem';
+
 
 let settingCounter = 0;
 
@@ -81,11 +83,9 @@ export const ALL_SETTINGS_OBJECT: AllSettingsType = {
       },
     ],
     reformulateResponses: false,
+    numberOfParticipantsResponsesTriggeringResponsesGeneration: 0,
   },
   notParticipating: { ids: [] },
-  chatbot: {
-    systemPrompt: DEFAULT_SYSTEM_PROMPT,
-  },
   assistants: {
     assistants: [],
   },
@@ -99,19 +99,19 @@ export const ALL_SETTINGS = Object.entries(ALL_SETTINGS_OBJECT).map(
   ([key, value]) => newSettingFactory(key, value),
 );
 
-const SETTINGS_WITH_ASSISTANT_OBJECT = ALL_SETTINGS_OBJECT;
+const SETTINGS_WITH_ASSISTANT_OBJECT = cloneDeep(ALL_SETTINGS_OBJECT);
 
 SETTINGS_WITH_ASSISTANT_OBJECT.assistants.assistants = [
   {
     id: 'assistant1',
     name: 'GraaspBot',
-    message: [
+    configuration: [
       {
         role: 'system',
-        content:
-          'You are a helpful assistant. You always give your most creative ideas.',
+        content: 'You are a helpful assistant. You always give your most creative ideas.',
       },
     ],
+    type: AssistantType.LLM
   },
 ];
 SETTINGS_WITH_ASSISTANT_OBJECT.activity.steps = [
@@ -143,4 +143,49 @@ SETTINGS_WITH_ASSISTANT_OBJECT.activity.steps = [
 
 export const SETTINGS_WITH_ASSISTANT = Object.entries(
   SETTINGS_WITH_ASSISTANT_OBJECT,
+).map(([key, value]) => newSettingFactory(key, value));
+
+const SETTINGS_WITH_RATINGS_OBJECT = cloneDeep(ALL_SETTINGS_OBJECT);
+
+SETTINGS_WITH_RATINGS_OBJECT.activity.steps = [
+  {
+    type: ActivityType.Collection,
+    round: 0,
+    time: 1,
+  },
+  {
+    type: ActivityType.Evaluation,
+    round: 1,
+    time: 1,
+    evaluationType: EvaluationType.Rate,
+    evaluationParameters: {
+      ratings: [
+        {
+          name: 'Usefulness',
+          description: 'How useful is the response',
+          maxLabel: 'Useful',
+          minLabel: 'Useless',
+          levels: 5,
+        },
+        {
+          name: 'Novelty',
+          description: 'How novel is the response',
+          maxLabel: 'Novel',
+          minLabel: 'Common',
+          levels: 5,
+        },
+      ],
+      ratingsName: "Usefulness and novelty",
+    },
+  },
+  {
+    type: ActivityType.Results,
+    round: 1,
+    time: 240,
+    resultsType: EvaluationType.Rate,
+  },
+];
+
+export const SETTINGS_WITH_RATINGS = Object.entries(
+  SETTINGS_WITH_RATINGS_OBJECT,
 ).map(([key, value]) => newSettingFactory(key, value));

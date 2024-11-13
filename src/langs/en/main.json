@@ -186,6 +186,7 @@
       "VOTES_LEFT": "{{availableVotes}} votes left out of {{maxNumberOfVotes}}"
     },
     "NO_VISUALIZATION": "No visualization is available for this type of evaluation.",
+    "NO_DATA_FOR_RATING": "No data for {{ratingName}}",
     "USEFULNESS_NOVELTY": {
       "COMMON": "Common",
       "NOVEL": "Novel",
