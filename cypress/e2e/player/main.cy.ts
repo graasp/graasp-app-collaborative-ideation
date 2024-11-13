@@ -160,7 +160,7 @@ describe('Player with read rights, configured to rate ideas.', () => {
     cy.get(buildDataCy(ADMIN_PANEL_CY)).should('not.exist');
 
     cy.get(buildDataCy(ORCHESTRATION_BAR_CY.PLAY_BUTTON)).click();
-    
+
     const newIdeas = ['Testing this software', "I don't know.", 'Sleep...'];
 
     cy.get(buildDataCy(RESPONSE_COLLECTION_VIEW_CY)).within(() => {
@@ -184,18 +184,22 @@ describe('Player with read rights, configured to rate ideas.', () => {
       .first()
       .within(() => {
         cy.get(buildDataCy(LIKERT_RATING_CY)).should('have.length', 2);
-        cy.get(buildDataCy(LIKERT_RATING_CY)).first().within(() => {
+        cy.get(buildDataCy(LIKERT_RATING_CY))
+          .first()
+          .within(() => {
             cy.get('input[value=5]').click({ force: true });
-        });
+          });
       });
 
-      cy.get(buildDataCy(RESPONSE_CY))
+    cy.get(buildDataCy(RESPONSE_CY))
       .last()
       .within(() => {
         cy.get(buildDataCy(LIKERT_RATING_CY)).should('have.length', 2);
-        cy.get(buildDataCy(LIKERT_RATING_CY)).last().within(() => {
+        cy.get(buildDataCy(LIKERT_RATING_CY))
+          .last()
+          .within(() => {
             cy.get('input[value=5]').click({ force: true });
-        });
+          });
       });
 
     cy.get(buildDataCy(ORCHESTRATION_BAR_CY.NEXT_STEP_BTN)).click();

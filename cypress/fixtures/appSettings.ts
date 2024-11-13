@@ -1,17 +1,17 @@
 import { AppSetting } from '@graasp/sdk';
 
+import cloneDeep from 'lodash.clonedeep';
+
 import { AllSettingsType } from '@/config/appSettingsType';
+import { AssistantType } from '@/interfaces/assistant';
 import { EvaluationType } from '@/interfaces/evaluation';
 import {
   ActivityType,
   ResponseVisibilityMode,
 } from '@/interfaces/interactionProcess';
 
-import { AssistantType } from '@/interfaces/assistant';
-import cloneDeep from 'lodash.clonedeep';
 import { MEMBERS } from './members';
 import { MOCK_SERVER_DISCRIMINATED_ITEM } from './mockItem';
-
 
 let settingCounter = 0;
 
@@ -108,10 +108,11 @@ SETTINGS_WITH_ASSISTANT_OBJECT.assistants.assistants = [
     configuration: [
       {
         role: 'system',
-        content: 'You are a helpful assistant. You always give your most creative ideas.',
+        content:
+          'You are a helpful assistant. You always give your most creative ideas.',
       },
     ],
-    type: AssistantType.LLM
+    type: AssistantType.LLM,
   },
 ];
 SETTINGS_WITH_ASSISTANT_OBJECT.activity.steps = [
@@ -175,7 +176,7 @@ SETTINGS_WITH_RATINGS_OBJECT.activity.steps = [
           levels: 5,
         },
       ],
-      ratingsName: "Usefulness and novelty",
+      ratingsName: 'Usefulness and novelty',
     },
   },
   {
