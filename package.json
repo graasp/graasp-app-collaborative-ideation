@@ -50,7 +50,7 @@
     "lodash.clone": "^4.5.0",
     "lodash.isequal": "^4.5.0",
     "lodash.shuffle": "^4.2.0",
-    "lucide-react": "^0.456.0",
+    "lucide-react": "^0.460.0",
     "papaparse": "^5.4.1",
     "plotly.js": "^2.29.1",
     "qs": "6.13.1",
