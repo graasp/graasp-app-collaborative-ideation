@@ -3,6 +3,7 @@ import { useCallback, useMemo } from 'react';
 import { useLocalContext } from '@graasp/apps-query-client';
 import { AppDataVisibility, Member } from '@graasp/sdk';
 
+import { compareDesc } from 'date-fns/compareDesc';
 import cloneDeep from 'lodash.clonedeep';
 import shuffle from 'lodash.shuffle';
 
@@ -85,11 +86,14 @@ const useResponses = ({
       ({ creator, type }) =>
         creator?.id === accountId && type === AppDataTypes.Response,
     ) as ResponseAppData[];
-    return responses;
+    return responses.sort((a, b) => compareDesc(a.updatedAt, b.updatedAt));
   }, [appData, accountId]);
 
   const allResponses = useMemo(
-    (): ResponseAppData[] => getResponses(appData),
+    (): ResponseAppData[] =>
+      getResponses(appData).sort((a, b) =>
+        compareDesc(a.updatedAt, b.updatedAt),
+      ),
     [appData],
   );
 
