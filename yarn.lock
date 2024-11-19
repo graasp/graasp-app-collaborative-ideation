@@ -297,7 +297,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@bundled-es-modules/cookie@npm:^2.0.0, @bundled-es-modules/cookie@npm:^2.0.1":
+"@bundled-es-modules/cookie@npm:^2.0.1":
   version: 2.0.1
   resolution: "@bundled-es-modules/cookie@npm:2.0.1"
   dependencies:
@@ -1159,23 +1159,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graasp/apps-query-client@npm:3.7.2":
-  version: 3.7.2
-  resolution: "@graasp/apps-query-client@npm:3.7.2"
+"@graasp/apps-query-client@npm:3.7.3":
+  version: 3.7.3
+  resolution: "@graasp/apps-query-client@npm:3.7.3"
   dependencies:
     "@emotion/react": "npm:11.13.3"
     "@emotion/styled": "npm:11.13.0"
-    "@mui/icons-material": "npm:6.1.6"
-    "@mui/material": "npm:6.1.6"
+    "@mui/icons-material": "npm:6.1.7"
+    "@mui/material": "npm:6.1.7"
     axios: "npm:1.7.7"
-    dexie: "npm:4.0.9"
+    dexie: "npm:4.0.10"
     http-status-codes: "npm:2.3.0"
     lodash.debounce: "npm:4.0.8"
     miragejs: "npm:0.1.48"
-    msw: "npm:2.6.0"
-    uuid: "npm:11.0.2"
+    msw: "npm:2.6.5"
+    uuid: "npm:11.0.3"
   peerDependencies:
-    "@graasp/sdk": ^4.22.0
+    "@graasp/sdk": ^4.22.0 || ^5.0.0
     "@mui/icons-material": ^5.15.5 || ^6.0.0
     "@mui/material": ^5.15.5 || ^6.0.0
     "@tanstack/react-query": ^4.28.0
@@ -1183,7 +1183,7 @@ __metadata:
     date-fns: ^3.3.0 || ^4.0.0
     react: ^18.0.0
     react-dom: ^18.0.0
-  checksum: 10/32b4e4325282957c5165f5a521a8e7f2d77149237905140b32f20c2c97a77d686305deb1fa7e4c1c0144c9dc1525b9933ca1afbf960727472c7141521c6faa5a
+  checksum: 10/a6ff4f2fa8635df76e1524d45dc749c8ce628867acaa0fba357851afba0d51296cb795ed5452761ce8a3a9116e6ccee6d579a252ec8abff6123fa8bf36a750a7
   languageName: node
   linkType: hard
 
@@ -1555,20 +1555,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mswjs/interceptors@npm:^0.36.5":
-  version: 0.36.10
-  resolution: "@mswjs/interceptors@npm:0.36.10"
-  dependencies:
-    "@open-draft/deferred-promise": "npm:^2.2.0"
-    "@open-draft/logger": "npm:^0.3.0"
-    "@open-draft/until": "npm:^2.0.0"
-    is-node-process: "npm:^1.2.0"
-    outvariant: "npm:^1.4.3"
-    strict-event-emitter: "npm:^0.5.1"
-  checksum: 10/e62b478751e9e411a1983eca1a67783d766fa7c0937d8ec695eadb2178e483f3c324ea0333f2b93aca6496a336a54b3f2b5733a593c14197084c522e394fbf25
-  languageName: node
-  linkType: hard
-
 "@mswjs/interceptors@npm:^0.37.0":
   version: 0.37.0
   resolution: "@mswjs/interceptors@npm:0.37.0"
@@ -1612,7 +1598,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/core-downloads-tracker@npm:^6.1.6":
+"@mui/core-downloads-tracker@npm:^6.1.7":
   version: 6.1.7
   resolution: "@mui/core-downloads-tracker@npm:6.1.7"
   checksum: 10/feff03857e2ae1ed46488506b22ec5c426474e7c658f2d1a2232a97f2c4796181e6769d88e58a71d0a0d608547ab85b0da306edbc6af03ba915a227f041fc17a
@@ -1635,19 +1621,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/icons-material@npm:6.1.6":
-  version: 6.1.6
-  resolution: "@mui/icons-material@npm:6.1.6"
+"@mui/icons-material@npm:6.1.7":
+  version: 6.1.7
+  resolution: "@mui/icons-material@npm:6.1.7"
   dependencies:
     "@babel/runtime": "npm:^7.26.0"
   peerDependencies:
-    "@mui/material": ^6.1.6
+    "@mui/material": ^6.1.7
     "@types/react": ^17.0.0 || ^18.0.0 || ^19.0.0
     react: ^17.0.0 || ^18.0.0 || ^19.0.0
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 10/c26b597382d9e1abbf9b73a5efe0edf385b52040828c5700cba26443b705b27e5a63236cb8abe68247c9829025f71746fca663356d9d6d32c4c1499279a0b797
+  checksum: 10/f39eafa3cc1c5fe24eccf5b5bc14510b88f5af8098b9713ff67b79f87110dc2b680f5fb02f336c38f9dc6d0f1357fee534f3de0745ed75b976364bcf648a95b6
   languageName: node
   linkType: hard
 
@@ -1713,15 +1699,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/material@npm:6.1.6":
-  version: 6.1.6
-  resolution: "@mui/material@npm:6.1.6"
+"@mui/material@npm:6.1.7":
+  version: 6.1.7
+  resolution: "@mui/material@npm:6.1.7"
   dependencies:
     "@babel/runtime": "npm:^7.26.0"
-    "@mui/core-downloads-tracker": "npm:^6.1.6"
-    "@mui/system": "npm:^6.1.6"
+    "@mui/core-downloads-tracker": "npm:^6.1.7"
+    "@mui/system": "npm:^6.1.7"
     "@mui/types": "npm:^7.2.19"
-    "@mui/utils": "npm:^6.1.6"
+    "@mui/utils": "npm:^6.1.7"
     "@popperjs/core": "npm:^2.11.8"
     "@types/react-transition-group": "npm:^4.4.11"
     clsx: "npm:^2.1.1"
@@ -1732,7 +1718,7 @@ __metadata:
   peerDependencies:
     "@emotion/react": ^11.5.0
     "@emotion/styled": ^11.3.0
-    "@mui/material-pigment-css": ^6.1.6
+    "@mui/material-pigment-css": ^6.1.7
     "@types/react": ^17.0.0 || ^18.0.0 || ^19.0.0
     react: ^17.0.0 || ^18.0.0 || ^19.0.0
     react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -1745,7 +1731,7 @@ __metadata:
       optional: true
     "@types/react":
       optional: true
-  checksum: 10/3a805c86fd3bc475ccd185904fb68e46358a67a9f72b88987d497d65ec982f78a5ebf6c6a3c5b52383b0208a25f1a6ead8955dec7b054f854c9f77701cafc7b9
+  checksum: 10/9ced69b6192b02d56f2acef228101f79a80a4cb623efcaa059eaa0aac766e259ed01b57a5205aab58f2cbf97f863af10606fe5a15b1ee1fc8743076ae8cacc20
   languageName: node
   linkType: hard
 
@@ -1855,7 +1841,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/system@npm:^6.1.6":
+"@mui/system@npm:^6.1.7":
   version: 6.1.7
   resolution: "@mui/system@npm:6.1.7"
   dependencies:
@@ -1915,7 +1901,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/utils@npm:^6.1.6, @mui/utils@npm:^6.1.7":
+"@mui/utils@npm:^6.1.7":
   version: 6.1.7
   resolution: "@mui/utils@npm:6.1.7"
   dependencies:
@@ -5748,10 +5734,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dexie@npm:4.0.9":
-  version: 4.0.9
-  resolution: "dexie@npm:4.0.9"
-  checksum: 10/e8e2867b6f9eb32030ae90aec37caca2f18f653bc6e364930e8974d4fa1488cb7cc38ff6ee816ef26928dfc28609406b782264378c32b259207a68c4a9b972fa
+"dexie@npm:4.0.10":
+  version: 4.0.10
+  resolution: "dexie@npm:4.0.10"
+  checksum: 10/d1902c319e36918545eddfa68f5a404fa6f2e32a8bdc062606aaa955ab44664833acf9f8c163719abe27a752f3b22a44ce6f11071c438510f11e40495db89769
   languageName: node
   linkType: hard
 
@@ -7706,7 +7692,7 @@ __metadata:
     "@eslint/compat": "npm:^1.2.0"
     "@eslint/eslintrc": "npm:3.2.0"
     "@eslint/js": "npm:9.15.0"
-    "@graasp/apps-query-client": "npm:3.7.2"
+    "@graasp/apps-query-client": "npm:3.7.3"
     "@graasp/sdk": "npm:4.32.1"
     "@graasp/stylis-plugin-rtl": "npm:2.2.0"
     "@graasp/ui": "npm:5.3.1"
@@ -9701,40 +9687,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"msw@npm:2.6.0":
-  version: 2.6.0
-  resolution: "msw@npm:2.6.0"
-  dependencies:
-    "@bundled-es-modules/cookie": "npm:^2.0.0"
-    "@bundled-es-modules/statuses": "npm:^1.0.1"
-    "@bundled-es-modules/tough-cookie": "npm:^0.1.6"
-    "@inquirer/confirm": "npm:^5.0.0"
-    "@mswjs/interceptors": "npm:^0.36.5"
-    "@open-draft/deferred-promise": "npm:^2.2.0"
-    "@open-draft/until": "npm:^2.1.0"
-    "@types/cookie": "npm:^0.6.0"
-    "@types/statuses": "npm:^2.0.4"
-    chalk: "npm:^4.1.2"
-    graphql: "npm:^16.8.1"
-    headers-polyfill: "npm:^4.0.2"
-    is-node-process: "npm:^1.2.0"
-    outvariant: "npm:^1.4.3"
-    path-to-regexp: "npm:^6.3.0"
-    strict-event-emitter: "npm:^0.5.1"
-    type-fest: "npm:^4.26.1"
-    yargs: "npm:^17.7.2"
-  peerDependencies:
-    typescript: ">= 4.8.x"
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  bin:
-    msw: cli/index.js
-  checksum: 10/7fec823b9350c8c2e635f6acbb0549d10b11b5622f16b9f90ee147d993458083054eaffe5ade6fcd435dd5dc66e4d5db7a4ee1f266944afeb617d2abe5afc89a
-  languageName: node
-  linkType: hard
-
-"msw@npm:^2.6.4":
+"msw@npm:2.6.5, msw@npm:^2.6.4":
   version: 2.6.5
   resolution: "msw@npm:2.6.5"
   dependencies:
@@ -12940,16 +12893,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uuid@npm:11.0.2":
-  version: 11.0.2
-  resolution: "uuid@npm:11.0.2"
-  bin:
-    uuid: dist/esm/bin/uuid
-  checksum: 10/b98082f398fa2ece8cacc2264402f739256ca70def4bb82e3a14ec70777d189c01ce1054764c3b59b8fc098b62b135a15d1b24914712904c988822e2ac9b4f44
-  languageName: node
-  linkType: hard
-
-"uuid@npm:^11.0.0":
+"uuid@npm:11.0.3, uuid@npm:^11.0.0":
   version: 11.0.3
   resolution: "uuid@npm:11.0.3"
   bin:
