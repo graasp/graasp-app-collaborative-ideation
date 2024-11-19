@@ -12,10 +12,7 @@ type RatingsResultsProps = unknown;
 
 const RatingsResults: FC<RatingsResultsProps> = () => {
   const { allResponses } = useActivityContext();
-  // const sortedResponses = useMemo(
-  //   () => sortResponsesByNumberOfVote(allResponses, allVotes),
-  //   [allResponses, allVotes],
-  // );
+
   return (
     <Stack
       direction="column"

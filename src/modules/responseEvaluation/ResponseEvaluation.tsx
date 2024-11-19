@@ -23,11 +23,11 @@ import VoteToolbar from './VoteToolbar';
 
 const ResponseEvaluation: FC = () => {
   const { t } = useTranslation();
-  const { availableResponses } = useActivityContext();
+  const { allResponses } = useActivityContext();
   const { currentStep } = useSteps();
   const evaluationType = currentStep?.evaluationType;
   const evaluationParameters = currentStep?.evaluationParameters ?? {};
-  const responses = availableResponses;
+  const responses = allResponses;
 
   const { invalidateAppData, isLoading } = useAppDataContext();
 
