@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.2.2](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.2.1...v3.2.2) (2024-11-20)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @graasp/apps-query-client to v3.7.3 ([#655](https://github.com/graasp/graasp-app-collaborative-ideation/issues/655)) ([e1f5594](https://github.com/graasp/graasp-app-collaborative-ideation/commit/e1f55946ebf8c2d993355b3c64944c8db6034b7b))
+* **deps:** update dependency @sentry/react to v8.39.0 ([#658](https://github.com/graasp/graasp-app-collaborative-ideation/issues/658)) ([89dc2b0](https://github.com/graasp/graasp-app-collaborative-ideation/commit/89dc2b09785c5b17c5df7ed9ff6c688965046e3f))
+* **deps:** update dependency lucide-react to ^0.460.0 ([#649](https://github.com/graasp/graasp-app-collaborative-ideation/issues/649)) ([43f217a](https://github.com/graasp/graasp-app-collaborative-ideation/commit/43f217a954ac4d87574e67dfc322f15603445d4d))
+* **deps:** update dependency qs to v6.13.1 ([#652](https://github.com/graasp/graasp-app-collaborative-ideation/issues/652)) ([e8c0bd4](https://github.com/graasp/graasp-app-collaborative-ideation/commit/e8c0bd42ee0ef40d5209e387419bc615f53b8432))
+* **results:** check data correctly to avoid crashes when visualizing incomplete ratings ([#645](https://github.com/graasp/graasp-app-collaborative-ideation/issues/645)) ([352736f](https://github.com/graasp/graasp-app-collaborative-ideation/commit/352736f35bd1e44cab1d9138d8c71d848f8f0b66))
+* sort responses by updatedAt descending ([#657](https://github.com/graasp/graasp-app-collaborative-ideation/issues/657)) ([683c683](https://github.com/graasp/graasp-app-collaborative-ideation/commit/683c68315615f0d5cc36abbade316b13549987ce))
+
 ## [3.2.1](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.2.0...v3.2.1) (2024-11-12)
 
 
