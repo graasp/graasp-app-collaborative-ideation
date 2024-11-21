@@ -24,7 +24,7 @@ The **Collaborative Ideation** app in Graasp was made to organize blended and on
 
 If you use this software or take inspiration from it, please, cite it as below:
 
-> La Scala, J. (2024). Collaborative Ideation (v3.0.0). Zenodo. https://doi.org/10.5281/zenodo.13862315
+> La Scala, J. (2024). Collaborative Ideation (v3.2.2). Zenodo. https://doi.org/10.5281/zenodo.14191420
 
 For citing the latest version, use the permanent DOI: [10.5281/zenodo.13862314](https://doi.org/10.5281/zenodo.13862314)
 

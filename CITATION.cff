@@ -18,8 +18,8 @@ identifiers:
     value: 10.5281/zenodo.13862314
     description: DOI of the record on Zenodo. Valid for all versions.
   - type: doi
-    value: 10.5281/zenodo.13862315
-    description: DOI of version 3.0.0
+    value: 10.5281/zenodo.14191420
+    description: DOI of version 3.2.2
   - type: url
     value: >-
       https://github.com/graasp/graasp-app-collaborative-ideation
@@ -42,5 +42,5 @@ keywords:
   - hybrid
 license: AGPL-3.0-only
 commit: ea9f04805d47f6cfe49a74280e504f3331db99c7
-version: 3.0.0
-date-released: '2024-09-30'
+version: 3.2.2
+date-released: '2024-11-20'
