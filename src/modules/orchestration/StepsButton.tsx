@@ -12,9 +12,14 @@ import Typography from '@mui/material/Typography';
 
 import { ORCHESTRATION_BAR_CY } from '@/config/selectors';
 import useSteps from '@/hooks/useSteps';
-import { ActivityStep, ActivityType } from '@/interfaces/interactionProcess';
+import {
+  ActivityStatus,
+  ActivityStep,
+  ActivityType,
+} from '@/interfaces/interactionProcess';
 
 import useStepTimer from '../common/stepTimer/useStepTimer';
+import { useActivityContext } from '../context/ActivityContext';
 import CommandButton from './CommandButton';
 import WarningNextStepDialog from './WarningNextStepDialog';
 import WarningPreviousStepDialog from './WarningPreviousStepDialog';
@@ -42,6 +47,9 @@ const StepsButton: FC<StepsButtonProps> = ({ enable }) => {
     moveToNextStep,
   } = useSteps();
 
+  const { activityState } = useActivityContext();
+  const { status } = activityState.data;
+
   const stepHasTimeout = useStepTimer();
   // const promise = useRef<Promise<void>>();
 
@@ -53,13 +61,19 @@ const StepsButton: FC<StepsButtonProps> = ({ enable }) => {
   }, [nbrOfSteps, stepIndex]);
 
   const disablePreviousStep = useMemo(
-    () => typeof previousStep === 'undefined' || isChangingStep,
-    [isChangingStep, previousStep],
+    () =>
+      typeof previousStep === 'undefined' ||
+      isChangingStep ||
+      status !== ActivityStatus.Play,
+    [isChangingStep, previousStep, status],
   );
 
   const disableNextStep = useMemo(
-    () => typeof nextStep === 'undefined' || isChangingStep,
-    [isChangingStep, nextStep],
+    () =>
+      typeof nextStep === 'undefined' ||
+      isChangingStep ||
+      status !== ActivityStatus.Play,
+    [isChangingStep, nextStep, status],
   );
 
   const nextStepColor = useMemo(() => {
