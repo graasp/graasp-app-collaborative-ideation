@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.3](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.2.2...v3.2.3) (2024-11-21)
+
+
+### Bug Fixes
+
+* disable step buttons when activity is not playing ([9de2302](https://github.com/graasp/graasp-app-collaborative-ideation/commit/9de230223665e6e8d72ce1f6e9ad51f7e7d6469a))
+
 ## [3.2.2](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.2.1...v3.2.2) (2024-11-20)
 
 
