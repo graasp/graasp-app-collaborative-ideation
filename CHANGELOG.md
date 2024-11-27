@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.4](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.2.3...v3.2.4) (2024-11-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/react to v8.40.0 ([#666](https://github.com/graasp/graasp-app-collaborative-ideation/issues/666)) ([4413a07](https://github.com/graasp/graasp-app-collaborative-ideation/commit/4413a079d388756c35287a35008603f163a6146b))
+
 ## [3.2.3](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.2.2...v3.2.3) (2024-11-21)
 
 
