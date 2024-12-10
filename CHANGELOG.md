@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.2.4](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.2.3...v3.2.4) (2024-12-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/react to v8.40.0 ([#666](https://github.com/graasp/graasp-app-collaborative-ideation/issues/666)) ([4413a07](https://github.com/graasp/graasp-app-collaborative-ideation/commit/4413a079d388756c35287a35008603f163a6146b))
+* **deps:** update dependency i18next to v23.16.8 ([#660](https://github.com/graasp/graasp-app-collaborative-ideation/issues/660)) ([dca24ee](https://github.com/graasp/graasp-app-collaborative-ideation/commit/dca24eec8459378b8a2abd965548f0f65968e69d))
+* **deps:** update dependency lucide-react to ^0.468.0 ([#673](https://github.com/graasp/graasp-app-collaborative-ideation/issues/673)) ([5b4451d](https://github.com/graasp/graasp-app-collaborative-ideation/commit/5b4451debe6549c0d0ac0d3aae9cd1ec53a5d5b0))
+* **deps:** update dependency react-i18next to v15.1.4 ([#672](https://github.com/graasp/graasp-app-collaborative-ideation/issues/672)) ([1eddc52](https://github.com/graasp/graasp-app-collaborative-ideation/commit/1eddc52e468070f5fdaad08c4b0ca80114c505c0))
+* **deps:** update dependency typescript to v5.7.2 ([#668](https://github.com/graasp/graasp-app-collaborative-ideation/issues/668)) ([7739f46](https://github.com/graasp/graasp-app-collaborative-ideation/commit/7739f46e3159aef73337a16935bf280d96e55858))
+* **deps:** update emotion monorepo to v11.13.5 ([#662](https://github.com/graasp/graasp-app-collaborative-ideation/issues/662)) ([a176eda](https://github.com/graasp/graasp-app-collaborative-ideation/commit/a176eda55cd09bd24b0d0152b94a696dc4f21549))
+
 ## [3.2.3](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.2.2...v3.2.3) (2024-11-21)
 
 
