@@ -90,7 +90,7 @@
     "@eslint/compat": "^1.2.0",
     "@eslint/eslintrc": "3.2.0",
     "@eslint/js": "9.16.0",
-    "@trivago/prettier-plugin-sort-imports": "4.3.0",
+    "@trivago/prettier-plugin-sort-imports": "5.2.2",
     "@types/d3": "^7.4.3",
     "@types/file-saver": "^2",
     "@types/i18n": "0.13.12",
