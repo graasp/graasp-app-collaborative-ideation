@@ -11376,8 +11376,8 @@ __metadata:
   linkType: hard
 
 "plotly.js@npm:^2.29.1":
-  version: 2.35.2
-  resolution: "plotly.js@npm:2.35.2"
+  version: 2.35.3
+  resolution: "plotly.js@npm:2.35.3"
   dependencies:
     "@plotly/d3": "npm:3.8.2"
     "@plotly/d3-sankey": "npm:0.7.2"
@@ -11431,7 +11431,7 @@ __metadata:
     topojson-client: "npm:^3.1.0"
     webgl-context: "npm:^2.2.0"
     world-calendars: "npm:^1.0.3"
-  checksum: 10/daa5dca25dc7895d0fea4e165a3013959f07397900125872964e0ace55fe19a7e48e0c2155f173093e0eebfe63d1e62d47eb0193ac437eb53bca66f9c56a0888
+  checksum: 10/31f84a8d5aff32011379c75b2b052f8b6f47254649e17a74772081388b35fb4899619aea19453530241eada17d40edc0dca3fc9323dc0a62ce2e99c1c93ded02
   languageName: node
   linkType: hard
 
