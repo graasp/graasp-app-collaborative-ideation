@@ -107,7 +107,7 @@
     "@typescript-eslint/eslint-plugin": "8.22.0",
     "@typescript-eslint/parser": "8.22.0",
     "@vitejs/plugin-react": "^4.2.1",
-    "@vitest/browser": "^2.0.0",
+    "@vitest/browser": "^3.0.0",
     "concurrently": "9.1.2",
     "cypress": "13.17.0",
     "env-cmd": "10.1.0",
@@ -133,7 +133,7 @@
     "vite": "^6.0.0",
     "vite-plugin-checker": "^0.8.0",
     "vite-plugin-istanbul": "^6.0.0",
-    "vitest": "^2.0.0"
+    "vitest": "^3.0.0"
   },
   "browserslist": {
     "production": [
