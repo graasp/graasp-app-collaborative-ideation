@@ -17,6 +17,7 @@ import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
 import {
   ResponseData,
   ResponseDataExchangeFormat,
+  responseDataFactory,
 } from '@/interfaces/response';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
@@ -276,15 +277,24 @@ const useResponses = ({
     responsesData: Array<ResponseDataExchangeFormat>,
   ): Promise<void> => {
     responsesData.forEach((r) =>
-      postResponse({
-        response: r.response,
-        round: r?.round,
-        bot: r?.bot,
-        assistantId: r?.assistantId,
-        encoding: r?.encoding,
-        originalResponse: r?.originalResponse,
-        givenPrompt: r?.givenPrompt,
-      }),
+      postResponse(
+        responseDataFactory(
+          {
+            response: r.response,
+            round: r?.round,
+            bot: r?.bot,
+            assistantId: r?.assistantId,
+            encoding: r?.encoding,
+            originalResponse: r?.originalResponse,
+            givenPrompt: r?.givenPrompt,
+          },
+          {
+            // TODO: Change this
+            id: accountId ?? '',
+            name: accountId ?? '',
+          },
+        ),
+      ),
     );
   };
 

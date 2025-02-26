@@ -1,4 +1,4 @@
-import { FC, ReactElement, useMemo, useRef, useState } from 'react';
+import { FC, ReactElement, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -11,19 +11,17 @@ import {
 } from '@mui/material';
 import Button from '@mui/material/Button';
 
-import { AppData } from '@graasp/sdk';
 import { Loader } from '@graasp/ui';
 
-import { ResponseAppData } from '@/config/appDataTypes';
 import { RESPONSE_MAXIMUM_LENGTH } from '@/config/constants';
 import {
   RESPONSE_INPUT_FIELD_CY,
   SUBMIT_RESPONSE_BTN_CY,
 } from '@/config/selectors';
 import useAssistants from '@/hooks/useAssistants';
-import { ResponseData } from '@/interfaces/response';
+import { InputResponseData, ResponseData } from '@/interfaces/response';
 
-import { useActivityContext } from '../context/ActivityContext';
+import { useAppStateWorkerContext } from '../appStateWorker/AppStateContext';
 import { useSettings } from '../context/SettingsContext';
 import Prompts from './prompts/Prompts';
 
@@ -38,21 +36,21 @@ const PreviousResponse: FC<{ children: ReactElement | string }> = ({
 const ResponseInput: FC<{
   onCancel: () => void;
   currentRound?: number;
-  parent?: ResponseAppData;
+  parent?: ResponseData;
   onSubmitted?: (id: string) => void;
   actAsBot?: boolean;
   // enableAssistants?: boolean;
-}> = ({ onCancel, parent, currentRound, onSubmitted, actAsBot }) => {
+}> = ({ onCancel, parent, currentRound, actAsBot, onSubmitted }) => {
   const { t } = useTranslation('translations', {
     keyPrefix: 'RESPONSE_COLLECTION.INPUT',
   });
   const { activity, instructions } = useSettings();
   const { reformulateResponses } = activity;
   const { t: generalT } = useTranslation('translations');
-  const { postResponse } = useActivityContext();
+  const { responses } = useAppStateWorkerContext();
+  const { postResponse } = responses;
   // const [isWaitingOnBot, setIsWaitingOnBot] = useState<boolean>(false);
   const [response, setResponse] = useState<string>('');
-  const promisePostIdea = useRef<Promise<AppData>>();
   const { reformulateResponse } = useAssistants();
   // const promiseBotRequest = useRef<Promise<void>>();
   const [isPosting, setIsPosting] = useState(false);
@@ -66,23 +64,6 @@ const ResponseInput: FC<{
     [instructions],
   );
 
-  // const askBot = (): void => {
-  //   setIsWaitingOnBot(true);
-  //   promiseBotRequest.current = generateSingleResponse().then(
-  //     (ans) => {
-  //       if (ans) {
-  //         setResponse(ans.data.completion);
-  //         setIsWaitingOnBot(false);
-  //       }
-  //     },
-  //     (reason: unknown) => {
-  //       // eslint-disable-next-line no-console
-  //       console.warn(reason);
-  //       setIsWaitingOnBot(false);
-  //     },
-  //   );
-  // };
-
   const submit = async (): Promise<void> => {
     setIsPosting(true);
 
@@ -92,12 +73,12 @@ const ResponseInput: FC<{
 
     // eslint-disable-next-line no-nested-ternary
     const responseToSubmit = parent
-      ? typeof parent.data.response === 'string'
-        ? [parent.data.response, processedResponse]
-        : [...parent.data.response, processedResponse]
+      ? typeof parent.response === 'string'
+        ? [parent.response, processedResponse]
+        : [...parent.response, processedResponse]
       : processedResponse;
 
-    const newIdeaData: ResponseData = reformulateResponses
+    const newIdeaData: InputResponseData = reformulateResponses
       ? {
           parentId: parent?.id,
           response: responseToSubmit,
@@ -113,21 +94,30 @@ const ResponseInput: FC<{
           givenPrompt,
           bot: actAsBot,
         };
-
-    promisePostIdea.current = postResponse(newIdeaData, true)?.then(
-      (postedIdea) => {
-        if (typeof onSubmitted !== 'undefined') {
-          onSubmitted(postedIdea.id);
-        }
-        setResponse('');
-        setIsPosting(false);
-        return postedIdea;
-      },
-      (reason: unknown) => {
-        setIsPosting(false);
-        throw new Error(`Failed to submit the response.\n${reason}`);
-      },
-    );
+    postResponse(newIdeaData, (postedResponse) => {
+      if (typeof onSubmitted !== 'undefined') {
+        onSubmitted(postedResponse.id);
+      }
+      setResponse('');
+      setIsPosting(false);
+    });
+    // if (typeof onSubmitted !== 'undefined') {
+    //   onSubmitted('id');
+    // }
+    // promisePostIdea.current = postResponse(newIdeaData, true)?.then(
+    //   (postedIdea) => {
+    //     if (typeof onSubmitted !== 'undefined') {
+    //       onSubmitted(postedIdea.id);
+    //     }
+    //     setResponse('');
+    //     setIsPosting(false);
+    //     return postedIdea;
+    //   },
+    //   (reason: unknown) => {
+    //     setIsPosting(false);
+    //     throw new Error(`Failed to submit the response.\n${reason}`);
+    //   },
+    // );
   };
   const tooLong = response.length > RESPONSE_MAXIMUM_LENGTH;
   // const disableSubmission =
@@ -140,10 +130,10 @@ const ResponseInput: FC<{
       )}
       <Prompts onChange={(p) => setGivenPrompt(p)} />
       {parent &&
-        (typeof parent.data.response === 'string' ? (
-          <PreviousResponse>{parent.data.response}</PreviousResponse>
+        (typeof parent.response === 'string' ? (
+          <PreviousResponse>{parent.response}</PreviousResponse>
         ) : (
-          parent.data.response.map((r, index) => (
+          parent.response.map((r, index) => (
             <PreviousResponse key={index}>{r}</PreviousResponse>
           ))
         ))}
@@ -185,16 +175,6 @@ const ResponseInput: FC<{
           {t('SUBMIT')}
         </Button>
         <Button onClick={onCancel}>{generalT('CANCEL')}</Button>
-        {/*         
-        {enableAssistants && (
-          <LoadingButton
-            loadingIndicator="Waiting for the bot to reply."
-            loading={isWaitingOnBot}
-            onClick={askBot}
-          >
-            Ask the bot
-          </LoadingButton>
-        )} */}
       </Stack>
       <Collapse in={isPosting}>
         <Stack direction="row" spacing={1}>

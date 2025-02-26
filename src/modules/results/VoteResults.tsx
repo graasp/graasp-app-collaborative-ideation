@@ -6,14 +6,14 @@ import Stack from '@mui/material/Stack';
 import { sortResponsesByNumberOfVote } from '@/hooks/utils/evaluation';
 import Response from '@/modules/common/response/Response';
 
-import ExportResponsesButton from '../common/ExportRepsonsesButton';
-import { useActivityContext } from '../context/ActivityContext';
+import { useAppStateWorkerContext } from '../appStateWorker/AppStateContext';
 import { useVoteContext } from '../context/VoteContext';
 
 type VoteResultsProps = unknown;
 
 const VoteResults: FC<VoteResultsProps> = () => {
-  const { allResponses } = useActivityContext();
+  const { responses } = useAppStateWorkerContext();
+  const { allResponses } = responses;
   const { allVotes } = useVoteContext();
   const sortedResponses = useMemo(
     () => sortResponsesByNumberOfVote(allResponses, allVotes),
@@ -32,13 +32,13 @@ const VoteResults: FC<VoteResultsProps> = () => {
               <Grid item key={response.id} xl={2} sm={4} xs={6}>
                 <Response
                   response={response}
-                  nbrOfVotes={response.data.evaluation?.votes}
+                  nbrOfVotes={response.evaluation?.votes}
                 />
               </Grid>
             ))
           : ''}
       </Grid>
-      <ExportResponsesButton responses={sortedResponses} />
+      {/* <ExportResponsesButton responses={sortedResponses} /> */}
     </Stack>
   );
 };

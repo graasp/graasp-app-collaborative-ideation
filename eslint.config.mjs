@@ -6,6 +6,7 @@ import tsParser from '@typescript-eslint/parser';
 import reactHooks from 'eslint-plugin-react-hooks';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import globals from 'globals';
 
 // eslint-disable-next-line no-underscore-dangle
 const __filename = fileURLToPath(import.meta.url);
@@ -155,6 +156,15 @@ export default [
 
     rules: {
       'no-restricted-syntax': ['error'],
+    },
+  },
+  {
+    files: ['src/modules/appStateWorker/worker/appStateWorker.ts'],
+    languageOptions: {
+      globals: {
+        ...globals.worker,
+        self: true,
+      },
     },
   },
 ];

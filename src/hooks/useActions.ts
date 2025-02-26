@@ -24,11 +24,12 @@ import {
 } from '@/config/appDataTypes';
 import { mutations } from '@/config/queryClient';
 import { ActivityStep } from '@/interfaces/interactionProcess';
+import { ResponseData } from '@/interfaces/response';
 
 interface UseActionsValues {
   postSubmitNewResponseAction: (response: ResponseAppData) => void;
   postDeleteResponseAction: (id: ResponseAppData['id']) => void;
-  postChooseResponseAction: (response: ResponseAppData) => void;
+  postChooseResponseAction: (response: ResponseData<undefined>) => void;
   postOpenAppAction: (
     currentState?: CurrentStateData,
     context?: LocalContext,
@@ -74,7 +75,7 @@ const useActions = (): UseActionsValues => {
   );
 
   const postChooseResponseAction = useMemo(
-    () => (response: ResponseAppData) => {
+    () => (response: ResponseData) => {
       const action: ChooseResponseAction = {
         type: AppActionTypes.ChooseResponse,
         data: response,

@@ -1,10 +1,10 @@
-import { ResponseAppData, VoteAppData } from '@/config/appDataTypes';
-import { ResponseVotes } from '@/interfaces/response';
+import { VoteAppData } from '@/config/appDataTypes';
+import { ResponseData, ResponseVotes } from '@/interfaces/response';
 
 export const sortResponsesByNumberOfVote = (
-  responses: Array<ResponseAppData>,
+  responses: Array<ResponseData>,
   votes: Array<VoteAppData>,
-): Array<ResponseAppData<ResponseVotes>> =>
+): Array<ResponseData<ResponseVotes>> =>
   responses
     .map((response) => {
       const votesForResponse = votes.filter(
@@ -13,17 +13,14 @@ export const sortResponsesByNumberOfVote = (
       const numberOfVotes = votesForResponse.length;
       return {
         ...response,
-        data: {
-          ...response.data,
-          evaluation: {
-            votes: numberOfVotes,
-          },
+        evaluation: {
+          votes: numberOfVotes,
         },
       };
     })
     .sort((r1, r2) => {
-      const v1 = r1.data?.evaluation?.votes || 0;
-      const v2 = r2.data?.evaluation?.votes || 0;
+      const v1 = r1.evaluation?.votes || 0;
+      const v2 = r2.evaluation?.votes || 0;
       if (v1 > v2) {
         return -1;
       }

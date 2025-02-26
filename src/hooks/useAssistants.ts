@@ -28,6 +28,7 @@ import {
   ListAssistantStateData,
 } from '@/interfaces/assistant';
 import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
+import { responseDataFactory } from '@/interfaces/response';
 import { useActivityContext } from '@/modules/context/ActivityContext';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
@@ -184,21 +185,32 @@ const useAssistants = (): UseAssistantsValues => {
         if (assistantResponseAppData) {
           const { completion: response, assistantId } =
             assistantResponseAppData.data;
-          return postResponse({
-            response,
-            round,
-            bot: true,
-            assistantId,
-          });
+          return postResponse(
+            responseDataFactory(
+              {
+                response,
+                round,
+                bot: true,
+                assistantId,
+              },
+              {
+                // TODO: Change this
+                id: accountId ?? '',
+                name: accountId ?? '',
+              },
+            ),
+          );
         }
         return assistantResponseAppData;
       });
     },
     [
+      accountId,
       allResponses,
       assistantsResponsesSets,
       includeDetails,
-      instructions,
+      instructions.details?.content,
+      instructions.title.content,
       postResponse,
       promptAssistant,
       promptMode,
@@ -252,16 +264,31 @@ const useAssistants = (): UseAssistantsValues => {
         });
       }
       if (response) {
-        return postResponse({
-          response,
-          round,
-          bot: true,
-          assistantId: id,
-        });
+        return postResponse(
+          responseDataFactory(
+            {
+              response,
+              round,
+              bot: true,
+              assistantId: id,
+            },
+            {
+              // TODO: Change this
+              id: accountId ?? '',
+              name: accountId ?? '',
+            },
+          ),
+        );
       }
       return undefined;
     },
-    [listAssistantsStates, postResponse, round, updateListAssistantState],
+    [
+      accountId,
+      listAssistantsStates,
+      postResponse,
+      round,
+      updateListAssistantState,
+    ],
   );
 
   const generateResponsesWithEachAssistant = useCallback(async (): Promise<

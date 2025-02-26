@@ -8,16 +8,16 @@ import Grid from '@mui/material/Grid';
 
 import { Loader } from '@graasp/ui';
 
-import { ResponseAppData } from '@/config/appDataTypes';
 import { HIGHLIGHT_RESPONSE_TIME_MS } from '@/config/constants';
 import { PROPOSE_NEW_RESPONSE_BTN_CY } from '@/config/selectors';
+import { ResponseData } from '@/interfaces/response';
 import Response from '@/modules/common/response/Response';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
 import { useSettings } from '../context/SettingsContext';
 
 interface ResponseChooseProps {
-  responses: ResponseAppData[];
+  responses: ResponseData<undefined>[];
   onChoose: (id?: string) => void;
 }
 

@@ -18,6 +18,7 @@ export enum AppDataTypes {
   ChatbotResponse = 'chatbot-response',
   Prompts = 'prompts',
   ListAssistantState = 'list-assistant-state',
+  PeerData = 'peer-data',
 }
 
 export type ResponseAppData<T extends ResponseEvaluation = undefined> =

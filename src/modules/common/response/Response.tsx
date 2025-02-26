@@ -18,12 +18,11 @@ import styled from '@mui/material/styles/styled';
 
 import { useLocalContext } from '@graasp/apps-query-client';
 
-import { ResponseAppData } from '@/config/appDataTypes';
 import { RESPONSES_TOP_COLORS } from '@/config/constants';
 import { RESPONSE_CY } from '@/config/selectors';
 import { EvaluationType } from '@/interfaces/evaluation';
 import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
-import { ResponseEvaluation } from '@/interfaces/response';
+import { ResponseData, ResponseEvaluation } from '@/interfaces/response';
 import { useSettings } from '@/modules/context/SettingsContext';
 
 import Rate from './evaluation/Rate';
@@ -43,7 +42,7 @@ const TopAnnotationTypography = styled(Typography)(() => ({
 }));
 
 interface ResponseProps {
-  response: ResponseAppData<ResponseEvaluation>;
+  response: ResponseData<ResponseEvaluation>;
   onSelect?: (id: string) => void;
   enableBuildAction?: boolean;
   onDelete?: (id: string) => void;
@@ -72,11 +71,11 @@ const Response: FC<ResponseProps> = ({
   const { accountId } = useLocalContext();
   const theme = useTheme();
 
-  const { id, data, creator } = response;
-  const { response: responseContent, round, parentId, assistantId } = data;
+  const { id, author } = response;
+  const { response: responseContent, round, parentId, assistantId } = response;
   const { activity } = useSettings();
 
-  const isOwn = creator?.id === accountId && typeof assistantId === 'undefined';
+  const isOwn = author?.id === accountId && typeof assistantId === 'undefined';
   const isAiGenerated = useMemo(
     () => typeof assistantId !== 'undefined',
     [assistantId],

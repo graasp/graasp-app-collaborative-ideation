@@ -14,8 +14,8 @@ import { EvaluationType } from '@/interfaces/evaluation';
 import Pausable from '@/modules/common/Pausable';
 import Response from '@/modules/common/response/Response';
 
+import { useAppStateWorkerContext } from '../appStateWorker/AppStateContext';
 import Instructions from '../common/Instructions';
-import { useActivityContext } from '../context/ActivityContext';
 import { useAppDataContext } from '../context/AppDataContext';
 import { RatingsProvider } from '../context/RatingsContext';
 import { VoteProvider } from '../context/VoteContext';
@@ -23,11 +23,11 @@ import VoteToolbar from './VoteToolbar';
 
 const ResponseEvaluation: FC = () => {
   const { t } = useTranslation();
-  const { allResponses } = useActivityContext();
+  const { responses } = useAppStateWorkerContext();
+  const { allResponses } = responses;
   const { currentStep } = useSteps();
   const evaluationType = currentStep?.evaluationType;
   const evaluationParameters = currentStep?.evaluationParameters ?? {};
-  const responses = allResponses;
 
   const { invalidateAppData, isLoading } = useAppDataContext();
 
@@ -83,8 +83,8 @@ const ResponseEvaluation: FC = () => {
             <Instructions />
             {renderEvaluationToolbar()}
             <Grid container spacing={2}>
-              {responses
-                ? responses.map((response) => (
+              {allResponses
+                ? allResponses.map((response) => (
                     <Grid item key={response.id} xl={2} sm={4} xs={6}>
                       <Response
                         key={response.id}

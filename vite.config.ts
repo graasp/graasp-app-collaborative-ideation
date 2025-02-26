@@ -6,6 +6,8 @@ import { UserConfigExport, defineConfig, loadEnv } from 'vite';
 import checker from 'vite-plugin-checker';
 import istanbul from 'vite-plugin-istanbul';
 import { sentryVitePlugin } from "@sentry/vite-plugin";
+import wasm from "vite-plugin-wasm";
+import topLevelAwait from "vite-plugin-top-level-await";
 
 // https://vitejs.dev/config/
 export default ({ mode }: { mode: string }): UserConfigExport => {
@@ -56,6 +58,7 @@ export default ({ mode }: { mode: string }): UserConfigExport => {
       org: "graasp",
       project: "graasp-app-collaborative-ideation",
     }),
+    wasm(), topLevelAwait()
     ],
     resolve: {
       alias: {

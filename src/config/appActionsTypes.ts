@@ -5,7 +5,7 @@ import { ActivityStep } from '@/interfaces/interactionProcess';
 import { Prompt } from '@/interfaces/prompt';
 import { ResponseData } from '@/interfaces/response';
 
-import { CurrentStateData, ResponseAppData, VoteAppData } from './appDataTypes';
+import { CurrentStateData, VoteAppData } from './appDataTypes';
 
 export enum AppActionTypes {
   SubmitNewResponse = 'submit-new-response',
@@ -39,7 +39,7 @@ export type DeleteResponseAction = Pick<AppAction, 'type' | 'data'> & {
 
 export type ChooseResponseAction = Pick<AppAction, 'type' | 'data'> & {
   type: AppActionTypes.ChooseResponse;
-  data: ResponseAppData;
+  data: ResponseData;
 };
 
 export type OpenAppAction = Pick<AppAction, 'type' | 'data'> & {

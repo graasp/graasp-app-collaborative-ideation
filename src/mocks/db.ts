@@ -4,6 +4,7 @@ import {
   AppData,
   AppDataVisibility,
   AppItemFactory,
+  AppSetting,
   CompleteMember,
   Context,
   ItemType,
@@ -11,6 +12,7 @@ import {
   MemberFactory,
   PermissionLevel,
 } from '@graasp/sdk';
+import type { AppItemType } from '@graasp/sdk';
 
 import { AppDataTypes } from '@/config/appDataTypes';
 import { API_HOST, PORT } from '@/config/env';
@@ -38,7 +40,7 @@ export const mockMembers: CompleteMember[] = [
   }),
 ];
 
-export const mockItem = AppItemFactory({
+export const mockItem: AppItemType = AppItemFactory({
   id: '1234-1234-1234-5678',
   name: 'app-collaborative-ideation',
   displayName: 'App Collaborative Ideation',
@@ -77,6 +79,20 @@ const mockAppData: AppData[] = [
   },
 ];
 
+const appSettings: AppSetting[] = [
+  {
+    id: '010',
+    item: mockItem,
+    creator: mockMembers[0],
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    data: {
+      id: mockMembers[0].id,
+    },
+    name: 'orchestrator',
+  },
+];
+
 export const defaultMockContext: LocalContext = {
   apiHost: API_HOST,
   permission: PermissionLevel.Admin,
@@ -89,7 +105,7 @@ const buildDatabase = (members?: CompleteMember[]): Database => ({
   appData: mockAppData,
   appActions: [],
   members: members ?? mockMembers,
-  appSettings: [],
+  appSettings,
   items: [mockItem],
   uploadedFiles: [],
 });

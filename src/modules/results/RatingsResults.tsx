@@ -5,13 +5,13 @@ import Stack from '@mui/material/Stack';
 
 import Response from '@/modules/common/response/Response';
 
-import ExportResponsesButton from '../common/ExportRepsonsesButton';
-import { useActivityContext } from '../context/ActivityContext';
+import { useAppStateWorkerContext } from '../appStateWorker/AppStateContext';
 
 type RatingsResultsProps = unknown;
 
 const RatingsResults: FC<RatingsResultsProps> = () => {
-  const { allResponses } = useActivityContext();
+  const { responses } = useAppStateWorkerContext();
+  const { allResponses } = responses;
 
   return (
     <Stack
@@ -27,7 +27,7 @@ const RatingsResults: FC<RatingsResultsProps> = () => {
           </Grid>
         ))}
       </Grid>
-      <ExportResponsesButton responses={allResponses} />
+      {/* <ExportResponsesButton responses={allResponses} /> */}
     </Stack>
   );
 };
