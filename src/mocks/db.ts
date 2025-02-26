@@ -6,6 +6,7 @@ import {
   LocalContext,
   PermissionLevel,
 } from '@graasp/sdk';
+import type { AppItemType, AppSetting } from '@graasp/sdk';
 
 import { API_HOST } from '@/config/env';
 

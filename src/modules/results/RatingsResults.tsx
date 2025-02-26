@@ -8,12 +8,13 @@ import ExportResponsesButton from '../common/ExportRepsonsesButton';
 import ResponsesGridContainer, {
   ResponseGridItem,
 } from '../common/ResponsesGrid';
-import { useActivityContext } from '../context/ActivityContext';
+import { useAppStateWorkerContext } from '../appStateWorker/AppStateContext';
 
 type RatingsResultsProps = unknown;
 
 const RatingsResults: FC<RatingsResultsProps> = () => {
-  const { allResponses } = useActivityContext();
+  const { responses } = useAppStateWorkerContext();
+  const { allResponses } = responses;
 
   return (
     <Stack
@@ -29,7 +30,7 @@ const RatingsResults: FC<RatingsResultsProps> = () => {
           </ResponseGridItem>
         ))}
       </ResponsesGridContainer>
-      <ExportResponsesButton responses={allResponses} />
+      {/* <ExportResponsesButton responses={allResponses} /> */}
     </Stack>
   );
 };

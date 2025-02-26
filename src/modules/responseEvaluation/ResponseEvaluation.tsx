@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Alert from '@mui/material/Alert';
@@ -8,35 +8,26 @@ import Container from '@mui/material/Container';
 import { RESPONSE_EVALUATION_VIEW_CY } from '@/config/selectors';
 import useSteps from '@/hooks/useSteps';
 import { EvaluationType } from '@/interfaces/evaluation';
-import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
 import Pausable from '@/modules/common/Pausable';
 import Response from '@/modules/common/response/Response';
 
+import { useAppStateWorkerContext } from '../appStateWorker/AppStateContext';
 import Instructions from '../common/Instructions';
 import ResponsesGridContainer, {
   ResponseGridItem,
 } from '../common/ResponsesGrid';
-import { useActivityContext } from '../context/ActivityContext';
 import { useAppDataContext } from '../context/AppDataContext';
 import { RatingsProvider } from '../context/RatingsContext';
-import { useSettings } from '../context/SettingsContext';
 import { VoteProvider } from '../context/VoteContext';
 import VoteToolbar from './VoteToolbar';
 
 const ResponseEvaluation: FC = () => {
   const { t } = useTranslation();
-  const { allResponses, availableResponses } = useActivityContext();
-  const { activity } = useSettings();
-  const { mode } = activity;
+  const { responses } = useAppStateWorkerContext();
+  const { allResponses } = responses;
   const { currentStep } = useSteps();
   const evaluationType = currentStep?.evaluationType;
   const evaluationParameters = currentStep?.evaluationParameters ?? {};
-  const responses = useMemo(() => {
-    if (mode === ResponseVisibilityMode.Individual) {
-      return availableResponses;
-    }
-    return allResponses;
-  }, [allResponses, availableResponses, mode]);
 
   const { invalidateAppData } = useAppDataContext();
 
@@ -87,8 +78,8 @@ const ResponseEvaluation: FC = () => {
             <Instructions />
             {renderEvaluationToolbar()}
             <ResponsesGridContainer>
-              {responses
-                ? responses.map((response) => (
+              {allResponses
+                ? allResponses.map((response) => (
                     <ResponseGridItem key={response.id}>
                       <Response
                         key={response.id}

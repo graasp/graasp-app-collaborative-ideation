@@ -5,9 +5,9 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 
-import { ResponseAppData } from '@/config/appDataTypes';
 import { HIGHLIGHT_RESPONSE_TIME_MS } from '@/config/constants';
 import { PROPOSE_NEW_RESPONSE_BTN_CY } from '@/config/selectors';
+import { ResponseData } from '@/interfaces/response';
 import Response from '@/modules/common/response/Response';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
@@ -17,7 +17,7 @@ import ResponsesGridContainer, {
 import { useSettings } from '../context/SettingsContext';
 
 interface ResponseChooseProps {
-  responses: ResponseAppData[];
+  responses: ResponseData<undefined>[];
   onChoose: (id?: string) => void;
 }
 

@@ -13,6 +13,7 @@ import { hooks } from '@/config/queryClient';
 import useActions from '@/hooks/useActions';
 
 import i18n from '../../config/i18n';
+import { AppStateWorkerProvider } from '../appStateWorker/AppStateContext';
 import { ActivityProvider } from '../context/ActivityContext';
 import { AppDataProvider } from '../context/AppDataContext';
 import { MembersProvider } from '../context/MembersContext';
@@ -83,7 +84,9 @@ const App = (): JSX.Element => {
     <MembersProvider>
       <SettingsProvider>
         <AppDataProvider>
-          <ActivityProvider>{renderContent()}</ActivityProvider>
+          <AppStateWorkerProvider>
+            <ActivityProvider>{renderContent()}</ActivityProvider>
+          </AppStateWorkerProvider>
         </AppDataProvider>
       </SettingsProvider>
     </MembersProvider>

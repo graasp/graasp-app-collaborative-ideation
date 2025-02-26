@@ -22,7 +22,7 @@ const {
   GRAASP_APP_KEY,
   isStandalone: MOCK_API,
   WS_HOST,
-  enableWebsocket: typeof WS_HOST !== 'undefined',
+  enableWebsocket: false,
 });
 
 export {

@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 import { useLocalContext } from '@graasp/apps-query-client';
 import { PermissionLevel } from '@graasp/sdk';
 
-import { CurrentStateData } from '@/config/appDataTypes';
+import { AppDataTypes, CurrentStateData } from '@/config/appDataTypes';
 import { INITIAL_STATE } from '@/config/constants';
 import {
   ActivityStatus,
@@ -12,8 +12,7 @@ import {
   ResponseVisibilityMode,
 } from '@/interfaces/interactionProcess';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
-import { useSettings } from '@/modules/context/SettingsContext';
-import { getAllStates, getCurrentState } from '@/utils/state';
+import { getAllStates } from '@/utils/state';
 
 import useActions from './useActions';
 
@@ -36,29 +35,34 @@ export interface UseActivityStateValues {
 }
 
 const useActivityState = (): UseActivityStateValues => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [stateWarning, setStateWarning] = useState(false);
 
   const { postPlayActivityAction, postPauseActivityAction } = useActions();
 
-  const {
-    appData,
-    postAppDataAsync,
-    patchAppDataAsync,
-    deleteAppData,
-    invalidateAppData,
-  } = useAppDataContext();
-  const { orchestrator, activity } = useSettings();
-  const { mode } = activity;
-  const { permission, accountId } = useLocalContext();
+  const { appData, postAppData, patchAppData, deleteAppData } =
+    useAppDataContext();
+  // const { orchestrator } = useSettings();
+  const { permission } = useLocalContext();
 
-  const activityState = useMemo(() => {
-    const state =
-      mode === ResponseVisibilityMode.Individual
-        ? getCurrentState(appData, accountId ?? '')
-        : getCurrentState(appData, orchestrator.id);
-    setStateWarning(state?.multipleStatesFound === true);
-    return state.currentState;
-  }, [accountId, appData, mode, orchestrator]);
+  const activityState = useMemo(
+    () =>
+      // const state = getCurrentState(appData, orchestrator.id);
+      // setStateWarning(state?.multipleStatesFound === true);
+      // return state.currentState;
+      ({
+        id: 'ercoaberub',
+        type: AppDataTypes.CurrentState,
+        data: {
+          round: 1,
+          status: ActivityStatus.Play,
+          activity: ActivityType.Collection,
+          startTime: new Date(),
+          stepIndex: undefined,
+        },
+      }),
+    [],
+  );
 
   const round = useMemo(() => activityState?.data.round || 0, [activityState]);
 

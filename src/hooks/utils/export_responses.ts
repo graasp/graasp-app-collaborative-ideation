@@ -2,27 +2,27 @@ import { saveAs } from 'file-saver';
 import cloneDeep from 'lodash.clonedeep';
 import Papa from 'papaparse';
 
-import { ResponseAppData } from '@/config/appDataTypes';
 import {
+  ResponseData,
   ResponseDataExchangeFormat,
   ResponseEvaluation,
 } from '@/interfaces/response';
 
 const exportResponses = async (
-  responses: Array<ResponseAppData<ResponseEvaluation>>,
+  responses: Array<ResponseData<ResponseEvaluation>>,
 ): Promise<void> => {
   const responsesToExport = cloneDeep(responses);
   const extractedData = responsesToExport.map((responseAppData, index) => {
-    const evaluation = responseAppData.data?.evaluation;
+    const evaluation = responseAppData?.evaluation;
     try {
       // eslint-disable-next-line no-param-reassign
-      delete responseAppData.data.evaluation;
+      delete responseAppData.evaluation;
     } catch (error) {
       // eslint-disable-next-line no-console
       console.warn(error);
     }
     const dataToExport: ResponseDataExchangeFormat = {
-      ...responseAppData.data,
+      ...responseAppData,
       id: index,
     };
     if (typeof evaluation !== 'undefined') {

@@ -6,14 +6,15 @@ import Container from '@mui/material/Container';
 import Snackbar from '@mui/material/Snackbar';
 import Stack from '@mui/material/Stack';
 
-import { ResponseAppData } from '@/config/appDataTypes';
 import { RESPONSE_COLLECTION_VIEW_CY } from '@/config/selectors';
 import useActions from '@/hooks/useActions';
 import useSteps from '@/hooks/useSteps';
 import { IdeationPhases } from '@/interfaces/interactionProcess';
+import { ResponseData } from '@/interfaces/response';
 import Instructions from '@/modules/common/Instructions';
 import Pausable from '@/modules/common/Pausable';
 
+import { useAppStateWorkerContext } from '../appStateWorker/AppStateContext';
 import Round from '../common/Round';
 import Timer from '../common/Timer';
 import { useActivityContext } from '../context/ActivityContext';
@@ -22,10 +23,14 @@ import IdeaInput from './ResponseInput';
 
 const ResponseCollection: FC = () => {
   const { t } = useTranslation('translations');
-  const { round, activityState, availableResponses } = useActivityContext();
+  const { round, activityState } = useActivityContext();
+
+  const { responses } = useAppStateWorkerContext();
+  const { allResponses } = responses;
+  const availableResponses = allResponses;
   const { currentStep } = useSteps();
   const { postChooseResponseAction } = useActions();
-  const [chosenIdea, setChosenIdea] = useState<ResponseAppData>();
+  const [chosenIdea, setChosenIdea] = useState<ResponseData<undefined>>();
   const [phase, setPhase] = useState<number>(IdeationPhases.Choose);
 
   const { startTime } = activityState.data;

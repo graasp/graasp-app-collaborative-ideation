@@ -8,12 +8,13 @@ import ExportResponsesButton from '../common/ExportRepsonsesButton';
 import ResponsesGridContainer, {
   ResponseGridItem,
 } from '../common/ResponsesGrid';
-import { useActivityContext } from '../context/ActivityContext';
+import { useAppStateWorkerContext } from '../appStateWorker/AppStateContext';
 
 type NoEvaluationResultsProps = unknown;
 
 const NoEvaluationResults: FC<NoEvaluationResultsProps> = () => {
-  const { allResponses } = useActivityContext();
+  const { responses } = useAppStateWorkerContext();
+  const { allResponses } = responses;
   return (
     <Stack
       direction="column"
@@ -33,7 +34,7 @@ const NoEvaluationResults: FC<NoEvaluationResultsProps> = () => {
           <p>Nothing to show.</p>
         )}
       </ResponsesGridContainer>
-      <ExportResponsesButton responses={allResponses} />
+      {/* <ExportResponsesButton responses={allResponses} /> */}
     </Stack>
   );
 };
