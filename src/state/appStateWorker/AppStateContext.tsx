@@ -12,9 +12,9 @@ import {
   AppStateEventType,
   AppStateWorkerConfig,
 } from './appStateWorkerConfig';
-import { PeerMessage, PeerMessageType } from './peerMessages';
-import usePeer from './usePeer';
 import AppStateWorker from './worker/appStateWorker?worker';
+import { PeerMessage, PeerMessageType } from '@/peers/peerMessages';
+import usePeer from '@/peers/usePeer';
 
 export type AppStateWorkerContextType = {
   responses: {
@@ -45,7 +45,30 @@ export const AppStateWorkerProvider = ({ children }: Props): JSX.Element => {
   //     new Worker(new URL('../workers/AppStateWorker.js', import.meta.url)), []);
   const appStateWorker: Worker = useMemo(() => new AppStateWorker(), []);
 
-  const { broadcast, setOnReceive } = usePeer();
+  const handleReceive = useCallback(
+    (message: PeerMessage, from: string) => {
+      console.debug('Received message', message, ' from ', from);
+      switch (message.type) {
+        case PeerMessageType.UPDATE: {
+          const dataBuffer = message.data as Uint8Array;
+          console.log('Data buffer:', dataBuffer);
+          appStateWorker.postMessage(
+            {
+              type: AppStateEventType.POST_UPDATE,
+              data: dataBuffer,
+            },
+            [dataBuffer],
+          );
+          break;
+        }
+        default:
+          console.warn('Unknown message type', message.type, ' from ', from);
+      }
+    },
+    [appStateWorker],
+  );
+
+  const { broadcast } = usePeer(handleReceive);
 
   // TODO: Take config from the backend
   const workerConfig: AppStateWorkerConfig = {
@@ -54,28 +77,6 @@ export const AppStateWorkerProvider = ({ children }: Props): JSX.Element => {
       name: 'John Doe',
     },
   };
-
-  const handleReceive = useCallback(
-    (message: PeerMessage, from: string) => {
-      console.debug('Received message', message, ' from ', from);
-      switch (message.type) {
-        case PeerMessageType.UPDATE:
-        appStateWorker.postMessage({
-          type: AppStateEventType.POST_UPDATE,
-          data: message.data,
-        });
-        break;
-        default:
-          console.warn('Unknown message type', message.type, ' from ', from);
-      }
-    },
-    [appStateWorker],
-  );
-
-  useEffect(() => {
-    setOnReceive(() => handleReceive);
-    return () => setOnReceive(() => undefined);
-  }, [setOnReceive, handleReceive]);
 
   useEffect(() => {
     console.debug(

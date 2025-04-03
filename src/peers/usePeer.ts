@@ -1,14 +1,10 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { useLocalContext } from '@graasp/apps-query-client';
-import { AppDataVisibility } from '@graasp/sdk';
 
 import { DataConnection, Peer } from 'peerjs';
 
-import { AppDataTypes } from '@/config/appDataTypes';
-
-import { useAppDataContext } from '../context/AppDataContext';
 import { PeerMessage, PeerMessageType } from './peerMessages';
+import useGraaspSignaling from './useGraaspSignaling';
 
 export enum PeerStatus {
   CONNECTED = 'CONNECTED',
@@ -19,43 +15,20 @@ export enum PeerStatus {
 interface UsePeerValues {
   connectToPeer: (peerId: string) => void;
   broadcast: (message: PeerMessage) => void;
-  setOnReceive: (
-    callback: (message: PeerMessage, from?: string) => void,
-  ) => void;
   status: PeerStatus;
 }
 
-const usePeer = (): UsePeerValues => {
+const defaultOnMessage = (message: PeerMessage, from?: string): void => {
+  console.info('Received ', message, ' from ', from);
+};
+
+const usePeer = (onMessage: (message: PeerMessage, from?: string) => void = defaultOnMessage): UsePeerValues => {
   const peer = useRef<Peer | null>(null);
 
-  const { appData, postAppData, patchAppData } = useAppDataContext();
+  const [myPeerId, setMyPeerId] = useState<string>();
 
-  const { accountId } = useLocalContext();
-
-  const myPeerData = useMemo(
-    () =>
-      appData.find(
-        ({ type, creator }) =>
-          type === AppDataTypes.PeerData && creator?.id === accountId,
-      ),
-    [accountId, appData],
-  );
-  const peers = useMemo<string[]>(
-    () =>
-      appData
-        .filter(
-          ({ type, creator }) =>
-            type === AppDataTypes.PeerData && creator?.id !== accountId,
-        )
-        .map(({ data }) => data?.id as string),
-    [accountId, appData],
-  );
+  const { peersInfos } = useGraaspSignaling(myPeerId);
   const [dataChannels, setDataChannels] = useState<Array<DataConnection>>([]);
-  const [handleReceive, setOnReceive] = useState<
-    (message: PeerMessage, from?: string) => void
-  >(() => (message: PeerMessage, from: string) => {
-    console.info('Received ', message, ' from ', from);
-  });
 
   const [status, setStatus] = useState(PeerStatus.NONE);
 
@@ -69,7 +42,7 @@ const usePeer = (): UsePeerValues => {
         ]);
       });
       dataChannel.on('data', (data) => {
-        handleReceive(data as PeerMessage, dataChannel.peer);
+        onMessage(data as PeerMessage, dataChannel.peer);
       });
       dataChannel.on('close', () => {
         console.info('Data channel closed');
@@ -78,7 +51,7 @@ const usePeer = (): UsePeerValues => {
         );
       });
     },
-    [handleReceive],
+    [onMessage],
   );
 
   useEffect(() => {
@@ -96,23 +69,7 @@ const usePeer = (): UsePeerValues => {
     newPeer.on('open', (id) => {
       console.info(`Peer connected with id: ${id}`);
       setStatus(PeerStatus.CONNECTED);
-      if (myPeerData) {
-        if (myPeerData.data.id !== id) {
-          console.debug(
-            'Patching peer data old id:',
-            myPeerData.data.id,
-            ' with new id:',
-            id,
-          );
-          patchAppData({ id: myPeerData.id, data: { id } });
-        }
-      } else {
-        postAppData({
-          type: AppDataTypes.PeerData,
-          data: { id },
-          visibility: AppDataVisibility.Item,
-        });
-      }
+      setMyPeerId(id);
     });
 
     newPeer.on('connection', setupDataChannel);
@@ -126,6 +83,7 @@ const usePeer = (): UsePeerValues => {
       newPeer.disconnect();
       newPeer.destroy();
       peer.current = null;
+      setMyPeerId(undefined);
       setStatus(PeerStatus.NONE);
     };
   }, []);
@@ -148,13 +106,13 @@ const usePeer = (): UsePeerValues => {
   const ENABLE_HEARTBEAT = false;
   useEffect(() => {
     if (ENABLE_HEARTBEAT) {
-    const interval = setInterval(() => {
-      broadcast({ type: PeerMessageType.heartbeat, data: 'ping' });
-    }, 1000);
+      const interval = setInterval(() => {
+        broadcast({ type: PeerMessageType.heartbeat, data: 'ping' });
+      }, 1000);
 
-    return () => clearInterval(interval);
-  }
-  return undefined;
+      return () => clearInterval(interval);
+    }
+    return undefined;
   }, [ENABLE_HEARTBEAT, broadcast]);
 
   const connectToPeer = useCallback(
@@ -172,16 +130,15 @@ const usePeer = (): UsePeerValues => {
     [peer, setupDataChannel],
   );
   useEffect(() => {
-    if (peers.length > 0) {
-      peers.forEach((peerId) => {
-        connectToPeer(peerId);
+    if (peersInfos.length > 0) {
+      peersInfos.forEach(({ id }) => {
+        connectToPeer(id);
       });
     }
-  }, [connectToPeer, peers]);
+  }, [connectToPeer, peersInfos]);
 
   return {
     broadcast,
-    setOnReceive,
     connectToPeer,
     status,
   };
