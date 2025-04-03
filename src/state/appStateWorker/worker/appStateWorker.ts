@@ -32,9 +32,12 @@ responses.subscribe((event: LoroEventBatch) => {
 
 doc.subscribe(() => {
   self.console.log('Document updated');
-  const { updateMessage, updateVersion } = getUpdate(doc, lastUpdateVersion);
+  const { updateMessage, updateVersion, transferables } = getUpdate(
+    doc,
+    lastUpdateVersion,
+  );
   lastUpdateVersion = updateVersion;
-  self.postMessage(updateMessage);
+  self.postMessage(updateMessage, transferables);
 });
 
 self.addEventListener('online', () => {
@@ -55,10 +58,12 @@ self.addEventListener('message', (event: MessageEvent) => {
         self.postMessage(postResponse(data, config.author, responses));
         doc.commit();
         break;
-      case AppStateEventType.POST_UPDATE:
-        self.console.log('Received update');
-        doc.import(data);
+      case AppStateEventType.POST_UPDATE: {
+        self.console.log('Received update with data:', data);
+        const buffer = new Uint8Array(data);
+        doc.import(buffer);
         break;
+      }
       case 'delete':
         break;
       default:

@@ -9,15 +9,17 @@ export const getUpdate = (
 ): {
   updateMessage: { type: AppStateEventType; data: Uint8Array };
   updateVersion: VersionVector;
+  transferables: Transferable[];
 } => {
-//   const updateData = doc.export({ mode: 'update', from: lastUpdateVersion });
-  const updateData = doc.export({ mode: 'snapshot'});
-  console.log("Snapshot: ", updateData);
+  //   const updateData = doc.export({ mode: 'update', from: lastUpdateVersion });
+  const updateData = doc.export({ mode: 'snapshot' });
+  console.log('Snapshot: ', updateData);
   return {
     updateMessage: {
       type: AppStateEventType.SEND_UPDATE,
       data: updateData,
     },
     updateVersion: doc.version(),
+    transferables: [updateData.buffer],
   };
 };
