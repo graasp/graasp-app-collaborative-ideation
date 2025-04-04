@@ -19,7 +19,6 @@ import {
 } from '@/config/appActionsTypes';
 import {
   CurrentStateData,
-  ResponseAppData,
   VoteAppData,
 } from '@/config/appDataTypes';
 import { mutations } from '@/config/queryClient';
@@ -27,8 +26,8 @@ import { ActivityStep } from '@/interfaces/interactionProcess';
 import { ResponseData } from '@/interfaces/response';
 
 interface UseActionsValues {
-  postSubmitNewResponseAction: (response: ResponseAppData) => void;
-  postDeleteResponseAction: (id: ResponseAppData['id']) => void;
+  postSubmitNewResponseAction: (response: ResponseData) => void;
+  postDeleteResponseAction: (id: ResponseData['id']) => void;
   postChooseResponseAction: (response: ResponseData<undefined>) => void;
   postOpenAppAction: (
     currentState?: CurrentStateData,
@@ -47,14 +46,10 @@ interface UseActionsValues {
 const useActions = (): UseActionsValues => {
   const { mutate: postAppAction } = mutations.usePostAppAction();
   const postSubmitNewResponseAction = useMemo(
-    () => (response: ResponseAppData) => {
+    () => (response: ResponseData) => {
       const action: SubmitNewResponseAction = {
         type: AppActionTypes.SubmitNewResponse,
-        data: {
-          id: response.id,
-          type: response.type,
-          data: response.data,
-        },
+        data: response,
       };
       postAppAction(action);
     },
@@ -62,7 +57,7 @@ const useActions = (): UseActionsValues => {
   );
 
   const postDeleteResponseAction = useMemo(
-    () => (id: ResponseAppData['id']) => {
+    () => (id: ResponseData['id']) => {
       const action: DeleteResponseAction = {
         type: AppActionTypes.DeleteResponse,
         data: {

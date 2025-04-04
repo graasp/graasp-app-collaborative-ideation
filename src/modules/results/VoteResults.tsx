@@ -5,17 +5,16 @@ import Stack from '@mui/material/Stack';
 import { sortResponsesByNumberOfVote } from '@/hooks/utils/evaluation';
 import Response from '@/modules/common/response/Response';
 
+import { useResponsesContext } from '@/state/ResponsesContext';
 import ResponsesGridContainer, {
   ResponseGridItem,
 } from '../common/ResponsesGrid';
-import { useAppStateWorkerContext } from '../appStateWorker/AppStateContext';
 import { useVoteContext } from '../context/VoteContext';
 
 type VoteResultsProps = unknown;
 
 const VoteResults: FC<VoteResultsProps> = () => {
-  const { responses } = useAppStateWorkerContext();
-  const { allResponses } = responses;
+  const { allResponses } = useResponsesContext();
   const { allVotes } = useVoteContext();
   const sortedResponses = useMemo(() => sortResponsesByNumberOfVote(allResponses, allVotes), [allResponses, allVotes]);
   return (

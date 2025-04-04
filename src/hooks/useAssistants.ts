@@ -8,7 +8,6 @@ import {
   AppDataTypes,
   ChatbotResponseAppData,
   ListAssistantStateAppData,
-  ResponseAppData,
 } from '@/config/appDataTypes';
 import {
   DEFAULT_CHATBOT_RESPONSE_APP_DATA,
@@ -28,12 +27,12 @@ import {
   ListAssistantStateData,
 } from '@/interfaces/assistant';
 import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
-import { responseDataFactory } from '@/interfaces/response';
-import { useActivityContext } from '@/modules/context/ActivityContext';
+import { ResponseData, responseDataFactory } from '@/interfaces/response';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 
-import { makeAssistantResponse } from './utils/assistants';
+import { useResponsesContext } from '@/state/ResponsesContext';
+import useActivityState from '@/state/useActivityState';
 import { joinMultipleResponses } from './utils/responses';
 
 interface UseAssistantsValues {
@@ -45,7 +44,7 @@ interface UseAssistantsValues {
     response: string,
   ) => Promise<ChatbotResponseAppData | undefined>;
   generateResponsesWithEachAssistant: () => Promise<
-    Promise<ResponseAppData | undefined>[]
+    Promise<ResponseData | undefined>[]
   >;
 }
 
@@ -68,8 +67,10 @@ const useAssistants = (): UseAssistantsValues => {
   const { mode, numberOfParticipantsResponsesTriggeringResponsesGeneration } =
     activity;
 
-  const { assistantsResponsesSets, round, allResponses, postResponse } =
-    useActivityContext();
+  const { round } =
+    useActivityState();
+
+  const { postResponse, allResponses } = useResponsesContext();
 
   const listAssistantsStates = useMemo(
     () =>
@@ -149,22 +150,10 @@ const useAssistants = (): UseAssistantsValues => {
   const generateResponseWithLLMAssistant = useCallback(
     async (
       assistant: AssistantPersona<LLMAssistantConfiguration>,
-    ): Promise<ResponseAppData | undefined> => {
+    ): Promise<ResponseData | undefined> => {
       let promise: Promise<ChatbotResponseAppData | undefined>;
-      const assistantSet = assistantsResponsesSets.find(
-        (set) =>
-          set.data.assistant === assistant.id && set.data.round === round - 1,
-      );
-      if (
-        assistantSet &&
-        (mode === ResponseVisibilityMode.PartiallyBlind ||
-          mode === ResponseVisibilityMode.Open)
-      ) {
-        const responses = assistantSet.data.responses.map((r) =>
-          joinMultipleResponses(
-            allResponses.find(({ id }) => r === id)?.data.response || '',
-          ),
-        );
+      if (allResponses.length > 0) {
+        const responses = allResponses.map((r) => r.response);
         promise = promptAssistant(
           assistant,
           promptForSingleResponseAndProvideResponses(
@@ -175,9 +164,9 @@ const useAssistants = (): UseAssistantsValues => {
             promptMode,
           ),
         );
-      } else if (mode === ResponseVisibilityMode.OpenLive) {
+      } else if (mode === ResponseVisibilityMode.Sync) {
         const responses = allResponses.map((r) =>
-          joinMultipleResponses(r.data.response),
+          joinMultipleResponses(r.response),
         );
         promise = promptAssistant(
           assistant,
@@ -223,19 +212,7 @@ const useAssistants = (): UseAssistantsValues => {
         return assistantResponseAppData;
       });
     },
-    [
-      accountId,
-      allResponses,
-      assistantsResponsesSets,
-      includeDetails,
-      instructions.details?.content,
-      instructions.title.content,
-      postResponse,
-      promptAssistant,
-      promptMode,
-      round,
-      t,
-    ],
+    [accountId, allResponses, includeDetails, instructions.details?.content, instructions.title.content, mode, postResponse, promptAssistant, promptMode, round, t],
   );
 
   const updateListAssistantState = useCallback(
@@ -262,7 +239,7 @@ const useAssistants = (): UseAssistantsValues => {
   const generateResponseWithListAssistant = useCallback(
     async (
       assistant: AssistantPersona<ListAssistantConfiguration>,
-    ): Promise<ResponseAppData | undefined> => {
+    ): Promise<ResponseData | undefined> => {
       const { id, configuration } = assistant;
       const state = listAssistantsStates.find(
         (s) => s.data.assistantRef === id,
@@ -311,7 +288,7 @@ const useAssistants = (): UseAssistantsValues => {
   );
 
   const generateResponsesWithEachAssistant = useCallback(async (): Promise<
-    Promise<ResponseAppData | undefined>[]
+    Promise<ResponseData | undefined>[]
   > => {
     const lLMAssistants = assistants.assistants.filter(
       (a) => a.type === AssistantType.LLM,
@@ -335,7 +312,7 @@ const useAssistants = (): UseAssistantsValues => {
   // Automatic responses generation effect for live mode
   useEffect(() => {
     if (
-      mode === ResponseVisibilityMode.OpenLive &&
+      mode === ResponseVisibilityMode.Sync &&
       orchestrator.id === accountId
     ) {
       const previousNumberOfResponses = parseInt(

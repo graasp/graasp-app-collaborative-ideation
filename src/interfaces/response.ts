@@ -22,7 +22,7 @@ export type ResponseData<
 > = {
   id: string;
   author: Author;
-  response: string | Array<string>;
+  response: string;
   round?: number;
   bot?: boolean;
   assistantId?: AssistantId;

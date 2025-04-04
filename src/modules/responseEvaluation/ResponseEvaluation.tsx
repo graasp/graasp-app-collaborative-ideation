@@ -11,7 +11,7 @@ import { EvaluationType } from '@/interfaces/evaluation';
 import Pausable from '@/modules/common/Pausable';
 import Response from '@/modules/common/response/Response';
 
-import { useAppStateWorkerContext } from '../appStateWorker/AppStateContext';
+import { useResponsesContext } from '@/state/ResponsesContext';
 import Instructions from '../common/Instructions';
 import ResponsesGridContainer, {
   ResponseGridItem,
@@ -23,8 +23,7 @@ import VoteToolbar from './VoteToolbar';
 
 const ResponseEvaluation: FC = () => {
   const { t } = useTranslation();
-  const { responses } = useAppStateWorkerContext();
-  const { allResponses } = responses;
+  const { allResponses } = useResponsesContext();
   const { currentStep } = useSteps();
   const evaluationType = currentStep?.evaluationType;
   const evaluationParameters = currentStep?.evaluationParameters ?? {};

@@ -87,7 +87,7 @@ const Response: FC<ResponseProps> = ({
   const showSelectButton = typeof onSelect !== 'undefined';
   const showDeleteButton = typeof onDelete !== 'undefined' && isOwn;
   const showActions = showDeleteButton || showSelectButton;
-  const isLive = activity.mode === ResponseVisibilityMode.OpenLive;
+  const isLive = activity.mode === ResponseVisibilityMode.Sync;
 
   const renderEvaluationComponent = (): JSX.Element | null => {
     switch (evaluationType) {
@@ -126,10 +126,7 @@ const Response: FC<ResponseProps> = ({
         backgroundColor: theme.palette.primary.main,
       };
     }
-    const rLength =
-      typeof responseContent === 'string'
-        ? responseContent.length
-        : responseContent.length;
+    const rLength = responseContent.length;
     const colorIndex = rLength % RESPONSES_TOP_COLORS.length;
     return {
       backgroundColor: RESPONSES_TOP_COLORS[colorIndex],

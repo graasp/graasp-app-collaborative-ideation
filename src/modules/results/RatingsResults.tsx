@@ -4,17 +4,16 @@ import Stack from '@mui/material/Stack';
 
 import Response from '@/modules/common/response/Response';
 
+import { useResponsesContext } from '@/state/ResponsesContext';
 import ExportResponsesButton from '../common/ExportRepsonsesButton';
 import ResponsesGridContainer, {
   ResponseGridItem,
 } from '../common/ResponsesGrid';
-import { useAppStateWorkerContext } from '../appStateWorker/AppStateContext';
 
 type RatingsResultsProps = unknown;
 
 const RatingsResults: FC<RatingsResultsProps> = () => {
-  const { responses } = useAppStateWorkerContext();
-  const { allResponses } = responses;
+  const { allResponses } = useResponsesContext();
 
   return (
     <Stack
@@ -30,7 +29,7 @@ const RatingsResults: FC<RatingsResultsProps> = () => {
           </ResponseGridItem>
         ))}
       </ResponsesGridContainer>
-      {/* <ExportResponsesButton responses={allResponses} /> */}
+      <ExportResponsesButton responses={allResponses} />
     </Stack>
   );
 };

@@ -12,9 +12,9 @@ import { SENTRY_ENV } from '@/config/env';
 import { hooks } from '@/config/queryClient';
 import useActions from '@/hooks/useActions';
 
-import { AppStateWorkerProvider } from '@/state/appStateWorker/AppStateContext';
+import { LoroProvider } from '@/state/LoroContext';
+import { ResponsesProvider } from '@/state/ResponsesContext';
 import i18n from '../../config/i18n';
-import { ActivityProvider } from '../context/ActivityContext';
 import { AppDataProvider } from '../context/AppDataContext';
 import { MembersProvider } from '../context/MembersContext';
 import { SettingsProvider } from '../context/SettingsContext';
@@ -84,9 +84,9 @@ const App = (): JSX.Element => {
     <MembersProvider>
       <SettingsProvider>
         <AppDataProvider>
-          <AppStateWorkerProvider>
-            <ActivityProvider>{renderContent()}</ActivityProvider>
-          </AppStateWorkerProvider>
+          <LoroProvider>
+            <ResponsesProvider>{renderContent()}</ResponsesProvider>
+          </LoroProvider>
         </AppDataProvider>
       </SettingsProvider>
     </MembersProvider>

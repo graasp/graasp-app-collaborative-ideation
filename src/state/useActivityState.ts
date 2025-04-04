@@ -5,6 +5,7 @@ import { PermissionLevel } from '@graasp/sdk';
 
 import { AppDataTypes, CurrentStateData } from '@/config/appDataTypes';
 import { INITIAL_STATE } from '@/config/constants';
+import useActions from '@/hooks/useActions';
 import {
   ActivityStatus,
   ActivityStep,
@@ -13,8 +14,6 @@ import {
 } from '@/interfaces/interactionProcess';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { getAllStates } from '@/utils/state';
-
-import useActions from './useActions';
 
 export interface UseActivityStateValues {
   activityState: {
