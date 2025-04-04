@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-
 import { DataConnection, Peer } from 'peerjs';
 
 import { PeerMessage, PeerMessageType } from './peerMessages';
@@ -22,7 +21,9 @@ const defaultOnMessage = (message: PeerMessage, from?: string): void => {
   console.info('Received ', message, ' from ', from);
 };
 
-const usePeer = (onMessage: (message: PeerMessage, from?: string) => void = defaultOnMessage): UsePeerValues => {
+const usePeer = (
+  onMessage: (message: PeerMessage, from?: string) => void = defaultOnMessage,
+): UsePeerValues => {
   const peer = useRef<Peer | null>(null);
 
   const [myPeerId, setMyPeerId] = useState<string>();

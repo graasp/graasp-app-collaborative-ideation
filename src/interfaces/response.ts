@@ -22,12 +22,11 @@ export type ResponseData<
 > = {
   id: string;
   author: Author;
-  response: string | Array<string>;
+  response: string;
   round?: number;
   bot?: boolean;
   assistantId?: AssistantId;
   parentId?: string;
-  encoding?: 'raw' | 'markdown';
   originalResponse?: string;
   givenPrompt?: string;
   evaluation?: EvaluationType;
@@ -48,7 +47,6 @@ export const responseDataFactory = (
     partialResponse?.bot ?? typeof partialResponse?.assistantId !== 'undefined'
   ),
   parentId: partialResponse?.parentId,
-  encoding: partialResponse?.encoding ?? 'raw',
   originalResponse: partialResponse?.originalResponse,
   givenPrompt: partialResponse?.givenPrompt,
   evaluation: partialResponse?.evaluation,

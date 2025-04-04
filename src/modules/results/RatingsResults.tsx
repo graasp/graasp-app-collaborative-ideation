@@ -5,13 +5,12 @@ import Stack from '@mui/material/Stack';
 
 import Response from '@/modules/common/response/Response';
 
-import { useAppStateWorkerContext } from '../appStateWorker/AppStateContext';
+import { useResponsesContext } from '@/state/ResponsesContext';
 
 type RatingsResultsProps = unknown;
 
 const RatingsResults: FC<RatingsResultsProps> = () => {
-  const { responses } = useAppStateWorkerContext();
-  const { allResponses } = responses;
+  const { allResponses } = useResponsesContext();
 
   return (
     <Stack

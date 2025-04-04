@@ -18,10 +18,11 @@ import {
   RESPONSE_INPUT_FIELD_CY,
   SUBMIT_RESPONSE_BTN_CY,
 } from '@/config/selectors';
-import useAssistants from '@/hooks/useAssistants';
-import { InputResponseData, ResponseData } from '@/interfaces/response';
+import { InputResponseData, ResponseData, responseDataFactory } from '@/interfaces/response';
 
-import { useAppStateWorkerContext } from '../appStateWorker/AppStateContext';
+import { useResponsesContext } from '@/state/ResponsesContext';
+import useParticipants from '@/state/useParticipants';
+import { participantToAuthor } from '@/interfaces/participant';
 import { useSettings } from '../context/SettingsContext';
 import Prompts from './prompts/Prompts';
 
@@ -38,21 +39,18 @@ const ResponseInput: FC<{
   currentRound?: number;
   parent?: ResponseData;
   onSubmitted?: (id: string) => void;
-  actAsBot?: boolean;
-  // enableAssistants?: boolean;
-}> = ({ onCancel, parent, currentRound, actAsBot, onSubmitted }) => {
+}> = ({ onCancel, parent, currentRound, onSubmitted }) => {
   const { t } = useTranslation('translations', {
     keyPrefix: 'RESPONSE_COLLECTION.INPUT',
   });
-  const { activity, instructions } = useSettings();
-  const { reformulateResponses } = activity;
+  const { instructions } = useSettings();
   const { t: generalT } = useTranslation('translations');
-  const { responses } = useAppStateWorkerContext();
-  const { postResponse } = responses;
-  // const [isWaitingOnBot, setIsWaitingOnBot] = useState<boolean>(false);
+  const { postResponse } = useResponsesContext();
+  const { me: myselfAsParticipant } = useParticipants();
+  const me = participantToAuthor(myselfAsParticipant);
+
   const [response, setResponse] = useState<string>('');
-  const { reformulateResponse } = useAssistants();
-  // const promiseBotRequest = useRef<Promise<void>>();
+
   const [isPosting, setIsPosting] = useState(false);
   const [givenPrompt, setGivenPrompt] = useState<string>();
 
@@ -67,34 +65,15 @@ const ResponseInput: FC<{
   const submit = async (): Promise<void> => {
     setIsPosting(true);
 
-    const processedResponse = reformulateResponses
-      ? ((await reformulateResponse(response))?.data.completion ?? response)
-      : response;
-
-    // eslint-disable-next-line no-nested-ternary
-    const responseToSubmit = parent
-      ? typeof parent.response === 'string'
-        ? [parent.response, processedResponse]
-        : [...parent.response, processedResponse]
-      : processedResponse;
-
-    const newIdeaData: InputResponseData = reformulateResponses
-      ? {
+    const input: InputResponseData = {
           parentId: parent?.id,
-          response: responseToSubmit,
+          response,
           round: currentRound,
           givenPrompt,
-          bot: actAsBot,
           originalResponse: response,
-        }
-      : {
-          response: responseToSubmit,
-          parentId: parent?.id,
-          round: currentRound,
-          givenPrompt,
-          bot: actAsBot,
         };
-    postResponse(newIdeaData, (postedResponse) => {
+    const newResponse = responseDataFactory(input, me);
+    postResponse(newResponse)?.then((postedResponse) => {
       if (typeof onSubmitted !== 'undefined') {
         onSubmitted(postedResponse.id);
       }
@@ -130,13 +109,15 @@ const ResponseInput: FC<{
       )}
       <Prompts onChange={(p) => setGivenPrompt(p)} />
       {parent &&
-        (typeof parent.response === 'string' ? (
-          <PreviousResponse>{parent.response}</PreviousResponse>
-        ) : (
-          parent.response.map((r, index) => (
-            <PreviousResponse key={index}>{r}</PreviousResponse>
-          ))
-        ))}
+        // (typeof parent.response === 'string' ? (
+        //   <PreviousResponse>{parent.response}</PreviousResponse>
+        // ) : (
+        //   parent.response.map((r, index) => (
+        //     <PreviousResponse key={index}>{r}</PreviousResponse>
+        //   ))
+        // ))
+        <PreviousResponse>{parent.response}</PreviousResponse>
+        }
       <TextField
         helperText={t('HELPER')}
         sx={{ width: { md: '75ch', sm: '100%' }, maxWidth: '100%' }}

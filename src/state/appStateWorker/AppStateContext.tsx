@@ -7,14 +7,14 @@ import React, {
 } from 'react';
 
 import { InputResponseData, ResponseData } from '@/interfaces/response';
+import { PeerMessage, PeerMessageType } from '@/peers/peerMessages';
+import usePeer from '@/peers/usePeer';
 
 import {
   AppStateEventType,
   AppStateWorkerConfig,
 } from './appStateWorkerConfig';
 import AppStateWorker from './worker/appStateWorker?worker';
-import { PeerMessage, PeerMessageType } from '@/peers/peerMessages';
-import usePeer from '@/peers/usePeer';
 
 export type AppStateWorkerContextType = {
   responses: {

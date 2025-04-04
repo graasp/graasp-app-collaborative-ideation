@@ -47,8 +47,7 @@ export const ChoosePhase: Phase = {
 };
 
 export enum ResponseVisibilityMode {
-  FullyBlind = 'fully-blind',
-  PartiallyBlind = 'partially-blind',
-  Open = 'open',
-  OpenLive = 'open-live',
+  Sync = 'sync',
+  Async = 'async',
+  Individual = 'individual',
 }

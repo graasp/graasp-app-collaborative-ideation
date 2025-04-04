@@ -14,19 +14,18 @@ import { ResponseData } from '@/interfaces/response';
 import Instructions from '@/modules/common/Instructions';
 import Pausable from '@/modules/common/Pausable';
 
-import { useAppStateWorkerContext } from '../appStateWorker/AppStateContext';
+import { useResponsesContext } from '@/state/ResponsesContext';
+import useActivityState from '@/state/useActivityState';
 import Round from '../common/Round';
 import Timer from '../common/Timer';
-import { useActivityContext } from '../context/ActivityContext';
 import IdeaChoose from './ResponseChoose';
 import IdeaInput from './ResponseInput';
 
 const ResponseCollection: FC = () => {
   const { t } = useTranslation('translations');
-  const { round, activityState } = useActivityContext();
+  const { round, activityState } = useActivityState();
 
-  const { responses } = useAppStateWorkerContext();
-  const { allResponses } = responses;
+  const { allResponses } = useResponsesContext();
   const availableResponses = allResponses;
   const { currentStep } = useSteps();
   const { postChooseResponseAction } = useActions();

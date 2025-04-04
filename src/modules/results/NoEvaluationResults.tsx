@@ -4,14 +4,12 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 
 import Response from '@/modules/common/response/Response';
-
-import { useAppStateWorkerContext } from '../appStateWorker/AppStateContext';
+import { useResponsesContext } from '@/state/ResponsesContext';
 
 type NoEvaluationResultsProps = unknown;
 
 const NoEvaluationResults: FC<NoEvaluationResultsProps> = () => {
-  const { responses } = useAppStateWorkerContext();
-  const { allResponses } = responses;
+  const { allResponses } = useResponsesContext();
   return (
     <Stack
       direction="column"
