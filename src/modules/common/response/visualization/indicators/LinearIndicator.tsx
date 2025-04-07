@@ -1,5 +1,6 @@
 import type { AxisTickProps } from '@nivo/axes';
 import { BoxPlot } from '@nivo/boxplot';
+import { JSX } from 'react';
 
 interface CircularIndicatorProps {
   data: Array<{

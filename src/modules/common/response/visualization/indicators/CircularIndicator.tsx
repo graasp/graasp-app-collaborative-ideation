@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { JSX, useMemo } from 'react';
 
 import Box from '@mui/material/Box';
 import CircularProgress, {

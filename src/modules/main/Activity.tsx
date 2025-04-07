@@ -1,4 +1,4 @@
-import { FC, Suspense, SuspenseProps, lazy } from 'react';
+import { FC, JSX, Suspense, SuspenseProps, lazy } from 'react';
 
 import { useLocalContext } from '@graasp/apps-query-client';
 

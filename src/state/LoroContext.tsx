@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, JSX, useContext, useEffect, useMemo, useState } from 'react';
 
 import { LoroDoc } from 'loro-crdt';
 

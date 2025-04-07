@@ -1,4 +1,4 @@
-import { FC, createContext, useCallback, useContext, useMemo } from 'react';
+import { FC, JSX, createContext, useCallback, useContext, useMemo } from 'react';
 
 import { useLocalContext } from '@graasp/apps-query-client';
 import { AppDataVisibility } from '@graasp/sdk';

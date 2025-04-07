@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, JSX, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { LinearProgress, Typography } from '@mui/material';

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { JSX, useEffect, useState } from 'react';
 
 import { useLocalContext } from '@graasp/apps-query-client';
 import { Context } from '@graasp/sdk';

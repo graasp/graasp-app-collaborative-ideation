@@ -1,4 +1,4 @@
-import React, { createContext, useMemo } from 'react';
+import React, { createContext, JSX, useMemo } from 'react';
 
 import { Data } from '@graasp/apps-query-client';
 import { AppData } from '@graasp/sdk';
