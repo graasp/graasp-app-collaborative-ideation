@@ -75,11 +75,11 @@ const Response: FC<ResponseProps> = ({
   const { response: responseContent, round, parentId, assistantId } = response;
   const { activity } = useSettings();
 
-  const isOwn = author?.id === accountId && typeof assistantId === 'undefined';
   const isAiGenerated = useMemo(
-    () => typeof assistantId !== 'undefined',
+    () => typeof assistantId === 'string',
     [assistantId],
   );
+  const isOwn = author?.id === accountId && !isAiGenerated;
 
   const showSelectButton = typeof onSelect !== 'undefined';
   const showDeleteButton = typeof onDelete !== 'undefined' && isOwn;
@@ -160,7 +160,7 @@ const Response: FC<ResponseProps> = ({
           data-cy={RESPONSE_CY}
         >
           <CardContent sx={{ minHeight: '32pt' }}>
-              <ResponsePart>{responseContent}</ResponsePart>
+            <ResponsePart>{responseContent}</ResponsePart>
             <Box
               sx={{
                 display: 'flex',

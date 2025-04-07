@@ -4,7 +4,6 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 
 import Response from '@/modules/common/response/Response';
-
 import { useResponsesContext } from '@/state/ResponsesContext';
 
 type RatingsResultsProps = unknown;

@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+import { useLocalContext } from '@graasp/apps-query-client';
 import { Member } from '@graasp/sdk';
 
 import {
@@ -9,7 +10,6 @@ import {
 import { Participant, ParticipantType } from '@/interfaces/participant';
 import { useMembersContext } from '@/modules/context/MembersContext';
 import { useSettings } from '@/modules/context/SettingsContext';
-import { useLocalContext } from '@graasp/apps-query-client';
 
 export type UseParticipantsValue = {
   members: Array<Participant<Member>>;
@@ -48,10 +48,10 @@ const useParticipants = (): UseParticipantsValue => {
     return {
       memberType: ParticipantType.Account,
       id: accountId ?? '',
-      name: "anonymous",
-      email: "anonymous@graasp.org",
-    }
-   }, [accountId, members]);
+      name: 'anonymous',
+      email: 'anonymous@graasp.org',
+    };
+  }, [accountId, members]);
   return { members, assistants: assistantsParticipants, me };
 };
 

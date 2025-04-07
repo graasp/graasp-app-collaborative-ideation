@@ -18,11 +18,15 @@ import {
   RESPONSE_INPUT_FIELD_CY,
   SUBMIT_RESPONSE_BTN_CY,
 } from '@/config/selectors';
-import { InputResponseData, ResponseData, responseDataFactory } from '@/interfaces/response';
-
+import { participantToAuthor } from '@/interfaces/participant';
+import {
+  InputResponseData,
+  ResponseData,
+  responseDataFactory,
+} from '@/interfaces/response';
 import { useResponsesContext } from '@/state/ResponsesContext';
 import useParticipants from '@/state/useParticipants';
-import { participantToAuthor } from '@/interfaces/participant';
+
 import { useSettings } from '../context/SettingsContext';
 import Prompts from './prompts/Prompts';
 
@@ -66,12 +70,12 @@ const ResponseInput: FC<{
     setIsPosting(true);
 
     const input: InputResponseData = {
-          parentId: parent?.id,
-          response,
-          round: currentRound,
-          givenPrompt,
-          originalResponse: response,
-        };
+      parentId: parent?.id,
+      response,
+      round: currentRound,
+      givenPrompt,
+      originalResponse: response,
+    };
     const newResponse = responseDataFactory(input, me);
     postResponse(newResponse)?.then((postedResponse) => {
       if (typeof onSubmitted !== 'undefined') {
@@ -108,7 +112,7 @@ const ResponseInput: FC<{
         <Alert severity="info">{inputInstructions.content}</Alert>
       )}
       <Prompts onChange={(p) => setGivenPrompt(p)} />
-      {parent &&
+      {parent && (
         // (typeof parent.response === 'string' ? (
         //   <PreviousResponse>{parent.response}</PreviousResponse>
         // ) : (
@@ -117,7 +121,7 @@ const ResponseInput: FC<{
         //   ))
         // ))
         <PreviousResponse>{parent.response}</PreviousResponse>
-        }
+      )}
       <TextField
         helperText={t('HELPER')}
         sx={{ width: { md: '75ch', sm: '100%' }, maxWidth: '100%' }}

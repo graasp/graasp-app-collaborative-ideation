@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import Container from '@mui/material/Container';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+
 import { useResponsesContext } from '@/state/ResponsesContext';
 
 const ResponsesView = (): JSX.Element => {

@@ -92,7 +92,7 @@ export const defaultSettingsValues: AllSettingsType = {
     id: '',
   },
   activity: {
-    mode: ResponseVisibilityMode.Open,
+    mode: ResponseVisibilityMode.Sync,
     numberOfResponsesPerSet: 3,
     numberOfBotResponsesPerSet: 1,
     numberOfParticipantsResponsesTriggeringResponsesGeneration: 1,

@@ -21,7 +21,6 @@ import { useSettings } from '@/modules/context/SettingsContext';
 
 import ResetSetsButton from '../common/ResetSetsButton';
 import SaveButton from '../common/SaveButton';
-import ImportResponsesButton from './ImportResponsesButton';
 import InstructionsSettings from './InstructionsSettings';
 import OrchestratorSettings from './OrchestratorSettings';
 import ParticipantsSettings from './ParticipantsSettings';
@@ -118,9 +117,9 @@ const Settings: FC<SettingsProps> = () => {
       <ActivitySettings activity={activity} onChange={setActivity} />
       <PromptsSettings prompts={prompts} onChange={setPrompts} />
       <Assistant assistants={assistants} onChange={setAssistants} />
-      <Box>
+      {/* <Box>
         <ImportResponsesButton />
-      </Box>
+      </Box> */}
       <Box>
         <SaveButton disabled={isSaved} onSave={handleSave} />
         <ResetSetsButton enable />

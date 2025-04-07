@@ -25,7 +25,7 @@ import {
   makeEmptyLLMAssistant,
   makeEmptyListAssistant,
 } from '@/interfaces/assistant';
-import SectionTitle from '@/modules/adminPanel/SectionTitle';
+import SectionTitle from '@/modules/common/SectionTitle';
 
 import AssistantCard from './AssistantCard';
 import LLMAssistantDialog from './LLMAssistantDialog';

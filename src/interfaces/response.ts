@@ -43,9 +43,8 @@ export const responseDataFactory = (
   response: partialResponse.response,
   round: partialResponse?.round,
   assistantId: partialResponse?.assistantId,
-  bot: !(
-    partialResponse?.bot ?? typeof partialResponse?.assistantId !== 'undefined'
-  ),
+  bot:
+    partialResponse?.bot ?? typeof partialResponse?.assistantId !== 'undefined',
   parentId: partialResponse?.parentId,
   originalResponse: partialResponse?.originalResponse,
   givenPrompt: partialResponse?.givenPrompt,
@@ -53,7 +52,10 @@ export const responseDataFactory = (
   author: author ?? partialResponse.author,
 });
 
-export type ResponseDataExchangeFormat = ResponseData<ResponseEvaluation> & {
+export type ResponseDataExchangeFormat = Omit<
+  ResponseData<ResponseEvaluation>,
+  'id'
+> & {
   id: number;
   votes?: number;
 };

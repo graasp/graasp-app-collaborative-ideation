@@ -17,10 +17,7 @@ import {
   SubmitNewResponseAction,
   VoteForAction,
 } from '@/config/appActionsTypes';
-import {
-  CurrentStateData,
-  VoteAppData,
-} from '@/config/appDataTypes';
+import { CurrentStateData, VoteAppData } from '@/config/appDataTypes';
 import { mutations } from '@/config/queryClient';
 import { ActivityStep } from '@/interfaces/interactionProcess';
 import { ResponseData } from '@/interfaces/response';
