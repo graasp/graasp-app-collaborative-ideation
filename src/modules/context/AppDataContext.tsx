@@ -3,7 +3,7 @@ import React, { createContext, useMemo } from 'react';
 import { Data } from '@graasp/apps-query-client';
 import { AppData } from '@graasp/sdk';
 
-import { UseQueryResult } from '@tanstack/react-query';
+import { QueryObserverResult } from '@tanstack/react-query';
 
 import {
   QUERY_KEYS,
@@ -40,7 +40,7 @@ export type AppDataContextType = {
     payload: DeleteAppDataType,
   ) => Promise<AppData<Data> | void>;
   appData: AppData<Data>[];
-  refetchAppData: () => Promise<UseQueryResult<AppData[]> | void>;
+  refetchAppData: () => Promise<QueryObserverResult<AppData<Data>[], unknown> | void>;
   isSuccess: boolean;
   isLoading: boolean;
   invalidateAppData: () => Promise<void>;
@@ -74,7 +74,7 @@ export const AppDataProvider = ({ children }: Props): JSX.Element => {
     refetch: refetchAppData,
   } = hooks.useAppData();
   const invalidateAppData = useMemo(
-    () => () => queryClient.invalidateQueries(QUERY_KEYS.appDataKeys.all),
+    () => () => queryClient.invalidateQueries({queryKey: QUERY_KEYS.appDataKeys.all }),
     [],
   );
 

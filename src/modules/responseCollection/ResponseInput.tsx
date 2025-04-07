@@ -120,7 +120,7 @@ const ResponseInput: FC<{
         //     <PreviousResponse key={index}>{r}</PreviousResponse>
         //   ))
         // ))
-        <PreviousResponse>{parent.response}</PreviousResponse>
+        (<PreviousResponse>{parent.response}</PreviousResponse>)
       )}
       <TextField
         helperText={t('HELPER')}
