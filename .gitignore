@@ -48,3 +48,6 @@ cypress/downloads/
 *.pem
 *.crt
 *.key
+
+# TS
+*.tsbuildinfo
