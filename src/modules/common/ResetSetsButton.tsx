@@ -22,7 +22,7 @@ const ResetSetsButton: FC<ResetSetsButtonProps> = (
   const [dialogOpen, setDialogOpen] = useState(false);
   const { resetActivityState } = useActivityState();
   const { resetAllPrompts } = usePrompts();
-  const promise = useRef<Promise<void>>();
+  const promise = useRef<Promise<void>>(new Promise(() => {}));
 
   const handleConfirmation = async (): Promise<void> => {
     setDialogOpen(false);

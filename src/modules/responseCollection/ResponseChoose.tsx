@@ -25,7 +25,7 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
   const { t } = useTranslation();
 
   const [highlightId, setHighlightId] = useState<string>();
-  const highlightTimeout = useRef<NodeJS.Timeout>();
+  const highlightTimeout = useRef<NodeJS.Timeout>(undefined);
 
   const { invalidateAppData, deleteAppData } = useAppDataContext();
   const { instructions } = useSettings();
