@@ -152,7 +152,7 @@ const Root: FC = () => {
                   </WithTokenContext>
                 </WithLocalContext>
                 {import.meta.env.DEV && (
-                  <ReactQueryDevtools position="bottom-left" />
+                  <ReactQueryDevtools buttonPosition="bottom-left" />
                 )}
               </QueryClientProvider>
             </ErrorBoundary>

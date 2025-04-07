@@ -1,4 +1,5 @@
 import { configureQueryClient } from '@graasp/apps-query-client';
+import { ReactQueryDevtools as ReactQueryDevtoolsType } from '@tanstack/react-query-devtools';
 
 import notifier from '@/utils/notifier';
 
@@ -10,8 +11,16 @@ const {
   hooks,
   API_ROUTES,
   mutations,
-  ReactQueryDevtools,
+  ReactQueryDevtools: toto,
   QUERY_KEYS,
+}: {
+  queryClient: ReturnType<typeof configureQueryClient>['queryClient'];
+  QueryClientProvider: ReturnType<typeof configureQueryClient>['QueryClientProvider'];
+  hooks: ReturnType<typeof configureQueryClient>['hooks'];
+  API_ROUTES: ReturnType<typeof configureQueryClient>['API_ROUTES'];
+  mutations: ReturnType<typeof configureQueryClient>['mutations'];
+  ReactQueryDevtools: typeof ReactQueryDevtoolsType;
+  QUERY_KEYS: ReturnType<typeof configureQueryClient>['QUERY_KEYS'];
 } = configureQueryClient({
   API_HOST,
   notifier,
@@ -26,7 +35,7 @@ const {
 });
 
 export {
-  ReactQueryDevtools,
+  toto as ReactQueryDevtools,
   queryClient,
   QueryClientProvider,
   hooks,
