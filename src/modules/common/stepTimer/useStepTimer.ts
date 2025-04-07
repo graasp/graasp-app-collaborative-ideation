@@ -13,7 +13,7 @@ const useStepTimer = (onTimeout?: () => void): boolean => {
   const time = currentStep?.time ?? 0;
   const endTime = useMemo(() => addSeconds(startTime, time), [startTime, time]);
 
-  const timerRef = useRef<NodeJS.Timeout>();
+  const timerRef = useRef<NodeJS.Timeout>(setTimeout(() => {}, 0));
   const [timedOut, setTimedOut] = useState(false);
 
   // Reset the timer when props change
