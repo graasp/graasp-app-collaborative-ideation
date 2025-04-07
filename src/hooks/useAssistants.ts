@@ -30,7 +30,6 @@ import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
 import { ResponseData, responseDataFactory } from '@/interfaces/response';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
-
 import { useResponsesContext } from '@/state/ResponsesContext';
 import useActivityState from '@/state/useActivityState';
 import { joinMultipleResponses } from './utils/responses';
@@ -67,8 +66,7 @@ const useAssistants = (): UseAssistantsValues => {
   const { mode, numberOfParticipantsResponsesTriggeringResponsesGeneration } =
     activity;
 
-  const { round } =
-    useActivityState();
+  const { round } = useActivityState();
 
   const { postResponse, allResponses } = useResponsesContext();
 
@@ -311,10 +309,7 @@ const useAssistants = (): UseAssistantsValues => {
 
   // Automatic responses generation effect for live mode
   useEffect(() => {
-    if (
-      mode === ResponseVisibilityMode.Sync &&
-      orchestrator.id === accountId
-    ) {
+    if (mode === ResponseVisibilityMode.Sync && orchestrator.id === accountId) {
       const previousNumberOfResponses = parseInt(
         sessionStorage.getItem(
           LAST_RECORDED_NUMBER_OF_RESPONSES_SESSION_STORE_KEY(itemId),

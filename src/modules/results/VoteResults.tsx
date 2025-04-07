@@ -4,7 +4,6 @@ import Stack from '@mui/material/Stack';
 
 import { sortResponsesByNumberOfVote } from '@/hooks/utils/evaluation';
 import Response from '@/modules/common/response/Response';
-
 import { useResponsesContext } from '@/state/ResponsesContext';
 import ResponsesGridContainer, {
   ResponseGridItem,

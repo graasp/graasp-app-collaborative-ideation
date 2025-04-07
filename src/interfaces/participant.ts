@@ -1,4 +1,5 @@
 import { Member as MemberType } from '@graasp/sdk';
+
 import { Author } from './author';
 
 export enum ParticipantType {
@@ -13,7 +14,7 @@ export type Participant<T = MemberType> = T & {
 };
 
 export const participantToAuthor = (p: Participant): Author => ({
-    id: p.id,
-    name: p.name,
-    email: p.email,
-  });
+  id: p.id,
+  name: p.name,
+  email: p.email,
+});

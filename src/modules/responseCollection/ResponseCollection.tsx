@@ -13,9 +13,9 @@ import { IdeationPhases } from '@/interfaces/interactionProcess';
 import { ResponseData } from '@/interfaces/response';
 import Instructions from '@/modules/common/Instructions';
 import Pausable from '@/modules/common/Pausable';
-
 import { useResponsesContext } from '@/state/ResponsesContext';
 import useActivityState from '@/state/useActivityState';
+
 import Round from '../common/Round';
 import Timer from '../common/Timer';
 import IdeaChoose from './ResponseChoose';

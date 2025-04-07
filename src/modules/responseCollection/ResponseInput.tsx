@@ -12,11 +12,15 @@ import { RESPONSE_MAXIMUM_LENGTH } from '@/config/constants';
 import {
   SUBMIT_RESPONSE_BTN_CY,
 } from '@/config/selectors';
-import { InputResponseData, ResponseData, responseDataFactory } from '@/interfaces/response';
-
+import { participantToAuthor } from '@/interfaces/participant';
+import {
+  InputResponseData,
+  ResponseData,
+  responseDataFactory,
+} from '@/interfaces/response';
 import { useResponsesContext } from '@/state/ResponsesContext';
 import useParticipants from '@/state/useParticipants';
-import { participantToAuthor } from '@/interfaces/participant';
+
 import { useSettings } from '../context/SettingsContext';
 import MarkdownEditor from './MarkdownEditor';
 import Prompts from './prompts/Prompts';
@@ -62,12 +66,12 @@ const ResponseInput: FC<{
     setIsPosting(true);
 
     const input: InputResponseData = {
-          parentId: parent?.id,
-          response,
-          round: currentRound,
-          givenPrompt,
-          originalResponse: response,
-        };
+      parentId: parent?.id,
+      response,
+      round: currentRound,
+      givenPrompt,
+      originalResponse: response,
+    };
     const newResponse = responseDataFactory(input, me);
     postResponse(newResponse)?.then((postedResponse) => {
       if (typeof onSubmitted !== 'undefined') {

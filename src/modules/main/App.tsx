@@ -11,9 +11,9 @@ import { DEFAULT_LANG } from '@/config/constants';
 import { SENTRY_ENV } from '@/config/env';
 import { hooks } from '@/config/queryClient';
 import useActions from '@/hooks/useActions';
-
 import { LoroProvider } from '@/state/LoroContext';
 import { ResponsesProvider } from '@/state/ResponsesContext';
+
 import i18n from '../../config/i18n';
 import { AppDataProvider } from '../context/AppDataContext';
 import { MembersProvider } from '../context/MembersContext';

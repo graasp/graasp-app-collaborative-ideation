@@ -49,7 +49,8 @@ export const ResponsesProvider: FC<ResponsesContextProps> = ({ children }) => {
 
   const { accountId } = useLocalContext();
   const { activity } = useSettings();
-  const { postDeleteResponseAction, postSubmitNewResponseAction } = useActions();
+  const { postDeleteResponseAction, postSubmitNewResponseAction } =
+    useActions();
   const { mode: visibilityMode } = activity;
 
   const { doc } = useLoroContext();
@@ -93,14 +94,16 @@ export const ResponsesProvider: FC<ResponsesContextProps> = ({ children }) => {
     return myResponses;
   }, [visibilityMode, myResponses, allResponses, accountId, round]);
 
-  const postResponse = useCallback(async (
-      response: ResponseData,
-    ): Promise<ResponseData> => {
+  const postResponse = useCallback(
+    async (response: ResponseData): Promise<ResponseData> => {
       const responses = getResponsesList(doc);
       responses.push(response);
+      doc.commit();
       postSubmitNewResponseAction(response);
       return response;
-      }, [doc, postSubmitNewResponseAction]);
+    },
+    [doc, postSubmitNewResponseAction],
+  );
 
   //   const allResponsesSets = useMemo((): ResponsesSetAppData[] => {
   //     const responses = appData.filter(
@@ -149,22 +152,22 @@ export const ResponsesProvider: FC<ResponsesContextProps> = ({ children }) => {
   //     return responses;
   //   }, [allResponses, accountId, myResponsesSets, visibilityMode]);
 
-    // const postResponse = (
-    //   data: ResponseData,
-    //   invalidateAll: boolean = false,
-    // ): Promise<ResponseAppData> | undefined =>
-    //   postAppDataAsync({
-    //     type: AppDataTypes.Response,
-    //     visibility: AppDataVisibility.Item,
-    //     data,
-    //   })?.then((postedResponse) => {
-    //     const response = postedResponse as ResponseAppData;
-    //     postSubmitNewResponseAction(response);
-    //     if (invalidateAll) {
-    //       invalidateAppData();
-    //     }
-    //     return response;
-    //   });
+  // const postResponse = (
+  //   data: ResponseData,
+  //   invalidateAll: boolean = false,
+  // ): Promise<ResponseAppData> | undefined =>
+  //   postAppDataAsync({
+  //     type: AppDataTypes.Response,
+  //     visibility: AppDataVisibility.Item,
+  //     data,
+  //   })?.then((postedResponse) => {
+  //     const response = postedResponse as ResponseAppData;
+  //     postSubmitNewResponseAction(response);
+  //     if (invalidateAll) {
+  //       invalidateAppData();
+  //     }
+  //     return response;
+  //   });
 
   //   const postResponsesSet = async (
   //     id: Member['id'] | AssistantId,
@@ -316,7 +319,14 @@ export const ResponsesProvider: FC<ResponsesContextProps> = ({ children }) => {
       deleteResponse,
       postResponse,
     }),
-    [allResponses, availableResponses, deleteResponse, myResponses, participants, postResponse],
+    [
+      allResponses,
+      availableResponses,
+      deleteResponse,
+      myResponses,
+      participants,
+      postResponse,
+    ],
   );
   return (
     <ResponsesContext.Provider value={contextValue}>

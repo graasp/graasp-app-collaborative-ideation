@@ -78,11 +78,11 @@ const Response: FC<ResponseProps> = ({
 
   const isMarkdown = useMemo(() => markup === 'markdown', [markup]);
 
-  const isOwn = author?.id === accountId && typeof assistantId === 'undefined';
   const isAiGenerated = useMemo(
-    () => typeof assistantId !== 'undefined',
+    () => typeof assistantId === 'string',
     [assistantId],
   );
+  const isOwn = author?.id === accountId && !isAiGenerated;
 
   const showSelectButton = typeof onSelect !== 'undefined';
   const showDeleteButton = typeof onDelete !== 'undefined' && isOwn;
@@ -164,20 +164,7 @@ const Response: FC<ResponseProps> = ({
           data-cy={RESPONSE_CY}
         >
           <CardContent sx={{ minHeight: '32pt' }}>
-            {typeof responseContent === 'string' ? (
-              <ResponsePart markdown={isMarkdown}>
-                {responseContent}
-              </ResponsePart>
-            ) : (
-              responseContent?.map((r, index) => (
-                <>
-                  {/* {index !== 0 && <br />} */}
-                  <ResponsePart markdown={isMarkdown} key={index}>
-                    {r}
-                  </ResponsePart>
-                </>
-              ))
-            )}
+            <ResponsePart markdown={isMarkdown}>{responseContent}</ResponsePart>
             <Box
               sx={{
                 display: 'flex',

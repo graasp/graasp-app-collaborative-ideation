@@ -1,5 +1,4 @@
-/* eslint-disable no-restricted-globals */
-import { createContext, useContext, useMemo, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 import { LoroDoc } from 'loro-crdt';
 
@@ -24,7 +23,13 @@ type LoroContextProps = {
 export const LoroProvider = ({ children }: LoroContextProps): JSX.Element => {
   const [doc] = useState(new LoroDoc());
 
-  console.log('Worker started');
+  useEffect(() => {
+    const unsubscribe = doc.subscribe(() => {
+      // eslint-disable-next-line no-console
+      console.debug('Document updated', doc.toJSON());
+    });
+    return () => unsubscribe();
+  }, [doc]);
 
   // responses.subscribe((event: LoroEventBatch) => {
   //   console.debug('Responses updated ', event);

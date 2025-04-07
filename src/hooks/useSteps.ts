@@ -4,8 +4,8 @@ import {
   ActivityStep,
   ResponseVisibilityMode,
 } from '@/interfaces/interactionProcess';
-import { useActivityContext } from '@/modules/context/ActivityContext';
 import { useSettings } from '@/modules/context/SettingsContext';
+import useActivityState from '@/state/useActivityState';
 
 import useActions from './useActions';
 import useAssistants from './useAssistants';
@@ -22,13 +22,7 @@ interface UseStepsValues {
 }
 
 const useSteps = (): UseStepsValues => {
-  const {
-    updateActivityState,
-    activityState,
-    createAllResponsesSet,
-    round,
-    deleteResponsesSetsForRound,
-  } = useActivityContext();
+  const { updateActivityState, activityState, round } = useActivityState();
 
   const { generateResponsesWithEachAssistant } = useAssistants();
 
@@ -84,21 +78,9 @@ const useSteps = (): UseStepsValues => {
 
     if (
       (nextStep?.round || 0) > round &&
-      (mode === ResponseVisibilityMode.Open ||
-        mode === ResponseVisibilityMode.PartiallyBlind)
+      mode !== ResponseVisibilityMode.Sync
     ) {
       // TODO: Insane amount of work here. REFACTOR!
-      await generateResponsesWithEachAssistant()
-        .then((p) => Promise.all(p))
-        .then(() =>
-          createAllResponsesSet().then(() => {
-            changeStep(nextStep, nextStepIndex);
-          }),
-        );
-    } else if (
-      (nextStep?.round || 0) > round &&
-      mode === ResponseVisibilityMode.Individual
-    ) {
       await generateResponsesWithEachAssistant()
         .then((p) => Promise.all(p))
         .then(() => {
@@ -112,9 +94,6 @@ const useSteps = (): UseStepsValues => {
 
   const moveToPreviousStep = async (): Promise<void> => {
     if (typeof previousStep !== 'undefined') {
-      if (typeof previousStep?.round !== 'undefined') {
-        deleteResponsesSetsForRound(previousStep.round);
-      }
       const previousStepIndex = (stepIndex ?? 1) - 1;
       changeStep(previousStep, previousStepIndex);
       postPreviousStepAction(previousStep, previousStepIndex);

@@ -9,8 +9,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 import usePrompts from '@/hooks/usePrompts';
-
-import { useActivityContext } from '../context/ActivityContext';
+import useActivityState from '@/state/useActivityState';
 
 interface ResetSetsButtonProps {
   enable?: boolean;
@@ -21,15 +20,13 @@ const ResetSetsButton: FC<ResetSetsButtonProps> = (
 ) => {
   const { t } = useTranslation();
   const [dialogOpen, setDialogOpen] = useState(false);
-  const { deleteAllResponsesSet, resetActivityState } = useActivityContext();
+  const { resetActivityState } = useActivityState();
   const { resetAllPrompts } = usePrompts();
   const promise = useRef<Promise<void>>();
 
   const handleConfirmation = async (): Promise<void> => {
     setDialogOpen(false);
-    promise.current = deleteAllResponsesSet().then(() =>
-      resetAllPrompts().then(() => resetActivityState()),
-    );
+    promise.current = resetAllPrompts().then(() => resetActivityState());
   };
 
   return (
