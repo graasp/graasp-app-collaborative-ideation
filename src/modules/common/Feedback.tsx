@@ -1,4 +1,4 @@
-import { SyntheticEvent, useCallback, useMemo } from 'react';
+import { JSX, SyntheticEvent, useCallback, useMemo } from 'react';
 
 import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';

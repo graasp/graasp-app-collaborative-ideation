@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, JSX, useState } from 'react';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';

@@ -1,4 +1,4 @@
-import { SyntheticEvent } from 'react';
+import { JSX, SyntheticEvent } from 'react';
 
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';

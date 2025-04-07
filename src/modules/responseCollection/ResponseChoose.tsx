@@ -1,4 +1,4 @@
-import { FC, useMemo, useRef, useState } from 'react';
+import { FC, JSX, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';

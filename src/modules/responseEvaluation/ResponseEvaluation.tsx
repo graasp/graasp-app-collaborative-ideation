@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC, JSX, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Alert from '@mui/material/Alert';

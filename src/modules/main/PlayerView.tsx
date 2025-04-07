@@ -1,5 +1,6 @@
 import { PLAYER_VIEW_CY } from '@/config/selectors';
 
+import { JSX } from 'react';
 import Activity from './Activity';
 
 const PlayerView = (): JSX.Element => (

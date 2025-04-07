@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react';
+import { ChangeEvent, FC, JSX, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Dialog from '@mui/material/Dialog';

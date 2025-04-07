@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC, JSX, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import DeleteIcon from '@mui/icons-material/Delete';

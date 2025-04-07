@@ -5,6 +5,7 @@ import { RESPONSE_RESULTS_VIEW_CY } from '@/config/selectors';
 import useSteps from '@/hooks/useSteps';
 import { EvaluationType } from '@/interfaces/evaluation';
 
+import { JSX } from 'react';
 import Instructions from '../common/Instructions';
 import Pausable from '../common/Pausable';
 import { RatingsProvider } from '../context/RatingsContext';
