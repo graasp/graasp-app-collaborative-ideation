@@ -6,7 +6,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-import { ActivityStatus } from '@/interfaces/interactionProcess';
+import { ActivityStatus } from '@/interfaces/activity_state';
 
 interface WaitingScreenProps {
   state: ActivityStatus;

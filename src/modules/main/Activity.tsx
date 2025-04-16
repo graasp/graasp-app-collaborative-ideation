@@ -2,7 +2,7 @@ import { FC, JSX, Suspense, SuspenseProps, lazy } from 'react';
 
 import { useLocalContext } from '@graasp/apps-query-client';
 
-import { ActivityType } from '@/interfaces/interactionProcess';
+import { ActivityType } from '@/interfaces/activity_state';
 import useActivityState from '@/state/useActivityState';
 
 import Loader from '../common/Loader';
@@ -58,15 +58,15 @@ const getActivityComponent = (activity: ActivityType): JSX.Element => {
 };
 
 const Activity: FC = () => {
-  const { activityState } = useActivityState();
+  const { currentStep } = useActivityState();
   const { accountId } = useLocalContext();
   const { orchestrator } = useSettings();
 
-  const { activity } = activityState.data;
+  const { type } = currentStep || { type: ActivityType.Collection };
   return (
     <>
       {orchestrator.id === accountId && <OrchestrationBar />}
-      {getActivityComponent(activity)}
+      {getActivityComponent(type)}
     </>
   );
 };

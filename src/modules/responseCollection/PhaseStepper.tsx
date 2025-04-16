@@ -2,7 +2,7 @@ import { StepButton } from '@mui/material';
 import Step from '@mui/material/Step';
 import Stepper from '@mui/material/Stepper';
 
-import { Phase } from '@/interfaces/interactionProcess';
+import { Phase } from '@/interfaces/activity_state';
 
 const PhasesStepper = (props: {
   steps: Phase[];

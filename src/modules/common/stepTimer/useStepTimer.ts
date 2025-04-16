@@ -3,13 +3,12 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { addSeconds } from 'date-fns/addSeconds';
 import { differenceInSeconds } from 'date-fns/differenceInSeconds';
 
-import useSteps from '@/hooks/useSteps';
 import useActivityState from '@/state/useActivityState';
 
 const useStepTimer = (onTimeout?: () => void): boolean => {
-  const { activityState } = useActivityState();
-  const { currentStep } = useSteps();
-  const { startTime } = activityState.data;
+  const { activityState, currentStep } = useActivityState();
+  const { startTime } = activityState;
+
   const time = currentStep?.time ?? 0;
   const endTime = useMemo(() => addSeconds(startTime, time), [startTime, time]);
 

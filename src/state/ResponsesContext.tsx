@@ -12,10 +12,10 @@ import {
 import { useLocalContext } from '@graasp/apps-query-client';
 
 import useActions from '@/hooks/useActions';
-import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
 import { ResponseData } from '@/interfaces/response';
 import { useSettings } from '@/modules/context/SettingsContext';
 
+import { ResponseVisibilityMode } from '@/interfaces/activity_state';
 import { useLoroContext } from './LoroContext';
 import useActivityState from './useActivityState';
 import useParticipants from './useParticipants';
@@ -27,6 +27,7 @@ type ResponsesContextType = {
   availableResponses: ResponseData[];
   postResponse: (response: ResponseData) => Promise<ResponseData> | undefined;
   deleteResponse: (position: number) => Promise<void>;
+  deleteResponseById: (id: string) => Promise<void>;
 };
 const defaultContextValue: ResponsesContextType = {
   allResponses: [],
@@ -34,6 +35,7 @@ const defaultContextValue: ResponsesContextType = {
   postResponse: () => undefined,
   availableResponses: [],
   deleteResponse: () => Promise.resolve(),
+  deleteResponseById: () => Promise.resolve(),
 };
 
 const ResponsesContext =
@@ -283,9 +285,17 @@ export const ResponsesProvider: FC<ResponsesContextProps> = ({ children }) => {
 
       responsesLocal.delete(position, 1);
       postDeleteResponseAction(responseToBeDeleted.id);
+      doc.commit();
     },
     [doc, postDeleteResponseAction],
   );
+
+  const deleteResponseById = useCallback(async (id: string) => {
+    const index = allResponses.findIndex((r) => r.id === id);
+    if (index > -1) {
+      deleteResponse(index);
+    }
+  }, [allResponses, deleteResponse]);
 
   //   const importResponses = async (
   //     responsesData: Array<ResponseDataExchangeFormat>,
@@ -318,16 +328,10 @@ export const ResponsesProvider: FC<ResponsesContextProps> = ({ children }) => {
       availableResponses,
       participants,
       deleteResponse,
+      deleteResponseById,
       postResponse,
     }),
-    [
-      allResponses,
-      availableResponses,
-      deleteResponse,
-      myResponses,
-      participants,
-      postResponse,
-    ],
+    [allResponses, availableResponses, deleteResponse, deleteResponseById, myResponses, participants, postResponse],
   );
   return (
     <ResponsesContext.Provider value={contextValue}>

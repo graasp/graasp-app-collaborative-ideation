@@ -17,7 +17,7 @@ import { ActivitySetting } from '@/config/appSettingsType';
 import {
   ActivityStep,
   ResponseVisibilityMode,
-} from '@/interfaces/interactionProcess';
+} from '@/interfaces/activity_state';
 import { useSettings } from '@/modules/context/SettingsContext';
 
 import SettingsSection from '../../common/SettingsSection';

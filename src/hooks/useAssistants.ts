@@ -26,7 +26,7 @@ import {
   ListAssistantConfiguration,
   ListAssistantStateData,
 } from '@/interfaces/assistant';
-import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
+import { ResponseVisibilityMode } from '@/interfaces/activity_state';
 import { ResponseData, responseDataFactory } from '@/interfaces/response';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';

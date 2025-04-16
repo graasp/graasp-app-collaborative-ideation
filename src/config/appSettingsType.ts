@@ -11,7 +11,7 @@ import {
   ActivityStep,
   ActivityType,
   ResponseVisibilityMode,
-} from '@/interfaces/interactionProcess';
+} from '@/interfaces/activity_state';
 
 type InstructionFormatType = 'html' | 'markdown' | 'plain-text';
 

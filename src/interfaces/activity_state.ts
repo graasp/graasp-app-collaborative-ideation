@@ -31,6 +31,12 @@ export type ActivityStep = {
   evaluationParameters?: EvaluationParameters;
 };
 
+export type ActivityState = {
+  status: ActivityStatus;
+  startTime: Date;
+  stepIndex?: number;
+};
+
 export type Phase = {
   phase: number;
   label: string;
