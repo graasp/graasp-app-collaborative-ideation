@@ -6,12 +6,12 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 
 import { RESPONSE_EVALUATION_VIEW_CY } from '@/config/selectors';
-import useSteps from '@/hooks/useSteps';
 import { EvaluationType } from '@/interfaces/evaluation';
 import Pausable from '@/modules/common/Pausable';
 import Response from '@/modules/common/response/Response';
 import { useResponsesContext } from '@/state/ResponsesContext';
 
+import useActivityState from '@/state/useActivityState';
 import Instructions from '../common/Instructions';
 import ResponsesGridContainer, {
   ResponseGridItem,
@@ -24,7 +24,7 @@ import VoteToolbar from './VoteToolbar';
 const ResponseEvaluation: FC = () => {
   const { t } = useTranslation();
   const { allResponses } = useResponsesContext();
-  const { currentStep } = useSteps();
+  const { currentStep } = useActivityState();
   const evaluationType = currentStep?.evaluationType;
   const evaluationParameters = currentStep?.evaluationParameters ?? {};
 

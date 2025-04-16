@@ -9,12 +9,13 @@ import { HIGHLIGHT_RESPONSE_TIME_MS } from '@/config/constants';
 import { PROPOSE_NEW_RESPONSE_BTN_CY } from '@/config/selectors';
 import { ResponseData } from '@/interfaces/response';
 import Response from '@/modules/common/response/Response';
-import { useAppDataContext } from '@/modules/context/AppDataContext';
 
+import { useResponsesContext } from '@/state/ResponsesContext';
 import ResponsesGridContainer, {
   ResponseGridItem,
 } from '../common/ResponsesGrid';
 import { useSettings } from '../context/SettingsContext';
+import Loader from '../common/Loader';
 
 interface ResponseChooseProps {
   responses: ResponseData<undefined>[];
@@ -26,8 +27,8 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
 
   const [highlightId, setHighlightId] = useState<string>();
   const highlightTimeout = useRef<NodeJS.Timeout>(undefined);
+  const { deleteResponseById } = useResponsesContext();
 
-  const { invalidateAppData, deleteAppData } = useAppDataContext();
   const { instructions } = useSettings();
   const chooseInstructions = useMemo(
     () =>
@@ -41,16 +42,22 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
     onChoose(id);
   };
 
-  const renderPlaceHolderForNoIdeas = (): JSX.Element => (
-    <>
-      <Alert sx={{ m: 1 }} severity="info">
-        {t('NO_IDEAS_TO_SHOW_TEXT')}
-      </Alert>
-      <Button onClick={() => invalidateAppData()}>
-        {t('CHECK_FOR_NEW_RESPONSES')}
-      </Button>
-    </>
-  );
+  const renderPlaceHolderForNoIdeas = (): JSX.Element => 
+     <Loader />
+    // if (isLoading) {
+    //   return <Loader />;
+    // }
+    // return (
+    //   <>
+    //     <Alert sx={{ m: 1 }} severity="info">
+    //       {t('NO_IDEAS_TO_SHOW_TEXT')}
+    //     </Alert>
+    //     <Button onClick={() => invalidateAppData()}>
+    //       {t('CHECK_FOR_NEW_RESPONSES')}
+    //     </Button>
+    //   </>
+    // );
+  ;
 
   return (
     <>
@@ -72,7 +79,7 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
                   key={response.id}
                   response={response}
                   onSelect={handleChoose}
-                  onDelete={() => deleteAppData({ id: response.id })}
+                  onDelete={() => deleteResponseById(response.id)}
                   highlight={highlightId === response.id}
                   onParentIdeaClick={(id: string) => {
                     setHighlightId(id);

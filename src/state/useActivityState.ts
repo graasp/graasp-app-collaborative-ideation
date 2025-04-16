@@ -1,129 +1,73 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
-import { useLocalContext } from '@graasp/apps-query-client';
-import { PermissionLevel } from '@graasp/sdk';
 
-import { AppDataTypes, CurrentStateData } from '@/config/appDataTypes';
-import { INITIAL_STATE } from '@/config/constants';
+import { DEFAULT_ACTIVITY_STATE } from '@/config/constants';
 import useActions from '@/hooks/useActions';
-import {
-  ActivityStatus,
-  ActivityStep,
-  ActivityType,
-  ResponseVisibilityMode,
-} from '@/interfaces/interactionProcess';
-import { useAppDataContext } from '@/modules/context/AppDataContext';
-import { getAllStates } from '@/utils/state';
+import { LoroDoc, LoroMap } from 'loro-crdt';
+import { ActivityState, ActivityStatus, ActivityStep } from '@/interfaces/activity_state';
+import { useSettings } from '@/modules/context/SettingsContext';
+import { useLoroContext } from './LoroContext';
+
+const getActivityState = (doc: LoroDoc): LoroMap => {
+  const activityState = doc.getMap('activity-state');
+  // if (activityState.get('type'))
+  return activityState;
+};
+
+const getStateFromLoroMap = (activityState: LoroMap): ActivityState => ({
+    status: activityState.get('status') as ActivityStatus || DEFAULT_ACTIVITY_STATE.status,
+    startTime: activityState.get('startTime') as Date || DEFAULT_ACTIVITY_STATE.startTime,
+    stepIndex: activityState.get('stepIndex') as number || DEFAULT_ACTIVITY_STATE.stepIndex,
+  })
 
 export interface UseActivityStateValues {
-  activityState: {
-    [key: string]: unknown;
-    type: string;
-    data: CurrentStateData;
-  };
+  activityState: ActivityState;
   round: number;
-  nextRound: () => void;
-  resetActivityState: () => void;
-  stateWarning: boolean;
-  changeActivity: (newActivity: ActivityType) => void;
   playActivity: (step?: ActivityStep, stepIndex?: number) => void;
   pauseActivity: () => void;
-  updateActivityState: (
-    newActivityStateData: Partial<CurrentStateData>,
-  ) => void;
+  currentStep: ActivityStep | undefined;
+  nextStep: ActivityStep | undefined;
+  previousStep: ActivityStep | undefined;
+  nbrOfSteps: number;
+  moveToNextStep: () => Promise<void>;
+  moveToPreviousStep: () => Promise<void>;
 }
 
 const useActivityState = (): UseActivityStateValues => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [stateWarning, setStateWarning] = useState(false);
+
+  const { postNextStepAction, postPreviousStepAction } = useActions();
+  const { activity } = useSettings();
+  const { steps } = activity;
 
   const { postPlayActivityAction, postPauseActivityAction } = useActions();
 
-  const { appData, postAppData, patchAppData, deleteAppData } =
-    useAppDataContext();
-  // const { orchestrator } = useSettings();
-  const { permission } = useLocalContext();
+  const { doc } = useLoroContext();
 
-  const activityState = useMemo(
-    () =>
-      // const state = getCurrentState(appData, orchestrator.id);
-      // setStateWarning(state?.multipleStatesFound === true);
-      // return state.currentState;
-      ({
-        id: 'ercoaberub',
-        type: AppDataTypes.CurrentState,
-        data: {
-          round: 1,
-          status: ActivityStatus.Play,
-          activity: ActivityType.Collection,
-          startTime: new Date(),
-          stepIndex: undefined,
-        },
-      }),
-    [],
-  );
+  const [activityState, setActivityState] = useState<ActivityState>(DEFAULT_ACTIVITY_STATE);
 
-  const round = useMemo(() => activityState?.data.round || 0, [activityState]);
+  // At runtime, steps may be undefined.
+  const nbrOfSteps = steps?.length || 0;
+  const {stepIndex} = activityState;
 
-  const postDefaultActivityState = (): void => {
-    if (permission === PermissionLevel.Admin) {
-      postAppDataAsync(INITIAL_STATE);
-    }
-  };
-
-  const updateActivityState = (
-    newActivityStateData: Partial<CurrentStateData>,
-  ): void => {
-    if (activityState?.id) {
-      patchAppDataAsync({
-        id: activityState.id,
-        data: {
-          ...activityState.data,
-          ...newActivityStateData,
-        },
-      }).then(() => {
-        invalidateAppData();
-      });
-    } else {
-      postAppDataAsync({
-        ...INITIAL_STATE,
-        data: {
-          ...INITIAL_STATE.data,
-          ...newActivityStateData,
-        },
-      }).then(() => {
-        invalidateAppData();
-      });
-    }
-  };
-
-  const nextRound = (): void => {
-    const newRound = round + 1;
-    updateActivityState({
-      round: newRound,
+  useEffect(() => {
+    const activityStateLoro = getActivityState(doc);
+    const unsubscribe = activityStateLoro.subscribe(() => {
+      const a = getActivityState(doc);
+      setActivityState(getStateFromLoroMap(a));
     });
-  };
+    return () => unsubscribe();
+  }, [doc]);
 
-  const changeActivity = (newActivity: ActivityType): void => {
-    updateActivityState({ activity: newActivity });
-  };
-
-  const changeActivityStatus = (newStatus: ActivityStatus): void => {
-    updateActivityState({ status: newStatus });
-  };
-
-  const playActivity = (step?: ActivityStep, stepIndex?: number): void => {
-    if (typeof step !== 'undefined') {
-      updateActivityState({
-        activity: step.type,
-        round: step.round,
-        startTime: new Date(),
-        stepIndex: stepIndex || 0,
-        status: ActivityStatus.Play,
-      });
-    } else {
-      changeActivityStatus(ActivityStatus.Play);
+  const changeActivityStatus = (newStatus: ActivityStatus, commit = true): void => {
+    const activityStateLoro = getActivityState(doc);
+    activityStateLoro.set('status', newStatus);
+    if (commit) {
+      doc.commit();
     }
+  };
+
+  const playActivity = (): void => {
+    changeActivityStatus(ActivityStatus.Play);
     postPlayActivityAction();
   };
 
@@ -132,23 +76,82 @@ const useActivityState = (): UseActivityStateValues => {
     postPauseActivityAction();
   };
 
-  const resetActivityState = (): void => {
-    const states = getAllStates(appData);
-    states.forEach(({ id }) => deleteAppData({ id }));
-    postDefaultActivityState();
+  const changeStep = (newStepIndex: number, commit = true): void => {
+    const activityStateLoro = getActivityState(doc);
+    activityStateLoro.set('stepIndex', newStepIndex);
+    if (commit) {
+      doc.commit();
+    }
+  };
+
+  const { currentStep, nextStep, previousStep } = useMemo(() => {
+    if (typeof stepIndex !== 'undefined' && stepIndex < nbrOfSteps) {
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      const currentStep = steps[stepIndex];
+      const nextStepIndex = stepIndex + 1;
+      const previousStepIndex = stepIndex - 1;
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      const nextStep =
+        nextStepIndex < nbrOfSteps ? steps[nextStepIndex] : undefined;
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      const previousStep =
+        previousStepIndex >= 0 ? steps[previousStepIndex] : undefined;
+      return { currentStep, nextStep, previousStep };
+    }
+    return {
+      currentStep: undefined,
+      nextStep:
+        typeof steps !== 'undefined' && nbrOfSteps > 0 ? steps[0] : undefined,
+      previousStep: undefined,
+    };
+  }, [nbrOfSteps, stepIndex, steps]);
+
+  const round = useMemo(() => currentStep?.round || 0, [currentStep?.round]);
+
+  const moveToNextStep = async (): Promise<void> => {
+    if (typeof nextStep === 'undefined') {
+      return;
+    }
+
+    const nextStepIndex = (stepIndex ?? 0) + 1;
+
+    // if (
+    //   (nextStep?.round || 0) > round &&
+    //   mode !== ResponseVisibilityMode.Sync
+    // ) {
+    //   // TODO: Insane amount of work here. REFACTOR!
+    //   await generateResponsesWithEachAssistant()
+    //     .then((p) => Promise.all(p))
+    //     .then(() => {
+    //       changeStep(nextStep, nextStepIndex);
+    //     });
+    // } else {
+    //   changeStep(nextStep, nextStepIndex);
+    // }
+    changeStep(nextStepIndex);
+    postNextStepAction(nextStep, nextStepIndex);
+  };
+
+  const moveToPreviousStep = async (): Promise<void> => {
+    if (typeof previousStep !== 'undefined') {
+      const previousStepIndex = (stepIndex ?? 1) - 1;
+      changeStep(previousStepIndex);
+      postPreviousStepAction(previousStep, previousStepIndex);
+    }
   };
 
   return {
-    activityState: activityState || INITIAL_STATE,
-    round,
-    nextRound,
-    resetActivityState,
-    stateWarning,
-    changeActivity,
-    playActivity,
-    pauseActivity,
-    updateActivityState,
-  };
+  activityState,
+  round,
+  playActivity,
+  pauseActivity,
+  currentStep,
+  nextStep,
+  previousStep,
+  nbrOfSteps,
+  moveToNextStep,
+  moveToPreviousStep,
+};
 };
 
 export default useActivityState;

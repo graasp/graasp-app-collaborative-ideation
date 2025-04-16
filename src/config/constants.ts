@@ -1,29 +1,19 @@
 import { AppDataVisibility } from '@graasp/sdk';
 
 import { EvaluationType } from '@/interfaces/evaluation';
-import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
+import { ActivityState, ActivityStatus } from '@/interfaces/activity_state';
 
 import {
   AppDataTypes,
   ChatbotResponseAppData,
-  CurrentStateData,
 } from './appDataTypes';
 
 export const SMALL_BORDER_RADIUS = 4;
 
-export const INITIAL_STATE: {
-  [key: string]: unknown;
-  type: string;
-  data: CurrentStateData;
-} = {
-  type: AppDataTypes.CurrentState,
-  data: {
-    status: ActivityStatus.WaitingForStart,
-    activity: ActivityType.Collection,
-    round: 0,
-    startTime: new Date(),
-  },
-  visibility: AppDataVisibility.Item,
+export const DEFAULT_ACTIVITY_STATE: ActivityState = {
+  status: ActivityStatus.WaitingForStart,
+  startTime: new Date(),
+  stepIndex: 0,
 };
 
 export const RESPONSE_MAXIMUM_LENGTH = 800;

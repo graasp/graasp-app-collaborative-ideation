@@ -8,13 +8,12 @@ import Stack from '@mui/material/Stack';
 
 import { RESPONSE_COLLECTION_VIEW_CY } from '@/config/selectors';
 import useActions from '@/hooks/useActions';
-import useSteps from '@/hooks/useSteps';
-import { IdeationPhases } from '@/interfaces/interactionProcess';
 import { ResponseData } from '@/interfaces/response';
 import Instructions from '@/modules/common/Instructions';
 import Pausable from '@/modules/common/Pausable';
 import { useResponsesContext } from '@/state/ResponsesContext';
 import useActivityState from '@/state/useActivityState';
+import { IdeationPhases } from '@/interfaces/activity_state';
 
 import Round from '../common/Round';
 import Timer from '../common/Timer';
@@ -23,16 +22,15 @@ import IdeaInput from './ResponseInput';
 
 const ResponseCollection: FC = () => {
   const { t } = useTranslation('translations');
-  const { round, activityState } = useActivityState();
+  const { round, activityState, currentStep } = useActivityState();
 
   const { allResponses } = useResponsesContext();
   const availableResponses = allResponses;
-  const { currentStep } = useSteps();
   const { postChooseResponseAction } = useActions();
   const [chosenIdea, setChosenIdea] = useState<ResponseData<undefined>>();
   const [phase, setPhase] = useState<number>(IdeationPhases.Choose);
 
-  const { startTime } = activityState.data;
+  const { startTime } = activityState;
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const handleCloseSnackbar = (
@@ -100,7 +98,7 @@ const ResponseCollection: FC = () => {
             width="100%"
           >
             <Round round={round} />
-            {currentStep?.time && (
+            {currentStep?.time && startTime && (
               <Timer startTime={startTime} time={currentStep.time} />
             )}
           </Stack>

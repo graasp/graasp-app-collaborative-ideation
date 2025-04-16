@@ -19,7 +19,6 @@ import {
 import { SETTINGS_VIEW_CY } from '@/config/selectors';
 import { useSettings } from '@/modules/context/SettingsContext';
 
-import ResetSetsButton from '../common/ResetSetsButton';
 import SaveButton from '../common/SaveButton';
 import InstructionsSettings from './InstructionsSettings';
 import OrchestratorSettings from './OrchestratorSettings';
@@ -122,7 +121,7 @@ const Settings: FC<SettingsProps> = () => {
       </Box> */}
       <Box>
         <SaveButton disabled={isSaved} onSave={handleSave} />
-        <ResetSetsButton enable />
+        {/* <ResetSetsButton enable /> */}
       </Box>
     </Stack>
   );

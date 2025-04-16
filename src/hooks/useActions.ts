@@ -17,9 +17,9 @@ import {
   SubmitNewResponseAction,
   VoteForAction,
 } from '@/config/appActionsTypes';
-import { CurrentStateData, VoteAppData } from '@/config/appDataTypes';
+import { VoteAppData } from '@/config/appDataTypes';
 import { mutations } from '@/config/queryClient';
-import { ActivityStep } from '@/interfaces/interactionProcess';
+import { ActivityState, ActivityStep } from '@/interfaces/activity_state';
 import { ResponseData } from '@/interfaces/response';
 
 interface UseActionsValues {
@@ -27,7 +27,7 @@ interface UseActionsValues {
   postDeleteResponseAction: (id: ResponseData['id']) => void;
   postChooseResponseAction: (response: ResponseData<undefined>) => void;
   postOpenAppAction: (
-    currentState?: CurrentStateData,
+    activityState?: ActivityState,
     context?: LocalContext,
   ) => void;
   // postEvaluateResponseAction: <T>(evaluation: RatingsAppData<T>) => void;
@@ -78,10 +78,10 @@ const useActions = (): UseActionsValues => {
   );
 
   const postOpenAppAction = useMemo(
-    () => (currentState?: CurrentStateData, context?: LocalContext) => {
+    () => (activityState?: ActivityState, context?: LocalContext) => {
       const action: OpenAppAction = {
         type: AppActionTypes.OpenApp,
-        data: { currentState, context },
+        data: { activityState, context },
       };
       postAppAction(action);
     },

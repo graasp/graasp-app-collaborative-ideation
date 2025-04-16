@@ -12,10 +12,10 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 
 import { EvaluationParameters, EvaluationType } from '@/interfaces/evaluation';
-import { ActivityStep, ActivityType } from '@/interfaces/interactionProcess';
 import CancelButton from '@/modules/common/CancelButton';
 import SaveButton from '@/modules/common/SaveButton';
 
+import { ActivityStep, ActivityType } from '@/interfaces/activity_state';
 import EvaluationSettings from './evaluation/EvaluationSettings';
 import ResultsSettings from './results/ResultsSettings';
 

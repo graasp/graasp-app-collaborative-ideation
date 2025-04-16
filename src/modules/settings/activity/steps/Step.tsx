@@ -9,8 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
-import { ActivityStep, ActivityType } from '@/interfaces/interactionProcess';
-
+import { ActivityStep, ActivityType } from '@/interfaces/activity_state';
 import StepEditDialog from './StepEditDialog';
 
 const getIcon = (type: ActivityType): JSX.Element => {
