@@ -112,6 +112,7 @@ const ResponseInput: FC<{
           round: currentRound,
           givenPrompt,
           bot: actAsBot,
+          markup: 'markdown',
         };
 
     promisePostIdea.current = postResponse(newIdeaData, true)?.then(

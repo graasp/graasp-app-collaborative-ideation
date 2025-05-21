@@ -281,7 +281,7 @@ const useResponses = ({
         round: r?.round,
         bot: r?.bot,
         assistantId: r?.assistantId,
-        encoding: r?.encoding,
+        markup: r?.markup,
         originalResponse: r?.originalResponse,
         givenPrompt: r?.givenPrompt,
       }),

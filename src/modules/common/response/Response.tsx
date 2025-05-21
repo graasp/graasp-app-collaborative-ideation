@@ -30,12 +30,7 @@ import Rate from './evaluation/Rate';
 import Vote from './evaluation/Vote';
 import RatingsVisualization from './visualization/RatingsVisualization';
 import Votes from './visualization/Votes';
-
-const ResponsePart: FC<{ children: string }> = ({ children }) => (
-  <Typography variant="body1" sx={{ overflowWrap: 'break-word', mb: 1 }}>
-    {children}
-  </Typography>
-);
+import ResponsePart from './ResponsePart';
 
 const TopAnnotationTypography = styled(Typography)(() => ({
   fontWeight: 'bold',
@@ -73,8 +68,10 @@ const Response: FC<ResponseProps> = ({
   const theme = useTheme();
 
   const { id, data, creator } = response;
-  const { response: responseContent, round, parentId, assistantId } = data;
+  const { response: responseContent, round, parentId, assistantId, markup } = data;
   const { activity } = useSettings();
+
+  const isMarkdown = useMemo(() => markup === 'markdown', [markup]);
 
   const isOwn = creator?.id === accountId && typeof assistantId === 'undefined';
   const isAiGenerated = useMemo(
@@ -165,12 +162,12 @@ const Response: FC<ResponseProps> = ({
         >
           <CardContent sx={{ minHeight: '32pt' }}>
             {typeof responseContent === 'string' ? (
-              <ResponsePart>{responseContent}</ResponsePart>
+              <ResponsePart markdown={isMarkdown}>{responseContent}</ResponsePart>
             ) : (
               responseContent?.map((r, index) => (
                 <>
                   {/* {index !== 0 && <br />} */}
-                  <ResponsePart key={index}>{r}</ResponsePart>
+                  <ResponsePart markdown={isMarkdown} key={index}>{r}</ResponsePart>
                 </>
               ))
             )}
