@@ -1,5 +1,35 @@
 # Changelog
 
+## [3.2.4](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.2.3...v3.2.4) (2025-02-12)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/react to v8.40.0 ([#666](https://github.com/graasp/graasp-app-collaborative-ideation/issues/666)) ([4413a07](https://github.com/graasp/graasp-app-collaborative-ideation/commit/4413a079d388756c35287a35008603f163a6146b))
+* **deps:** update dependency @sentry/react to v8.52.1 ([#700](https://github.com/graasp/graasp-app-collaborative-ideation/issues/700)) ([db5ac42](https://github.com/graasp/graasp-app-collaborative-ideation/commit/db5ac42ea1fa4377ada614c02c94db48d63d562f))
+* **deps:** update dependency @sentry/react to v8.54.0 ([#706](https://github.com/graasp/graasp-app-collaborative-ideation/issues/706)) ([f3c161a](https://github.com/graasp/graasp-app-collaborative-ideation/commit/f3c161a93e5b3896f27510b19ca69219cf80ef09))
+* **deps:** update dependency @sentry/vite-plugin to v2.22.7 ([#676](https://github.com/graasp/graasp-app-collaborative-ideation/issues/676)) ([3138471](https://github.com/graasp/graasp-app-collaborative-ideation/commit/3138471c4a241c33c84e0b402472a027b78a556c))
+* **deps:** update dependency @sentry/vite-plugin to v3 ([#709](https://github.com/graasp/graasp-app-collaborative-ideation/issues/709)) ([50ee1dc](https://github.com/graasp/graasp-app-collaborative-ideation/commit/50ee1dc12e69cb8a270df2cad5965b179f39d66c))
+* **deps:** update dependency @sentry/vite-plugin to v3.1.2 ([#711](https://github.com/graasp/graasp-app-collaborative-ideation/issues/711)) ([a783a29](https://github.com/graasp/graasp-app-collaborative-ideation/commit/a783a2908818decaa792ac64956756cf44278448))
+* **deps:** update dependency @uiw/react-codemirror to v4.23.7 ([#687](https://github.com/graasp/graasp-app-collaborative-ideation/issues/687)) ([2cd33e3](https://github.com/graasp/graasp-app-collaborative-ideation/commit/2cd33e319ce3aab6ee16c80ec173011fbb9fb6f0))
+* **deps:** update dependency i18next to v23.16.8 ([#660](https://github.com/graasp/graasp-app-collaborative-ideation/issues/660)) ([dca24ee](https://github.com/graasp/graasp-app-collaborative-ideation/commit/dca24eec8459378b8a2abd965548f0f65968e69d))
+* **deps:** update dependency i18next to v24 ([#683](https://github.com/graasp/graasp-app-collaborative-ideation/issues/683)) ([5140338](https://github.com/graasp/graasp-app-collaborative-ideation/commit/51403384e8e94b3357daacaddbb2ec2abccd72a2))
+* **deps:** update dependency lucide-react to ^0.468.0 ([#673](https://github.com/graasp/graasp-app-collaborative-ideation/issues/673)) ([5b4451d](https://github.com/graasp/graasp-app-collaborative-ideation/commit/5b4451debe6549c0d0ac0d3aae9cd1ec53a5d5b0))
+* **deps:** update dependency lucide-react to ^0.474.0 ([#695](https://github.com/graasp/graasp-app-collaborative-ideation/issues/695)) ([de2b9e4](https://github.com/graasp/graasp-app-collaborative-ideation/commit/de2b9e4ced80c64cdb4a3e9d45d9aec95423cc60))
+* **deps:** update dependency papaparse to v5.5.2 ([#696](https://github.com/graasp/graasp-app-collaborative-ideation/issues/696)) ([6e76fb5](https://github.com/graasp/graasp-app-collaborative-ideation/commit/6e76fb588bb3df784e73bf969f4080b1eb31fe44))
+* **deps:** update dependency plotly.js to v2.35.3 ([#689](https://github.com/graasp/graasp-app-collaborative-ideation/issues/689)) ([e1838b5](https://github.com/graasp/graasp-app-collaborative-ideation/commit/e1838b5d56602896e0eac734617d444d871ae0f0))
+* **deps:** update dependency qs to v6.14.0 ([#697](https://github.com/graasp/graasp-app-collaborative-ideation/issues/697)) ([eae88cc](https://github.com/graasp/graasp-app-collaborative-ideation/commit/eae88cc8d6ae3bd4a9837538f35790b7001c37b9))
+* **deps:** update dependency react-i18next to v15.1.4 ([#672](https://github.com/graasp/graasp-app-collaborative-ideation/issues/672)) ([1eddc52](https://github.com/graasp/graasp-app-collaborative-ideation/commit/1eddc52e468070f5fdaad08c4b0ca80114c505c0))
+* **deps:** update dependency react-i18next to v15.4.0 ([#698](https://github.com/graasp/graasp-app-collaborative-ideation/issues/698)) ([874d0e4](https://github.com/graasp/graasp-app-collaborative-ideation/commit/874d0e4565e12d6c1b2af4e561bbef8250748b62))
+* **deps:** update dependency react-router-dom to v7 ([#667](https://github.com/graasp/graasp-app-collaborative-ideation/issues/667)) ([0ad2840](https://github.com/graasp/graasp-app-collaborative-ideation/commit/0ad2840dc6412661600c0ecab76bb75fa225c8c5))
+* **deps:** update dependency react-router-dom to v7.1.5 ([#699](https://github.com/graasp/graasp-app-collaborative-ideation/issues/699)) ([a6cbb64](https://github.com/graasp/graasp-app-collaborative-ideation/commit/a6cbb64e3c8bcab5f0418f06cc448a07f467e98f))
+* **deps:** update dependency typescript to v5.7.2 ([#668](https://github.com/graasp/graasp-app-collaborative-ideation/issues/668)) ([7739f46](https://github.com/graasp/graasp-app-collaborative-ideation/commit/7739f46e3159aef73337a16935bf280d96e55858))
+* **deps:** update dependency typescript to v5.7.3 ([#691](https://github.com/graasp/graasp-app-collaborative-ideation/issues/691)) ([b418d43](https://github.com/graasp/graasp-app-collaborative-ideation/commit/b418d43bf4d0fd8d61b496f21f47bbe2c295c612))
+* **deps:** update emotion monorepo to v11.13.5 ([#662](https://github.com/graasp/graasp-app-collaborative-ideation/issues/662)) ([a176eda](https://github.com/graasp/graasp-app-collaborative-ideation/commit/a176eda55cd09bd24b0d0152b94a696dc4f21549))
+* **deps:** update emotion monorepo to v11.14.0 ([#680](https://github.com/graasp/graasp-app-collaborative-ideation/issues/680)) ([4323046](https://github.com/graasp/graasp-app-collaborative-ideation/commit/4323046ca478d6485acc43f04359a6c5a16c2950))
+* **deps:** update mui (non-major) ([#677](https://github.com/graasp/graasp-app-collaborative-ideation/issues/677)) ([6a757ff](https://github.com/graasp/graasp-app-collaborative-ideation/commit/6a757ff67c6ab61df35461b67f0101adf5b50b29))
+* **deps:** update sentry packages ([#679](https://github.com/graasp/graasp-app-collaborative-ideation/issues/679)) ([56946ff](https://github.com/graasp/graasp-app-collaborative-ideation/commit/56946ff219eb4c8984674ffadbbfcefea63a6645))
+
 ## [3.2.3](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.2.2...v3.2.3) (2024-11-21)
 
 
