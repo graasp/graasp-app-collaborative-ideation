@@ -26,11 +26,11 @@ import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
 import { ResponseEvaluation } from '@/interfaces/response';
 import { useSettings } from '@/modules/context/SettingsContext';
 
+import ResponsePart from './ResponsePart';
 import Rate from './evaluation/Rate';
 import Vote from './evaluation/Vote';
 import RatingsVisualization from './visualization/RatingsVisualization';
 import Votes from './visualization/Votes';
-import ResponsePart from './ResponsePart';
 
 const TopAnnotationTypography = styled(Typography)(() => ({
   fontWeight: 'bold',
@@ -68,7 +68,13 @@ const Response: FC<ResponseProps> = ({
   const theme = useTheme();
 
   const { id, data, creator } = response;
-  const { response: responseContent, round, parentId, assistantId, markup } = data;
+  const {
+    response: responseContent,
+    round,
+    parentId,
+    assistantId,
+    markup,
+  } = data;
   const { activity } = useSettings();
 
   const isMarkdown = useMemo(() => markup === 'markdown', [markup]);
@@ -162,12 +168,16 @@ const Response: FC<ResponseProps> = ({
         >
           <CardContent sx={{ minHeight: '32pt' }}>
             {typeof responseContent === 'string' ? (
-              <ResponsePart markdown={isMarkdown}>{responseContent}</ResponsePart>
+              <ResponsePart markdown={isMarkdown}>
+                {responseContent}
+              </ResponsePart>
             ) : (
               responseContent?.map((r, index) => (
                 <>
                   {/* {index !== 0 && <br />} */}
-                  <ResponsePart markdown={isMarkdown} key={index}>{r}</ResponsePart>
+                  <ResponsePart markdown={isMarkdown} key={index}>
+                    {r}
+                  </ResponsePart>
                 </>
               ))
             )}
