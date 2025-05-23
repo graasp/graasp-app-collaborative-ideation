@@ -1,7 +1,8 @@
 import { AppData, AppDataVisibility, Member } from '@graasp/sdk';
 
-import { AppDataTypes, ResponseData } from '@/config/appDataTypes';
+import { AppDataTypes } from '@/config/appDataTypes';
 import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
+import { ResponseData } from '@/interfaces/response';
 
 import { MEMBERS } from './members';
 import { MOCK_SERVER_DISCRIMINATED_ITEM } from './mockItem';
