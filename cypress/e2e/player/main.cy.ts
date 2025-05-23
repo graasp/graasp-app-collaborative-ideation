@@ -81,6 +81,8 @@ describe('Player with read rights and collection activity.', () => {
 
     const newIdeas = [
       "I don't have anything specific",
+      '# Heading 1\nI contain a heading that should not be visible.',
+      'This is an image:\n![Image from picsum](https://picsum.photos/200)',
       'I contain a link to [Google](https://www.google.com).',
       '```javascript\nconsole.log("Hello world!");\n```',
       '**I am a strong idea**',
