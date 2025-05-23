@@ -4,6 +4,7 @@ import {
   ADMIN_PANEL_CY,
   DETAILS_INSTRUCTIONS_CY,
   LIKERT_RATING_CY,
+  MARKDOWN_CONTAINER_CY,
   ORCHESTRATION_BAR_CY,
   PROMPTS_CY,
   PROPOSE_NEW_RESPONSE_BTN_CY,
@@ -70,6 +71,42 @@ describe('Player with read rights and collection activity.', () => {
       'have.length',
       ALL_SETTINGS_OBJECT.prompts.maxNumberOfQueries,
     );
+  });
+
+  it('types a few ideas in markdown.', () => {
+    // Propose a new idea, then go to next step
+    cy.get(buildDataCy(ADMIN_PANEL_CY)).should('not.exist');
+
+    cy.get(buildDataCy(ORCHESTRATION_BAR_CY.PLAY_BUTTON)).click();
+
+    const newIdeas = [
+      "I don't have anything specific",
+      '# Heading 1\nI contain a heading that should not be visible.',
+      'This is an image:\n![Image from picsum](https://picsum.photos/200)',
+      'I contain a link to [Google](https://www.google.com).',
+      '```javascript\nconsole.log("Hello world!");\n```',
+      '**I am a strong idea**',
+    ];
+
+    cy.get(buildDataCy(RESPONSE_COLLECTION_VIEW_CY)).within(() => {
+      newIdeas.forEach((idea) => {
+        cy.get(buildDataCy(PROPOSE_NEW_RESPONSE_BTN_CY)).click();
+        cy.get('#input-response').type('a');
+        cy.get('#input-response').type('{backspace}');
+        cy.get('#input-response').should('be.enabled');
+        cy.get('#input-response').type(idea, { delay: 20 });
+        cy.get(buildDataCy(SUBMIT_RESPONSE_BTN_CY)).click();
+      });
+    });
+
+    cy.get(buildDataCy(RESPONSE_CY))
+      .first()
+      .within(() => {
+        cy.get(buildDataCy(MARKDOWN_CONTAINER_CY)).should('exist');
+        cy.get(buildDataCy(MARKDOWN_CONTAINER_CY)).within(() => {
+          cy.get('strong').should('contain.text', 'I am a strong idea');
+        });
+      });
   });
 });
 

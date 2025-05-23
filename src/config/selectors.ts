@@ -32,6 +32,7 @@ export const ORCHESTRATION_BAR_CY = {
 };
 
 export const RESPONSE_CY = 'response';
+export const MARKDOWN_CONTAINER_CY = 'markdown-container';
 
 export const LIKERT_RATING_CY = 'likert-rating';
 

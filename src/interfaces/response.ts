@@ -21,7 +21,7 @@ export type ResponseData<
   bot?: boolean;
   assistantId?: AssistantId;
   parentId?: string;
-  encoding?: 'raw' | 'markdown';
+  markup?: 'none' | 'markdown';
   originalResponse?: string;
   givenPrompt?: string;
   evaluation?: EvaluationType;

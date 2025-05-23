@@ -4,6 +4,8 @@ import { useLocalContext } from '@graasp/apps-query-client';
 import { Context } from '@graasp/sdk';
 
 import * as Sentry from '@sentry/react';
+// This enables syntax highlighting in the responses.
+import 'highlight.js/styles/github.css';
 
 import { DEFAULT_LANG } from '@/config/constants';
 import { SENTRY_ENV } from '@/config/env';

@@ -1,4 +1,5 @@
-import registerCodeCoverage from '@cypress/code-coverage/task';
+// eslint-disable-next-line import/extensions
+import registerCodeCoverage from '@cypress/code-coverage/task.js';
 import { defineConfig } from 'cypress';
 
 export default defineConfig({

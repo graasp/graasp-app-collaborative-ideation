@@ -26,7 +26,7 @@ export const INITIAL_STATE: {
   visibility: AppDataVisibility.Item,
 };
 
-export const RESPONSE_MAXIMUM_LENGTH = 200;
+export const RESPONSE_MAXIMUM_LENGTH = 800;
 export const NUMBER_OF_IDEAS_TO_SHOW = 3;
 export const REFRESH_INTERVAL_MS = 5000;
 export const MAX_NUMBER_OF_CHARS_INPUT = 72;

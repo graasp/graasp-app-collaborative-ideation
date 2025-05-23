@@ -23,6 +23,7 @@ import {
 import useAssistants from '@/hooks/useAssistants';
 import { ResponseData } from '@/interfaces/response';
 
+import MarkdownHelper from '../common/MardownHelper';
 import { useActivityContext } from '../context/ActivityContext';
 import { useSettings } from '../context/SettingsContext';
 import Prompts from './prompts/Prompts';
@@ -112,6 +113,7 @@ const ResponseInput: FC<{
           round: currentRound,
           givenPrompt,
           bot: actAsBot,
+          markup: 'markdown',
         };
 
     promisePostIdea.current = postResponse(newIdeaData, true)?.then(
@@ -147,6 +149,7 @@ const ResponseInput: FC<{
             <PreviousResponse key={index}>{r}</PreviousResponse>
           ))
         ))}
+      <MarkdownHelper />
       <TextField
         helperText={t('HELPER')}
         sx={{ width: { md: '75ch', sm: '100%' }, maxWidth: '100%' }}
