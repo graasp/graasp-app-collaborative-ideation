@@ -7,6 +7,11 @@ import hljs from 'highlight.js';
 import { Marked } from 'marked';
 import { markedHighlight } from 'marked-highlight';
 
+import { MARKDOWN_CONTAINER_CY } from '@/config/selectors';
+
+// For the syntax highlighting, the stylesheet is imported in the App.tsx
+// import "highlight.js/styles/github.css";
+
 const ResponsePart: FC<{ markdown: boolean; children: string }> = ({
   markdown,
   children,
@@ -24,13 +29,14 @@ const ResponsePart: FC<{ markdown: boolean; children: string }> = ({
       }),
     );
 
-    const unsafeHtml = marked.parseInline(children, { async: false });
+    const unsafeHtml = marked.parse(children, { async: false });
     const inlineHtml = DOMPurify.sanitize(unsafeHtml);
     return (
       <Typography
         variant="body1"
         sx={{ overflowWrap: 'break-word', mb: 1 }}
         dangerouslySetInnerHTML={{ __html: inlineHtml }}
+        data-cy={MARKDOWN_CONTAINER_CY}
       />
     );
   }
