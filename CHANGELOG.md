@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.3.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.2.4...v3.3.0) (2025-05-23)
+
+
+### Features
+
+* add admonition to explain markdown markup ([9d371d7](https://github.com/graasp/graasp-app-collaborative-ideation/commit/9d371d714e09fc9456da904ac0e98807520c9518))
+* add markdown support ([#716](https://github.com/graasp/graasp-app-collaborative-ideation/issues/716)) ([9d371d7](https://github.com/graasp/graasp-app-collaborative-ideation/commit/9d371d714e09fc9456da904ac0e98807520c9518))
+
 ## [3.2.4](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.2.3...v3.2.4) (2025-02-12)
 
 
