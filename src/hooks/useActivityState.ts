@@ -9,6 +9,7 @@ import {
   ActivityStatus,
   ActivityStep,
   ActivityType,
+  ResponseVisibilityMode,
 } from '@/interfaces/interactionProcess';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
@@ -41,14 +42,18 @@ const useActivityState = (): UseActivityStateValues => {
 
   const { appData, postAppData, patchAppData, deleteAppData } =
     useAppDataContext();
-  const { orchestrator } = useSettings();
-  const { permission } = useLocalContext();
+  const { orchestrator, activity } = useSettings();
+  const { mode } = activity;
+  const { permission, accountId } = useLocalContext();
 
   const activityState = useMemo(() => {
-    const state = getCurrentState(appData, orchestrator.id);
+    const state =
+      mode === ResponseVisibilityMode.Individual
+        ? getCurrentState(appData, accountId ?? '')
+        : getCurrentState(appData, orchestrator.id);
     setStateWarning(state?.multipleStatesFound === true);
     return state.currentState;
-  }, [appData, orchestrator]);
+  }, [accountId, appData, mode, orchestrator]);
 
   const round = useMemo(() => activityState?.data.round || 0, [activityState]);
 

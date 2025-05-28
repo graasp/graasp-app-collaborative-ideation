@@ -2,7 +2,10 @@ import { FC, Suspense, SuspenseProps, lazy } from 'react';
 
 import { useLocalContext } from '@graasp/apps-query-client';
 
-import { ActivityType } from '@/interfaces/interactionProcess';
+import {
+  ActivityType,
+  ResponseVisibilityMode,
+} from '@/interfaces/interactionProcess';
 
 import Loader from '../common/Loader';
 import { useActivityContext } from '../context/ActivityContext';
@@ -60,12 +63,15 @@ const getActivityComponent = (activity: ActivityType): JSX.Element => {
 const Activity: FC = () => {
   const { activityState } = useActivityContext();
   const { accountId } = useLocalContext();
-  const { orchestrator } = useSettings();
+  const { orchestrator, activity: activitySettings } = useSettings();
+  const { mode } = activitySettings;
+  const showOrchestrationBar =
+    orchestrator.id === accountId || mode === ResponseVisibilityMode.Individual;
 
   const { activity } = activityState.data;
   return (
     <>
-      {orchestrator.id === accountId && <OrchestrationBar />}
+      {showOrchestrationBar && <OrchestrationBar />}
       {getActivityComponent(activity)}
     </>
   );
