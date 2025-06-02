@@ -153,11 +153,29 @@ const useAssistants = (): UseAssistantsValues => {
         (set) =>
           set.data.assistant === assistant.id && set.data.round === round - 1,
       );
-      if (assistantSet) {
+      if (
+        assistantSet &&
+        (mode === ResponseVisibilityMode.PartiallyBlind ||
+          mode === ResponseVisibilityMode.Open)
+      ) {
         const responses = assistantSet.data.responses.map((r) =>
           joinMultipleResponses(
             allResponses.find(({ id }) => r === id)?.data.response || '',
           ),
+        );
+        promise = promptAssistant(
+          assistant,
+          promptForSingleResponseAndProvideResponses(
+            instructions.title.content,
+            responses,
+            t,
+            includeDetails ? instructions.details?.content : undefined,
+            promptMode,
+          ),
+        );
+      } else if (mode === ResponseVisibilityMode.OpenLive) {
+        const responses = allResponses.map((r) =>
+          joinMultipleResponses(r.data.response),
         );
         promise = promptAssistant(
           assistant,
@@ -198,7 +216,9 @@ const useAssistants = (): UseAssistantsValues => {
       allResponses,
       assistantsResponsesSets,
       includeDetails,
-      instructions,
+      instructions.details?.content,
+      instructions.title.content,
+      mode,
       postResponse,
       promptAssistant,
       promptMode,
