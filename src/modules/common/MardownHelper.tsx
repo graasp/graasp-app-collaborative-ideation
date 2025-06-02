@@ -1,3 +1,4 @@
+// TODO: Translate this component
 import React, { useState } from 'react';
 
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';

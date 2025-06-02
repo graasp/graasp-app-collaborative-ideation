@@ -4,9 +4,6 @@ import { useTranslation } from 'react-i18next';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-
-import { Loader } from '@graasp/ui';
 
 import { ResponseAppData } from '@/config/appDataTypes';
 import { HIGHLIGHT_RESPONSE_TIME_MS } from '@/config/constants';
@@ -14,6 +11,9 @@ import { PROPOSE_NEW_RESPONSE_BTN_CY } from '@/config/selectors';
 import Response from '@/modules/common/response/Response';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
+import ResponsesGridContainer, {
+  ResponseGridItem,
+} from '../common/ResponsesGrid';
 import { useSettings } from '../context/SettingsContext';
 
 interface ResponseChooseProps {
@@ -27,7 +27,7 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
   const [highlightId, setHighlightId] = useState<string>();
   const highlightTimeout = useRef<NodeJS.Timeout>();
 
-  const { isLoading, invalidateAppData, deleteAppData } = useAppDataContext();
+  const { invalidateAppData, deleteAppData } = useAppDataContext();
   const { instructions } = useSettings();
   const chooseInstructions = useMemo(
     () =>
@@ -41,21 +41,16 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
     onChoose(id);
   };
 
-  const renderPlaceHolderForNoIdeas = (): JSX.Element => {
-    if (isLoading) {
-      return <Loader />;
-    }
-    return (
-      <>
-        <Alert sx={{ m: 1 }} severity="info">
-          {t('NO_IDEAS_TO_SHOW_TEXT')}
-        </Alert>
-        <Button onClick={() => invalidateAppData()}>
-          {t('CHECK_FOR_NEW_RESPONSES')}
-        </Button>
-      </>
-    );
-  };
+  const renderPlaceHolderForNoIdeas = (): JSX.Element => (
+    <>
+      <Alert sx={{ m: 1 }} severity="info">
+        {t('NO_IDEAS_TO_SHOW_TEXT')}
+      </Alert>
+      <Button onClick={() => invalidateAppData()}>
+        {t('CHECK_FOR_NEW_RESPONSES')}
+      </Button>
+    </>
+  );
 
   return (
     <>
@@ -69,10 +64,10 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
       >
         {t('PROPOSE_NEW_RESPONSE')}
       </Button>
-      <Grid container spacing={2}>
+      <ResponsesGridContainer>
         {responses
           ? responses.map((response) => (
-              <Grid key={response.id} item xl={2} sm={4} xs={6}>
+              <ResponseGridItem key={response.id}>
                 <Response
                   key={response.id}
                   response={response}
@@ -89,10 +84,10 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
                     }, HIGHLIGHT_RESPONSE_TIME_MS);
                   }}
                 />
-              </Grid>
+              </ResponseGridItem>
             ))
           : renderPlaceHolderForNoIdeas()}
-      </Grid>
+      </ResponsesGridContainer>
     </>
   );
 };

@@ -2,7 +2,7 @@ import { ChangeEventHandler, FC, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import FileUploadIcon from '@mui/icons-material/FileUpload';
-import LoadingButton from '@mui/lab/LoadingButton';
+import Button from '@mui/material/Button';
 
 import { ParseResult, parse } from 'papaparse';
 
@@ -39,13 +39,13 @@ const ImportResponsesButton: FC = () => {
   };
   return (
     <>
-      <LoadingButton
+      <Button
         onClick={() => fileInputRef.current?.click()}
         loading={isImporting}
         startIcon={<FileUploadIcon />}
       >
         {t('IMPORT_RESPONSES')}
-      </LoadingButton>
+      </Button>
       <input
         onChange={handleChange}
         multiple={false}

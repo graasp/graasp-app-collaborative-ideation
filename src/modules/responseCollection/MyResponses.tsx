@@ -1,12 +1,14 @@
 import { FC } from 'react';
 
-import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
 import { useLocalContext } from '@graasp/apps-query-client';
 
 import Response from '@/modules/common/response/Response';
 
+import ResponsesGridContainer, {
+  ResponseGridItem,
+} from '../common/ResponsesGrid';
 import { useActivityContext } from '../context/ActivityContext';
 
 const MyResponses: FC = () => {
@@ -20,10 +22,10 @@ const MyResponses: FC = () => {
         <Typography sx={{ fontSize: '18pt' }} variant="h4">
           My responses
         </Typography>
-        <Grid container spacing={2}>
+        <ResponsesGridContainer>
           {myResponses ? (
             myResponses.map((response) => (
-              <Grid key={response.id} item xl={2} sm={4} xs={6}>
+              <ResponseGridItem key={response.id}>
                 <Response
                   key={response.id}
                   response={response}
@@ -31,14 +33,15 @@ const MyResponses: FC = () => {
                     response.data.round === round ? handleDelete : undefined
                   }
                 />
-              </Grid>
+              </ResponseGridItem>
             ))
           ) : (
             <Typography variant="body1">
+              {/* TODO: Improve this message */}
               You have not submitted any response yet.
             </Typography>
           )}
-        </Grid>
+        </ResponsesGridContainer>
       </>
     );
   }

@@ -84,7 +84,8 @@ const useSteps = (): UseStepsValues => {
 
     if (
       (nextStep?.round || 0) > round &&
-      mode !== ResponseVisibilityMode.OpenLive
+      (mode === ResponseVisibilityMode.Open ||
+        mode === ResponseVisibilityMode.PartiallyBlind)
     ) {
       // TODO: Insane amount of work here. REFACTOR!
       await generateResponsesWithEachAssistant()
@@ -94,6 +95,12 @@ const useSteps = (): UseStepsValues => {
             changeStep(nextStep, nextStepIndex);
           }),
         );
+    } else if (mode === ResponseVisibilityMode.Individual) {
+      await generateResponsesWithEachAssistant()
+        .then((p) => Promise.all(p))
+        .then(() => {
+          changeStep(nextStep, nextStepIndex);
+        });
     } else {
       changeStep(nextStep, nextStepIndex);
     }

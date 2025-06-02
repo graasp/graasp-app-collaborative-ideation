@@ -130,6 +130,9 @@ const useResponses = ({
     if (visibilityMode === ResponseVisibilityMode.OpenLive) {
       return allResponses;
     }
+    if (visibilityMode === ResponseVisibilityMode.Individual) {
+      return allResponses.filter(({ creator }) => creator?.id === accountId);
+    }
     const responses = allResponses.filter((r) => {
       const { id } = r;
       let okay = false;
@@ -142,7 +145,7 @@ const useResponses = ({
       return okay || isOwnResponse(r as ResponseAppData, accountId ?? '');
     }) as ResponseAppData[];
     return responses;
-  }, [allResponses, accountId, myResponsesSets, visibilityMode]);
+  }, [visibilityMode, allResponses, myResponsesSets, accountId]);
 
   const postResponse = (
     data: ResponseData,

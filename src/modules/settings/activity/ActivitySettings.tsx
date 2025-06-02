@@ -135,10 +135,9 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
               label="Partially blind (brainwriting)"
             />
             <FormControlLabel
-              value={ResponseVisibilityMode.FullyBlind}
+              value={ResponseVisibilityMode.Individual}
               control={<Radio />}
-              label="Fully blind (individual ideation)"
-              disabled
+              label="Individual"
             />
           </RadioGroup>
         </FormControl>

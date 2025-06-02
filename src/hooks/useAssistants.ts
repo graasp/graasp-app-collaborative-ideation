@@ -32,6 +32,7 @@ import { useActivityContext } from '@/modules/context/ActivityContext';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 
+import { makeAssistantResponse } from './utils/assistants';
 import { joinMultipleResponses } from './utils/responses';
 
 interface UseAssistantsValues {
@@ -200,14 +201,9 @@ const useAssistants = (): UseAssistantsValues => {
       }
       return promise.then(async (assistantResponseAppData) => {
         if (assistantResponseAppData) {
-          const { completion: response, assistantId } =
-            assistantResponseAppData.data;
-          return postResponse({
-            response,
-            round,
-            bot: true,
-            assistantId,
-          });
+          return postResponse(
+            makeAssistantResponse(assistantResponseAppData, round),
+          );
         }
         return assistantResponseAppData;
       });
