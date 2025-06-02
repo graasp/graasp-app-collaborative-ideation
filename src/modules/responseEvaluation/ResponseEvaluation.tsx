@@ -1,10 +1,9 @@
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
 
 import { RESPONSE_EVALUATION_VIEW_CY } from '@/config/selectors';
 import useSteps from '@/hooks/useSteps';
@@ -13,6 +12,9 @@ import Pausable from '@/modules/common/Pausable';
 import Response from '@/modules/common/response/Response';
 
 import Instructions from '../common/Instructions';
+import ResponsesGridContainer, {
+  ResponseGridItem,
+} from '../common/ResponsesGrid';
 import { useActivityContext } from '../context/ActivityContext';
 import { useAppDataContext } from '../context/AppDataContext';
 import { RatingsProvider } from '../context/RatingsContext';
@@ -29,7 +31,7 @@ const ResponseEvaluation: FC = () => {
 
   const { invalidateAppData } = useAppDataContext();
 
-  const renderPlaceHolderForNoResponses = (): ReactNode => (
+  const renderPlaceHolderForNoResponses = (): JSX.Element => (
     <>
       <Alert sx={{ m: 1 }} severity="info">
         {t('NO_IDEAS_TO_SHOW_TEXT')}
@@ -75,19 +77,19 @@ const ResponseEvaluation: FC = () => {
           <>
             <Instructions />
             {renderEvaluationToolbar()}
-            <Grid container spacing={2}>
+            <ResponsesGridContainer>
               {responses
                 ? responses.map((response) => (
-                    <Grid item key={response.id} xl={2} sm={4} xs={6}>
+                    <ResponseGridItem key={response.id}>
                       <Response
                         key={response.id}
                         response={response}
                         evaluationType={evaluationType}
                       />
-                    </Grid>
+                    </ResponseGridItem>
                   ))
                 : renderPlaceHolderForNoResponses()}
-            </Grid>
+            </ResponsesGridContainer>
           </>,
         )}
       </Container>

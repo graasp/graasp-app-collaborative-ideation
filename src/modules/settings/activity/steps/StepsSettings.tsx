@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 
 import { ActivityStep, ActivityType } from '@/interfaces/interactionProcess';
 
@@ -42,7 +42,7 @@ const StepsSettings: FC<StepsSettingsProps> = ({ steps, onChange, onSave }) => {
   return (
     <Grid container spacing={1}>
       {steps.map((step, index) => (
-        <Grid item xs={3} key={index}>
+        <Grid size={3} key={index}>
           <Step
             step={step}
             position={index}

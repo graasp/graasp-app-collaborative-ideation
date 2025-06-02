@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
 
 import { ResponseAppData } from '@/config/appDataTypes';
 import { HIGHLIGHT_RESPONSE_TIME_MS } from '@/config/constants';
@@ -12,6 +11,9 @@ import { PROPOSE_NEW_RESPONSE_BTN_CY } from '@/config/selectors';
 import Response from '@/modules/common/response/Response';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 
+import ResponsesGridContainer, {
+  ResponseGridItem,
+} from '../common/ResponsesGrid';
 import { useSettings } from '../context/SettingsContext';
 
 interface ResponseChooseProps {
@@ -62,10 +64,10 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
       >
         {t('PROPOSE_NEW_RESPONSE')}
       </Button>
-      <Grid container spacing={2}>
+      <ResponsesGridContainer>
         {responses
           ? responses.map((response) => (
-              <Grid key={response.id} item xl={2} sm={4} xs={6}>
+              <ResponseGridItem key={response.id}>
                 <Response
                   key={response.id}
                   response={response}
@@ -82,10 +84,10 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
                     }, HIGHLIGHT_RESPONSE_TIME_MS);
                   }}
                 />
-              </Grid>
+              </ResponseGridItem>
             ))
           : renderPlaceHolderForNoIdeas()}
-      </Grid>
+      </ResponsesGridContainer>
     </>
   );
 };

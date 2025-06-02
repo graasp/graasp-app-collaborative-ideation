@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
@@ -134,7 +134,7 @@ const Assistant: FC<AssistantProps> = ({
       </FormControl>
       <Grid container spacing={1}>
         {assistants.map((persona) => (
-          <Grid key={persona.id} item>
+          <Grid key={persona.id} size={4}>
             <AssistantCard
               assistant={persona}
               onEdit={(a) => setEditedAssistant(a)}
