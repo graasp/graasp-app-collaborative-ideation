@@ -1689,7 +1689,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/core-downloads-tracker@npm:^5.16.14":
+"@mui/core-downloads-tracker@npm:^5.17.1":
   version: 5.17.1
   resolution: "@mui/core-downloads-tracker@npm:5.17.1"
   checksum: 10/40a697aa031f089dde29812563320221efa1ec18840b0d0b744ba8846b558146d58910b5b4e67b7eb1942c6817ffc389b4b6b28456c762d39d250bc1e54423f7
@@ -1703,9 +1703,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/icons-material@npm:5.16.14":
-  version: 5.16.14
-  resolution: "@mui/icons-material@npm:5.16.14"
+"@mui/icons-material@npm:5.17.1":
+  version: 5.17.1
+  resolution: "@mui/icons-material@npm:5.17.1"
   dependencies:
     "@babel/runtime": "npm:^7.23.9"
   peerDependencies:
@@ -1715,7 +1715,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 10/f05eede41fa237ffa2801942e0618ad1dd54cee0cf1216d3c44949ac3b2b3af7c7aeb2aaedd4796fe2b1020411cee866ee7da0edc7f40e5dcca9d20277048ae8
+  checksum: 10/5a076981e244d0a698799c8c298402e008b36583ab2211bebad57e9b7b26e112be81272ce5a833f7d9b48f95880d2c2195eccb28e7964d1698d0e891cf1acd99
   languageName: node
   linkType: hard
 
@@ -1764,15 +1764,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/material@npm:5.16.14":
-  version: 5.16.14
-  resolution: "@mui/material@npm:5.16.14"
+"@mui/material@npm:5.17.1":
+  version: 5.17.1
+  resolution: "@mui/material@npm:5.17.1"
   dependencies:
     "@babel/runtime": "npm:^7.23.9"
-    "@mui/core-downloads-tracker": "npm:^5.16.14"
-    "@mui/system": "npm:^5.16.14"
-    "@mui/types": "npm:^7.2.15"
-    "@mui/utils": "npm:^5.16.14"
+    "@mui/core-downloads-tracker": "npm:^5.17.1"
+    "@mui/system": "npm:^5.17.1"
+    "@mui/types": "npm:~7.2.15"
+    "@mui/utils": "npm:^5.17.1"
     "@popperjs/core": "npm:^2.11.8"
     "@types/react-transition-group": "npm:^4.4.10"
     clsx: "npm:^2.1.0"
@@ -1793,7 +1793,7 @@ __metadata:
       optional: true
     "@types/react":
       optional: true
-  checksum: 10/4fe36ebe4d5f65e420895d114db81c0b8a5061e39bc18cdbebf6204953dae34cdc04af9827b65eb136e5a6853f4500a736ed3d52cce4ea37057a749eca5c3fad
+  checksum: 10/0bbd1b2e25b06089a0e0a61d786a9351cce121458ba56446d86057ebe29c551844ac8dcc541b14680047133db0ebc99a8d3f94ecad495046d41e0e60b0ff8500
   languageName: node
   linkType: hard
 
@@ -1911,7 +1911,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/system@npm:^5.16.14, @mui/system@npm:^5.17.1":
+"@mui/system@npm:^5.17.1":
   version: 5.17.1
   resolution: "@mui/system@npm:5.17.1"
   dependencies:
@@ -1967,7 +1967,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/types@npm:^7.2.15, @mui/types@npm:^7.2.19":
+"@mui/types@npm:^7.2.19":
   version: 7.4.2
   resolution: "@mui/types@npm:7.4.2"
   dependencies:
@@ -1993,7 +1993,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/utils@npm:^5.14.16, @mui/utils@npm:^5.16.14, @mui/utils@npm:^5.17.1":
+"@mui/utils@npm:^5.14.16, @mui/utils@npm:^5.17.1":
   version: 5.17.1
   resolution: "@mui/utils@npm:5.17.1"
   dependencies:
@@ -8026,9 +8026,9 @@ __metadata:
     "@graasp/sdk": "npm:4.32.1"
     "@graasp/stylis-plugin-rtl": "npm:2.2.0"
     "@graasp/ui": "npm:5.3.1"
-    "@mui/icons-material": "npm:5.16.14"
+    "@mui/icons-material": "npm:5.17.1"
     "@mui/lab": "npm:5.0.0-alpha.176"
-    "@mui/material": "npm:5.16.14"
+    "@mui/material": "npm:5.17.1"
     "@mui/x-data-grid": "npm:^6.19.4"
     "@nivo/boxplot": "npm:^0.88.0"
     "@sentry/react": "npm:^8.0.0"
