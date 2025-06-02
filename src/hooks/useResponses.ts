@@ -131,9 +131,7 @@ const useResponses = ({
       return allResponses;
     }
     if (visibilityMode === ResponseVisibilityMode.Individual) {
-      return allResponses.filter(
-        ({ creator, data }) => creator?.id === accountId || data.bot,
-      );
+      return allResponses.filter(({ creator }) => creator?.id === accountId);
     }
     const responses = allResponses.filter((r) => {
       const { id } = r;
