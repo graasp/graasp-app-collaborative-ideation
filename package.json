@@ -34,7 +34,7 @@
     "@graasp/stylis-plugin-rtl": "2.2.0",
     "@graasp/ui": "5.3.1",
     "@mui/icons-material": "5.16.14",
-    "@mui/lab": "5.0.0-alpha.175",
+    "@mui/lab": "5.0.0-alpha.176",
     "@mui/material": "5.16.14",
     "@mui/x-data-grid": "^6.19.4",
     "@nivo/boxplot": "^0.88.0",
