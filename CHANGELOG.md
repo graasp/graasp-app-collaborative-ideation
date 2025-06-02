@@ -1,5 +1,24 @@
 # Changelog
 
+## [3.3.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.2.4...v3.3.0) (2025-06-02)
+
+
+### Features
+
+* add admonition to explain markdown markup ([9d371d7](https://github.com/graasp/graasp-app-collaborative-ideation/commit/9d371d714e09fc9456da904ac0e98807520c9518))
+* add markdown support ([#716](https://github.com/graasp/graasp-app-collaborative-ideation/issues/716)) ([9d371d7](https://github.com/graasp/graasp-app-collaborative-ideation/commit/9d371d714e09fc9456da904ac0e98807520c9518))
+* enable markdown for assistants ([e67a180](https://github.com/graasp/graasp-app-collaborative-ideation/commit/e67a1806bc09a3fdbd599e14e92a814ef39d95d1))
+* individual mode ([#720](https://github.com/graasp/graasp-app-collaborative-ideation/issues/720)) ([e67a180](https://github.com/graasp/graasp-app-collaborative-ideation/commit/e67a1806bc09a3fdbd599e14e92a814ef39d95d1))
+
+
+### Bug Fixes
+
+* add live case with all responses for assistants-generated ideas ([#721](https://github.com/graasp/graasp-app-collaborative-ideation/issues/721)) ([544e997](https://github.com/graasp/graasp-app-collaborative-ideation/commit/544e997c48f5acb61e731ed01bd8f660fc9d213a))
+* **deps:** update dependency @mui/lab to v5.0.0-alpha.176 ([#722](https://github.com/graasp/graasp-app-collaborative-ideation/issues/722)) ([7579988](https://github.com/graasp/graasp-app-collaborative-ideation/commit/7579988a6ca8571a876d62466db90c5b6209c355))
+* **deps:** update mui (non-major) to v5.17.1 ([#724](https://github.com/graasp/graasp-app-collaborative-ideation/issues/724)) ([0246cdf](https://github.com/graasp/graasp-app-collaborative-ideation/commit/0246cdf0833c98b8b092a33a2523077e9a4b39bc))
+* **deps:** upgrade graasp and mui ([e67a180](https://github.com/graasp/graasp-app-collaborative-ideation/commit/e67a1806bc09a3fdbd599e14e92a814ef39d95d1))
+* make only self-generated responses available in individual mode ([e67a180](https://github.com/graasp/graasp-app-collaborative-ideation/commit/e67a1806bc09a3fdbd599e14e92a814ef39d95d1))
+
 ## [3.2.4](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.2.3...v3.2.4) (2025-02-12)
 
 
