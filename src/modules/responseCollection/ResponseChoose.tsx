@@ -6,8 +6,6 @@ import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 
-import { Loader } from '@graasp/ui';
-
 import { ResponseAppData } from '@/config/appDataTypes';
 import { HIGHLIGHT_RESPONSE_TIME_MS } from '@/config/constants';
 import { PROPOSE_NEW_RESPONSE_BTN_CY } from '@/config/selectors';
@@ -27,7 +25,7 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
   const [highlightId, setHighlightId] = useState<string>();
   const highlightTimeout = useRef<NodeJS.Timeout>();
 
-  const { isLoading, invalidateAppData, deleteAppData } = useAppDataContext();
+  const { invalidateAppData, deleteAppData } = useAppDataContext();
   const { instructions } = useSettings();
   const chooseInstructions = useMemo(
     () =>
@@ -41,21 +39,16 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
     onChoose(id);
   };
 
-  const renderPlaceHolderForNoIdeas = (): JSX.Element => {
-    if (isLoading) {
-      return <Loader />;
-    }
-    return (
-      <>
-        <Alert sx={{ m: 1 }} severity="info">
-          {t('NO_IDEAS_TO_SHOW_TEXT')}
-        </Alert>
-        <Button onClick={() => invalidateAppData()}>
-          {t('CHECK_FOR_NEW_RESPONSES')}
-        </Button>
-      </>
-    );
-  };
+  const renderPlaceHolderForNoIdeas = (): JSX.Element => (
+    <>
+      <Alert sx={{ m: 1 }} severity="info">
+        {t('NO_IDEAS_TO_SHOW_TEXT')}
+      </Alert>
+      <Button onClick={() => invalidateAppData()}>
+        {t('CHECK_FOR_NEW_RESPONSES')}
+      </Button>
+    </>
+  );
 
   return (
     <>

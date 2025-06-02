@@ -12,7 +12,6 @@ import {
 import Button from '@mui/material/Button';
 
 import { AppData } from '@graasp/sdk';
-import { Loader } from '@graasp/ui';
 
 import { ResponseAppData } from '@/config/appDataTypes';
 import { RESPONSE_MAXIMUM_LENGTH } from '@/config/constants';
@@ -23,6 +22,7 @@ import {
 import useAssistants from '@/hooks/useAssistants';
 import { ResponseData } from '@/interfaces/response';
 
+import Loader from '../common/Loader';
 import MarkdownHelper from '../common/MardownHelper';
 import { useActivityContext } from '../context/ActivityContext';
 import { useSettings } from '../context/SettingsContext';

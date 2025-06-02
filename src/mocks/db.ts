@@ -41,7 +41,6 @@ export const mockMembers: CompleteMember[] = [
 export const mockItem = AppItemFactory({
   id: '1234-1234-1234-5678',
   name: 'app-collaborative-ideation',
-  displayName: 'App Collaborative Ideation',
   description: null,
   path: '',
   type: ItemType.APP,

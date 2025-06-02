@@ -14,7 +14,6 @@ import {
   WithTokenContext,
   useObjectState,
 } from '@graasp/apps-query-client';
-import { Loader } from '@graasp/ui';
 
 import { defaultMockContext, mockMembers } from '@/mocks/db';
 
@@ -26,6 +25,7 @@ import {
   queryClient,
 } from '../config/queryClient';
 import ErrorBoundary from './ErrorBoundary';
+import Loader from './common/Loader';
 import App from './main/App';
 
 // declare the module to enable theme modification

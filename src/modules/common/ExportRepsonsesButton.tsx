@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import LoadingButton from '@mui/lab/LoadingButton';
+import Button from '@mui/material/Button';
 
 import { ResponseAppData } from '@/config/appDataTypes';
 import exportResponses from '@/hooks/utils/export_responses';
@@ -19,13 +19,13 @@ const ExportResponsesButton: FC<{
   };
 
   return (
-    <LoadingButton
+    <Button
       loading={isExporting}
       onClick={handleClick}
       startIcon={<FileDownloadIcon />}
     >
       {isExporting ? `${t('EXPORTING')}...` : t('EXPORT_RESPONSES')}
-    </LoadingButton>
+    </Button>
   );
 };
 

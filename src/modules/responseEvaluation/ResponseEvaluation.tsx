@@ -6,8 +6,6 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 
-import { Loader } from '@graasp/ui';
-
 import { RESPONSE_EVALUATION_VIEW_CY } from '@/config/selectors';
 import useSteps from '@/hooks/useSteps';
 import { EvaluationType } from '@/interfaces/evaluation';
@@ -29,23 +27,18 @@ const ResponseEvaluation: FC = () => {
   const evaluationParameters = currentStep?.evaluationParameters ?? {};
   const responses = allResponses;
 
-  const { invalidateAppData, isLoading } = useAppDataContext();
+  const { invalidateAppData } = useAppDataContext();
 
-  const renderPlaceHolderForNoResponses = (): ReactNode => {
-    if (isLoading) {
-      return <Loader />;
-    }
-    return (
-      <>
-        <Alert sx={{ m: 1 }} severity="info">
-          {t('NO_IDEAS_TO_SHOW_TEXT')}
-        </Alert>
-        <Button onClick={() => invalidateAppData()}>
-          {t('CHECK_FOR_NEW_RESPONSES')}
-        </Button>
-      </>
-    );
-  };
+  const renderPlaceHolderForNoResponses = (): ReactNode => (
+    <>
+      <Alert sx={{ m: 1 }} severity="info">
+        {t('NO_IDEAS_TO_SHOW_TEXT')}
+      </Alert>
+      <Button onClick={() => invalidateAppData()}>
+        {t('CHECK_FOR_NEW_RESPONSES')}
+      </Button>
+    </>
+  );
 
   const renderEvaluationContext = (children: JSX.Element): JSX.Element => {
     switch (evaluationType) {
