@@ -133,8 +133,7 @@ export const endOfActivityResponses = [
 export const RESPONSES_FOR_INDIVIDUAL_TEST = [
   responseFactory(
     {
-      response:
-        'Developing an open source and democratic alternative to the multiverse that does not cross the ecological and societal boundaries of the earth while enabling the complete destruction of our capitalist civilization.',
+      response: '**Very** short idea.',
       round: 0,
     },
     MEMBERS.ANNA,

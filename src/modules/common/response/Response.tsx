@@ -141,6 +141,7 @@ const Response: FC<ResponseProps> = ({
     return (
       <Box
         minWidth="160pt"
+        width="100%"
         borderRadius="4px"
         sx={{
           ...getTopAnnotationBoxStyle(),

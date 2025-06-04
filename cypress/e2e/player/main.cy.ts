@@ -263,7 +263,7 @@ describe('Player with read rights, configured with one assistant and no data.', 
     cy.visit('/');
   });
 
-  it.only('check config and visibility.', () => {
+  it('check config and visibility.', () => {
     // Start the activity
     cy.get(buildDataCy(ORCHESTRATION_BAR_CY.PLAY_BUTTON)).click();
 
