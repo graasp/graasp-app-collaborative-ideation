@@ -37,7 +37,11 @@ const responseFactory = (
 ): AppData =>
   appDataFactory(
     AppDataTypes.Response,
-    {},
+    {
+      markup: 'markdown',
+      bot: false,
+      ...responseData,
+    },
     AppDataVisibility.Member,
     account,
     account,
@@ -117,6 +121,42 @@ export const endOfActivityResponses = [
     {
       response: 'Write borderline text in E2E tests.',
       round: 1,
+    },
+    MEMBERS.BOB,
+  ),
+];
+
+/*
+  In this response set, Anna has a single response, Bob has three responses.
+  Anna should only see her own response, while Bob should see all of his responses (untested).
+*/
+export const RESPONSES_FOR_INDIVIDUAL_TEST = [
+  responseFactory(
+    {
+      response:
+        'Developing an open source and democratic alternative to the multiverse that does not cross the ecological and societal boundaries of the earth while enabling the complete destruction of our capitalist civilization.',
+      round: 0,
+    },
+    MEMBERS.ANNA,
+  ),
+  responseFactory(
+    {
+      response: 'Get trash out.',
+      round: 0,
+    },
+    MEMBERS.BOB,
+  ),
+  responseFactory(
+    {
+      response: 'Eat rich people',
+      round: 0,
+    },
+    MEMBERS.BOB,
+  ),
+  responseFactory(
+    {
+      response: 'Write borderline text in E2E tests.',
+      round: 0,
     },
     MEMBERS.BOB,
   ),

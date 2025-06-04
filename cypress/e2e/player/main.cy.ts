@@ -18,6 +18,7 @@ import {
 } from '@/config/selectors';
 
 import {
+  RESPONSES_FOR_INDIVIDUAL_TEST,
   currentStateEvaluation,
   currentStateInitial,
   endOfActivityResponses,
@@ -25,6 +26,7 @@ import {
 import {
   ALL_SETTINGS,
   ALL_SETTINGS_OBJECT,
+  SETTINGS_INDIVIDUAL,
   SETTINGS_WITH_ASSISTANT,
   SETTINGS_WITH_RATINGS,
 } from '../../fixtures/appSettings';
@@ -242,5 +244,29 @@ describe('Player with read rights, configured to rate ideas.', () => {
     cy.get(buildDataCy(ORCHESTRATION_BAR_CY.NEXT_STEP_BTN)).click();
 
     cy.get(buildDataCy(RESPONSE_RESULTS_VIEW_CY)).should('exist');
+  });
+});
+
+describe('Player with read rights, configured with one assistant and no data.', () => {
+  beforeEach(() => {
+    cy.setUpApi(
+      {
+        appSettings: SETTINGS_INDIVIDUAL,
+        appData: [...RESPONSES_FOR_INDIVIDUAL_TEST],
+      },
+      {
+        context: Context.Player,
+        permission: PermissionLevel.Read,
+        accountId: MEMBERS.ANNA.id,
+      },
+    );
+    cy.visit('/');
+  });
+
+  it.only('check config and visibility.', () => {
+    // Start the activity
+    cy.get(buildDataCy(ORCHESTRATION_BAR_CY.PLAY_BUTTON)).click();
+
+    cy.get(buildDataCy(RESPONSE_CY)).should('have.length', 1);
   });
 });

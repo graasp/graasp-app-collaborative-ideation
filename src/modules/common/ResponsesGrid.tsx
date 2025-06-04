@@ -6,7 +6,7 @@ export const ResponseGridItem: FC<{ children: JSX.Element; key: Key }> = ({
   children,
   key,
 }) => (
-  <Grid key={key} size={{ xl: 4, sm: 6, xs: 12 }}>
+  <Grid key={key} size={{ xl: 4, sm: 6, xs: 12 }} width="100%">
     {children}
   </Grid>
 );

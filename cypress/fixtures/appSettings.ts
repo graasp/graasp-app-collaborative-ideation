@@ -190,3 +190,21 @@ SETTINGS_WITH_RATINGS_OBJECT.activity.steps = [
 export const SETTINGS_WITH_RATINGS = Object.entries(
   SETTINGS_WITH_RATINGS_OBJECT,
 ).map(([key, value]) => newSettingFactory(key, value));
+
+const SETTINGS_INDIVIDUAL_OBJECT = {
+  ...ALL_SETTINGS_OBJECT,
+  activity: {
+    ...ALL_SETTINGS_OBJECT.activity,
+    mode: ResponseVisibilityMode.Individual,
+  },
+  orchestrator: {
+    id: '',
+  },
+  prompt: {
+    selectedSet: '',
+  },
+};
+
+export const SETTINGS_INDIVIDUAL = Object.entries(
+  SETTINGS_INDIVIDUAL_OBJECT,
+).map(([key, value]) => newSettingFactory(key, value));
