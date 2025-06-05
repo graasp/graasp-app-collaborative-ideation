@@ -1,31 +1,25 @@
 import { FC, ReactElement, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import {
-  Alert,
-  Collapse,
-  InputAdornment,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
+import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
+import Collapse from '@mui/material/Collapse';
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 
 import { AppData } from '@graasp/sdk';
 
 import { ResponseAppData } from '@/config/appDataTypes';
 import { RESPONSE_MAXIMUM_LENGTH } from '@/config/constants';
-import {
-  RESPONSE_INPUT_FIELD_CY,
-  SUBMIT_RESPONSE_BTN_CY,
-} from '@/config/selectors';
+import { SUBMIT_RESPONSE_BTN_CY } from '@/config/selectors';
 import useAssistants from '@/hooks/useAssistants';
 import { ResponseData } from '@/interfaces/response';
 
 import Loader from '../common/Loader';
-import MarkdownHelper from '../common/MardownHelper';
 import { useActivityContext } from '../context/ActivityContext';
 import { useSettings } from '../context/SettingsContext';
+import MarkdownEditor from './MarkdownEditor';
 import Prompts from './prompts/Prompts';
 
 const PreviousResponse: FC<{ children: ReactElement | string }> = ({
@@ -66,23 +60,6 @@ const ResponseInput: FC<{
       instructions.collection.input,
     [instructions],
   );
-
-  // const askBot = (): void => {
-  //   setIsWaitingOnBot(true);
-  //   promiseBotRequest.current = generateSingleResponse().then(
-  //     (ans) => {
-  //       if (ans) {
-  //         setResponse(ans.data.completion);
-  //         setIsWaitingOnBot(false);
-  //       }
-  //     },
-  //     (reason: unknown) => {
-  //       // eslint-disable-next-line no-console
-  //       console.warn(reason);
-  //       setIsWaitingOnBot(false);
-  //     },
-  //   );
-  // };
 
   const submit = async (): Promise<void> => {
     setIsPosting(true);
@@ -132,8 +109,6 @@ const ResponseInput: FC<{
     );
   };
   const tooLong = response.length > RESPONSE_MAXIMUM_LENGTH;
-  // const disableSubmission =
-  //   isPosting || tooLong || response.length === 0 || isWaitingOnBot;
   const disableSubmission = isPosting || tooLong || response.length === 0;
   return (
     <>
@@ -149,8 +124,19 @@ const ResponseInput: FC<{
             <PreviousResponse key={index}>{r}</PreviousResponse>
           ))
         ))}
-      <MarkdownHelper />
-      <TextField
+      {/* <MarkdownHelper /> */}
+      <Paper
+        variant="outlined"
+        sx={{ width: { md: '75ch', sm: '100%' }, maxWidth: '100%' }}
+      >
+        <MarkdownEditor
+          onChange={(markdown: string) => setResponse(markdown)}
+          initialValue={response}
+          // disabled={isPosting}
+        />
+      </Paper>
+      {/* TODO: Cleanup */}
+      {/* <TextField
         helperText={t('HELPER')}
         sx={{ width: { md: '75ch', sm: '100%' }, maxWidth: '100%' }}
         multiline
@@ -174,7 +160,7 @@ const ResponseInput: FC<{
           id: 'input-response',
         }}
         data-cy={RESPONSE_INPUT_FIELD_CY}
-      />
+      /> */}
       <Collapse in={tooLong}>
         <Alert severity="error">{t('RESPONSE_TOO_LONG_ALERT')}</Alert>
       </Collapse>
@@ -188,16 +174,6 @@ const ResponseInput: FC<{
           {t('SUBMIT')}
         </Button>
         <Button onClick={onCancel}>{generalT('CANCEL')}</Button>
-        {/*         
-        {enableAssistants && (
-          <LoadingButton
-            loadingIndicator="Waiting for the bot to reply."
-            loading={isWaitingOnBot}
-            onClick={askBot}
-          >
-            Ask the bot
-          </LoadingButton>
-        )} */}
       </Stack>
       <Collapse in={isPosting}>
         <Stack direction="row" spacing={1}>

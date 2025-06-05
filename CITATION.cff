@@ -41,6 +41,6 @@ keywords:
   - blended
   - hybrid
 license: AGPL-3.0-only
-commit: ea9f04805d47f6cfe49a74280e504f3331db99c7
-version: 3.2.2
-date-released: '2024-11-20'
+commit: 
+version: 3.4.0
+date-released: '2024-06-05'
