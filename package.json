@@ -33,6 +33,7 @@
     "@graasp/sdk": "5.13.2",
     "@graasp/stylis-plugin-rtl": "2.2.0",
     "@graasp/ui": "5.5.1",
+    "@mdxeditor/editor": "^3.35.0",
     "@mui/icons-material": "6.4.12",
     "@mui/lab": "6.0.1-beta.35",
     "@mui/material": "6.4.12",

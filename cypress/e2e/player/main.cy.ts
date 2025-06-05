@@ -93,10 +93,9 @@ describe('Player with read rights and collection activity.', () => {
     cy.get(buildDataCy(RESPONSE_COLLECTION_VIEW_CY)).within(() => {
       newIdeas.forEach((idea) => {
         cy.get(buildDataCy(PROPOSE_NEW_RESPONSE_BTN_CY)).click();
-        cy.get('#input-response').type('a');
-        cy.get('#input-response').type('{backspace}');
-        cy.get('#input-response').should('be.enabled');
-        cy.get('#input-response').type(idea, { delay: 20 });
+        cy.get('.input-response').type('a');
+        cy.get('.input-response').type('{backspace}');
+        cy.get('.input-response').type(idea, { delay: 20 });
         cy.get(buildDataCy(SUBMIT_RESPONSE_BTN_CY)).click();
       });
     });
@@ -205,10 +204,9 @@ describe('Player with read rights, configured to rate ideas.', () => {
     cy.get(buildDataCy(RESPONSE_COLLECTION_VIEW_CY)).within(() => {
       newIdeas.forEach((idea) => {
         cy.get(buildDataCy(PROPOSE_NEW_RESPONSE_BTN_CY)).click();
-        cy.get('#input-response').type('a');
-        cy.get('#input-response').type('{backspace}');
-        cy.get('#input-response').should('be.enabled');
-        cy.get('#input-response').type(idea, { delay: 20 });
+        cy.get('.input-response').type('a');
+        cy.get('.input-response').type('{backspace}');
+        cy.get('.input-response').type(idea, { delay: 20 });
         cy.get(buildDataCy(SUBMIT_RESPONSE_BTN_CY)).click();
       });
     });
