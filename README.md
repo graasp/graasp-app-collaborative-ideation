@@ -24,7 +24,7 @@ The **Collaborative Ideation** app in Graasp was made to organize blended and on
 
 If you use this software or take inspiration from it, please, cite it as below:
 
-> La Scala, J. (2024). Collaborative Ideation (v3.2.2). Zenodo. https://doi.org/10.5281/zenodo.14191420
+> La Scala, J. (2025). Collaborative Ideation (v3.4.0). Zenodo. 
 
 For citing the latest version, use the permanent DOI: [10.5281/zenodo.13862314](https://doi.org/10.5281/zenodo.13862314)
 
@@ -32,9 +32,9 @@ For citing the latest version, use the permanent DOI: [10.5281/zenodo.13862314](
 
 This app was presented or used in the following publications:
 
-- La Scala, J., Bartłomiejczyk, N., Gillet, D., & Holzer, A. (2025). Fostering Innovation with Generative AI: A Study on Human-AI Collaborative Ideation and User Anonymity. Proceedings of the 58th Hawaii International Conference on System Sciences, 337–351. https://hdl.handle.net/10125/108877
-- _(preprint)_ La Scala, J. A., Sahli, S., & Gillet, D. (2025, April). Stimulating Brainstorming Activities with Generative AI in Higher Education. 2025 IEEE Global Engineering Education Conference. https://infoscience.epfl.ch/handle/20.500.14299/243190
-- _(preprint)_ Farah, J. C., La Scala, J., Ingram, S., & Gillet, D. (2025, April 27). Supporting Brainstorming Activities with Bots in Software Engineering Education. 2025 IEEE/ACM 6th International Workshop on Bots in Software Engineering (BotSE). 2025 IEEE/ACM 6th International Workshop on Bots in Software Engineering (BotSE), Ottawa, Canada.
+- La Scala, J., Bartłomiejczyk, N., Gillet, D., & Holzer, A. (2025). Fostering Innovation with Generative AI: A Study on Human-AI Collaborative Ideation and User Anonymity. Proceedings of the 58th Hawaii International Conference on System Sciences, 337–351. DOI: http://dx.doi.org/10.24251/HICSS.2025.041
+- La Scala, J. A., Sahli, S., & Gillet, D. (2025, April). Stimulating Brainstorming Activities with Generative AI in Higher Education. 2025 IEEE Global Engineering Education Conference. DOI: https://doi.org/10.1109/EDUCON62633.2025.11016340
+- Farah, J. C., La Scala, J., Ingram, S., & Gillet, D. (2025, April). Supporting Brainstorming Activities with Bots in Software Engineering Education. 2025 IEEE/ACM 6th International Workshop on Bots in Software Engineering (BotSE). 2025 IEEE/ACM 6th International Workshop on Bots in Software Engineering (BotSE), Ottawa, Canada.
 
 
 ## Development
