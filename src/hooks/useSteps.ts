@@ -95,7 +95,10 @@ const useSteps = (): UseStepsValues => {
             changeStep(nextStep, nextStepIndex);
           }),
         );
-    } else if (mode === ResponseVisibilityMode.Individual) {
+    } else if (
+      (nextStep?.round || 0) > round &&
+      mode === ResponseVisibilityMode.Individual
+    ) {
       await generateResponsesWithEachAssistant()
         .then((p) => Promise.all(p))
         .then(() => {
