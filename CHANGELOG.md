@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.4.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.3.0...v3.4.0) (2025-06-05)
+
+
+### Features
+
+* add markdown editor ([#727](https://github.com/graasp/graasp-app-collaborative-ideation/issues/727)) ([6b41857](https://github.com/graasp/graasp-app-collaborative-ideation/commit/6b418579721017aa7f7857c0131e517eea447864))
+
+
+### Bug Fixes
+
+* only generate ideas when increasing round in individual mode ([6b41857](https://github.com/graasp/graasp-app-collaborative-ideation/commit/6b418579721017aa7f7857c0131e517eea447864))
+* **style:** response grid container width to 100% ([66ed8a3](https://github.com/graasp/graasp-app-collaborative-ideation/commit/66ed8a3afc3e6fc66f25907691d4313bb9ee88e4))
+* **style:** width of single response ([#725](https://github.com/graasp/graasp-app-collaborative-ideation/issues/725)) ([66ed8a3](https://github.com/graasp/graasp-app-collaborative-ideation/commit/66ed8a3afc3e6fc66f25907691d4313bb9ee88e4))
+
 ## [3.3.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.2.4...v3.3.0) (2025-06-02)
 
 
