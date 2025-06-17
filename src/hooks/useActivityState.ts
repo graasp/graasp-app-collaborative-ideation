@@ -40,8 +40,13 @@ const useActivityState = (): UseActivityStateValues => {
 
   const { postPlayActivityAction, postPauseActivityAction } = useActions();
 
-  const { appData, postAppData, patchAppData, deleteAppData } =
-    useAppDataContext();
+  const {
+    appData,
+    postAppDataAsync,
+    patchAppDataAsync,
+    deleteAppData,
+    invalidateAppData,
+  } = useAppDataContext();
   const { orchestrator, activity } = useSettings();
   const { mode } = activity;
   const { permission, accountId } = useLocalContext();
@@ -59,7 +64,7 @@ const useActivityState = (): UseActivityStateValues => {
 
   const postDefaultActivityState = (): void => {
     if (permission === PermissionLevel.Admin) {
-      postAppData(INITIAL_STATE);
+      postAppDataAsync(INITIAL_STATE);
     }
   };
 
@@ -67,20 +72,24 @@ const useActivityState = (): UseActivityStateValues => {
     newActivityStateData: Partial<CurrentStateData>,
   ): void => {
     if (activityState?.id) {
-      patchAppData({
+      patchAppDataAsync({
         id: activityState.id,
         data: {
           ...activityState.data,
           ...newActivityStateData,
         },
+      }).then(() => {
+        invalidateAppData();
       });
     } else {
-      postAppData({
+      postAppDataAsync({
         ...INITIAL_STATE,
         data: {
           ...INITIAL_STATE.data,
           ...newActivityStateData,
         },
+      }).then(() => {
+        invalidateAppData();
       });
     }
   };
