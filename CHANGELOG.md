@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.4.1](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.4.0...v3.4.1) (2025-06-17)
+
+
+### Bug Fixes
+
+* show only available responses in indivudual mode ([#729](https://github.com/graasp/graasp-app-collaborative-ideation/issues/729)) ([17aaac6](https://github.com/graasp/graasp-app-collaborative-ideation/commit/17aaac613bd9b0434c2e99e60dcdd141ae4065d2))
+
 ## [3.4.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.3.0...v3.4.0) (2025-06-05)
 
 
