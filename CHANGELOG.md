@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.4.2](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.4.1...v3.4.2) (2025-06-17)
+
+
+### Bug Fixes
+
+* 'force' refresh after modifying activity state ([#732](https://github.com/graasp/graasp-app-collaborative-ideation/issues/732)) ([5bdf24b](https://github.com/graasp/graasp-app-collaborative-ideation/commit/5bdf24bd24a260da740bc03cba4f276293bc9b82))
+
 ## [3.4.1](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.4.0...v3.4.1) (2025-06-17)
 
 
