@@ -28,7 +28,7 @@
   "dependencies": {
     "@codemirror/lang-javascript": "^6.2.1",
     "@emotion/react": "11.14.0",
-    "@emotion/styled": "11.14.0",
+    "@emotion/styled": "11.14.1",
     "@graasp/apps-query-client": "3.7.3",
     "@graasp/sdk": "5.13.2",
     "@graasp/stylis-plugin-rtl": "2.2.0",
