@@ -5047,12 +5047,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:22.15.35":
-  version: 22.15.35
-  resolution: "@types/node@npm:22.15.35"
+"@types/node@npm:22.16.0":
+  version: 22.16.0
+  resolution: "@types/node@npm:22.16.0"
   dependencies:
     undici-types: "npm:~6.21.0"
-  checksum: 10/68cbfe4bcfc20397956af69d6c01096ded6dadd87c2ae5cfd61e0a43537c09741f125738268787455b87ba831c3fbefbceb1189c09fec1c94fc6276ef7563018
+  checksum: 10/26ebbbd24749caa4a692664290c53cdca63ec717ca250cd2babf3d3da796e9d3d0b6b9814d160693261b5e881796bf0f3c1887fef355b19e9a78fe27cd5e2ce2
   languageName: node
   linkType: hard
 
@@ -9870,7 +9870,7 @@ __metadata:
     "@types/lodash.clonedeep": "npm:^4.5.9"
     "@types/lodash.isequal": "npm:^4.5.8"
     "@types/lodash.shuffle": "npm:^4.2.9"
-    "@types/node": "npm:22.15.35"
+    "@types/node": "npm:22.16.0"
     "@types/papaparse": "npm:^5"
     "@types/react": "npm:18.3.23"
     "@types/react-dom": "npm:18.3.7"
