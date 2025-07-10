@@ -16,7 +16,7 @@ export default defineConfig({
       registerCodeCoverage(on, config);
       return config;
     },
-    baseUrl: `http://localhost:${process.env.VITE_PORT || 4001}`,
+    baseUrl: `https://localhost:${process.env.VITE_PORT || 4001}`,
   },
 
   component: {

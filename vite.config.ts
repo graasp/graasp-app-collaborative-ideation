@@ -6,6 +6,12 @@ import { UserConfigExport, defineConfig, loadEnv } from 'vite';
 import checker from 'vite-plugin-checker';
 import istanbul from 'vite-plugin-istanbul';
 import { sentryVitePlugin } from "@sentry/vite-plugin";
+import fs from 'fs';
+
+const httpsOptions = {
+  key: fs.readFileSync('localhost.key'),
+  cert: fs.readFileSync('localhost.crt'),
+};
 
 // https://vitejs.dev/config/
 export default ({ mode }: { mode: string }): UserConfigExport => {
@@ -22,6 +28,7 @@ export default ({ mode }: { mode: string }): UserConfigExport => {
       watch: {
         ignored: ['**/coverage/**', '**/cypress/downloads/**'],
       },
+      https: httpsOptions,
     },
     preview: {
       port: parseInt(process.env.VITE_PORT || '3333', 10),
