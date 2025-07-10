@@ -60,7 +60,6 @@ const ResponsePart: FC<{ markdown: boolean; children: string }> = ({
     return (
       <Typography
         variant="body1"
-        fontFamily='"Lucida Console", monospace'
         sx={{ overflowWrap: 'break-word', mb: 1 }}
         dangerouslySetInnerHTML={{ __html: inlineHtml }}
         data-cy={MARKDOWN_CONTAINER_CY}
