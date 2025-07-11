@@ -28,7 +28,7 @@ export default ({ mode }: { mode: string }): UserConfigExport => {
       watch: {
         ignored: ['**/coverage/**', '**/cypress/downloads/**'],
       },
-      https: httpsOptions,
+      https: mode === 'test' ? undefined : httpsOptions,
     },
     preview: {
       port: parseInt(process.env.VITE_PORT || '3333', 10),
