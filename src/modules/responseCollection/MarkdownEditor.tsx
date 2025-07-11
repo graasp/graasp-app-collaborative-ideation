@@ -4,11 +4,8 @@ import Box from '@mui/material/Box';
 
 import {
   BoldItalicUnderlineToggles,
-  InsertCodeBlock,
   MDXEditor,
   UndoRedo,
-  codeBlockPlugin,
-  codeMirrorPlugin,
   linkPlugin,
   listsPlugin,
   markdownShortcutPlugin,
@@ -49,10 +46,10 @@ const MarkdownEditor: FC<MarkdownEditorProps> = ({
         listsPlugin(),
         linkPlugin(),
         markdownShortcutPlugin(),
-        codeBlockPlugin({ defaultCodeBlockLanguage: 'ts' }),
-        codeMirrorPlugin({
-          codeBlockLanguages: { js: 'JavaScript', ts: 'TypeScript' },
-        }),
+        // codeBlockPlugin({ defaultCodeBlockLanguage: 'ts' }),
+        // codeMirrorPlugin({
+        //   codeBlockLanguages: { js: 'JavaScript', ts: 'TypeScript' },
+        // }),
         toolbarPlugin({
           toolbarClassName: 'my-classname',
           // eslint-disable-next-line react/no-unstable-nested-components
@@ -60,7 +57,7 @@ const MarkdownEditor: FC<MarkdownEditorProps> = ({
             <>
               <UndoRedo />
               <BoldItalicUnderlineToggles />
-              <InsertCodeBlock />
+              {/* <InsertCodeBlock /> */}
             </>
           ),
         }),
