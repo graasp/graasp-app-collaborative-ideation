@@ -1,16 +1,25 @@
 /// <reference types="vitest" />
 /// <reference types="./src/env"/>
+import { sentryVitePlugin } from '@sentry/vite-plugin';
 import react from '@vitejs/plugin-react';
+import fs from 'fs';
 import { resolve } from 'path';
 import { UserConfigExport, defineConfig, loadEnv } from 'vite';
 import checker from 'vite-plugin-checker';
 import istanbul from 'vite-plugin-istanbul';
-import { sentryVitePlugin } from "@sentry/vite-plugin";
-import fs from 'fs';
 
-const httpsOptions = {
-  key: fs.readFileSync('localhost.key'),
-  cert: fs.readFileSync('localhost.crt'),
+const getHttpsOptions = (): { key: Buffer; cert: Buffer } | undefined => {
+  try {
+    const httpsOptions = {
+      key: fs.readFileSync('localhost.key'),
+      cert: fs.readFileSync('localhost.crt'),
+    };
+    return httpsOptions;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Error reading HTTPS certificate files:', error);
+    return undefined; // Return undefined if files are not found or an error occurs
+  }
 };
 
 // https://vitejs.dev/config/
@@ -28,7 +37,7 @@ export default ({ mode }: { mode: string }): UserConfigExport => {
       watch: {
         ignored: ['**/coverage/**', '**/cypress/downloads/**'],
       },
-      https: mode === 'test' ? undefined : httpsOptions,
+      https: mode === 'test' ? undefined : getHttpsOptions(),
     },
     preview: {
       port: parseInt(process.env.VITE_PORT || '3333', 10),
@@ -58,11 +67,11 @@ export default ({ mode }: { mode: string }): UserConfigExport => {
         checkProd: true,
       }),
       // Put the Sentry vite plugin after all other plugins
-    sentryVitePlugin({
-      authToken: process.env.SENTRY_AUTH_TOKEN,
-      org: "graasp",
-      project: "graasp-app-collaborative-ideation",
-    }),
+      sentryVitePlugin({
+        authToken: process.env.SENTRY_AUTH_TOKEN,
+        org: 'graasp',
+        project: 'graasp-app-collaborative-ideation',
+      }),
     ],
     resolve: {
       alias: {
