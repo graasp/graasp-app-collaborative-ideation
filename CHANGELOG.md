@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.4.3](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.4.2...v3.4.3) (2025-07-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @emotion/styled to v11.14.1 ([#735](https://github.com/graasp/graasp-app-collaborative-ideation/issues/735)) ([dd3740a](https://github.com/graasp/graasp-app-collaborative-ideation/commit/dd3740a035af8924a1a65283064676dc59a4ecca))
+* **deps:** update dependency @sentry/react to v9 ([#737](https://github.com/graasp/graasp-app-collaborative-ideation/issues/737)) ([8a76ac0](https://github.com/graasp/graasp-app-collaborative-ideation/commit/8a76ac04215970e70e666d505e28ba2ecb866965))
+* disable code blocks ([#742](https://github.com/graasp/graasp-app-collaborative-ideation/issues/742)) ([07b60f1](https://github.com/graasp/graasp-app-collaborative-ideation/commit/07b60f19f46641bc1d34068990632afb0ad06566))
+
 ## [3.4.2](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.4.1...v3.4.2) (2025-06-17)
 
 
