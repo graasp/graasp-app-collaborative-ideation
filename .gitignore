@@ -43,3 +43,8 @@ cypress/downloads/
 
 # Sentry Config File
 .env.sentry-build-plugin
+
+# Certificates
+*.pem
+*.crt
+*.key
