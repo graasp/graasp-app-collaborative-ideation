@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import Box from '@mui/material/Box';
+
 import {
   BoldItalicUnderlineToggles,
   InsertCodeBlock,
@@ -28,34 +30,43 @@ const MarkdownEditor: FC<MarkdownEditorProps> = ({
   initialValue,
   onChange,
 }) => (
-  <MDXEditor
-    markdown={initialValue}
-    className="input-response"
-    data-cy={RESPONSE_INPUT_FIELD_CY}
-    onChange={onChange}
-    plugins={[
-      maxLengthPlugin(RESPONSE_MAXIMUM_LENGTH),
-      quotePlugin(),
-      listsPlugin(),
-      linkPlugin(),
-      markdownShortcutPlugin(),
-      codeBlockPlugin({ defaultCodeBlockLanguage: 'ts' }),
-      codeMirrorPlugin({
-        codeBlockLanguages: { js: 'JavaScript', ts: 'TypeScript' },
-      }),
-      toolbarPlugin({
-        toolbarClassName: 'my-classname',
-        // eslint-disable-next-line react/no-unstable-nested-components
-        toolbarContents: () => (
-          <>
-            <UndoRedo />
-            <BoldItalicUnderlineToggles />
-            <InsertCodeBlock />
-          </>
-        ),
-      }),
-    ]}
-  />
+  <Box
+    sx={{
+      '& .input-response-content-editable': {
+        fontFamily: '"Lucida Console", "Courier New", monospace',
+      },
+    }}
+  >
+    <MDXEditor
+      markdown={initialValue}
+      className="input-response"
+      contentEditableClassName="input-response-content-editable"
+      data-cy={RESPONSE_INPUT_FIELD_CY}
+      onChange={onChange}
+      plugins={[
+        maxLengthPlugin(RESPONSE_MAXIMUM_LENGTH),
+        quotePlugin(),
+        listsPlugin(),
+        linkPlugin(),
+        markdownShortcutPlugin(),
+        codeBlockPlugin({ defaultCodeBlockLanguage: 'ts' }),
+        codeMirrorPlugin({
+          codeBlockLanguages: { js: 'JavaScript', ts: 'TypeScript' },
+        }),
+        toolbarPlugin({
+          toolbarClassName: 'my-classname',
+          // eslint-disable-next-line react/no-unstable-nested-components
+          toolbarContents: () => (
+            <>
+              <UndoRedo />
+              <BoldItalicUnderlineToggles />
+              <InsertCodeBlock />
+            </>
+          ),
+        }),
+      ]}
+    />
+  </Box>
 );
 
 export default MarkdownEditor;

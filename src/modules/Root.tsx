@@ -15,7 +15,8 @@ import {
   useObjectState,
 } from '@graasp/apps-query-client';
 
-import { defaultMockContext, mockMembers } from '@/mocks/db';
+import { defaultMockContext } from '@/mocks/db';
+import { mockMembers } from '@/mocks/mockMembers';
 
 import i18nConfig from '../config/i18n';
 import {

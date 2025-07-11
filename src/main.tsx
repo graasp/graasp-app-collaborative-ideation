@@ -8,7 +8,7 @@ import * as Sentry from '@sentry/react';
 import { MOCK_API } from './config/env';
 import { generateSentryConfig } from './config/sentry';
 import './index.css';
-import buildDatabase, { defaultMockContext, mockMembers } from './mocks/db';
+import buildDatabase, { defaultMockContext } from './mocks/db';
 import Root from './modules/Root';
 
 Sentry.init({
@@ -25,9 +25,9 @@ if (MOCK_API) {
   mockApi(
     {
       externalUrls: [],
-      dbName: window.Cypress ? 'graasp-app-cypress' : undefined,
+      dbName: window.Cypress ? 'graasp-app-cypress' : 'msw-indexed-db',
       appContext: window.Cypress ? window.appContext : defaultMockContext,
-      database: window.Cypress ? window.database : buildDatabase(mockMembers),
+      database: window.Cypress ? window.database : buildDatabase(),
     },
     window.Cypress ? MockSolution.MirageJS : MockSolution.ServiceWorker,
   );

@@ -2,8 +2,9 @@ import cloneDeep from 'lodash.clonedeep';
 import { afterAll, beforeAll, expect, test, vi } from 'vitest';
 
 import { ResponseAppData } from '@/config/appDataTypes';
+import { mockItem } from '@/mocks/mockItem';
+import { mockMembers } from '@/mocks/mockMembers';
 
-import { mockItem, mockMembers } from '../../mocks/db';
 import {
   buildMockBotResponses,
   buildMockResponses,
