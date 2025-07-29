@@ -1,10 +1,11 @@
-import { AppItemFactory, ItemType } from '@graasp/sdk';
+import { AppItemFactory, ItemType, DiscriminatedItem } from '@graasp/sdk';
 
 import { PORT } from '@/config/env';
 
 import { mockMembers } from './mockMembers';
 
-export const mockItem = AppItemFactory({
+
+export const mockItem: DiscriminatedItem = AppItemFactory({
   id: '1234-1234-1234-5678',
   name: 'app-collaborative-ideation',
   description: null,

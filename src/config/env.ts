@@ -19,3 +19,5 @@ export const SENTRY_ENV = VITE_SENTRY_ENV;
 export const SENTRY_DSN = VITE_SENTRY_DSN;
 export const PORT = parseInt(VITE_PORT, 10);
 export const WS_HOST: string | undefined = VITE_WS_HOST;
+export const BACKEND_HOST = import.meta.env.VITE_BACKEND_HOST;
+export const BACKEND_WS_ROUTE = import.meta.env.VITE_BACKEND_WS_ROUTE;

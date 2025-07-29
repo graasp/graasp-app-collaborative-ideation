@@ -1,4 +1,4 @@
-import { FC, Key } from 'react';
+import { FC, JSX, Key } from 'react';
 
 import Grid from '@mui/material/Grid2';
 

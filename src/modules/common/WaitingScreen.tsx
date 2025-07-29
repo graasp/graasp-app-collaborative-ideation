@@ -27,7 +27,7 @@ const WaitingScreen: FC<WaitingScreenProps> = ({ state }) => {
   }
   return (
     <Stack direction="column" justifyItems="center" spacing={4}>
-      <Typography>
+      <Typography variant="body1">
         {t('MAIN_INSTRUCTION')}
         <ul>
           <li>{t('STEP1')}</li>

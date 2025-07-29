@@ -101,6 +101,7 @@ const ResponseCollection: FC = () => {
             {currentStep?.time && startTime && (
               <Timer startTime={startTime} time={currentStep.time} />
             )}
+            {/* <RoomIndicator /> */}
           </Stack>
           <Instructions />
           {renderPhaseOfIdeation()}

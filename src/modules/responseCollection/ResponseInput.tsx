@@ -71,6 +71,7 @@ const ResponseInput: FC<{
       round: currentRound,
       givenPrompt,
       originalResponse: response,
+      markup: 'markdown',
     };
     const newResponse = responseDataFactory(input, me);
     postResponse(newResponse)?.then((postedResponse) => {
@@ -80,23 +81,6 @@ const ResponseInput: FC<{
       setResponse('');
       setIsPosting(false);
     });
-    // if (typeof onSubmitted !== 'undefined') {
-    //   onSubmitted('id');
-    // }
-    // promisePostIdea.current = postResponse(newIdeaData, true)?.then(
-    //   (postedIdea) => {
-    //     if (typeof onSubmitted !== 'undefined') {
-    //       onSubmitted(postedIdea.id);
-    //     }
-    //     setResponse('');
-    //     setIsPosting(false);
-    //     return postedIdea;
-    //   },
-    //   (reason: unknown) => {
-    //     setIsPosting(false);
-    //     throw new Error(`Failed to submit the response.\n${reason}`);
-    //   },
-    // );
   };
   const tooLong = response.length > RESPONSE_MAXIMUM_LENGTH;
   const disableSubmission = isPosting || tooLong || response.length === 0;
@@ -117,35 +101,8 @@ const ResponseInput: FC<{
         <MarkdownEditor
           onChange={(markdown: string) => setResponse(markdown)}
           initialValue={response}
-          // disabled={isPosting}
         />
       </Paper>
-      {/* TODO: Cleanup */}
-      {/* <TextField
-        helperText={t('HELPER')}
-        sx={{ width: { md: '75ch', sm: '100%' }, maxWidth: '100%' }}
-        multiline
-        variant="outlined"
-        value={response}
-        onChange={(e) => setResponse(e.target.value)}
-        disabled={isPosting}
-        color={tooLong ? 'error' : 'primary'}
-        InputProps={{
-          minRows: 3,
-          endAdornment: (
-            <InputAdornment position="end">
-              <Typography variant="caption">
-                {response.length}/{RESPONSE_MAXIMUM_LENGTH}
-              </Typography>
-            </InputAdornment>
-          ),
-        }}
-        // eslint-disable-next-line react/jsx-no-duplicate-props
-        inputProps={{
-          id: 'input-response',
-        }}
-        data-cy={RESPONSE_INPUT_FIELD_CY}
-      /> */}
       <Collapse in={tooLong}>
         <Alert severity="error">{t('RESPONSE_TOO_LONG_ALERT')}</Alert>
       </Collapse>

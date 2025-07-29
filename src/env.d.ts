@@ -9,6 +9,8 @@ interface ImportMetaEnv {
   readonly VITE_SENTRY_ENV?: string;
   readonly VITE_SENTRY_DSN?: string;
   readonly VITE_WS_HOST?: string;
+  readonly VITE_BACKEND_HOST?: string;
+  readonly VITE_BACKEND_WS_ROUTE?: string;
 }
 
 interface ImportMeta {

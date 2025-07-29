@@ -1,11 +1,8 @@
 import { AppSetting } from '@graasp/sdk';
 
 import { AllSettingsType } from '@/config/appSettingsType';
-import {
-  ActivityType,
-  ResponseVisibilityMode,
-} from '@/interfaces/interactionProcess';
 
+import { ActivityType, ResponseVisibilityMode } from '@/interfaces/activity_state';
 import { mockItem } from './mockItem';
 import { mockMembers } from './mockMembers';
 
@@ -57,7 +54,7 @@ const ALL_SETTINGS_OBJECT: AllSettingsType = {
     id: mockMembers[0].id,
   },
   activity: {
-    mode: ResponseVisibilityMode.Open,
+    mode: ResponseVisibilityMode.Async,
     numberOfResponsesPerSet: 3,
     numberOfBotResponsesPerSet: 1,
     exclusiveResponseDistribution: true,
