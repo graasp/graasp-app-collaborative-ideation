@@ -20,8 +20,8 @@ import { useLocalContext } from '@graasp/apps-query-client';
 
 import { RESPONSES_TOP_COLORS } from '@/config/constants';
 import { RESPONSE_CY } from '@/config/selectors';
-import { EvaluationType } from '@/interfaces/evaluation';
 import { ResponseVisibilityMode } from '@/interfaces/activity_state';
+import { EvaluationType } from '@/interfaces/evaluation';
 import { ResponseData, ResponseEvaluation } from '@/interfaces/response';
 import { useSettings } from '@/modules/context/SettingsContext';
 

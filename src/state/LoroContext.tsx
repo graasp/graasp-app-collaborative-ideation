@@ -1,15 +1,26 @@
 /* eslint-disable no-console */
 // TODO: Remove this comment when the code is ready for production
-import { createContext, JSX, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  JSX,
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+
+import { useLocalContext } from '@graasp/apps-query-client';
 
 import { LoroDoc } from 'loro-crdt';
+
+import { BACKEND_HOST, BACKEND_WS_ROUTE } from '@/config/env';
 import { ClientMessage } from '@/interfaces/backend-bindings/ClientMessage';
 import { JoinRoomMessage } from '@/interfaces/backend-bindings/JoinRoomMessage';
-import { useLocalContext } from '@graasp/apps-query-client';
-import { UpdateDocMessage } from '@/interfaces/backend-bindings/UpdateDocMessage';
-import { BACKEND_HOST, BACKEND_WS_ROUTE } from '@/config/env';
-import { ConnectionStatus } from '@/interfaces/status';
 import { ServerMessage } from '@/interfaces/backend-bindings/ServerMessage';
+import { UpdateDocMessage } from '@/interfaces/backend-bindings/UpdateDocMessage';
+import { ConnectionStatus } from '@/interfaces/status';
+
 import { toWebSocketUrl } from './utils';
 
 // declare const self: DedicatedWorkerGlobalScope;
@@ -33,13 +44,17 @@ type LoroContextProps = {
 };
 
 export const LoroProvider = ({ children }: LoroContextProps): JSX.Element => {
-  const {itemId, accountId} = useLocalContext();
+  const { itemId, accountId } = useLocalContext();
   const [doc] = useState(new LoroDoc());
-  const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>(ConnectionStatus.DISCONNECTED);
+  const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>(
+    ConnectionStatus.DISCONNECTED,
+  );
   const wsRef = useRef<WebSocket | null>(null);
   // const [roomSet, setRoomSet] = useState(false);
 
-  const handleConfirmMessage = (data: Extract<ServerMessage, {"type": "confirm"}>): void => {
+  const handleConfirmMessage = (
+    data: Extract<ServerMessage, { type: 'confirm' }>,
+  ): void => {
     console.debug('Handling confirm message', data);
     if (data.data?.message_type === 'join_room') {
       setConnectionStatus(ConnectionStatus.CONNECTED);
@@ -50,17 +65,23 @@ export const LoroProvider = ({ children }: LoroContextProps): JSX.Element => {
     }
   };
 
-  const handleUpdateDocMessage = (data: Extract<ServerMessage, {"type": "update_doc"}>): void => {
+  const handleUpdateDocMessage = (
+    data: Extract<ServerMessage, { type: 'update_doc' }>,
+  ): void => {
     console.debug('Handling update_doc message', data);
     const updatePayload = data.data.payload;
-    const updateBuffer = Uint8Array.from(updatePayload.split('').map(char => char.charCodeAt(0)));
+    const updateBuffer = Uint8Array.from(
+      updatePayload.split('').map((char) => char.charCodeAt(0)),
+    );
     doc.import(updateBuffer);
     console.debug('Document updated from WebSocket message', doc.toJSON());
   };
 
   useEffect(() => {
     setConnectionStatus(ConnectionStatus.CONNECTING);
-    const newWs = new WebSocket(toWebSocketUrl(`${BACKEND_HOST}${BACKEND_WS_ROUTE}`));
+    const newWs = new WebSocket(
+      toWebSocketUrl(`${BACKEND_HOST}${BACKEND_WS_ROUTE}`),
+    );
 
     newWs?.addEventListener('open', () => {
       const joinRoomMessage: JoinRoomMessage = {
@@ -68,8 +89,8 @@ export const LoroProvider = ({ children }: LoroContextProps): JSX.Element => {
         user_id: accountId || 'anonymous',
       };
       const msg: ClientMessage = {
-          type: 'join_room',
-          data: joinRoomMessage,
+        type: 'join_room',
+        data: joinRoomMessage,
       };
       newWs.send(JSON.stringify(msg));
       console.debug('WebSocket connection opened');
@@ -99,7 +120,7 @@ export const LoroProvider = ({ children }: LoroContextProps): JSX.Element => {
         default:
           console.warn('Unknown WebSocket message type received:', data);
       }
-  });
+    });
 
     wsRef.current = newWs;
   }, [accountId, itemId]);
@@ -107,9 +128,14 @@ export const LoroProvider = ({ children }: LoroContextProps): JSX.Element => {
   useEffect(() => {
     const unsubscribe = doc.subscribe(() => {
       console.debug(wsRef.current);
-      if (wsRef.current !== null && wsRef.current.readyState === WebSocket.OPEN) {
+      if (
+        wsRef.current !== null &&
+        wsRef.current.readyState === WebSocket.OPEN
+      ) {
         console.debug('Sending update to WebSocket');
-        const updatePayload = String.fromCharCode(...doc.export({ mode: "update"}));
+        const updatePayload = String.fromCharCode(
+          ...doc.export({ mode: 'update' }),
+        );
         const updateDocMessage: UpdateDocMessage = {
           payload: updatePayload,
         };

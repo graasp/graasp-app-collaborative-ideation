@@ -2,8 +2,12 @@ import { FC, JSX, Suspense, SuspenseProps, lazy } from 'react';
 
 import { useLocalContext } from '@graasp/apps-query-client';
 
-import { ActivityType, ResponseVisibilityMode } from '@/interfaces/activity_state';
+import {
+  ActivityType,
+  ResponseVisibilityMode,
+} from '@/interfaces/activity_state';
 import useActivityState from '@/state/useActivityState';
+
 import Loader from '../common/Loader';
 import { useSettings } from '../context/SettingsContext';
 import OrchestrationBar from '../orchestration/OrchestrationBar';

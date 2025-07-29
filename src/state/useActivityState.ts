@@ -1,11 +1,16 @@
 import { useEffect, useMemo, useState } from 'react';
 
+import { LoroDoc, LoroMap } from 'loro-crdt';
 
 import { DEFAULT_ACTIVITY_STATE } from '@/config/constants';
 import useActions from '@/hooks/useActions';
-import { LoroDoc, LoroMap } from 'loro-crdt';
-import { ActivityState, ActivityStatus, ActivityStep } from '@/interfaces/activity_state';
+import {
+  ActivityState,
+  ActivityStatus,
+  ActivityStep,
+} from '@/interfaces/activity_state';
 import { useSettings } from '@/modules/context/SettingsContext';
+
 import { useLoroContext } from './LoroContext';
 
 const getActivityState = (doc: LoroDoc): LoroMap => {
@@ -15,10 +20,16 @@ const getActivityState = (doc: LoroDoc): LoroMap => {
 };
 
 const getStateFromLoroMap = (activityState: LoroMap): ActivityState => ({
-    status: activityState.get('status') as ActivityStatus || DEFAULT_ACTIVITY_STATE.status,
-    startTime: activityState.get('startTime') as Date || DEFAULT_ACTIVITY_STATE.startTime,
-    stepIndex: activityState.get('stepIndex') as number || DEFAULT_ACTIVITY_STATE.stepIndex,
-  })
+  status:
+    (activityState.get('status') as ActivityStatus) ||
+    DEFAULT_ACTIVITY_STATE.status,
+  startTime:
+    (activityState.get('startTime') as Date) ||
+    DEFAULT_ACTIVITY_STATE.startTime,
+  stepIndex:
+    (activityState.get('stepIndex') as number) ||
+    DEFAULT_ACTIVITY_STATE.stepIndex,
+});
 
 export interface UseActivityStateValues {
   activityState: ActivityState;
@@ -34,7 +45,6 @@ export interface UseActivityStateValues {
 }
 
 const useActivityState = (): UseActivityStateValues => {
-
   const { postNextStepAction, postPreviousStepAction } = useActions();
   const { activity } = useSettings();
   const { steps } = activity;
@@ -43,11 +53,13 @@ const useActivityState = (): UseActivityStateValues => {
 
   const { doc } = useLoroContext();
 
-  const [activityState, setActivityState] = useState<ActivityState>(DEFAULT_ACTIVITY_STATE);
+  const [activityState, setActivityState] = useState<ActivityState>(
+    DEFAULT_ACTIVITY_STATE,
+  );
 
   // At runtime, steps may be undefined.
   const nbrOfSteps = steps?.length || 0;
-  const {stepIndex} = activityState;
+  const { stepIndex } = activityState;
 
   useEffect(() => {
     const activityStateLoro = getActivityState(doc);
@@ -58,7 +70,10 @@ const useActivityState = (): UseActivityStateValues => {
     return () => unsubscribe();
   }, [doc]);
 
-  const changeActivityStatus = (newStatus: ActivityStatus, commit = true): void => {
+  const changeActivityStatus = (
+    newStatus: ActivityStatus,
+    commit = true,
+  ): void => {
     const activityStateLoro = getActivityState(doc);
     activityStateLoro.set('status', newStatus);
     if (commit) {
@@ -141,17 +156,17 @@ const useActivityState = (): UseActivityStateValues => {
   };
 
   return {
-  activityState,
-  round,
-  playActivity,
-  pauseActivity,
-  currentStep,
-  nextStep,
-  previousStep,
-  nbrOfSteps,
-  moveToNextStep,
-  moveToPreviousStep,
-};
+    activityState,
+    round,
+    playActivity,
+    pauseActivity,
+    currentStep,
+    nextStep,
+    previousStep,
+    nbrOfSteps,
+    moveToNextStep,
+    moveToPreviousStep,
+  };
 };
 
 export default useActivityState;

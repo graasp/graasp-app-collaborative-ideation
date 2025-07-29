@@ -1,12 +1,9 @@
 import { AppDataVisibility } from '@graasp/sdk';
 
-import { EvaluationType } from '@/interfaces/evaluation';
 import { ActivityState, ActivityStatus } from '@/interfaces/activity_state';
+import { EvaluationType } from '@/interfaces/evaluation';
 
-import {
-  AppDataTypes,
-  ChatbotResponseAppData,
-} from './appDataTypes';
+import { AppDataTypes, ChatbotResponseAppData } from './appDataTypes';
 
 export const SMALL_BORDER_RADIUS = 4;
 

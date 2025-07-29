@@ -1,4 +1,5 @@
 import { configureQueryClient } from '@graasp/apps-query-client';
+
 import { ReactQueryDevtools as ReactQueryDevtoolsComponent } from '@tanstack/react-query-devtools';
 
 import notifier from '@/utils/notifier';
@@ -15,7 +16,9 @@ const {
   QUERY_KEYS,
 }: {
   queryClient: ReturnType<typeof configureQueryClient>['queryClient'];
-  QueryClientProvider: ReturnType<typeof configureQueryClient>['QueryClientProvider'];
+  QueryClientProvider: ReturnType<
+    typeof configureQueryClient
+  >['QueryClientProvider'];
   hooks: ReturnType<typeof configureQueryClient>['hooks'];
   API_ROUTES: ReturnType<typeof configureQueryClient>['API_ROUTES'];
   mutations: ReturnType<typeof configureQueryClient>['mutations'];

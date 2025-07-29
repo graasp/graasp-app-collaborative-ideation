@@ -1,10 +1,10 @@
 import { Data } from '@graasp/apps-query-client';
 import { AppAction, AppData, LocalContext } from '@graasp/sdk';
 
+import { ActivityState, ActivityStep } from '@/interfaces/activity_state';
 import { Prompt } from '@/interfaces/prompt';
 import { ResponseData } from '@/interfaces/response';
 
-import { ActivityState, ActivityStep } from '@/interfaces/activity_state';
 import { VoteAppData } from './appDataTypes';
 
 export enum AppActionTypes {

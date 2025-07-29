@@ -28,7 +28,6 @@
 //   // At runtime, steps may be undefined.
 //   const nbrOfSteps = steps?.length || 0;
 
-
 //   const moveToNextStep = async (): Promise<void> => {
 //     if (typeof nextStep === 'undefined') {
 //       return;

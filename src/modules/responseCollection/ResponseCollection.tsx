@@ -8,12 +8,12 @@ import Stack from '@mui/material/Stack';
 
 import { RESPONSE_COLLECTION_VIEW_CY } from '@/config/selectors';
 import useActions from '@/hooks/useActions';
+import { IdeationPhases } from '@/interfaces/activity_state';
 import { ResponseData } from '@/interfaces/response';
 import Instructions from '@/modules/common/Instructions';
 import Pausable from '@/modules/common/Pausable';
 import { useResponsesContext } from '@/state/ResponsesContext';
 import useActivityState from '@/state/useActivityState';
-import { IdeationPhases } from '@/interfaces/activity_state';
 
 import Round from '../common/Round';
 import Timer from '../common/Timer';

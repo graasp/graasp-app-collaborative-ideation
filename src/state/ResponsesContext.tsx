@@ -12,10 +12,10 @@ import {
 import { useLocalContext } from '@graasp/apps-query-client';
 
 import useActions from '@/hooks/useActions';
+import { ResponseVisibilityMode } from '@/interfaces/activity_state';
 import { ResponseData } from '@/interfaces/response';
 import { useSettings } from '@/modules/context/SettingsContext';
 
-import { ResponseVisibilityMode } from '@/interfaces/activity_state';
 import { useLoroContext } from './LoroContext';
 import useActivityState from './useActivityState';
 import useParticipants from './useParticipants';
@@ -290,12 +290,15 @@ export const ResponsesProvider: FC<ResponsesContextProps> = ({ children }) => {
     [doc, postDeleteResponseAction],
   );
 
-  const deleteResponseById = useCallback(async (id: string) => {
-    const index = allResponses.findIndex((r) => r.id === id);
-    if (index > -1) {
-      deleteResponse(index);
-    }
-  }, [allResponses, deleteResponse]);
+  const deleteResponseById = useCallback(
+    async (id: string) => {
+      const index = allResponses.findIndex((r) => r.id === id);
+      if (index > -1) {
+        deleteResponse(index);
+      }
+    },
+    [allResponses, deleteResponse],
+  );
 
   //   const importResponses = async (
   //     responsesData: Array<ResponseDataExchangeFormat>,
@@ -331,7 +334,15 @@ export const ResponsesProvider: FC<ResponsesContextProps> = ({ children }) => {
       deleteResponseById,
       postResponse,
     }),
-    [allResponses, availableResponses, deleteResponse, deleteResponseById, myResponses, participants, postResponse],
+    [
+      allResponses,
+      availableResponses,
+      deleteResponse,
+      deleteResponseById,
+      myResponses,
+      participants,
+      postResponse,
+    ],
   );
   return (
     <ResponsesContext.Provider value={contextValue}>

@@ -5,6 +5,7 @@ import Stack from '@mui/material/Stack';
 import { sortResponsesByNumberOfVote } from '@/hooks/utils/evaluation';
 import Response from '@/modules/common/response/Response';
 import { useResponsesContext } from '@/state/ResponsesContext';
+
 import ResponsesGridContainer, {
   ResponseGridItem,
 } from '../common/ResponsesGrid';
@@ -15,7 +16,10 @@ type VoteResultsProps = unknown;
 const VoteResults: FC<VoteResultsProps> = () => {
   const { allResponses } = useResponsesContext();
   const { allVotes } = useVoteContext();
-  const sortedResponses = useMemo(() => sortResponsesByNumberOfVote(allResponses, allVotes), [allResponses, allVotes]);
+  const sortedResponses = useMemo(
+    () => sortResponsesByNumberOfVote(allResponses, allVotes),
+    [allResponses, allVotes],
+  );
   return (
     <Stack
       direction="column"

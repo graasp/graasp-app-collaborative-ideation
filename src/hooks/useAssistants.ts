@@ -19,6 +19,7 @@ import {
   promptForSingleResponseAndProvideResponses,
 } from '@/config/prompts';
 import { mutations } from '@/config/queryClient';
+import { ResponseVisibilityMode } from '@/interfaces/activity_state';
 import {
   AssistantPersona,
   AssistantType,
@@ -26,12 +27,12 @@ import {
   ListAssistantConfiguration,
   ListAssistantStateData,
 } from '@/interfaces/assistant';
-import { ResponseVisibilityMode } from '@/interfaces/activity_state';
 import { ResponseData, responseDataFactory } from '@/interfaces/response';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
 import { useResponsesContext } from '@/state/ResponsesContext';
 import useActivityState from '@/state/useActivityState';
+
 import { joinMultipleResponses } from './utils/responses';
 
 interface UseAssistantsValues {
@@ -210,7 +211,19 @@ const useAssistants = (): UseAssistantsValues => {
         return assistantResponseAppData;
       });
     },
-    [accountId, allResponses, includeDetails, instructions.details?.content, instructions.title.content, mode, postResponse, promptAssistant, promptMode, round, t],
+    [
+      accountId,
+      allResponses,
+      includeDetails,
+      instructions.details?.content,
+      instructions.title.content,
+      mode,
+      postResponse,
+      promptAssistant,
+      promptMode,
+      round,
+      t,
+    ],
   );
 
   const updateListAssistantState = useCallback(

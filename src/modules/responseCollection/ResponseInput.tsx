@@ -9,9 +9,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 import { RESPONSE_MAXIMUM_LENGTH } from '@/config/constants';
-import {
-  SUBMIT_RESPONSE_BTN_CY,
-} from '@/config/selectors';
+import { SUBMIT_RESPONSE_BTN_CY } from '@/config/selectors';
 import { participantToAuthor } from '@/interfaces/participant';
 import {
   InputResponseData,
@@ -21,10 +19,10 @@ import {
 import { useResponsesContext } from '@/state/ResponsesContext';
 import useParticipants from '@/state/useParticipants';
 
+import Loader from '../common/Loader';
 import { useSettings } from '../context/SettingsContext';
 import MarkdownEditor from './MarkdownEditor';
 import Prompts from './prompts/Prompts';
-import Loader from '../common/Loader';
 
 const PreviousResponse: FC<{ children: ReactElement | string }> = ({
   children,
@@ -90,9 +88,7 @@ const ResponseInput: FC<{
         <Alert severity="info">{inputInstructions.content}</Alert>
       )}
       <Prompts onChange={(p) => setGivenPrompt(p)} />
-      {parent && (
-        <PreviousResponse>{parent.response}</PreviousResponse>
-      )}
+      {parent && <PreviousResponse>{parent.response}</PreviousResponse>}
       {/* <MarkdownHelper /> */}
       <Paper
         variant="outlined"

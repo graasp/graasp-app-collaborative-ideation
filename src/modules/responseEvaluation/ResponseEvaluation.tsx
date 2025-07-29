@@ -10,8 +10,8 @@ import { EvaluationType } from '@/interfaces/evaluation';
 import Pausable from '@/modules/common/Pausable';
 import Response from '@/modules/common/response/Response';
 import { useResponsesContext } from '@/state/ResponsesContext';
-
 import useActivityState from '@/state/useActivityState';
+
 import Instructions from '../common/Instructions';
 import ResponsesGridContainer, {
   ResponseGridItem,

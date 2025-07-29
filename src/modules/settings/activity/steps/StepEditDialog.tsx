@@ -11,11 +11,11 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 
+import { ActivityStep, ActivityType } from '@/interfaces/activity_state';
 import { EvaluationParameters, EvaluationType } from '@/interfaces/evaluation';
 import CancelButton from '@/modules/common/CancelButton';
 import SaveButton from '@/modules/common/SaveButton';
 
-import { ActivityStep, ActivityType } from '@/interfaces/activity_state';
 import EvaluationSettings from './evaluation/EvaluationSettings';
 import ResultsSettings from './results/ResultsSettings';
 

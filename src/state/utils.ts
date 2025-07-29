@@ -17,4 +17,4 @@ export const toWebSocketUrl = (httpUrl: string): URL => {
   }
 
   return url;
-}
+};

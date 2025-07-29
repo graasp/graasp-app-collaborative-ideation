@@ -1,8 +1,11 @@
 import { AppSetting } from '@graasp/sdk';
 
 import { AllSettingsType } from '@/config/appSettingsType';
+import {
+  ActivityType,
+  ResponseVisibilityMode,
+} from '@/interfaces/activity_state';
 
-import { ActivityType, ResponseVisibilityMode } from '@/interfaces/activity_state';
 import { mockItem } from './mockItem';
 import { mockMembers } from './mockMembers';
 

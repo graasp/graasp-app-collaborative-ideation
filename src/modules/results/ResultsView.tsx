@@ -1,11 +1,12 @@
+import { JSX } from 'react';
+
 import Container from '@mui/material/Container';
 
 import { DEFAULT_EVALUATION_TYPE } from '@/config/constants';
 import { RESPONSE_RESULTS_VIEW_CY } from '@/config/selectors';
 import { EvaluationType } from '@/interfaces/evaluation';
-
-import { JSX } from 'react';
 import useActivityState from '@/state/useActivityState';
+
 import Instructions from '../common/Instructions';
 import Pausable from '../common/Pausable';
 import { RatingsProvider } from '../context/RatingsContext';

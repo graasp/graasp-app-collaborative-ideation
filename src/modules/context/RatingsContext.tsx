@@ -1,4 +1,11 @@
-import { FC, JSX, createContext, useCallback, useContext, useMemo } from 'react';
+import {
+  FC,
+  JSX,
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useLocalContext } from '@graasp/apps-query-client';

@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid2';
 
 import { ActivityStep, ActivityType } from '@/interfaces/activity_state';
+
 import Step from './Step';
 
 interface StepsSettingsProps {

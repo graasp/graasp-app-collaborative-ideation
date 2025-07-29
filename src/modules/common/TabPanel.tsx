@@ -1,6 +1,7 @@
+import { JSX } from 'react';
+
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { JSX } from 'react';
 
 interface TabPanelProps {
   children?: React.ReactNode;

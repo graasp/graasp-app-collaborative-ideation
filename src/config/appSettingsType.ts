@@ -3,15 +3,15 @@ import { Member } from '@graasp/sdk';
 import { t } from 'i18next';
 
 import {
-  AssistantConfiguration,
-  AssistantPersona,
-  PromptMode,
-} from '@/interfaces/assistant';
-import {
   ActivityStep,
   ActivityType,
   ResponseVisibilityMode,
 } from '@/interfaces/activity_state';
+import {
+  AssistantConfiguration,
+  AssistantPersona,
+  PromptMode,
+} from '@/interfaces/assistant';
 
 type InstructionFormatType = 'html' | 'markdown' | 'plain-text';
 
