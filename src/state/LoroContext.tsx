@@ -21,19 +21,23 @@ import { UpdateDocMessage } from '@/interfaces/backend-bindings/UpdateDocMessage
 import { UpdateTmpStateMessage } from '@/interfaces/backend-bindings/UpdateTmpStateMessage';
 import { ConnectionStatus } from '@/interfaces/status';
 
-import { ONLINE_USERS_KEY } from './TmpState';
+import { ONLINE_USERS_KEY, TMP_STATE_TIMEOUT } from './TmpState';
 import { toWebSocketUrl } from './utils';
 
 export type LoroContextType = {
   doc: LoroDoc;
   tmpState: EphemeralStore;
   connectionStatus: ConnectionStatus;
+  sendMessage: (message: ClientMessage) => void;
 };
 
 const defaultContextValue = {
   doc: new LoroDoc(),
   tmpState: new EphemeralStore(),
   connectionStatus: ConnectionStatus.DISCONNECTED,
+  sendMessage: (): void => {
+    // Default implementation does nothing
+  }
 };
 
 const LoroContext = createContext<LoroContextType>(defaultContextValue);
@@ -45,7 +49,7 @@ type LoroContextProps = {
 export const LoroProvider = ({ children }: LoroContextProps): JSX.Element => {
   const { itemId, accountId } = useLocalContext();
   const [doc] = useState(new LoroDoc());
-  const [tmpState] = useState(new EphemeralStore());
+  const [tmpState] = useState(new EphemeralStore(TMP_STATE_TIMEOUT));
   const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>(
     ConnectionStatus.DISCONNECTED,
   );
@@ -56,9 +60,6 @@ export const LoroProvider = ({ children }: LoroContextProps): JSX.Element => {
     (data: Extract<ServerMessage, { type: 'confirm' }>): void => {
       if (data.data?.message_type === 'join_room') {
         setConnectionStatus(ConnectionStatus.CONNECTED);
-        const onlineUsers =
-          (tmpState.get(ONLINE_USERS_KEY) as Array<string>) || [];
-        tmpState.set(ONLINE_USERS_KEY, [accountId, ...onlineUsers]);
         const getDocMessage: Extract<ClientMessage, { type: 'get_doc' }> = {
           type: 'get_doc',
           data: {
@@ -74,7 +75,7 @@ export const LoroProvider = ({ children }: LoroContextProps): JSX.Element => {
         );
       }
     },
-    [accountId, tmpState],
+    [],
   );
 
   const handleUpdateTmpStateMessage = useCallback(
@@ -98,6 +99,30 @@ export const LoroProvider = ({ children }: LoroContextProps): JSX.Element => {
     },
     [doc],
   );
+
+  const sendMessage = useCallback(
+    (message: ClientMessage): void => {
+      if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+        wsRef.current.send(JSON.stringify(message));
+      } else {
+        // eslint-disable-next-line no-console
+        console.warn('WebSocket is not connected, cannot send message');
+      }
+    },
+    [],
+  );
+
+  // Ping
+  useEffect(() => {
+    const pingInterval = setInterval(() => {
+      if (connectionStatus === ConnectionStatus.CONNECTED) {
+        const onlineUsers =
+          (tmpState.get(ONLINE_USERS_KEY) as Array<string>) || [];
+        tmpState.set(ONLINE_USERS_KEY, [accountId, ...onlineUsers]);
+      }
+    }, TMP_STATE_TIMEOUT);
+    return () => clearInterval(pingInterval);
+  }, [accountId, connectionStatus, tmpState]);
 
   useEffect(() => {
     setConnectionStatus(ConnectionStatus.CONNECTING);
@@ -208,8 +233,9 @@ export const LoroProvider = ({ children }: LoroContextProps): JSX.Element => {
       doc,
       tmpState,
       connectionStatus,
+      sendMessage,
     }),
-    [connectionStatus, doc, tmpState],
+    [connectionStatus, doc, sendMessage, tmpState],
   );
   return (
     <LoroContext.Provider value={contextValue}>{children}</LoroContext.Provider>

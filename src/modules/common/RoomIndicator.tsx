@@ -1,13 +1,4 @@
-import React, { FC } from 'react';
-
-import {
-  Avatar,
-  AvatarGroup,
-  Box,
-  Tooltip,
-  Typography,
-  useTheme,
-} from '@mui/material';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 
 import { Participant } from '@/interfaces/participant';
 import { ConnectionStatus } from '@/interfaces/status';
@@ -15,12 +6,38 @@ import { useLoroContext } from '@/state/LoroContext';
 import { ONLINE_USERS_KEY } from '@/state/TmpState';
 import useParticipants from '@/state/useParticipants';
 import stringToColor from '@/utils/stringToColor';
+import { useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import AvatarGroup from '@mui/material/AvatarGroup';
+import Tooltip from '@mui/material/Tooltip';
+import Avatar from '@mui/material/Avatar';
 
 const RoomIndicator: FC = () => {
   const theme = useTheme();
-  const { tmpState, connectionStatus } = useLoroContext(); // assumed shape
+  // const { tmpState, connectionStatus, reconnect } = useLoroContext(); // assume reconnect is available
+  const { tmpState, connectionStatus } = useLoroContext(); // assume reconnect is available
   const { members } = useParticipants();
-  const onlineUserIds = (tmpState.get(ONLINE_USERS_KEY) as string[]) || [];
+  const [onlineUserIds, setOnlineUserIds] = useState<string[]>([]);
+
+  const onlineUsers = useMemo(() => ([...new Set(onlineUserIds)]
+    .map((id) => members.find((u) => u.id === id))
+    .filter((u): u is Participant => Boolean(u))), [onlineUserIds, members]);
+
+  // eslint-disable-next-line no-console
+  console.debug("Online users:", onlineUsers);
+
+  useEffect(() => {
+    tmpState.subscribe(() => {
+      setOnlineUserIds((tmpState.get(ONLINE_USERS_KEY) as string[]) || []);
+    });
+  }, [tmpState]);
+
+  const reconnect = (): void => {
+    // Logic to reconnect to the WebSocket or refresh the connection
+    console.debug("Reconnecting...");
+    // This is a placeholder; actual reconnection logic should be implemented
+  };
 
   if (connectionStatus !== ConnectionStatus.CONNECTED) {
     return (
@@ -32,33 +49,21 @@ const RoomIndicator: FC = () => {
         bgcolor={theme.palette.grey[200]}
         borderRadius={2}
       >
-        <Typography variant="body2" color="textSecondary">
-          App is offline
-        </Typography>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={reconnect}
+        >
+          Reconnect
+        </Button>
       </Box>
     );
   }
-
-  const onlineUsers = [...new Set(onlineUserIds)]
-    .map((id) => members.find((u) => u.id === id))
-    .filter((u): u is Participant => Boolean(u));
-
-  // eslint-disable-next-line no-console
-  console.debug('Online users:', onlineUsers);
 
   return (
     <AvatarGroup max={5}>
       {onlineUsers.map((user) => {
         const bgColor = stringToColor(user.id);
-        // const colorIndex = Math.abs(
-        //   Array.from(user.name).reduce((acc, char) => acc + char.charCodeAt(0), 0)
-        // ) % theme.palette.augmentColor
-        //   ? 10
-        //   : 10; // Just a placeholder for color generation
-
-        // const bgColor = theme.palette.primary[
-        //   (["light", "main", "dark"] as const)[colorIndex % 3]
-        // ];
 
         return (
           <Tooltip key={user.id} title={user.name}>

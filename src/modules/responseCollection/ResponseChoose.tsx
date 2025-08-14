@@ -11,6 +11,7 @@ import { ResponseData } from '@/interfaces/response';
 import Response from '@/modules/common/response/Response';
 import { useResponsesContext } from '@/state/ResponsesContext';
 
+import useAI from '@/hooks/useAI';
 import Loader from '../common/Loader';
 import ResponsesGridContainer, {
   ResponseGridItem,
@@ -29,6 +30,8 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
   const highlightTimeout = useRef<NodeJS.Timeout>(undefined);
   const { deleteResponseById } = useResponsesContext();
 
+  const { getFeedback } = useAI();
+
   const { instructions } = useSettings();
   const chooseInstructions = useMemo(
     () =>
@@ -43,19 +46,7 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
   };
 
   const renderPlaceHolderForNoIdeas = (): JSX.Element => <Loader />;
-  // if (isLoading) {
-  //   return <Loader />;
-  // }
-  // return (
-  //   <>
-  //     <Alert sx={{ m: 1 }} severity="info">
-  //       {t('NO_IDEAS_TO_SHOW_TEXT')}
-  //     </Alert>
-  //     <Button onClick={() => invalidateAppData()}>
-  //       {t('CHECK_FOR_NEW_RESPONSES')}
-  //     </Button>
-  //   </>
-  // );
+
   return (
     <>
       {chooseInstructions && (
@@ -67,6 +58,13 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
         data-cy={PROPOSE_NEW_RESPONSE_BTN_CY}
       >
         {t('PROPOSE_NEW_RESPONSE')}
+      </Button>
+      <Button
+        startIcon={<AddCircleOutlineIcon />}
+        onClick={() => getFeedback()}
+        data-cy={PROPOSE_NEW_RESPONSE_BTN_CY}
+      >
+        GET FEEDBACK
       </Button>
       <ResponsesGridContainer>
         {responses
