@@ -43,6 +43,7 @@ const RoomIndicator: FC = () => {
     .map((id) => members.find((u) => u.id === id))
     .filter((u): u is Participant => Boolean(u));
 
+  // eslint-disable-next-line no-console
   console.debug('Online users:', onlineUsers);
 
   return (
