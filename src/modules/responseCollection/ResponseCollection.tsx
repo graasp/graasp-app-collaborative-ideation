@@ -15,6 +15,7 @@ import Pausable from '@/modules/common/Pausable';
 import { useResponsesContext } from '@/state/ResponsesContext';
 import useActivityState from '@/state/useActivityState';
 
+import RoomIndicator from '../common/RoomIndicator';
 import Round from '../common/Round';
 import Timer from '../common/Timer';
 import IdeaChoose from './ResponseChoose';
@@ -101,7 +102,7 @@ const ResponseCollection: FC = () => {
             {currentStep?.time && startTime && (
               <Timer startTime={startTime} time={currentStep.time} />
             )}
-            {/* <RoomIndicator /> */}
+            <RoomIndicator />
           </Stack>
           <Instructions />
           {renderPhaseOfIdeation()}

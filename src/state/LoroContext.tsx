@@ -1,8 +1,7 @@
-/* eslint-disable no-console */
-// TODO: Remove this comment when the code is ready for production
 import {
   JSX,
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -12,28 +11,28 @@ import {
 
 import { useLocalContext } from '@graasp/apps-query-client';
 
-import { LoroDoc } from 'loro-crdt';
+import { EphemeralStore, LoroDoc } from 'loro-crdt';
 
 import { BACKEND_HOST, BACKEND_WS_ROUTE } from '@/config/env';
 import { ClientMessage } from '@/interfaces/backend-bindings/ClientMessage';
 import { JoinRoomMessage } from '@/interfaces/backend-bindings/JoinRoomMessage';
 import { ServerMessage } from '@/interfaces/backend-bindings/ServerMessage';
 import { UpdateDocMessage } from '@/interfaces/backend-bindings/UpdateDocMessage';
+import { UpdateTmpStateMessage } from '@/interfaces/backend-bindings/UpdateTmpStateMessage';
 import { ConnectionStatus } from '@/interfaces/status';
 
+import { ONLINE_USERS_KEY } from './TmpState';
 import { toWebSocketUrl } from './utils';
-
-// declare const self: DedicatedWorkerGlobalScope;
-
-// const DATA_SNAPSHOT_LOCAL_STORAGE_KEY = 'loro-data-snapshot';
 
 export type LoroContextType = {
   doc: LoroDoc;
+  tmpState: EphemeralStore;
   connectionStatus: ConnectionStatus;
 };
 
 const defaultContextValue = {
   doc: new LoroDoc(),
+  tmpState: new EphemeralStore(),
   connectionStatus: ConnectionStatus.DISCONNECTED,
 };
 
@@ -46,36 +45,59 @@ type LoroContextProps = {
 export const LoroProvider = ({ children }: LoroContextProps): JSX.Element => {
   const { itemId, accountId } = useLocalContext();
   const [doc] = useState(new LoroDoc());
+  const [tmpState] = useState(new EphemeralStore());
   const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>(
     ConnectionStatus.DISCONNECTED,
   );
   const wsRef = useRef<WebSocket | null>(null);
   // const [roomSet, setRoomSet] = useState(false);
 
-  const handleConfirmMessage = (
-    data: Extract<ServerMessage, { type: 'confirm' }>,
-  ): void => {
-    console.debug('Handling confirm message', data);
-    if (data.data?.message_type === 'join_room') {
-      setConnectionStatus(ConnectionStatus.CONNECTED);
-      // setRoomSet(true);
-      console.debug('Joined room successfully');
-    } else {
-      console.warn('Unexpected confirm message type:', data.data?.message_type);
-    }
-  };
+  const handleConfirmMessage = useCallback(
+    (data: Extract<ServerMessage, { type: 'confirm' }>): void => {
+      if (data.data?.message_type === 'join_room') {
+        setConnectionStatus(ConnectionStatus.CONNECTED);
+        const onlineUsers =
+          (tmpState.get(ONLINE_USERS_KEY) as Array<string>) || [];
+        tmpState.set(ONLINE_USERS_KEY, [accountId, ...onlineUsers]);
+        const getDocMessage: Extract<ClientMessage, { type: 'get_doc' }> = {
+          type: 'get_doc',
+          data: {
+            version_vector: null, // Assuming we want the latest version
+          },
+        };
+        wsRef.current?.send(JSON.stringify(getDocMessage));
+      } else {
+        // eslint-disable-next-line no-console
+        console.warn(
+          'Unexpected confirm message type:',
+          data.data?.message_type,
+        );
+      }
+    },
+    [accountId, tmpState],
+  );
 
-  const handleUpdateDocMessage = (
-    data: Extract<ServerMessage, { type: 'update_doc' }>,
-  ): void => {
-    console.debug('Handling update_doc message', data);
-    const updatePayload = data.data.payload;
-    const updateBuffer = Uint8Array.from(
-      updatePayload.split('').map((char) => char.charCodeAt(0)),
-    );
-    doc.import(updateBuffer);
-    console.debug('Document updated from WebSocket message', doc.toJSON());
-  };
+  const handleUpdateTmpStateMessage = useCallback(
+    (data: Extract<ServerMessage, { type: 'update_tmp_state' }>) => {
+      const updatePayload = data.data.payload;
+      const updateBuffer = Uint8Array.from(
+        updatePayload.split('').map((char) => char.charCodeAt(0)),
+      );
+      tmpState.apply(updateBuffer);
+    },
+    [tmpState],
+  );
+
+  const handleUpdateDocMessage = useCallback(
+    (data: Extract<ServerMessage, { type: 'update_doc' }>): void => {
+      const updatePayload = data.data.payload;
+      const updateBuffer = Uint8Array.from(
+        updatePayload.split('').map((char) => char.charCodeAt(0)),
+      );
+      doc.import(updateBuffer);
+    },
+    [doc],
+  );
 
   useEffect(() => {
     setConnectionStatus(ConnectionStatus.CONNECTING);
@@ -93,46 +115,72 @@ export const LoroProvider = ({ children }: LoroContextProps): JSX.Element => {
         data: joinRoomMessage,
       };
       newWs.send(JSON.stringify(msg));
-      console.debug('WebSocket connection opened');
     });
 
     newWs?.addEventListener('close', () => {
-      console.debug('WebSocket connection closed');
       wsRef.current = null;
       setConnectionStatus(ConnectionStatus.DISCONNECTED);
     });
 
     newWs?.addEventListener('message', (event) => {
-      console.debug('WebSocket message received', event);
       const data: ServerMessage = JSON.parse(event.data);
       switch (data.type) {
         case 'confirm':
-          console.debug('WebSocket confirm message received', data.data);
           handleConfirmMessage(data);
           break;
         case 'update_doc':
-          console.debug('WebSocket update_doc message received', data.data);
           handleUpdateDocMessage(data);
           break;
+        case 'update_tmp_state':
+          handleUpdateTmpStateMessage(data);
+          break;
         case 'error':
+          // eslint-disable-next-line no-console
           console.error('WebSocket error message received', data.data);
+
           break;
         default:
+          // eslint-disable-next-line no-console
           console.warn('Unknown WebSocket message type received:', data);
       }
     });
 
     wsRef.current = newWs;
-  }, [accountId, itemId]);
+  }, [
+    accountId,
+    handleConfirmMessage,
+    handleUpdateDocMessage,
+    handleUpdateTmpStateMessage,
+    itemId,
+  ]);
 
   useEffect(() => {
-    const unsubscribe = doc.subscribe(() => {
-      console.debug(wsRef.current);
+    const unsubscribeEphemeral = tmpState.subscribeLocalUpdates(() => {
       if (
         wsRef.current !== null &&
         wsRef.current.readyState === WebSocket.OPEN
       ) {
-        console.debug('Sending update to WebSocket');
+        const updatePayload = String.fromCharCode(...tmpState.encodeAll());
+        const updateTmpStateMessage: UpdateTmpStateMessage = {
+          payload: updatePayload,
+        };
+        const msg: ClientMessage = {
+          type: 'update_tmp_state',
+          data: updateTmpStateMessage,
+        };
+        wsRef.current.send(JSON.stringify(msg));
+      } else {
+        // eslint-disable-next-line no-console
+        console.warn(
+          'WebSocket is not connected, cannot send ephemeral update',
+        );
+      }
+    });
+    const unsubscribe = doc.subscribe(() => {
+      if (
+        wsRef.current !== null &&
+        wsRef.current.readyState === WebSocket.OPEN
+      ) {
         const updatePayload = String.fromCharCode(
           ...doc.export({ mode: 'update' }),
         );
@@ -145,37 +193,23 @@ export const LoroProvider = ({ children }: LoroContextProps): JSX.Element => {
         };
         wsRef.current.send(JSON.stringify(msg));
       } else {
+        // eslint-disable-next-line no-console
         console.warn('WebSocket is not connected, cannot send update');
       }
-      console.debug('Document updated', doc.toJSON());
     });
-    return () => unsubscribe();
-  }, [doc]);
-
-  // responses.subscribe((event: LoroEventBatch) => {
-  //   console.debug('Responses updated ', event);
-  //   self.postMessage({
-  //     type: AppStateEventType.ALL_RESPONSES,
-  //     data: responses.toArray(),
-  //   });
-  // });
-
-  // doc.subscribe(() => {
-  //   self.console.log('Document updated');
-  //   const { updateMessage, updateVersion, transferables } = getUpdate(
-  //     doc,
-  //     lastUpdateVersion,
-  //   );
-  //   lastUpdateVersion = updateVersion;
-  //   self.postMessage(updateMessage, transferables);
-  // });
+    return () => {
+      unsubscribe();
+      unsubscribeEphemeral();
+    };
+  }, [doc, tmpState]);
 
   const contextValue = useMemo(
     () => ({
       doc,
+      tmpState,
       connectionStatus,
     }),
-    [connectionStatus, doc],
+    [connectionStatus, doc, tmpState],
   );
   return (
     <LoroContext.Provider value={contextValue}>{children}</LoroContext.Provider>
@@ -183,44 +217,3 @@ export const LoroProvider = ({ children }: LoroContextProps): JSX.Element => {
 };
 
 export const useLoroContext = (): LoroContextType => useContext(LoroContext);
-
-// self.addEventListener('online', () => {
-//   console.log('Online');
-// });
-
-// self.addEventListener('message', (event: MessageEvent) => {
-//   const { type, data } = event.data;
-
-//   console.debug('Received message', type, data);
-
-//   if (type === AppStateEventType.UPDATE_CONFIG) {
-//     self.console.log('Updating config', data);
-//     config = data;
-//   } else if (typeof config !== 'undefined') {
-//     switch (type) {
-//       case AppStateEventType.POST_RESPONSE:
-//         self.postMessage(postResponse(data, config.author, responses));
-//         doc.commit();
-//         break;
-//       case AppStateEventType.POST_UPDATE: {
-//         self.console.log('Received update with data:', data);
-//         const buffer = new Uint8Array(data);
-//         doc.import(buffer);
-//         break;
-//       }
-//       case 'delete':
-//         break;
-//       default:
-//         // eslint-disable-next-line no-console
-//         console.warn('Unknown message type:', type);
-//     }
-//   } else {
-//     // eslint-disable-next-line no-console
-//     console.warn('No config set');
-//   }
-
-//   // Send back the updated document
-//   // self.postMessage({ type: 'update', data: doc.toJSON() });
-// });
-
-// self.postMessage({ type: AppStateEventType.GET_CONFIG });
