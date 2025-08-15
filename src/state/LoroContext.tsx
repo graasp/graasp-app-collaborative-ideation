@@ -20,6 +20,7 @@ import { ServerMessage } from '@/interfaces/backend-bindings/ServerMessage';
 import { UpdateDocMessage } from '@/interfaces/backend-bindings/UpdateDocMessage';
 import { UpdateTmpStateMessage } from '@/interfaces/backend-bindings/UpdateTmpStateMessage';
 import { ConnectionStatus } from '@/interfaces/status';
+import { binToString, stringToBin } from '@/utils/ws_codec';
 
 import { ONLINE_USERS_KEY, TMP_STATE_TIMEOUT } from './TmpState';
 import { toWebSocketUrl } from './utils';
@@ -37,7 +38,7 @@ const defaultContextValue = {
   connectionStatus: ConnectionStatus.DISCONNECTED,
   sendMessage: (): void => {
     // Default implementation does nothing
-  }
+  },
 };
 
 const LoroContext = createContext<LoroContextType>(defaultContextValue);
@@ -81,9 +82,7 @@ export const LoroProvider = ({ children }: LoroContextProps): JSX.Element => {
   const handleUpdateTmpStateMessage = useCallback(
     (data: Extract<ServerMessage, { type: 'update_tmp_state' }>) => {
       const updatePayload = data.data.payload;
-      const updateBuffer = Uint8Array.from(
-        updatePayload.split('').map((char) => char.charCodeAt(0)),
-      );
+      const updateBuffer = stringToBin(updatePayload);
       tmpState.apply(updateBuffer);
     },
     [tmpState],
@@ -100,17 +99,14 @@ export const LoroProvider = ({ children }: LoroContextProps): JSX.Element => {
     [doc],
   );
 
-  const sendMessage = useCallback(
-    (message: ClientMessage): void => {
-      if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
-        wsRef.current.send(JSON.stringify(message));
-      } else {
-        // eslint-disable-next-line no-console
-        console.warn('WebSocket is not connected, cannot send message');
-      }
-    },
-    [],
-  );
+  const sendMessage = useCallback((message: ClientMessage): void => {
+    if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+      wsRef.current.send(JSON.stringify(message));
+    } else {
+      // eslint-disable-next-line no-console
+      console.warn('WebSocket is not connected, cannot send message');
+    }
+  }, []);
 
   // Ping
   useEffect(() => {
@@ -185,7 +181,7 @@ export const LoroProvider = ({ children }: LoroContextProps): JSX.Element => {
         wsRef.current !== null &&
         wsRef.current.readyState === WebSocket.OPEN
       ) {
-        const updatePayload = String.fromCharCode(...tmpState.encodeAll());
+        const updatePayload = binToString(tmpState.encodeAll());
         const updateTmpStateMessage: UpdateTmpStateMessage = {
           payload: updatePayload,
         };

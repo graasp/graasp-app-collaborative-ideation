@@ -25,6 +25,7 @@ import { EvaluationType } from '@/interfaces/evaluation';
 import { ResponseData, ResponseEvaluation } from '@/interfaces/response';
 import { useSettings } from '@/modules/context/SettingsContext';
 
+import FeedbackButton from './FeedbackButton';
 import ResponsePart from './ResponsePart';
 import Rate from './evaluation/Rate';
 import Vote from './evaluation/Vote';
@@ -71,17 +72,14 @@ const Response: FC<ResponseProps> = ({
     author,
     round,
     parentId,
-    assistantId,
     markup,
+    feedback,
   } = response;
   const { activity } = useSettings();
 
   const isMarkdown = useMemo(() => markup === 'markdown', [markup]);
 
-  const isAiGenerated = useMemo(
-    () => typeof assistantId === 'string',
-    [assistantId],
-  );
+  const isAiGenerated = useMemo(() => author?.isArtificial || false, [author]);
   const isOwn = author?.id === accountId && !isAiGenerated;
 
   const showSelectButton = typeof onSelect !== 'undefined';
@@ -165,6 +163,7 @@ const Response: FC<ResponseProps> = ({
         >
           <CardContent sx={{ minHeight: '32pt' }}>
             <ResponsePart markdown={isMarkdown}>{responseContent}</ResponsePart>
+            {feedback && <ResponsePart markdown>{feedback}</ResponsePart>}
             <Box
               sx={{
                 display: 'flex',
@@ -211,16 +210,19 @@ const Response: FC<ResponseProps> = ({
                   justifyContent: 'space-between',
                 }}
               >
-                {showSelectButton && (
-                  <Button
-                    disabled={!enableBuildAction}
-                    onClick={() => {
-                      if (typeof onSelect !== 'undefined') onSelect(id);
-                    }}
-                  >
-                    {t('BUILD_ON_THIS')}
-                  </Button>
-                )}
+                <Box>
+                  {showSelectButton && (
+                    <Button
+                      disabled={!enableBuildAction}
+                      onClick={() => {
+                        if (typeof onSelect !== 'undefined') onSelect(id);
+                      }}
+                    >
+                      {t('BUILD_ON_THIS')}
+                    </Button>
+                  )}
+                  <FeedbackButton response={response} />
+                </Box>
                 {showDeleteButton && (
                   <IconButton
                     sx={{ marginLeft: 'auto' }}

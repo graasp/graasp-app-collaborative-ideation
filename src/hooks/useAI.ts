@@ -1,27 +1,35 @@
-
 import { useLoroContext } from '@/state/LoroContext';
+import { getResponsesList } from '@/state/utils';
+import { binToString } from '@/utils/ws_codec';
 
 interface UseAIValues {
-  getFeedback: () => void;
+  getFeedback: (responseId: string) => void;
 }
 
 const useAI = (): UseAIValues => {
-  const { sendMessage } = useLoroContext();
+  const { sendMessage, doc } = useLoroContext();
+  const responsesList = getResponsesList(doc);
 
-
-  const getFeedback = (): void => {
+  const getFeedback = (responseId: string): void => {
+    const rIndex = responsesList
+      .toArray()
+      .findIndex((r) => r.id === responseId);
+    const cursor = responsesList.getCursor(rIndex)?.encode();
     sendMessage({
       type: 'query_a_i',
       data: {
-        verb: "get_feedback",
-        parameters: null,
+        verb: 'get_feedback',
+        parameters: cursor
+          ? JSON.stringify({
+              cursor: binToString(cursor),
+            })
+          : null,
       },
     });
-};
-
+  };
 
   return {
-    getFeedback
+    getFeedback,
   };
 };
 

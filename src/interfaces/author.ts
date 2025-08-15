@@ -3,6 +3,7 @@ export type Author = {
   name: string;
   email?: string;
   extra?: unknown;
+  isArtificial?: boolean;
 };
 
 export default {};

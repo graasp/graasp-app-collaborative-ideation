@@ -2,8 +2,6 @@ import { v4 } from 'uuid';
 
 import { Author } from '@/interfaces/author';
 
-import { AssistantId } from './assistant';
-
 export type ResponseVotes = {
   votes: number;
 };
@@ -17,6 +15,13 @@ export type ResponseRatings = {
 
 export type ResponseEvaluation = ResponseVotes | ResponseRatings | undefined;
 
+export type ResponseComment = {
+  id: string;
+  author: Author;
+  content: string;
+  markup?: 'none' | 'markdown';
+};
+
 export type ResponseData<
   EvaluationType extends ResponseEvaluation = undefined,
 > = {
@@ -24,13 +29,13 @@ export type ResponseData<
   author: Author;
   response: string;
   round?: number;
-  bot?: boolean;
-  assistantId?: AssistantId;
   parentId?: string;
   markup?: 'none' | 'markdown';
   originalResponse?: string;
   givenPrompt?: string;
   evaluation?: EvaluationType;
+  comments?: Array<ResponseComment>;
+  feedback?: string;
 };
 
 export type InputResponseData = Pick<ResponseData, 'response'> &
@@ -43,9 +48,6 @@ export const responseDataFactory = (
   id: v4(),
   response: partialResponse.response,
   round: partialResponse?.round,
-  assistantId: partialResponse?.assistantId,
-  bot:
-    partialResponse?.bot ?? typeof partialResponse?.assistantId !== 'undefined',
   parentId: partialResponse?.parentId,
   markup: partialResponse?.markup ?? 'none',
   originalResponse: partialResponse?.originalResponse,

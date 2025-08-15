@@ -1,17 +1,18 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 
+import Avatar from '@mui/material/Avatar';
+import AvatarGroup from '@mui/material/AvatarGroup';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import { useTheme } from '@mui/material/styles';
+
 import { Participant } from '@/interfaces/participant';
 import { ConnectionStatus } from '@/interfaces/status';
 import { useLoroContext } from '@/state/LoroContext';
 import { ONLINE_USERS_KEY } from '@/state/TmpState';
 import useParticipants from '@/state/useParticipants';
 import stringToColor from '@/utils/stringToColor';
-import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import AvatarGroup from '@mui/material/AvatarGroup';
-import Tooltip from '@mui/material/Tooltip';
-import Avatar from '@mui/material/Avatar';
 
 const RoomIndicator: FC = () => {
   const theme = useTheme();
@@ -20,12 +21,16 @@ const RoomIndicator: FC = () => {
   const { members } = useParticipants();
   const [onlineUserIds, setOnlineUserIds] = useState<string[]>([]);
 
-  const onlineUsers = useMemo(() => ([...new Set(onlineUserIds)]
-    .map((id) => members.find((u) => u.id === id))
-    .filter((u): u is Participant => Boolean(u))), [onlineUserIds, members]);
+  const onlineUsers = useMemo(
+    () =>
+      [...new Set(onlineUserIds)]
+        .map((id) => members.find((u) => u.id === id))
+        .filter((u): u is Participant => Boolean(u)),
+    [onlineUserIds, members],
+  );
 
   // eslint-disable-next-line no-console
-  console.debug("Online users:", onlineUsers);
+  console.debug('Online users:', onlineUsers);
 
   useEffect(() => {
     tmpState.subscribe(() => {
@@ -35,7 +40,7 @@ const RoomIndicator: FC = () => {
 
   const reconnect = (): void => {
     // Logic to reconnect to the WebSocket or refresh the connection
-    console.debug("Reconnecting...");
+    console.debug('Reconnecting...');
     // This is a placeholder; actual reconnection logic should be implemented
   };
 
@@ -49,11 +54,7 @@ const RoomIndicator: FC = () => {
         bgcolor={theme.palette.grey[200]}
         borderRadius={2}
       >
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={reconnect}
-        >
+        <Button variant="outlined" color="primary" onClick={reconnect}>
           Reconnect
         </Button>
       </Box>

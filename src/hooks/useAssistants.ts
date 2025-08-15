@@ -190,20 +190,18 @@ const useAssistants = (): UseAssistantsValues => {
       }
       return promise.then(async (assistantResponseAppData) => {
         if (assistantResponseAppData) {
-          const { completion: response, assistantId } =
-            assistantResponseAppData.data;
+          const { completion: response } = assistantResponseAppData.data;
           return postResponse(
             responseDataFactory(
               {
                 response,
                 round,
-                bot: true,
-                assistantId,
               },
               {
                 // TODO: Change this
                 id: accountId ?? '',
                 name: accountId ?? '',
+                isArtificial: true,
               },
             ),
           );
@@ -276,13 +274,12 @@ const useAssistants = (): UseAssistantsValues => {
             {
               response,
               round,
-              bot: true,
-              assistantId: id,
             },
             {
               // TODO: Change this
               id: accountId ?? '',
               name: accountId ?? '',
+              isArtificial: true,
             },
           ),
         );
