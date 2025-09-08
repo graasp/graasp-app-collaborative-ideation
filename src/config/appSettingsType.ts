@@ -57,12 +57,19 @@ export type PromptsSetting = {
 
 export type NotParticipatingSetting = { ids: Member['id'][] };
 
+export type FeedbackSettings = {
+  enabled: boolean;
+  systemPrompt?: string;
+  userPrompt?: string;
+};
+
 export type AllSettingsType = {
   instructions: InstructionsSetting;
   orchestrator: OrchestratorSetting;
   activity: ActivitySetting;
   notParticipating: NotParticipatingSetting;
   assistants: AssistantsSetting;
+  feedback: FeedbackSettings;
   prompts: PromptsSetting;
 };
 
@@ -130,6 +137,11 @@ export const defaultSettingsValues: AllSettingsType = {
     assistants: [],
     promptMode: PromptMode.Problem,
     includeDetails: false,
+  },
+  feedback: {
+    enabled: false,
+    systemPrompt: undefined,
+    userPrompt: undefined,
   },
   prompts: {
     selectedSet: undefined,

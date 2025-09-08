@@ -10034,7 +10034,7 @@ __metadata:
     husky: "npm:9.1.7"
     i18next: "npm:24.2.2"
     jsdom: "npm:^26.0.0"
-    liquidjs: "npm:^10.10.1"
+    liquidjs: "npm:^10.21.1"
     lodash.clone: "npm:^4.5.0"
     lodash.clonedeep: "npm:^4.5.0"
     lodash.isequal: "npm:^4.5.0"
@@ -11424,7 +11424,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"liquidjs@npm:^10.10.1":
+"liquidjs@npm:^10.21.1":
   version: 10.21.1
   resolution: "liquidjs@npm:10.21.1"
   dependencies:

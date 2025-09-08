@@ -30,6 +30,7 @@ export type LoroContextType = {
   tmpState: EphemeralStore;
   connectionStatus: ConnectionStatus;
   sendMessage: (message: ClientMessage) => void;
+  reconnect: () => void;
 };
 
 const defaultContextValue = {
@@ -37,6 +38,9 @@ const defaultContextValue = {
   tmpState: new EphemeralStore(),
   connectionStatus: ConnectionStatus.DISCONNECTED,
   sendMessage: (): void => {
+    // Default implementation does nothing
+  },
+  reconnect: (): void => {
     // Default implementation does nothing
   },
 };
@@ -111,16 +115,18 @@ export const LoroProvider = ({ children }: LoroContextProps): JSX.Element => {
   // Ping
   useEffect(() => {
     const pingInterval = setInterval(() => {
-      if (connectionStatus === ConnectionStatus.CONNECTED) {
+      if (connectionStatus === ConnectionStatus.CONNECTED && accountId) {
         const onlineUsers =
           (tmpState.get(ONLINE_USERS_KEY) as Array<string>) || [];
-        tmpState.set(ONLINE_USERS_KEY, [accountId, ...onlineUsers]);
+        if (!onlineUsers.includes(accountId)) {
+          tmpState.set(ONLINE_USERS_KEY, [accountId, ...onlineUsers]);
+        }
       }
     }, TMP_STATE_TIMEOUT);
     return () => clearInterval(pingInterval);
   }, [accountId, connectionStatus, tmpState]);
 
-  useEffect(() => {
+  const connect = useCallback((): void => {
     setConnectionStatus(ConnectionStatus.CONNECTING);
     const newWs = new WebSocket(
       toWebSocketUrl(`${BACKEND_HOST}${BACKEND_WS_ROUTE}`),
@@ -139,6 +145,8 @@ export const LoroProvider = ({ children }: LoroContextProps): JSX.Element => {
     });
 
     newWs?.addEventListener('close', () => {
+      // eslint-disable-next-line no-console
+      console.debug('WebSocket connection closed');
       wsRef.current = null;
       setConnectionStatus(ConnectionStatus.DISCONNECTED);
     });
@@ -169,6 +177,29 @@ export const LoroProvider = ({ children }: LoroContextProps): JSX.Element => {
     wsRef.current = newWs;
   }, [
     accountId,
+    handleConfirmMessage,
+    handleUpdateDocMessage,
+    handleUpdateTmpStateMessage,
+    itemId,
+  ]);
+
+  const reconnect = useCallback((): void => {
+    wsRef.current?.close();
+    setTimeout(() => {
+      if (
+        wsRef.current === null ||
+        wsRef.current.readyState === WebSocket.CLOSED
+      ) {
+        connect();
+      }
+    }, 1000);
+  }, [connect]);
+
+  useEffect(() => {
+    connect();
+  }, [
+    accountId,
+    connect,
     handleConfirmMessage,
     handleUpdateDocMessage,
     handleUpdateTmpStateMessage,
@@ -230,8 +261,9 @@ export const LoroProvider = ({ children }: LoroContextProps): JSX.Element => {
       tmpState,
       connectionStatus,
       sendMessage,
+      reconnect,
     }),
-    [connectionStatus, doc, sendMessage, tmpState],
+    [connectionStatus, doc, reconnect, sendMessage, tmpState],
   );
   return (
     <LoroContext.Provider value={contextValue}>{children}</LoroContext.Provider>

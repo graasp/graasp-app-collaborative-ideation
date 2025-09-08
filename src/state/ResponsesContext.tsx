@@ -28,6 +28,7 @@ type ResponsesContextType = {
   postResponse: (response: ResponseData) => Promise<ResponseData> | undefined;
   deleteResponse: (position: number) => Promise<void>;
   deleteResponseById: (id: string) => Promise<void>;
+  updateResponse: (newResponse: ResponseData) => Promise<void>;
 };
 const defaultContextValue: ResponsesContextType = {
   allResponses: [],
@@ -36,6 +37,7 @@ const defaultContextValue: ResponsesContextType = {
   availableResponses: [],
   deleteResponse: () => Promise.resolve(),
   deleteResponseById: () => Promise.resolve(),
+  updateResponse: () => Promise.resolve(),
 };
 
 const ResponsesContext =
@@ -108,176 +110,6 @@ export const ResponsesProvider: FC<ResponsesContextProps> = ({ children }) => {
     [doc, postSubmitNewResponseAction],
   );
 
-  //   const allResponsesSets = useMemo((): ResponsesSetAppData[] => {
-  //     const responses = appData.filter(
-  //       ({ creator, type }) =>
-  //         creator?.id === orchestrator.id && type === AppDataTypes.ResponsesSet,
-  //     ) as ResponsesSetAppData[];
-  //     return responses;
-  //   }, [appData, orchestrator]);
-
-  //   const myResponsesSets = useMemo((): ResponsesSetAppData[] => {
-  //     const responses = appData.filter(
-  //       ({ creator, type, account, data }) =>
-  //         creator?.id === orchestrator.id &&
-  //         type === AppDataTypes.ResponsesSet &&
-  //         account.id === accountId &&
-  //         typeof data?.assistant === 'undefined',
-  //     ) as ResponsesSetAppData[];
-  //     return responses;
-  //   }, [appData, accountId, orchestrator]);
-
-  //   const assistantsResponsesSets = useMemo((): ResponsesSetAppData[] => {
-  //     const responses = appData.filter(
-  //       ({ creator, type, data }) =>
-  //         creator?.id === orchestrator.id &&
-  //         type === AppDataTypes.ResponsesSet &&
-  //         typeof data?.assistant !== 'undefined',
-  //     ) as ResponsesSetAppData[];
-  //     return responses;
-  //   }, [appData, orchestrator]);
-
-  //   const availableResponses = useMemo((): ResponseAppData[] => {
-  //     if (visibilityMode === ResponseVisibilityMode.OpenLive) {
-  //       return allResponses;
-  //     }
-  //     const responses = allResponses.filter((r) => {
-  //       const { id } = r;
-  //       let okay = false;
-  //       // Checks that the response has been assigned to the user.
-  //       myResponsesSets.forEach((s) => {
-  //         if (s.data.responses.includes(id)) {
-  //           okay = true;
-  //         }
-  //       });
-  //       return okay || isOwnResponse(r as ResponseAppData, accountId ?? '');
-  //     }) as ResponseAppData[];
-  //     return responses;
-  //   }, [allResponses, accountId, myResponsesSets, visibilityMode]);
-
-  // const postResponse = (
-  //   data: ResponseData,
-  //   invalidateAll: boolean = false,
-  // ): Promise<ResponseAppData> | undefined =>
-  //   postAppDataAsync({
-  //     type: AppDataTypes.Response,
-  //     visibility: AppDataVisibility.Item,
-  //     data,
-  //   })?.then((postedResponse) => {
-  //     const response = postedResponse as ResponseAppData;
-  //     postSubmitNewResponseAction(response);
-  //     if (invalidateAll) {
-  //       invalidateAppData();
-  //     }
-  //     return response;
-  //   });
-
-  //   const postResponsesSet = async (
-  //     id: Member['id'] | AssistantId,
-  //     responsesSet: Array<ResponseAppData['id']>,
-  //     forAssistant: boolean = false,
-  //   ): Promise<ResponsesSetAppData> => {
-  //     const payload = {
-  //       data: {
-  //         round,
-  //         responses: responsesSet,
-  //         assistant: forAssistant ? id : undefined,
-  //       },
-  //       accountId: forAssistant ? accountId : id,
-  //       type: AppDataTypes.ResponsesSet,
-  //       visibility: AppDataVisibility.Item,
-  //     };
-  //     const promise = postAppDataAsync(payload) as Promise<ResponsesSetAppData>;
-  //     if (promise) {
-  //       return promise;
-  //     }
-  //     throw Error('Something went wrong with the request.'); // TODO: change
-  //   };
-
-  //   const createAllResponsesSetWorker = (
-  //     responsePool: ResponseAppData[],
-  //   ): void => {
-  //     let sets: Map<string, ResponseAppData[]>;
-  //     let assistantSets: Map<string, ResponseAppData[]>;
-  //     const participantIterator = participants.members.entries();
-  //     const assistantsIterator = participants.assistants.entries();
-  //     if (visibilityMode === ResponseVisibilityMode.PartiallyBlind) {
-  //       const participantsRepsonses = appDataArrayToMap(
-  //         shuffle(filterBotResponses(responsePool, false)),
-  //       );
-  //       const botResponses = appDataArrayToMap(
-  //         shuffle(filterBotResponses(responsePool, true)),
-  //       );
-
-  //       const participantRCopy = cloneDeep(participantsRepsonses);
-  //       const botRCopy = cloneDeep(botResponses);
-  //       sets = recursivelyCreateAllPartiallyBlindSets(
-  //         participantIterator,
-  //         participantsRepsonses,
-  //         botResponses,
-  //         numberOfResponsesPerSet,
-  //         numberOfBotResponsesPerSet,
-  //         exclusiveResponseDistribution,
-  //       );
-  //       assistantSets = recursivelyCreateAllPartiallyBlindSets(
-  //         assistantsIterator,
-  //         participantRCopy,
-  //         botRCopy,
-  //         numberOfResponsesPerSet,
-  //         numberOfBotResponsesPerSet,
-  //         exclusiveResponseDistribution,
-  //       );
-  //     } else {
-  //       const responses = appDataArrayToMap(shuffle(responsePool));
-  //       const responsesCopy = cloneDeep(responses);
-  //       sets = recursivelyCreateAllOpenSets(participantIterator, responses);
-  //       assistantSets = recursivelyCreateAllOpenSets(
-  //         assistantsIterator,
-  //         responsesCopy,
-  //       );
-  //     }
-  //     sets.forEach((responsesSet, participantId) => {
-  //       const responsesSetDataWithId = responsesSet.map(({ id }) => id);
-  //       postResponsesSet(participantId, responsesSetDataWithId);
-  //     });
-  //     assistantSets.forEach((responsesSet, assistantId) => {
-  //       const responsesSetDataWithId = responsesSet.map(({ id }) => id);
-  //       postResponsesSet(assistantId, responsesSetDataWithId, true);
-  //     });
-  //   };
-
-  //   const createAllResponsesSet = async (): Promise<void> => {
-  //     refetchAppData().then((result) => {
-  //       if (result) {
-  //         const { data, isSuccess } = result;
-  //         if (isSuccess) {
-  //           const responsePool = getRoundResponses(getResponses(data), round);
-  //           createAllResponsesSetWorker(responsePool);
-  //         }
-  //       } else {
-  //         // TODO: Change error message
-  //         throw new Error('Failed to refetch app data.');
-  //       }
-  //     });
-  //   };
-
-  //   const deleteResponsesSetsForRound = useCallback(
-  //     async (roundToDelete: number): Promise<void> => {
-  //       allResponsesSets
-  //         .filter(({ data }) => data.round === roundToDelete)
-  //         .forEach(({ id }) => {
-  //           deleteAppData({ id });
-  //         });
-  //     },
-  //     [allResponsesSets, deleteAppData],
-  //   );
-
-  //   const deleteAllResponsesSet = async (): Promise<void> => {
-  //     allResponsesSets.forEach(({ id }) => {
-  //       deleteAppData({ id });
-  //     });
-  //   };
-
   const deleteResponse = useCallback(
     async (position: number): Promise<void> => {
       const responsesLocal = getResponsesList(doc);
@@ -300,30 +132,24 @@ export const ResponsesProvider: FC<ResponsesContextProps> = ({ children }) => {
     [allResponses, deleteResponse],
   );
 
-  //   const importResponses = async (
-  //     responsesData: Array<ResponseDataExchangeFormat>,
-  //   ): Promise<void> => {
-  //     responsesData.forEach((r) =>
-  //       postResponse(
-  //         responseDataFactory(
-  //           {
-  //             response: r.response,
-  //             round: r?.round,
-  //             bot: r?.bot,
-  //             assistantId: r?.assistantId,
-  //             encoding: r?.encoding,
-  //             originalResponse: r?.originalResponse,
-  //             givenPrompt: r?.givenPrompt,
-  //           },
-  //           {
-  //             // TODO: Change this
-  //             id: accountId ?? '',
-  //             name: accountId ?? '',
-  //           },
-  //         ),
-  //       ),
-  //     );
-  //   };
+  const updateResponse = useCallback(
+    async (newResponse: ResponseData): Promise<void> => {
+      const responsesLocal = getResponsesList(doc);
+      const index = responsesLocal
+        .toArray()
+        .findIndex((r) => r.id === newResponse.id);
+      if (index > -1) {
+        responsesLocal.delete(index, 1);
+        responsesLocal.insert(index, newResponse);
+        doc.commit();
+      } else {
+        responsesLocal.push(newResponse);
+        doc.commit();
+      }
+    },
+    [doc],
+  );
+
   const contextValue = useMemo(
     () => ({
       allResponses,
@@ -333,6 +159,7 @@ export const ResponsesProvider: FC<ResponsesContextProps> = ({ children }) => {
       deleteResponse,
       deleteResponseById,
       postResponse,
+      updateResponse,
     }),
     [
       allResponses,
@@ -342,6 +169,7 @@ export const ResponsesProvider: FC<ResponsesContextProps> = ({ children }) => {
       myResponses,
       participants,
       postResponse,
+      updateResponse,
     ],
   );
   return (

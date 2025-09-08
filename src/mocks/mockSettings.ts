@@ -85,6 +85,13 @@ const ALL_SETTINGS_OBJECT: AllSettingsType = {
   assistants: {
     assistants: [],
   },
+  feedback: {
+    enabled: true,
+    systemPrompt:
+      'You are an expert assistant helping users improve their ideas. Provide constructive feedback that highlights strengths and suggests areas for improvement. Be concise and encouraging.',
+    userPrompt:
+      'Please provide feedback on the following idea:\n\n"{{response}}"\n\nAuthor: {{author}}',
+  },
   prompts: {
     selectedSet: 'test',
     maxNumberOfQueries: 5,

@@ -101,6 +101,13 @@
       "NO_SET_SELECTED": "No prompts.",
       "MAX_QUERIES_LABEL": "Max number of prompts the user can query"
     },
+    "FEEDBACK_PROMPTS": {
+      "TITLE": "Feedback prompts",
+      "HELPER_SYSTEM_PROMPT": "This prompt will be used to set the behavior of the AI assistant that will provide feedback on the responses.",
+      "LABEL_SYSTEM_PROMPT": "System prompt",
+      "HELPER_USER_PROMPT": "This prompt will be used to ask the AI assistant to provide feedback on a specific response.",
+      "LABEL_USER_PROMPT": "User prompt"
+    },
     "EVALUATION_TYPE_SELECTION": {
       "TITLE": "Evaluation type",
       "NONE_BTN": "Do not evaluate the responses.",

@@ -20,9 +20,9 @@ const useAI = (): UseAIValues => {
       data: {
         verb: 'get_feedback',
         parameters: cursor
-          ? JSON.stringify({
+          ? {
               cursor: binToString(cursor),
-            })
+            }
           : null,
       },
     });

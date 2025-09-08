@@ -32,7 +32,7 @@ const appDataFactory = (
 };
 
 const responseFactory = (
-  responseData: ResponseData,
+  responseData: Partial<ResponseData>,
   account: Member,
 ): AppData =>
   appDataFactory(

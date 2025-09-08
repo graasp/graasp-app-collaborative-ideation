@@ -11,6 +11,7 @@ import { version } from '@/../package.json';
 import {
   ActivitySetting,
   AssistantsSetting,
+  FeedbackSettings,
   InstructionsSetting,
   NotParticipatingSetting,
   OrchestratorSetting,
@@ -20,6 +21,7 @@ import { SETTINGS_VIEW_CY } from '@/config/selectors';
 import { useSettings } from '@/modules/context/SettingsContext';
 
 import SaveButton from '../common/SaveButton';
+import FeedbackPromptsSettings from './FeedbackPromptsSettings';
 import InstructionsSettings from './InstructionsSettings';
 import OrchestratorSettings from './OrchestratorSettings';
 import ParticipantsSettings from './ParticipantsSettings';
@@ -39,6 +41,7 @@ const Settings: FC<SettingsProps> = () => {
     assistants: assistantsSaved,
     notParticipating: notParticipatingSaved,
     prompts: promptsSaved,
+    feedback: feedbackSaved,
   } = useSettings();
 
   const [instructions, setInstructions] =
@@ -57,6 +60,8 @@ const Settings: FC<SettingsProps> = () => {
 
   const [prompts, setPrompts] = useState<PromptsSetting>(promptsSaved);
 
+  const [feedback, setFeedback] = useState<FeedbackSettings>(feedbackSaved);
+
   const handleSave = (): void => {
     saveSettings('instructions', instructions);
     saveSettings('orchestrator', orchestrator);
@@ -64,6 +69,7 @@ const Settings: FC<SettingsProps> = () => {
     saveSettings('assistants', assistants);
     saveSettings('notParticipating', notParticipating);
     saveSettings('prompts', prompts);
+    saveSettings('feedback', feedback);
   };
 
   const isSaved = useMemo(
@@ -73,12 +79,15 @@ const Settings: FC<SettingsProps> = () => {
       isEqual(activity, activitySaved) &&
       isEqual(assistants, assistantsSaved) &&
       isEqual(notParticipating, notParticipatingSaved) &&
-      isEqual(prompts, promptsSaved),
+      isEqual(prompts, promptsSaved) &&
+      isEqual(feedback, feedbackSaved),
     [
       activity,
       activitySaved,
       assistants,
       assistantsSaved,
+      feedback,
+      feedbackSaved,
       instructions,
       instructionsSaved,
       notParticipating,
@@ -115,6 +124,7 @@ const Settings: FC<SettingsProps> = () => {
       />
       <ActivitySettings activity={activity} onChange={setActivity} />
       <PromptsSettings prompts={prompts} onChange={setPrompts} />
+      <FeedbackPromptsSettings feedback={feedback} onChange={setFeedback} />
       <Assistant assistants={assistants} onChange={setAssistants} />
       {/* <Box>
         <ImportResponsesButton />

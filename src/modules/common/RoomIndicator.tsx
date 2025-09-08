@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 
+import { Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import Box from '@mui/material/Box';
@@ -17,7 +18,11 @@ import stringToColor from '@/utils/stringToColor';
 const RoomIndicator: FC = () => {
   const theme = useTheme();
   // const { tmpState, connectionStatus, reconnect } = useLoroContext(); // assume reconnect is available
-  const { tmpState, connectionStatus } = useLoroContext(); // assume reconnect is available
+  const {
+    tmpState,
+    connectionStatus,
+    reconnect: reconnectLoro,
+  } = useLoroContext(); // assume reconnect is available
   const { members } = useParticipants();
   const [onlineUserIds, setOnlineUserIds] = useState<string[]>([]);
 
@@ -30,10 +35,11 @@ const RoomIndicator: FC = () => {
   );
 
   // eslint-disable-next-line no-console
-  console.debug('Online users:', onlineUsers);
+  console.debug('Online users: ', [onlineUsers, onlineUserIds]);
 
   useEffect(() => {
     tmpState.subscribe(() => {
+      console.debug('TmpState changed: ', tmpState.get(ONLINE_USERS_KEY));
       setOnlineUserIds((tmpState.get(ONLINE_USERS_KEY) as string[]) || []);
     });
   }, [tmpState]);
@@ -41,6 +47,7 @@ const RoomIndicator: FC = () => {
   const reconnect = (): void => {
     // Logic to reconnect to the WebSocket or refresh the connection
     console.debug('Reconnecting...');
+    reconnectLoro();
     // This is a placeholder; actual reconnection logic should be implemented
   };
 
@@ -54,6 +61,9 @@ const RoomIndicator: FC = () => {
         bgcolor={theme.palette.grey[200]}
         borderRadius={2}
       >
+        <Typography variant="body1" color="textSecondary" mr={2}>
+          {connectionStatus}
+        </Typography>
         <Button variant="outlined" color="primary" onClick={reconnect}>
           Reconnect
         </Button>
