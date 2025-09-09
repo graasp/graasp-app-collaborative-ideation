@@ -12,7 +12,7 @@ import { SENTRY_ENV } from '@/config/env';
 import { hooks } from '@/config/queryClient';
 import useActions from '@/hooks/useActions';
 import { LoroProvider } from '@/state/LoroContext';
-import { ResponsesProvider } from '@/state/ResponsesContext';
+import { ThreadsProvider } from '@/state/ThreadsContext';
 
 import i18n from '../../config/i18n';
 import { AppDataProvider } from '../context/AppDataContext';
@@ -85,7 +85,7 @@ const App = (): JSX.Element => {
       <SettingsProvider>
         <AppDataProvider>
           <LoroProvider>
-            <ResponsesProvider>{renderContent()}</ResponsesProvider>
+            <ThreadsProvider>{renderContent()}</ThreadsProvider>
           </LoroProvider>
         </AppDataProvider>
       </SettingsProvider>

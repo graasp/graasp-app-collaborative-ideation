@@ -1,33 +1,28 @@
-import { FC, JSX, useMemo, useRef, useState } from 'react';
+import { FC, JSX, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 
-import { HIGHLIGHT_RESPONSE_TIME_MS } from '@/config/constants';
 import { PROPOSE_NEW_RESPONSE_BTN_CY } from '@/config/selectors';
-import { ResponseData } from '@/interfaces/response';
-import Response from '@/modules/common/response/Response';
-import { useResponsesContext } from '@/state/ResponsesContext';
+import { Threads } from '@/interfaces/threads';
+import Thread from '@/modules/common/response/Thread';
 
 import Loader from '../common/Loader';
-import ResponsesGridContainer, {
-  ResponseGridItem,
-} from '../common/ResponsesGrid';
+import ThreadsGridContainer, { ThreadsGridItem } from '../common/ThreadsGrid';
 import { useSettings } from '../context/SettingsContext';
 
 interface ResponseChooseProps {
-  responses: ResponseData<undefined>[];
+  threads: Threads;
   onChoose: (id?: string) => void;
 }
 
-const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
+const ResponseChoose: FC<ResponseChooseProps> = ({ threads, onChoose }) => {
   const { t } = useTranslation();
 
-  const [highlightId, setHighlightId] = useState<string>();
-  const highlightTimeout = useRef<NodeJS.Timeout>(undefined);
-  const { deleteResponseById } = useResponsesContext();
+  // const [highlightId, setHighlightId] = useState<string>();
+  // const highlightTimeout = useRef<NodeJS.Timeout>(undefined);
 
   const { instructions } = useSettings();
   const chooseInstructions = useMemo(
@@ -56,30 +51,29 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
       >
         {t('PROPOSE_NEW_RESPONSE')}
       </Button>
-      <ResponsesGridContainer>
-        {responses
-          ? responses.map((response) => (
-              <ResponseGridItem key={response.id}>
-                <Response
-                  key={response.id}
-                  response={response}
+      <ThreadsGridContainer>
+        {threads
+          ? threads.map((thread) => (
+              <ThreadsGridItem key={thread.id}>
+                <Thread
+                  key={thread.id}
+                  thread={thread}
                   onSelect={handleChoose}
-                  onDelete={() => deleteResponseById(response.id)}
-                  highlight={highlightId === response.id}
-                  onParentIdeaClick={(id: string) => {
-                    setHighlightId(id);
-                    highlightTimeout.current = setTimeout(() => {
-                      setHighlightId(undefined);
-                      if (highlightTimeout?.current) {
-                        clearTimeout(highlightTimeout.current);
-                      }
-                    }, HIGHLIGHT_RESPONSE_TIME_MS);
-                  }}
+                  // highlight={highlightId === thread.id}
+                  // onParentIdeaClick={(id: string) => {
+                  //   setHighlightId(id);
+                  //   highlightTimeout.current = setTimeout(() => {
+                  //     setHighlightId(undefined);
+                  //     if (highlightTimeout?.current) {
+                  //       clearTimeout(highlightTimeout.current);
+                  //     }
+                  //   }, HIGHLIGHT_RESPONSE_TIME_MS);
+                  // }}
                 />
-              </ResponseGridItem>
+              </ThreadsGridItem>
             ))
           : renderPlaceHolderForNoIdeas()}
-      </ResponsesGridContainer>
+      </ThreadsGridContainer>
     </>
   );
 };

@@ -8,14 +8,12 @@ import Container from '@mui/material/Container';
 import { RESPONSE_EVALUATION_VIEW_CY } from '@/config/selectors';
 import { EvaluationType } from '@/interfaces/evaluation';
 import Pausable from '@/modules/common/Pausable';
-import Response from '@/modules/common/response/Response';
-import { useResponsesContext } from '@/state/ResponsesContext';
+import { useThreadsContext } from '@/state/ThreadsContext';
 import useActivityState from '@/state/useActivityState';
 
 import Instructions from '../common/Instructions';
-import ResponsesGridContainer, {
-  ResponseGridItem,
-} from '../common/ResponsesGrid';
+import ThreadsGridContainer, { ThreadsGridItem } from '../common/ThreadsGrid';
+import Thread from '../common/response/Thread';
 import { useAppDataContext } from '../context/AppDataContext';
 import { RatingsProvider } from '../context/RatingsContext';
 import { VoteProvider } from '../context/VoteContext';
@@ -23,7 +21,7 @@ import VoteToolbar from './VoteToolbar';
 
 const ResponseEvaluation: FC = () => {
   const { t } = useTranslation();
-  const { allResponses } = useResponsesContext();
+  const { allThreads } = useThreadsContext();
   const { currentStep } = useActivityState();
   const evaluationType = currentStep?.evaluationType;
   const evaluationParameters = currentStep?.evaluationParameters ?? {};
@@ -76,19 +74,19 @@ const ResponseEvaluation: FC = () => {
           <>
             <Instructions />
             {renderEvaluationToolbar()}
-            <ResponsesGridContainer>
-              {allResponses
-                ? allResponses.map((response) => (
-                    <ResponseGridItem key={response.id}>
-                      <Response
-                        key={response.id}
-                        response={response}
+            <ThreadsGridContainer>
+              {allThreads
+                ? allThreads.map((thread) => (
+                    <ThreadsGridItem key={thread.id}>
+                      <Thread
+                        key={thread.id}
+                        thread={thread}
                         evaluationType={evaluationType}
                       />
-                    </ResponseGridItem>
+                    </ThreadsGridItem>
                   ))
                 : renderPlaceHolderForNoResponses()}
-            </ResponsesGridContainer>
+            </ThreadsGridContainer>
           </>,
         )}
       </Container>

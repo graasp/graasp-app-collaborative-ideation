@@ -30,7 +30,7 @@ import {
 import { ResponseData, responseDataFactory } from '@/interfaces/response';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
-import { useResponsesContext } from '@/state/ResponsesContext';
+import { useThreadsContext } from '@/state/ThreadsContext';
 import useActivityState from '@/state/useActivityState';
 
 import { joinMultipleResponses } from './utils/responses';
@@ -69,7 +69,12 @@ const useAssistants = (): UseAssistantsValues => {
 
   const { round } = useActivityState();
 
-  const { postResponse, allResponses } = useResponsesContext();
+  const { postResponse, allThreads } = useThreadsContext();
+
+  const allResponses = useMemo(
+    () => allThreads.flatMap((thread) => thread.responses),
+    [allThreads],
+  );
 
   const listAssistantsStates = useMemo(
     () =>

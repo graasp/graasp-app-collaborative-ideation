@@ -1,4 +1,4 @@
-import { FC, ReactElement, useMemo, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Alert from '@mui/material/Alert';
@@ -6,17 +6,12 @@ import Button from '@mui/material/Button';
 import Collapse from '@mui/material/Collapse';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
 
 import { RESPONSE_MAXIMUM_LENGTH } from '@/config/constants';
 import { SUBMIT_RESPONSE_BTN_CY } from '@/config/selectors';
 import { participantToAuthor } from '@/interfaces/participant';
-import {
-  InputResponseData,
-  ResponseData,
-  responseDataFactory,
-} from '@/interfaces/response';
-import { useResponsesContext } from '@/state/ResponsesContext';
+import { InputResponseData, responseDataFactory } from '@/interfaces/response';
+import { useThreadsContext } from '@/state/ThreadsContext';
 import useParticipants from '@/state/useParticipants';
 
 import Loader from '../common/Loader';
@@ -24,26 +19,26 @@ import { useSettings } from '../context/SettingsContext';
 import MarkdownEditor from './MarkdownEditor';
 import Prompts from './prompts/Prompts';
 
-const PreviousResponse: FC<{ children: ReactElement | string }> = ({
-  children,
-}) => (
-  <Typography maxWidth="100%" sx={{ overflowWrap: 'break-word' }}>
-    {children}
-  </Typography>
-);
+// const PreviousResponse: FC<{ children: ReactElement | string }> = ({
+//   children,
+// }) => (
+//   <Typography maxWidth="100%" sx={{ overflowWrap: 'break-word' }}>
+//     {children}
+//   </Typography>
+// );
 
 const ResponseInput: FC<{
   onCancel: () => void;
   currentRound?: number;
-  parent?: ResponseData;
+  threadId?: string;
   onSubmitted?: (id: string) => void;
-}> = ({ onCancel, parent, currentRound, onSubmitted }) => {
+}> = ({ onCancel, threadId, currentRound, onSubmitted }) => {
   const { t } = useTranslation('translations', {
     keyPrefix: 'RESPONSE_COLLECTION.INPUT',
   });
   const { instructions } = useSettings();
   const { t: generalT } = useTranslation('translations');
-  const { postResponse } = useResponsesContext();
+  const { postResponse } = useThreadsContext();
   const { me: myselfAsParticipant } = useParticipants();
   const me = participantToAuthor(myselfAsParticipant);
 
@@ -64,7 +59,6 @@ const ResponseInput: FC<{
     setIsPosting(true);
 
     const input: InputResponseData = {
-      parentId: parent?.id,
       response,
       round: currentRound,
       givenPrompt,
@@ -72,7 +66,7 @@ const ResponseInput: FC<{
       markup: 'markdown',
     };
     const newResponse = responseDataFactory(input, me);
-    postResponse(newResponse)?.then((postedResponse) => {
+    postResponse(newResponse, threadId)?.then((postedResponse) => {
       if (typeof onSubmitted !== 'undefined') {
         onSubmitted(postedResponse.id);
       }
@@ -88,8 +82,6 @@ const ResponseInput: FC<{
         <Alert severity="info">{inputInstructions.content}</Alert>
       )}
       <Prompts onChange={(p) => setGivenPrompt(p)} />
-      {parent && <PreviousResponse>{parent.response}</PreviousResponse>}
-      {/* <MarkdownHelper /> */}
       <Paper
         variant="outlined"
         sx={{ width: { md: '75ch', sm: '100%' }, maxWidth: '100%' }}

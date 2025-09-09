@@ -1,25 +1,17 @@
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 
 import Stack from '@mui/material/Stack';
 
-import { sortResponsesByNumberOfVote } from '@/hooks/utils/evaluation';
-import Response from '@/modules/common/response/Response';
-import { useResponsesContext } from '@/state/ResponsesContext';
+import { EvaluationType } from '@/interfaces/evaluation';
+import { useThreadsContext } from '@/state/ThreadsContext';
 
-import ResponsesGridContainer, {
-  ResponseGridItem,
-} from '../common/ResponsesGrid';
-import { useVoteContext } from '../context/VoteContext';
+import ThreadsGridContainer, { ThreadsGridItem } from '../common/ThreadsGrid';
+import Thread from '../common/response/Thread';
 
 type VoteResultsProps = unknown;
 
 const VoteResults: FC<VoteResultsProps> = () => {
-  const { allResponses } = useResponsesContext();
-  const { allVotes } = useVoteContext();
-  const sortedResponses = useMemo(
-    () => sortResponsesByNumberOfVote(allResponses, allVotes),
-    [allResponses, allVotes],
-  );
+  const { allThreads } = useThreadsContext();
   return (
     <Stack
       direction="column"
@@ -27,21 +19,19 @@ const VoteResults: FC<VoteResultsProps> = () => {
       alignItems="center"
       spacing={2}
     >
-      <ResponsesGridContainer>
-        {sortedResponses ? (
-          sortedResponses.map((response) => (
-            <ResponseGridItem key={response.id}>
-              <Response
-                response={response}
-                nbrOfVotes={response.evaluation?.votes}
-              />
-            </ResponseGridItem>
-          ))
-        ) : (
-          // TODO: translate and improve this message
-          <p>Nothing to show.</p>
-        )}
-      </ResponsesGridContainer>
+      <ThreadsGridContainer>
+        {allThreads.map((thread) => (
+          <ThreadsGridItem key={thread.id}>
+            <Thread
+              thread={thread}
+              nbrOfVotes={
+                thread.evaluations.filter((e) => e.type === EvaluationType.Vote)
+                  .length
+              }
+            />
+          </ThreadsGridItem>
+        ))}
+      </ThreadsGridContainer>
       {/* <ExportResponsesButton responses={sortedResponses} /> */}
     </Stack>
   );

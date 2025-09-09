@@ -9,14 +9,15 @@ import { ChatbotResponseAppData } from '@/config/appDataTypes';
 import { DEFAULT_CHATBOT_RESPONSE_APP_DATA } from '@/config/constants';
 import { mutations } from '@/config/queryClient';
 import { ResponseData } from '@/interfaces/response';
+import { Thread } from '@/interfaces/threads';
 import { useAppDataContext } from '@/modules/context/AppDataContext';
 import { useSettings } from '@/modules/context/SettingsContext';
-import { useResponsesContext } from '@/state/ResponsesContext';
+import { useThreadsContext } from '@/state/ThreadsContext';
 
 import { feedbackPrompts } from './prompts';
 
 interface UseFeedbackValues {
-  generateFeedback: (response: ResponseData) => Promise<void>;
+  generateFeedback: (response: ResponseData, thread: Thread) => Promise<void>;
 }
 
 const useFeedback = (): UseFeedbackValues => {
@@ -32,10 +33,10 @@ const useFeedback = (): UseFeedbackValues => {
   const { feedback } = useSettings();
   const { postAppDataAsync } = useAppDataContext();
 
-  const { updateResponse } = useResponsesContext();
+  const { updateResponse } = useThreadsContext();
 
   const generateFeedback = useCallback(
-    async (response: ResponseData): Promise<void> => {
+    async (response: ResponseData, thread: Thread): Promise<void> => {
       const systemPrompt = liquidRef.current.parseAndRenderSync(
         prompts.metaSystemPrompt,
         { systemPrompt: feedback.systemPrompt },
@@ -68,7 +69,7 @@ const useFeedback = (): UseFeedbackValues => {
         if (assistantResponseAppData) {
           const { completion } = assistantResponseAppData.data;
           const updatedResponse = { ...response, feedback: completion };
-          return updateResponse(updatedResponse);
+          return updateResponse(updatedResponse, thread.id);
         }
         return assistantResponseAppData;
       });

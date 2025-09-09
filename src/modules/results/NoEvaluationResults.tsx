@@ -2,18 +2,15 @@ import { FC } from 'react';
 
 import Stack from '@mui/material/Stack';
 
-import Response from '@/modules/common/response/Response';
-import { useResponsesContext } from '@/state/ResponsesContext';
+import { useThreadsContext } from '@/state/ThreadsContext';
 
-import ExportResponsesButton from '../common/ExportRepsonsesButton';
-import ResponsesGridContainer, {
-  ResponseGridItem,
-} from '../common/ResponsesGrid';
+import ThreadsGridContainer, { ThreadsGridItem } from '../common/ThreadsGrid';
+import Thread from '../common/response/Thread';
 
 type NoEvaluationResultsProps = unknown;
 
 const NoEvaluationResults: FC<NoEvaluationResultsProps> = () => {
-  const { allResponses } = useResponsesContext();
+  const { allThreads } = useThreadsContext();
   return (
     <Stack
       direction="column"
@@ -21,19 +18,19 @@ const NoEvaluationResults: FC<NoEvaluationResultsProps> = () => {
       alignItems="center"
       spacing={2}
     >
-      <ResponsesGridContainer>
-        {allResponses ? (
-          allResponses.map((response) => (
-            <ResponseGridItem key={response.id}>
-              <Response response={response} />
-            </ResponseGridItem>
+      <ThreadsGridContainer>
+        {allThreads ? (
+          allThreads.map((thread) => (
+            <ThreadsGridItem key={thread.id}>
+              <Thread thread={thread} />
+            </ThreadsGridItem>
           ))
         ) : (
           // TODO: translate and improve this message
           <p>Nothing to show.</p>
         )}
-      </ResponsesGridContainer>
-      <ExportResponsesButton responses={allResponses} />
+      </ThreadsGridContainer>
+      {/* <ExportResponsesButton responses={allResponses} /> */}
     </Stack>
   );
 };

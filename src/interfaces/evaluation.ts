@@ -1,3 +1,5 @@
+import { Author } from './author';
+
 export enum EvaluationType {
   None = 'none',
   Rate = 'rate',
@@ -18,3 +20,19 @@ export type EvaluationParameters = {
   ratings?: Array<RatingDescription>;
   ratingsName?: string;
 };
+
+export type Vote = {
+  author: Author;
+};
+
+// export type Rating = {
+//   author: Author;
+//   rating: number;
+// }
+
+export type Evaluation<T extends Vote = Vote> = {
+  type: EvaluationType;
+  value: T;
+};
+
+export type Evaluations = Array<Evaluation>;
