@@ -105,8 +105,17 @@
       "TITLE": "Feedback prompts",
       "HELPER_SYSTEM_PROMPT": "This prompt will be used to set the behavior of the AI assistant that will provide feedback on the responses.",
       "LABEL_SYSTEM_PROMPT": "System prompt",
-      "HELPER_USER_PROMPT": "This prompt will be used to ask the AI assistant to provide feedback on a specific response.",
-      "LABEL_USER_PROMPT": "User prompt"
+      "HELPER_USER_PROMPT": "<p>This prompt will be used to ask the AI assistant to provide feedback on a specific response.</p><1>Tag details:<1><0><0>{{response}}</0>: the response to provide feedback on</0><1><0>{{author}}</0>: the name of the author of the <3>response</3></1><2><0>{{previousResponses}}</0>: a list of previous responses in the thread, excluding the current</2></1></1>",
+      "LABEL_USER_PROMPT": "User prompt",
+      "INSTRUCTIONS": "",
+      "PROMPTS_EXAMPLES_TITLE": "Example",
+      "USER_PROMPT_EXAMPLE_HEADER": "Example of user prompt",
+      "SYSTEM_PROMPT_EXAMPLE_HEADER": "Example of system prompt",
+      "PROMPTS_EXAMPLES": {
+        "RESPONSE_1": "I think we should implement more green spaces in urban areas to improve air quality and provide recreational areas for residents.",
+        "RESPONSE_1_FEEDBACK": "This is a great suggestion! Green spaces can have a positive impact on mental health and community well-being.",
+        "RESPONSE_2": "We could also consider adding more bike lanes to encourage sustainable transportation."
+      }
     },
     "EVALUATION_TYPE_SELECTION": {
       "TITLE": "Evaluation type",

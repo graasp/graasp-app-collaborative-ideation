@@ -53,6 +53,7 @@ export const responseDataFactory = (
   givenPrompt: partialResponse?.givenPrompt,
   evaluation: partialResponse?.evaluation,
   author: author ?? partialResponse.author,
+  feedback: partialResponse?.feedback,
 });
 
 export type ResponseDataExchangeFormat = Omit<

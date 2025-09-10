@@ -77,6 +77,14 @@ const Response: FC<{
       ),
     [customRenderer],
   );
+
+  const feedbackContent = useMemo(() => {
+    if (feedback) {
+      return DOMPurify.sanitize(marked.parse(feedback, { async: false }));
+    }
+    return undefined;
+  }, [feedback, marked]);
+
   if (isMarkdown) {
     const unsafeHtml = marked.parse(content, { async: false });
     const inlineHtml = DOMPurify.sanitize(unsafeHtml);
@@ -98,7 +106,7 @@ const Response: FC<{
         >
           {!isLive && generalT('ROUND', { round })}
         </Typography>
-        {feedback ? (
+        {feedbackContent ? (
           <Alert
             severity="info"
             iconMapping={{
@@ -107,14 +115,13 @@ const Response: FC<{
           >
             <AlertTitle>Feedback</AlertTitle>
             <Typography
-              variant="body2"
+              variant="body1"
               sx={{
                 overflowWrap: 'break-word',
                 mb: 1,
               }}
-            >
-              {feedback}
-            </Typography>
+              dangerouslySetInnerHTML={{ __html: feedbackContent }}
+            />
           </Alert>
         ) : (
           <FeedbackButton response={response} thread={thread} />

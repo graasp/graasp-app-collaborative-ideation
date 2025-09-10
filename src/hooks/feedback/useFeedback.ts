@@ -18,6 +18,11 @@ import { feedbackPrompts } from './prompts';
 
 interface UseFeedbackValues {
   generateFeedback: (response: ResponseData, thread: Thread) => Promise<void>;
+  generateSystemPrompt: (systemPrompt: string) => string;
+  generateUserPrompt: (
+    response: ResponseData,
+    previousResponses: ResponseData[],
+  ) => string;
 }
 
 const useFeedback = (): UseFeedbackValues => {
@@ -35,20 +40,42 @@ const useFeedback = (): UseFeedbackValues => {
 
   const { updateResponse } = useThreadsContext();
 
-  const generateFeedback = useCallback(
-    async (response: ResponseData, thread: Thread): Promise<void> => {
-      const systemPrompt = liquidRef.current.parseAndRenderSync(
-        prompts.metaSystemPrompt,
-        { systemPrompt: feedback.systemPrompt },
-      ) as string;
+  const generateSystemPrompt = useCallback(
+    (systemPrompt: string) =>
+      liquidRef.current.parseAndRenderSync(prompts.metaSystemPrompt, {
+        systemPrompt,
+      }) as string,
+    [prompts.metaSystemPrompt],
+  );
+
+  const generateUserPrompt = useCallback(
+    (response: ResponseData, previousResponses: ResponseData[]) => {
       const configuredUserPrompt = liquidRef.current.parseAndRenderSync(
         feedback.userPrompt ?? '{{response}}',
-        { response: response.response, author: response.author.name },
+        {
+          response: response.response,
+          author: response.author.name,
+          previousResponses,
+        },
       ) as string;
       const userPrompt = liquidRef.current.parseAndRenderSync(
         prompts.metaUserPrompt,
         { userPrompt: configuredUserPrompt },
       ) as string;
+      return userPrompt;
+    },
+    [feedback.userPrompt, prompts.metaUserPrompt],
+  );
+
+  const generateFeedback = useCallback(
+    async (response: ResponseData, thread: Thread): Promise<void> => {
+      const index = thread.responses.findIndex((r) => r.id === response.id);
+      let previousResponses: ResponseData[] = [];
+      if (index > 0) {
+        previousResponses = thread.responses.slice(0, index);
+      }
+      const systemPrompt = generateSystemPrompt(feedback.systemPrompt ?? '');
+      const userPrompt = generateUserPrompt(response, previousResponses);
       const promise: Promise<ChatbotResponseAppData | undefined> = postChatBot([
         { role: ChatbotRole.System, content: systemPrompt },
         {
@@ -76,17 +103,18 @@ const useFeedback = (): UseFeedbackValues => {
     },
     [
       feedback.systemPrompt,
-      feedback.userPrompt,
+      generateSystemPrompt,
+      generateUserPrompt,
       postAppDataAsync,
       postChatBot,
-      prompts.metaSystemPrompt,
-      prompts.metaUserPrompt,
       updateResponse,
     ],
   );
 
   return {
     generateFeedback,
+    generateSystemPrompt,
+    generateUserPrompt,
   };
 };
 
