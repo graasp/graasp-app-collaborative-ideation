@@ -3,6 +3,7 @@ import { AppSetting } from '@graasp/sdk';
 import cloneDeep from 'lodash.clonedeep';
 
 import { AllSettingsType } from '@/config/appSettingsType';
+import system1 from '@/hooks/feedback/bank/system1.txt';
 import { AssistantType } from '@/interfaces/assistant';
 import { EvaluationType } from '@/interfaces/evaluation';
 import {
@@ -92,6 +93,11 @@ export const ALL_SETTINGS_OBJECT: AllSettingsType = {
   prompts: {
     selectedSet: 'test',
     maxNumberOfQueries: 5,
+  },
+  feedback: {
+    enabled: false,
+    systemPrompt: system1,
+    userPrompt: user1,
   },
 };
 

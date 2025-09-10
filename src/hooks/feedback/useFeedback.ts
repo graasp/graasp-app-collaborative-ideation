@@ -35,8 +35,15 @@ const useFeedback = (): UseFeedbackValues => {
   const liquidRef = useRef(new Liquid({ cache: true }));
 
   const prompts = useMemo(() => feedbackPrompts[lang], [lang]);
-  const { feedback } = useSettings();
+  const { instructions, feedback } = useSettings();
   const { postAppDataAsync } = useAppDataContext();
+
+  const { title, details } = instructions;
+
+  const problemStatement = useMemo(
+    () => [title.content, details?.content].join('\n'),
+    [title, details],
+  );
 
   const { updateResponse } = useThreadsContext();
 
@@ -53,9 +60,10 @@ const useFeedback = (): UseFeedbackValues => {
       const configuredUserPrompt = liquidRef.current.parseAndRenderSync(
         feedback.userPrompt ?? '{{response}}',
         {
-          response: response.response,
+          problem_statement: problemStatement,
+          current_response: response.response,
           author: response.author.name,
-          previousResponses,
+          previous_responses: previousResponses,
         },
       ) as string;
       const userPrompt = liquidRef.current.parseAndRenderSync(

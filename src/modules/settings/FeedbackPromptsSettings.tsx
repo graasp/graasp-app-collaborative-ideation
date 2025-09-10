@@ -1,10 +1,12 @@
 import { FC } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 
+import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import { FeedbackSettings } from '@/config/appSettingsType';
+import { feedbackPrompts } from '@/hooks/feedback/prompts';
 import useFeedback from '@/hooks/feedback/useFeedback';
 import { responseDataFactory } from '@/interfaces/response';
 import useParticipants from '@/state/useParticipants';
@@ -20,7 +22,7 @@ const FeedbackPromptsSettings: FC<FeedbackPromptsSettingsProps> = ({
   feedback,
   onChange,
 }) => {
-  const { t } = useTranslation('translations', {
+  const { t, i18n } = useTranslation('translations', {
     keyPrefix: 'SETTINGS.FEEDBACK_PROMPTS',
   });
 
@@ -37,6 +39,16 @@ const FeedbackPromptsSettings: FC<FeedbackPromptsSettingsProps> = ({
     onChange({
       ...feedback,
       userPrompt: newUserPrompt,
+    });
+  };
+
+  const handleResetToDefault = (): void => {
+    const { exampleBank } = feedbackPrompts[i18n.language];
+    const { system, user } = exampleBank[0];
+    onChange({
+      ...feedback,
+      systemPrompt: system,
+      userPrompt: user,
     });
   };
 
@@ -77,7 +89,11 @@ const FeedbackPromptsSettings: FC<FeedbackPromptsSettingsProps> = ({
               Tag details:
               <ul>
                 <li>
-                  <code>{'{{response}}'}</code>: the response to provide
+                  <code>{'{{problem_statement}}'}</code>: the problem statement
+                  with the details of the instruction given above
+                </li>
+                <li>
+                  <code>{'{{current_response}}'}</code>: the response to provide
                   feedback on
                 </li>
                 <li>
@@ -85,7 +101,7 @@ const FeedbackPromptsSettings: FC<FeedbackPromptsSettingsProps> = ({
                   <code>response</code>
                 </li>
                 <li>
-                  <code>{'{{previousResponses}}'}</code>: a list of previous
+                  <code>{'{{previous_responses}}'}</code>: a list of previous
                   responses in the thread, excluding the current
                 </li>
               </ul>
@@ -95,6 +111,7 @@ const FeedbackPromptsSettings: FC<FeedbackPromptsSettingsProps> = ({
         multiline
         label={t('LABEL_USER_PROMPT')}
       />
+      <Button onClick={handleResetToDefault}>{t('RESET_TO_DEFAULT')}</Button>
       <Typography variant="h4">{t('PROMPTS_EXAMPLES_TITLE')}</Typography>
       <Typography variant="body1">
         <Trans i18nKey="SETTINGS.FEEDBACK_PROMPTS.PROMPTS_EXAMPLES_EXPLANATION">
