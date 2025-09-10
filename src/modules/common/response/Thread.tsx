@@ -22,7 +22,6 @@ import { RESPONSE_CY } from '@/config/selectors';
 import { EvaluationType } from '@/interfaces/evaluation';
 import type { Thread } from '@/interfaces/threads';
 
-import FeedbackButton from './FeedbackButton';
 import Response from './Response';
 import Rate from './evaluation/Rate';
 import Vote from './evaluation/Vote';
@@ -152,7 +151,7 @@ const Thread: FC<ThreadProps> = ({
             divider={<Divider flexItem />}
           >
             {responses.map((response) => (
-              <Response key={response.id} response={response} />
+              <Response key={response.id} response={response} thread={thread} />
             ))}
           </Stack>
         </CardContent>
@@ -180,7 +179,6 @@ const Thread: FC<ThreadProps> = ({
                     {t('BUILD_ON_THIS')}
                   </Button>
                 )}
-                <FeedbackButton thread={thread} />
               </Box>
               {showDeleteButton && (
                 <IconButton

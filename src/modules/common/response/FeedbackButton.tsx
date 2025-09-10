@@ -8,40 +8,42 @@ import { Thread } from '@/interfaces/threads';
 import { useLoroContext } from '@/state/LoroContext';
 import { FEEDBACK_PROCESSING_IDS_KEY } from '@/state/TmpState';
 
-const FeedbackButton: FC<{ thread: Thread }> = ({ thread }) => {
+const FeedbackButton: FC<{ response: ResponseData; thread: Thread }> = ({
+  response,
+  thread,
+}) => {
   const { generateFeedback } = useFeedback();
   const { tmpState } = useLoroContext();
 
   const [isBeingProcessed, setIsBeingProcessed] = useState(false);
-
-  const lastResponse = thread.responses[thread.responses.length - 1];
 
   useEffect(() => {
     const unsubscribe = tmpState.subscribe(() => {
       const processingIds = tmpState.get(FEEDBACK_PROCESSING_IDS_KEY);
 
       if (Array.isArray(processingIds)) {
-        setIsBeingProcessed(processingIds.includes(lastResponse.id));
+        setIsBeingProcessed(processingIds.includes(response.id));
       }
     });
     return () => unsubscribe();
-  }, [isBeingProcessed, lastResponse.id, tmpState]);
+  }, [isBeingProcessed, response.id, tmpState]);
 
   const handleFeedback = (): void => {
-    generateFeedback(lastResponse as ResponseData, thread);
+    generateFeedback(response as ResponseData, thread);
     const processingIds = tmpState.get(FEEDBACK_PROCESSING_IDS_KEY);
     if (Array.isArray(processingIds)) {
       tmpState.set(FEEDBACK_PROCESSING_IDS_KEY, [
         ...processingIds,
-        lastResponse.id,
+        response.id,
       ]);
     } else {
-      tmpState.set(FEEDBACK_PROCESSING_IDS_KEY, [lastResponse.id]);
+      tmpState.set(FEEDBACK_PROCESSING_IDS_KEY, [response.id]);
     }
   };
 
   return (
     <Button
+      size="small"
       onClick={handleFeedback}
       disabled={isBeingProcessed}
       loading={isBeingProcessed}

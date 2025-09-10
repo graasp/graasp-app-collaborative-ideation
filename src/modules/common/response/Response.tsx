@@ -1,6 +1,9 @@
 import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import SmartToyIcon from '@mui/icons-material/SmartToy';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import Typography from '@mui/material/Typography';
 import useTheme from '@mui/material/styles/useTheme';
 
@@ -12,15 +15,19 @@ import { markedHighlight } from 'marked-highlight';
 import { MARKDOWN_CONTAINER_CY } from '@/config/selectors';
 import { ResponseVisibilityMode } from '@/interfaces/activity_state';
 import { ResponseData, ResponseEvaluation } from '@/interfaces/response';
+import { Thread } from '@/interfaces/threads';
 import { useSettings } from '@/modules/context/SettingsContext';
+
+import FeedbackButton from './FeedbackButton';
 
 // For the syntax highlighting, the stylesheet is imported in the App.tsx
 // import "highlight.js/styles/github.css";
 
-const Response: FC<{ response: ResponseData<ResponseEvaluation> }> = ({
-  response,
-}) => {
-  const { response: content, markup, author, round } = response;
+const Response: FC<{
+  response: ResponseData<ResponseEvaluation>;
+  thread: Thread;
+}> = ({ response, thread }) => {
+  const { response: content, markup, author, round, feedback } = response;
   const { activity } = useSettings();
   const { t: generalT } = useTranslation('translations');
   const theme = useTheme();
@@ -91,6 +98,27 @@ const Response: FC<{ response: ResponseData<ResponseEvaluation> }> = ({
         >
           {!isLive && generalT('ROUND', { round })}
         </Typography>
+        {feedback ? (
+          <Alert
+            severity="info"
+            iconMapping={{
+              info: <SmartToyIcon fontSize="inherit" />,
+            }}
+          >
+            <AlertTitle>Feedback</AlertTitle>
+            <Typography
+              variant="body2"
+              sx={{
+                overflowWrap: 'break-word',
+                mb: 1,
+              }}
+            >
+              {feedback}
+            </Typography>
+          </Alert>
+        ) : (
+          <FeedbackButton response={response} thread={thread} />
+        )}
       </>
     );
   }

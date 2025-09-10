@@ -23,7 +23,7 @@ export type ResponseComment = {
 };
 
 export type ResponseData<
-  EvaluationType extends ResponseEvaluation = undefined,
+  EvaluationType extends ResponseEvaluation = ResponseEvaluation,
 > = {
   id: string;
   author: Author;
@@ -34,7 +34,6 @@ export type ResponseData<
   originalResponse?: string;
   givenPrompt?: string;
   evaluation?: EvaluationType;
-  comments?: Array<ResponseComment>;
   feedback?: string;
 };
 
