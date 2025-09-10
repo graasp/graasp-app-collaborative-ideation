@@ -13,10 +13,9 @@ export const DEFAULT_ACTIVITY_STATE: ActivityState = {
   stepIndex: 0,
 };
 
-export const RESPONSE_MAXIMUM_LENGTH = 800;
+export const RESPONSE_MAXIMUM_LENGTH = 2000; // characters
 export const NUMBER_OF_IDEAS_TO_SHOW = 3;
 export const REFRESH_INTERVAL_MS = 5000;
-export const MAX_NUMBER_OF_CHARS_INPUT = 72;
 
 export const DEFAULT_CHATBOT_RESPONSE_APP_DATA: Pick<
   ChatbotResponseAppData,

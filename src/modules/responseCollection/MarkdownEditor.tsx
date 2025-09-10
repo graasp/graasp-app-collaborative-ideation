@@ -27,13 +27,7 @@ const MarkdownEditor: FC<MarkdownEditorProps> = ({
   initialValue,
   onChange,
 }) => (
-  <Box
-    sx={{
-      '& .input-response-content-editable': {
-        fontFamily: '"Lucida Console", "Courier New", monospace',
-      },
-    }}
-  >
+  <Box>
     <MDXEditor
       markdown={initialValue}
       className="input-response"

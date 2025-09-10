@@ -12,9 +12,10 @@ import {
 import { useSettings } from '@/modules/context/SettingsContext';
 
 import { useLoroContext } from './LoroContext';
+import { ACTIVITY_STATE_LORO_KEY } from './keys';
 
 const getActivityState = (doc: LoroDoc): LoroMap => {
-  const activityState = doc.getMap('activity-state');
+  const activityState = doc.getMap(ACTIVITY_STATE_LORO_KEY);
   // if (activityState.get('type'))
   return activityState;
 };
@@ -63,11 +64,15 @@ const useActivityState = (): UseActivityStateValues => {
 
   useEffect(() => {
     const activityStateLoro = getActivityState(doc);
+    setActivityState(getStateFromLoroMap(activityStateLoro));
     const unsubscribe = activityStateLoro.subscribe(() => {
       const a = getActivityState(doc);
-      setActivityState(getStateFromLoroMap(a));
+      const activityStateLocal = getStateFromLoroMap(a);
+      setActivityState(activityStateLocal);
     });
-    return () => unsubscribe();
+    return () => {
+      unsubscribe();
+    };
   }, [doc]);
 
   const changeActivityStatus = (

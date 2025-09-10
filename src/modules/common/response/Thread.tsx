@@ -143,11 +143,10 @@ const Thread: FC<ThreadProps> = ({
         data-cy={RESPONSE_CY}
       >
         <CardContent sx={{ minHeight: '32pt' }}>
-          <Typography variant="caption">{id}</Typography>
           <Stack
             direction="column"
             spacing={2}
-            sx={{ width: '100%', mt: 2 }}
+            sx={{ width: '100%' }}
             divider={<Divider flexItem />}
           >
             {responses.map((response) => (

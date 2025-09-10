@@ -5,10 +5,10 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import { FeedbackSettings } from '@/config/appSettingsType';
-
 import useFeedback from '@/hooks/feedback/useFeedback';
 import { responseDataFactory } from '@/interfaces/response';
 import useParticipants from '@/state/useParticipants';
+
 import SettingsSection from '../common/SettingsSection';
 
 interface FeedbackPromptsSettingsProps {
@@ -24,7 +24,7 @@ const FeedbackPromptsSettings: FC<FeedbackPromptsSettingsProps> = ({
     keyPrefix: 'SETTINGS.FEEDBACK_PROMPTS',
   });
 
-  const {generateSystemPrompt, generateUserPrompt} = useFeedback();
+  const { generateSystemPrompt, generateUserPrompt } = useFeedback();
   const { me } = useParticipants();
   const { systemPrompt, userPrompt } = feedback;
   const handleSystemPromptChange = (newSystemPrompt: string): void => {
@@ -44,7 +44,15 @@ const FeedbackPromptsSettings: FC<FeedbackPromptsSettingsProps> = ({
   const RESPONSE_1_FEEDBACK = t('PROMPTS_EXAMPLES.RESPONSE_1_FEEDBACK');
   const RESPONSE_2_EXAMPLE = t('PROMPTS_EXAMPLES.RESPONSE_2');
 
-  const userPromptExample = generateUserPrompt(responseDataFactory({response: RESPONSE_2_EXAMPLE}, me), [responseDataFactory({response: RESPONSE_1_EXAMPLE, feedback: RESPONSE_1_FEEDBACK}, me)]);
+  const userPromptExample = generateUserPrompt(
+    responseDataFactory({ response: RESPONSE_2_EXAMPLE }, me),
+    [
+      responseDataFactory(
+        { response: RESPONSE_1_EXAMPLE, feedback: RESPONSE_1_FEEDBACK },
+        me,
+      ),
+    ],
+  );
   const systemPromptExample = generateSystemPrompt(systemPrompt ?? '');
 
   return (
@@ -87,15 +95,14 @@ const FeedbackPromptsSettings: FC<FeedbackPromptsSettingsProps> = ({
         multiline
         label={t('LABEL_USER_PROMPT')}
       />
-      <Typography variant="h4">
-        {t('PROMPTS_EXAMPLES_TITLE')}
-      </Typography>
+      <Typography variant="h4">{t('PROMPTS_EXAMPLES_TITLE')}</Typography>
       <Typography variant="body1">
         <Trans i18nKey="SETTINGS.FEEDBACK_PROMPTS.PROMPTS_EXAMPLES_EXPLANATION">
           Consider the following two responses in a thread:
           <ul>
             <li>
-              <strong>Response 1</strong>: <em>{RESPONSE_1_EXAMPLE}</em><br />
+              <strong>Response 1</strong>: <em>{RESPONSE_1_EXAMPLE}</em>
+              <br />
               With feedback: <blockquote>{RESPONSE_1_FEEDBACK}</blockquote>
             </li>
             <li>
@@ -104,18 +111,10 @@ const FeedbackPromptsSettings: FC<FeedbackPromptsSettingsProps> = ({
           </ul>
         </Trans>
       </Typography>
-      <Typography variant="h5">
-        {t('SYSTEM_PROMPT_EXAMPLE_HEADER')}
-      </Typography>
-      <Typography variant="caption">
-        {systemPromptExample}
-      </Typography>
-      <Typography variant="h5">
-        {t('USER_PROMPT_EXAMPLE_HEADER')}
-      </Typography>
-      <Typography variant="caption">
-        {userPromptExample}
-      </Typography>
+      <Typography variant="h5">{t('SYSTEM_PROMPT_EXAMPLE_HEADER')}</Typography>
+      <Typography variant="caption">{systemPromptExample}</Typography>
+      <Typography variant="h5">{t('USER_PROMPT_EXAMPLE_HEADER')}</Typography>
+      <Typography variant="caption">{userPromptExample}</Typography>
     </SettingsSection>
   );
 };
