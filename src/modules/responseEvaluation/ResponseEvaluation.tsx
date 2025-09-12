@@ -78,11 +78,7 @@ const ResponseEvaluation: FC = () => {
               {allThreads
                 ? allThreads.map((thread) => (
                     <ThreadsGridItem key={thread.id}>
-                      <Thread
-                        key={thread.id}
-                        thread={thread}
-                        evaluationType={evaluationType}
-                      />
+                      <Thread key={thread.id} thread={thread} />
                     </ThreadsGridItem>
                   ))
                 : renderPlaceHolderForNoResponses()}

@@ -13,7 +13,7 @@ const exportResponses = async (
 ): Promise<void> => {
   const responsesToExport = cloneDeep(responses);
   const extractedData = responsesToExport.map((responseAppData, index) => {
-    const evaluation = responseAppData?.evaluation;
+    // const evaluation = responseAppData?.evaluation;
     try {
       // eslint-disable-next-line no-param-reassign
       delete responseAppData.evaluation;
@@ -25,11 +25,11 @@ const exportResponses = async (
       ...responseAppData,
       id: index,
     };
-    if (typeof evaluation !== 'undefined') {
-      if ('votes' in evaluation) {
-        dataToExport.votes = evaluation.votes;
-      }
-    }
+    // if (typeof evaluation !== 'undefined') {
+    //   if ('votes' in evaluation) {
+    //     dataToExport.votes = evaluation.votes;
+    //   }
+    // }
     return dataToExport;
   });
   const csv = Papa.unparse(extractedData);

@@ -16,6 +16,6 @@ Please provide constructive feedback on the participant's idea in the following 
 1. Strengths: [what is promising about this idea]  
 2. Opportunities for improvement: [one or two concise suggestions]  
 3. Next step: [a concrete direction to refine or expand the idea]  
-{% if previous_ideas.size > 0 %}
+{% if previous_responses.size > 0 %}
 4. Relation to previous ideas: [how it compares, improves, or differs from earlier ideas, using the feedback above if relevant]  
 {% endif %}

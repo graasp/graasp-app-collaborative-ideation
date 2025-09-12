@@ -22,7 +22,7 @@ const RatingsResults: FC<RatingsResultsProps> = () => {
       <ThreadsGridContainer>
         {allThreads.map((thread) => (
           <ThreadsGridItem key={thread.id}>
-            <Thread thread={thread} showRatings />
+            <Thread thread={thread} />
           </ThreadsGridItem>
         ))}
       </ThreadsGridContainer>

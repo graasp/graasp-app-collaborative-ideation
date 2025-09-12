@@ -3,7 +3,7 @@ import { v4 } from 'uuid';
 import { Author } from '@/interfaces/author';
 
 export type ResponseVotes = {
-  votes: number;
+  votes: Array<Author['id']>;
 };
 
 export type ResponseRatings = {

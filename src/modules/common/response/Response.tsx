@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC, JSX, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import SmartToyIcon from '@mui/icons-material/SmartToy';
@@ -13,12 +13,24 @@ import { Marked, Renderer } from 'marked';
 import { markedHighlight } from 'marked-highlight';
 
 import { MARKDOWN_CONTAINER_CY } from '@/config/selectors';
-import { ResponseVisibilityMode } from '@/interfaces/activity_state';
-import { ResponseData, ResponseEvaluation } from '@/interfaces/response';
+import {
+  ActivityType,
+  ResponseVisibilityMode,
+} from '@/interfaces/activity_state';
+import { EvaluationType } from '@/interfaces/evaluation';
+import {
+  ResponseData,
+  ResponseEvaluation,
+  ResponseVotes,
+} from '@/interfaces/response';
 import { Thread } from '@/interfaces/threads';
 import { useSettings } from '@/modules/context/SettingsContext';
+import useActivityState from '@/state/useActivityState';
 
 import FeedbackButton from './FeedbackButton';
+import Vote from './evaluation/Vote';
+import RatingsVisualization from './visualization/RatingsVisualization';
+import Votes from './visualization/Votes';
 
 // For the syntax highlighting, the stylesheet is imported in the App.tsx
 // import "highlight.js/styles/github.css";
@@ -32,6 +44,9 @@ const Response: FC<{
   const { t: generalT } = useTranslation('translations');
   const theme = useTheme();
   const isLive = activity.mode === ResponseVisibilityMode.Sync;
+  const { currentStep } = useActivityState();
+  const evaluationType = currentStep?.evaluationType;
+  const resultsType = currentStep?.resultsType;
 
   const isMarkdown = useMemo(() => markup === 'markdown', [markup]);
   const isAiGenerated = useMemo(
@@ -85,6 +100,44 @@ const Response: FC<{
     return undefined;
   }, [feedback, marked]);
 
+  const renderEvaluationComponent = (): JSX.Element | null => {
+    switch (evaluationType) {
+      case EvaluationType.Vote:
+        return (
+          <Vote
+            response={response as ResponseData<ResponseVotes>}
+            threadId={thread.id}
+          />
+        );
+      // case EvaluationType.Rate:
+      //   return <Rate responseId={id} />;
+      // case EvaluationType.Rank:
+      //   return <Rank responseId={id} />;
+      default:
+        return null;
+    }
+  };
+
+  const renderResultsComponent = (): JSX.Element | null => {
+    if (currentStep?.type === ActivityType.Results) {
+      const nbrOfVotes =
+        response.evaluation &&
+        'votes' in response.evaluation &&
+        Array.isArray(response.evaluation.votes)
+          ? response.evaluation.votes.length
+          : 0;
+      switch (resultsType) {
+        case EvaluationType.Vote:
+          return <Votes votes={nbrOfVotes} />;
+        case EvaluationType.Rate:
+          return <RatingsVisualization responseId={response.id} />;
+        default:
+          return null;
+      }
+    }
+    return null;
+  };
+
   if (isMarkdown) {
     const unsafeHtml = marked.parse(content, { async: false });
     const inlineHtml = DOMPurify.sanitize(unsafeHtml);
@@ -126,6 +179,8 @@ const Response: FC<{
         ) : (
           <FeedbackButton response={response} thread={thread} />
         )}
+        {renderEvaluationComponent()}
+        {renderResultsComponent()}
       </>
     );
   }

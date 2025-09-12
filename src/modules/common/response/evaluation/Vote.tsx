@@ -1,23 +1,61 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import Button from '@mui/material/Button';
 import CardActions from '@mui/material/CardActions';
 
+import { ResponseData, ResponseVotes } from '@/interfaces/response';
 import { useVoteContext } from '@/modules/context/VoteContext';
+import { useThreadsContext } from '@/state/ThreadsContext';
+import useParticipants from '@/state/useParticipants';
 
 const Vote: FC<{
-  responseId: string;
-}> = ({ responseId }) => {
+  response: ResponseData<ResponseVotes>;
+  threadId: string;
+}> = ({ response, threadId }) => {
   const { t } = useTranslation('translations', {
     keyPrefix: 'EVALUATION.VOTE',
   });
 
-  const { voteFor, removeVoteFor, checkIfHasVote, availableVotes } =
-    useVoteContext();
+  const { me } = useParticipants();
+  const { updateResponse } = useThreadsContext();
+  const { availableVotes } = useVoteContext();
 
-  const hasVote = checkIfHasVote(responseId);
+  const votes = useMemo(() => {
+    const { evaluation } = response;
+    if (evaluation) {
+      const { votes: v } = evaluation;
+      return v;
+    }
+    return [];
+  }, [response]);
+
+  const hasVote = useMemo(() => votes.includes(me.id), [me, votes]);
+
+  const handleVote = (): void => {
+    updateResponse(
+      {
+        ...response,
+        evaluation: {
+          votes: [...votes, me.id],
+        },
+      },
+      threadId,
+    );
+  };
+
+  const handleRemoveVote = (): void => {
+    updateResponse(
+      {
+        ...response,
+        evaluation: {
+          votes: votes.filter((id) => id !== me.id),
+        },
+      },
+      threadId,
+    );
+  };
 
   return (
     <CardActions>
@@ -25,7 +63,7 @@ const Vote: FC<{
         <Button
           color="success"
           startIcon={<ThumbUpIcon />}
-          onClick={() => removeVoteFor(responseId)}
+          onClick={() => handleRemoveVote()}
         >
           {t('REMOVE_VOTE_FOR_THIS_RESPONSE')}
         </Button>
@@ -33,7 +71,7 @@ const Vote: FC<{
         <Button
           startIcon={<ThumbUpIcon />}
           disabled={availableVotes <= 0}
-          onClick={() => voteFor(responseId)}
+          onClick={() => handleVote()}
         >
           {t('VOTE_FOR_THIS_RESPONSE')}
         </Button>

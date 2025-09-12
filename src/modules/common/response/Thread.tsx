@@ -19,14 +19,9 @@ import { useLocalContext } from '@graasp/apps-query-client';
 
 import { RESPONSES_TOP_COLORS } from '@/config/constants';
 import { RESPONSE_CY } from '@/config/selectors';
-import { EvaluationType } from '@/interfaces/evaluation';
 import type { Thread } from '@/interfaces/threads';
 
 import Response from './Response';
-import Rate from './evaluation/Rate';
-import Vote from './evaluation/Vote';
-import RatingsVisualization from './visualization/RatingsVisualization';
-import Votes from './visualization/Votes';
 
 const TopAnnotationTypography = styled(Typography)(() => ({
   fontWeight: 'bold',
@@ -38,21 +33,15 @@ interface ThreadProps {
   onSelect?: (id: string) => void;
   enableBuildAction?: boolean;
   onDelete?: (id: string) => void;
-  showRatings?: boolean;
   highlight?: boolean;
-  evaluationType?: EvaluationType;
-  nbrOfVotes?: number;
 }
 
 const Thread: FC<ThreadProps> = ({
   thread,
   onSelect,
   onDelete,
-  evaluationType,
   enableBuildAction = true,
-  showRatings = false,
   highlight = false,
-  nbrOfVotes,
 }) => {
   const { t } = useTranslation('translations', { keyPrefix: 'RESPONSE_CARD' });
   const { accountId } = useLocalContext();
@@ -68,19 +57,6 @@ const Thread: FC<ThreadProps> = ({
   const showSelectButton = typeof onSelect !== 'undefined';
   const showDeleteButton = typeof onDelete !== 'undefined' && isOwn;
   const showActions = showDeleteButton || showSelectButton;
-
-  const renderEvaluationComponent = (): JSX.Element | null => {
-    switch (evaluationType) {
-      case EvaluationType.Vote:
-        return <Vote responseId={id} />;
-      case EvaluationType.Rate:
-        return <Rate responseId={id} />;
-      // case EvaluationType.Rank:
-      //   return <Rank responseId={id} />;
-      default:
-        return null;
-    }
-  };
 
   const renderTopResponseAnnotation = (): JSX.Element => {
     if (isAiGenerated) {
@@ -154,9 +130,6 @@ const Thread: FC<ThreadProps> = ({
             ))}
           </Stack>
         </CardContent>
-        {renderEvaluationComponent()}
-        {showRatings && <RatingsVisualization responseId={id} />}
-        {typeof nbrOfVotes !== 'undefined' && <Votes votes={nbrOfVotes} />}
         {showActions && (
           <>
             <Divider />

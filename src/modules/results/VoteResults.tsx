@@ -2,7 +2,6 @@ import { FC } from 'react';
 
 import Stack from '@mui/material/Stack';
 
-import { EvaluationType } from '@/interfaces/evaluation';
 import { useThreadsContext } from '@/state/ThreadsContext';
 
 import ThreadsGridContainer, { ThreadsGridItem } from '../common/ThreadsGrid';
@@ -22,13 +21,7 @@ const VoteResults: FC<VoteResultsProps> = () => {
       <ThreadsGridContainer>
         {allThreads.map((thread) => (
           <ThreadsGridItem key={thread.id}>
-            <Thread
-              thread={thread}
-              nbrOfVotes={
-                thread.evaluations.filter((e) => e.type === EvaluationType.Vote)
-                  .length
-              }
-            />
+            <Thread thread={thread} />
           </ThreadsGridItem>
         ))}
       </ThreadsGridContainer>

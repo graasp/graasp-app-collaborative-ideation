@@ -122,8 +122,20 @@ const EvaluationSettings: FC<EvaluationSettingsProps> = ({
         >
           <FormControlLabel
             value={EvaluationType.Rate}
+            disabled
+            // label={tEvaluationType('RATE')}
+            label={
+              <>
+                {tEvaluationType('RANK')}
+                <Chip
+                  color="info"
+                  sx={{ m: 1 }}
+                  label={t('COMING_SOON')}
+                  variant="outlined"
+                />
+              </>
+            }
             control={<Radio />}
-            label={tEvaluationType('RATE')}
           />
           <FormControlLabel
             value={EvaluationType.Rank}

@@ -72,7 +72,7 @@ const useFeedback = (): UseFeedbackValues => {
       ) as string;
       return userPrompt;
     },
-    [feedback.userPrompt, prompts.metaUserPrompt],
+    [feedback.userPrompt, problemStatement, prompts.metaUserPrompt],
   );
 
   const generateFeedback = useCallback(
