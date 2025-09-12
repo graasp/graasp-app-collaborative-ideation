@@ -17,7 +17,6 @@ import stringToColor from '@/utils/stringToColor';
 
 const RoomIndicator: FC = () => {
   const theme = useTheme();
-  // const { tmpState, connectionStatus, reconnect } = useLoroContext(); // assume reconnect is available
   const {
     tmpState,
     connectionStatus,
@@ -38,17 +37,18 @@ const RoomIndicator: FC = () => {
   console.debug('Online users: ', [onlineUsers, onlineUserIds]);
 
   useEffect(() => {
-    tmpState.subscribe(() => {
+    const unsubscribe = tmpState.subscribe(() => {
       console.debug('TmpState changed: ', tmpState.get(ONLINE_USERS_KEY));
       setOnlineUserIds((tmpState.get(ONLINE_USERS_KEY) as string[]) || []);
     });
+
+    return unsubscribe;
   }, [tmpState]);
 
   const reconnect = (): void => {
     // Logic to reconnect to the WebSocket or refresh the connection
     console.debug('Reconnecting...');
     reconnectLoro();
-    // This is a placeholder; actual reconnection logic should be implemented
   };
 
   if (connectionStatus !== ConnectionStatus.CONNECTED) {
@@ -78,8 +78,13 @@ const RoomIndicator: FC = () => {
 
         return (
           <Tooltip key={user.id} title={user.name}>
-            <Avatar sx={{ bgcolor: bgColor }}>
-              {user.name[0].toUpperCase()}
+            <Avatar sx={{ bgcolor: bgColor, color: 'white' }}>
+              {user.name
+                .split(' ')
+                .map((w) => w[0])
+                .join('')
+                .replace(/[^a-zA-Z0-9]/g, '')
+                .toUpperCase()}
             </Avatar>
           </Tooltip>
         );

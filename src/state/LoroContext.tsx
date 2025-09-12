@@ -61,6 +61,8 @@ export const LoroProvider = ({ children }: LoroContextProps): JSX.Element => {
   const wsRef = useRef<WebSocket | null>(null);
   // const [roomSet, setRoomSet] = useState(false);
 
+  const lastOnlineUserId = useRef<string>(undefined);
+
   const handleConfirmMessage = useCallback(
     (data: Extract<ServerMessage, { type: 'confirm' }>): void => {
       if (data.data?.message_type === 'join_room') {
@@ -118,9 +120,21 @@ export const LoroProvider = ({ children }: LoroContextProps): JSX.Element => {
       if (connectionStatus === ConnectionStatus.CONNECTED && accountId) {
         const onlineUsers =
           (tmpState.get(ONLINE_USERS_KEY) as Array<string>) || [];
-        if (!onlineUsers.includes(accountId)) {
-          tmpState.set(ONLINE_USERS_KEY, [accountId, ...onlineUsers]);
+
+        let otherOnlineUsers: string[] = onlineUsers.filter(
+          (i) => i !== accountId,
+        );
+
+        const lastOnlineUserIdNow = onlineUsers[-1];
+        if (lastOnlineUserId.current === lastOnlineUserIdNow) {
+          otherOnlineUsers = otherOnlineUsers.filter(
+            (i) => i !== lastOnlineUserIdNow,
+          );
+          lastOnlineUserId.current = undefined;
+        } else {
+          lastOnlineUserId.current = lastOnlineUserIdNow;
         }
+        tmpState.set(ONLINE_USERS_KEY, [accountId, ...otherOnlineUsers]);
       }
     }, TMP_STATE_TIMEOUT);
     return () => clearInterval(pingInterval);
