@@ -38,7 +38,6 @@ const RoomIndicator: FC = () => {
 
   useEffect(() => {
     const unsubscribe = tmpState.subscribe(() => {
-      console.debug('TmpState changed: ', tmpState.get(ONLINE_USERS_KEY));
       setOnlineUserIds((tmpState.get(ONLINE_USERS_KEY) as string[]) || []);
     });
 
@@ -47,7 +46,6 @@ const RoomIndicator: FC = () => {
 
   const reconnect = (): void => {
     // Logic to reconnect to the WebSocket or refresh the connection
-    console.debug('Reconnecting...');
     reconnectLoro();
   };
 
