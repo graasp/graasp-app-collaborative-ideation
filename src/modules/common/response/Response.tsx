@@ -40,7 +40,8 @@ const Response: FC<{
   thread: Thread;
 }> = ({ response, thread }) => {
   const { response: content, markup, author, round, feedback } = response;
-  const { activity } = useSettings();
+  const { activity, feedback: feebackSettings } = useSettings();
+  const { enabled: feedbackEnabled } = feebackSettings;
   const { t: generalT } = useTranslation('translations');
   const theme = useTheme();
   const isLive = activity.mode === ResponseVisibilityMode.Sync;
@@ -177,7 +178,9 @@ const Response: FC<{
             />
           </Alert>
         ) : (
-          <FeedbackButton response={response} thread={thread} />
+          feedbackEnabled && (
+            <FeedbackButton response={response} thread={thread} />
+          )
         )}
         {renderEvaluationComponent()}
         {renderResultsComponent()}

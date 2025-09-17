@@ -2,6 +2,9 @@ import { FC } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 
 import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
@@ -28,13 +31,20 @@ const FeedbackPromptsSettings: FC<FeedbackPromptsSettingsProps> = ({
 
   const { generateSystemPrompt, generateUserPrompt } = useFeedback();
   const { me } = useParticipants();
-  const { systemPrompt, userPrompt } = feedback;
+  const { systemPrompt, userPrompt, enabled } = feedback;
   const handleSystemPromptChange = (newSystemPrompt: string): void => {
     onChange({
       ...feedback,
       systemPrompt: newSystemPrompt,
     });
   };
+  const handleEnableChange = (enable: boolean): void => {
+    onChange({
+      ...feedback,
+      enabled: enable,
+    });
+  };
+
   const handleUserPromptChange = (newUserPrompt: string): void => {
     onChange({
       ...feedback,
@@ -69,8 +79,20 @@ const FeedbackPromptsSettings: FC<FeedbackPromptsSettingsProps> = ({
 
   return (
     <SettingsSection title={t('TITLE')}>
+      <FormControl>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={enabled ?? false}
+              onChange={(e) => handleEnableChange(e.target.checked)}
+            />
+          }
+          label="Enable feedback"
+        />
+      </FormControl>
       <TextField
         value={systemPrompt}
+        disabled={!enabled}
         onChange={(e) => handleSystemPromptChange(e.target.value)}
         helperText={t('HELPER_SYSTEM_PROMPT')}
         multiline
@@ -78,6 +100,7 @@ const FeedbackPromptsSettings: FC<FeedbackPromptsSettingsProps> = ({
       />
       <TextField
         value={userPrompt}
+        disabled={!enabled}
         onChange={(e) => handleUserPromptChange(e.target.value)}
         helperText={
           <Trans i18nKey="SETTINGS.FEEDBACK_PROMPTS.HELPER_USER_PROMPT">
@@ -111,7 +134,9 @@ const FeedbackPromptsSettings: FC<FeedbackPromptsSettingsProps> = ({
         multiline
         label={t('LABEL_USER_PROMPT')}
       />
-      <Button onClick={handleResetToDefault}>{t('RESET_TO_DEFAULT')}</Button>
+      <Button onClick={handleResetToDefault} disabled={!enabled}>
+        {t('RESET_TO_DEFAULT')}
+      </Button>
       <Typography variant="h4">{t('PROMPTS_EXAMPLES_TITLE')}</Typography>
       <Typography variant="body1">
         <Trans i18nKey="SETTINGS.FEEDBACK_PROMPTS.PROMPTS_EXAMPLES_EXPLANATION">
