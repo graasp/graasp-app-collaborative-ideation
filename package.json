@@ -84,7 +84,7 @@
     "check": "concurrently --kill-others-on-fail -s all -n \"type-check,linter,prettier\" \"yarn type-check\" \"yarn lint\" \"yarn prettier:check\"",
     "pre-commit": "concurrently --kill-others-on-fail -s all -n \"checks,tests\" \"yarn check\" \"yarn test\"",
     "cypress:open": "env-cmd -f ./.env.test cypress open",
-    "test": "concurrently -k -s first -n \"test-server,cypress\" \"yarn start:test\" \"yarn test:ci\"",
+    "test": "wait-on http://localhost:3433/health && concurrently -k -s first -n \"test-server,cypress\" \"yarn start:test\" \"yarn test:ci\"",
     "test:ci": "env-cmd -f ./.env.test cypress run --browser chrome --headless && nyc report --reporter=text --reporter=text-summary",
     "unit-tests": "vitest run",
     "cov:report": "open ./coverage/lcov-report/index.html"
@@ -142,7 +142,8 @@
     "vite-plugin-istanbul": "^6.0.0",
     "vite-plugin-top-level-await": "^1.4.4",
     "vite-plugin-wasm": "^3.4.1",
-    "vitest": "^3.0.0"
+    "vitest": "^3.0.0",
+    "wait-on": "^9.0.1"
   },
   "browserslist": {
     "production": [
