@@ -147,15 +147,19 @@ export const LoroProvider = ({ children }: LoroContextProps): JSX.Element => {
     );
 
     newWs?.addEventListener('open', () => {
-      const joinRoomMessage: JoinRoomMessage = {
-        id: itemId,
-        user_id: accountId || 'anonymous',
-      };
-      const msg: ClientMessage = {
-        type: 'join_room',
-        data: joinRoomMessage,
-      };
-      newWs.send(JSON.stringify(msg));
+      if (newWs.readyState === WebSocket.OPEN) {
+        const joinRoomMessage: JoinRoomMessage = {
+          id: itemId,
+          user_id: accountId || 'anonymous',
+        };
+        const msg: ClientMessage = {
+          type: 'join_room',
+          data: joinRoomMessage,
+        };
+        newWs.send(JSON.stringify(msg));
+      } else {
+        throw new Error('Open event fired but websocket is not open.');
+      }
     });
 
     newWs?.addEventListener('close', () => {

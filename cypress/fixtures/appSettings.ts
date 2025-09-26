@@ -1,8 +1,6 @@
 import { AppSetting } from '@graasp/sdk';
 
-import fs from 'fs';
 import cloneDeep from 'lodash.clonedeep';
-import path from 'path';
 
 import { AllSettingsType } from '@/config/appSettingsType';
 import {
@@ -116,8 +114,8 @@ export const ALL_SETTINGS_OBJECT: AllSettingsType = {
   },
   feedback: {
     enabled: false,
-    systemPrompt: "Whatever",
-    userPrompt: "Whatever",
+    systemPrompt: 'Whatever',
+    userPrompt: 'Whatever',
   },
 };
 
