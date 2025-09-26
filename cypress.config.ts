@@ -10,6 +10,8 @@ export default defineConfig({
       VITE_API_HOST: process.env.VITE_API_HOST,
       VITE_ENABLE_MOCK_API: process.env.VITE_ENABLE_MOCK_API,
       VITE_GRAASP_APP_KEY: process.env.VITE_GRAASP_APP_KEY,
+      VITE_BACKEND_HOST: process.env.VITE_BACKEND_HOST,
+      VITE_BACKEND_ROUTE: process.env.VITE_BACKEND_ROUTE,
     },
     retries: { runMode: 1, openMode: 0 },
     setupNodeEvents(on, config) {

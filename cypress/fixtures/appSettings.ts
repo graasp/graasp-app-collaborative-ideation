@@ -1,20 +1,40 @@
 import { AppSetting } from '@graasp/sdk';
 
+import fs from 'fs';
 import cloneDeep from 'lodash.clonedeep';
+import path from 'path';
 
 import { AllSettingsType } from '@/config/appSettingsType';
-import system1 from '@/hooks/feedback/bank/system1.txt';
-import { AssistantType } from '@/interfaces/assistant';
-import { EvaluationType } from '@/interfaces/evaluation';
 import {
   ActivityType,
   ResponseVisibilityMode,
-} from '@/interfaces/interactionProcess';
+} from '@/interfaces/activity_state';
+import { AssistantType } from '@/interfaces/assistant';
+import { EvaluationType } from '@/interfaces/evaluation';
 
 import { MEMBERS } from './members';
 import { MOCK_SERVER_DISCRIMINATED_ITEM } from './mockItem';
 
 let settingCounter = 0;
+
+// /**
+//  * Reads the content of a text file relative to the project root.
+//  * @param relativePath Path to the file, relative to the project root.
+//  * @returns The content of the file as a string.
+//  */
+// function readTextFile(relativePath: string): string {
+//   // Resolve absolute path relative to project root (process.cwd())
+//   const absolutePath = path.resolve(process.cwd(), relativePath);
+
+//   try {
+//     const content = cy.fixture(absolutePath, 'utf-8');
+//     return content;
+//   } catch (err) {
+//     throw new Error(
+//       `Failed to read file at ${absolutePath}: ${(err as Error).message}`,
+//     );
+//   }
+// }
 
 const newSettingFactory = (
   settingName: string,
@@ -62,7 +82,7 @@ export const ALL_SETTINGS_OBJECT: AllSettingsType = {
     id: MEMBERS.ANNA.id,
   },
   activity: {
-    mode: ResponseVisibilityMode.Open,
+    mode: ResponseVisibilityMode.Sync,
     numberOfResponsesPerSet: 3,
     numberOfBotResponsesPerSet: 1,
     exclusiveResponseDistribution: true,
@@ -96,8 +116,8 @@ export const ALL_SETTINGS_OBJECT: AllSettingsType = {
   },
   feedback: {
     enabled: false,
-    systemPrompt: system1,
-    userPrompt: user1,
+    systemPrompt: "Whatever",
+    userPrompt: "Whatever",
   },
 };
 
