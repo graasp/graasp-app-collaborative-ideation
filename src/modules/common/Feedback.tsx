@@ -130,7 +130,7 @@ const Feedback = ({
         name="feedback-rating"
         value={value ?? null}
         max={levelsSafe}
-        IconContainerComponent={IconContainer}
+        slotProps={{ icon: { component: IconContainer } }}
         // TODO: Complete
         // getLabelText={(val: number) => customIcons[value].label}
         highlightSelectedOnly
