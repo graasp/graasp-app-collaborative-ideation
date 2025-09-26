@@ -1,7 +1,7 @@
 name: Cypress UI tests
 
 on:
-  push:
+  # push:
 
 jobs:
   cypress-run:
