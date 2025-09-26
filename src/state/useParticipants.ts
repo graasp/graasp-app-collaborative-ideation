@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+import { useLocalContext } from '@graasp/apps-query-client';
 import { Member } from '@graasp/sdk';
 
 import {
@@ -13,12 +14,14 @@ import { useSettings } from '@/modules/context/SettingsContext';
 export type UseParticipantsValue = {
   members: Array<Participant<Member>>;
   assistants: Array<Participant<AssistantPersona<AssistantConfiguration>>>;
+  me: Participant<Member>;
 };
 
 const useParticipants = (): UseParticipantsValue => {
   const { notParticipating, assistants: assistantsSetting } = useSettings();
   const { assistants } = assistantsSetting;
   const rawMembers = useMembersContext();
+  const { accountId } = useLocalContext();
   const members: Participant<Member>[] = useMemo(
     () =>
       rawMembers
@@ -36,7 +39,20 @@ const useParticipants = (): UseParticipantsValue => {
       })),
     [assistants],
   );
-  return { members, assistants: assistantsParticipants };
+
+  const me: Participant<Member> = useMemo(() => {
+    const myself = members.find((m) => m.id === accountId);
+    if (myself) {
+      return myself;
+    }
+    return {
+      memberType: ParticipantType.Account,
+      id: accountId ?? '',
+      name: 'anonymous',
+      email: 'anonymous@graasp.org',
+    };
+  }, [accountId, members]);
+  return { members, assistants: assistantsParticipants, me };
 };
 
 export default useParticipants;

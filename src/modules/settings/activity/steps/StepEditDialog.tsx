@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react';
+import { ChangeEvent, FC, JSX, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Dialog from '@mui/material/Dialog';
@@ -11,8 +11,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 
+import { ActivityStep, ActivityType } from '@/interfaces/activity_state';
 import { EvaluationParameters, EvaluationType } from '@/interfaces/evaluation';
-import { ActivityStep, ActivityType } from '@/interfaces/interactionProcess';
 import CancelButton from '@/modules/common/CancelButton';
 import SaveButton from '@/modules/common/SaveButton';
 

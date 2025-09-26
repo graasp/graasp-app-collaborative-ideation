@@ -11,15 +11,14 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
 import { ORCHESTRATION_BAR_CY } from '@/config/selectors';
-import useSteps from '@/hooks/useSteps';
 import {
   ActivityStatus,
   ActivityStep,
   ActivityType,
-} from '@/interfaces/interactionProcess';
+} from '@/interfaces/activity_state';
+import useActivityState from '@/state/useActivityState';
 
 import useStepTimer from '../common/stepTimer/useStepTimer';
-import { useActivityContext } from '../context/ActivityContext';
 import CommandButton from './CommandButton';
 import WarningNextStepDialog from './WarningNextStepDialog';
 import WarningPreviousStepDialog from './WarningPreviousStepDialog';
@@ -37,18 +36,17 @@ const StepsButton: FC<StepsButtonProps> = ({ enable }) => {
     useState(false);
   const [openWarningNextStepDialog, setOpenWarningNextStepDialog] =
     useState(false);
+
   const {
+    activityState,
     moveToPreviousStep,
     nextStep,
     currentStep,
     nbrOfSteps,
-    stepIndex,
     previousStep,
     moveToNextStep,
-  } = useSteps();
-
-  const { activityState } = useActivityContext();
-  const { status } = activityState.data;
+  } = useActivityState();
+  const { status, stepIndex } = activityState;
 
   const stepHasTimeout = useStepTimer();
   // const promise = useRef<Promise<void>>();

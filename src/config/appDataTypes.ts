@@ -3,7 +3,6 @@ import { AppData, AppDataVisibility } from '@graasp/sdk';
 import { AssistantId, ListAssistantStateData } from '@/interfaces/assistant';
 import { ChatbotResponseData } from '@/interfaces/chatbot';
 import { EvaluationParameters } from '@/interfaces/evaluation';
-import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
 import { PromptsData } from '@/interfaces/prompt';
 import { ResponseData, ResponseEvaluation } from '@/interfaces/response';
 
@@ -18,6 +17,7 @@ export enum AppDataTypes {
   ChatbotResponse = 'chatbot-response',
   Prompts = 'prompts',
   ListAssistantState = 'list-assistant-state',
+  PeerData = 'peer-data',
 }
 
 export type ResponseAppData<T extends ResponseEvaluation = undefined> =
@@ -36,18 +36,18 @@ export type ResponsesSetAppData = AppData & {
   };
 };
 
-export type CurrentStateData = {
-  round?: number;
-  status: ActivityStatus;
-  activity: ActivityType;
-  startTime: Date;
-  stepIndex?: number;
-};
+// export type CurrentStateData = {
+//   round?: number;
+//   status: ActivityStatus;
+//   activity: ActivityType;
+//   startTime: Date;
+//   stepIndex?: number;
+// };
 
-export type CurrentStateAppData = AppData & {
-  type: AppDataTypes.CurrentState;
-  data: CurrentStateData;
-};
+// export type CurrentStateAppData = AppData & {
+//   type: AppDataTypes.CurrentState;
+//   data: CurrentStateData;
+// };
 
 export type RatingData = {
   responseRef: string;

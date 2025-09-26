@@ -47,6 +47,8 @@ jobs:
           VITE_VERSION: ${{ steps.set-version.outputs.VERSION }}
           VITE_WS_HOST: ${{ vars.WS_HOST }}
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          VITE_BACKEND_HOST: ${{ vars.BACKEND_HOST }}
+          VITE_BACKEND_WS_ROUTE: ${{ vars.BACKEND_WS_ROUTE }}
           # add any env variable needed by your app here
         run: yarn build
         shell: bash

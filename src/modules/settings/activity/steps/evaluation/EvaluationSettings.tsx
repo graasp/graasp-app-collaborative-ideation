@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react';
+import { ChangeEvent, FC, JSX, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Box from '@mui/material/Box';
@@ -122,8 +122,20 @@ const EvaluationSettings: FC<EvaluationSettingsProps> = ({
         >
           <FormControlLabel
             value={EvaluationType.Rate}
+            disabled
+            // label={tEvaluationType('RATE')}
+            label={
+              <>
+                {tEvaluationType('RANK')}
+                <Chip
+                  color="info"
+                  sx={{ m: 1 }}
+                  label={t('COMING_SOON')}
+                  variant="outlined"
+                />
+              </>
+            }
             control={<Radio />}
-            label={tEvaluationType('RATE')}
           />
           <FormControlLabel
             value={EvaluationType.Rank}

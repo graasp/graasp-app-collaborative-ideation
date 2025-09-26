@@ -1,14 +1,14 @@
-import { FC, Suspense, SuspenseProps, lazy } from 'react';
+import { FC, JSX, Suspense, SuspenseProps, lazy } from 'react';
 
 import { useLocalContext } from '@graasp/apps-query-client';
 
 import {
   ActivityType,
   ResponseVisibilityMode,
-} from '@/interfaces/interactionProcess';
+} from '@/interfaces/activity_state';
+import useActivityState from '@/state/useActivityState';
 
 import Loader from '../common/Loader';
-import { useActivityContext } from '../context/ActivityContext';
 import { useSettings } from '../context/SettingsContext';
 import OrchestrationBar from '../orchestration/OrchestrationBar';
 
@@ -61,18 +61,18 @@ const getActivityComponent = (activity: ActivityType): JSX.Element => {
 };
 
 const Activity: FC = () => {
-  const { activityState } = useActivityContext();
+  const { currentStep } = useActivityState();
   const { accountId } = useLocalContext();
   const { orchestrator, activity: activitySettings } = useSettings();
   const { mode } = activitySettings;
   const showOrchestrationBar =
     orchestrator.id === accountId || mode === ResponseVisibilityMode.Individual;
 
-  const { activity } = activityState.data;
+  const { type } = currentStep || { type: ActivityType.Collection };
   return (
     <>
       {showOrchestrationBar && <OrchestrationBar />}
-      {getActivityComponent(activity)}
+      {getActivityComponent(type)}
     </>
   );
 };

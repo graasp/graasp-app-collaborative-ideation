@@ -1,35 +1,16 @@
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 
 import Stack from '@mui/material/Stack';
 
-import { sortResponsesByNumberOfVote } from '@/hooks/utils/evaluation';
-import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
-import Response from '@/modules/common/response/Response';
+import { useThreadsContext } from '@/state/ThreadsContext';
 
-import ExportResponsesButton from '../common/ExportRepsonsesButton';
-import ResponsesGridContainer, {
-  ResponseGridItem,
-} from '../common/ResponsesGrid';
-import { useActivityContext } from '../context/ActivityContext';
-import { useSettings } from '../context/SettingsContext';
-import { useVoteContext } from '../context/VoteContext';
+import ThreadsGridContainer, { ThreadsGridItem } from '../common/ThreadsGrid';
+import Thread from '../common/response/Thread';
 
 type VoteResultsProps = unknown;
 
 const VoteResults: FC<VoteResultsProps> = () => {
-  const { allResponses, availableResponses } = useActivityContext();
-  const { allVotes } = useVoteContext();
-  const { activity } = useSettings();
-  const { mode } = activity;
-  const sortedResponses = useMemo(() => {
-    let responses;
-    if (mode === ResponseVisibilityMode.Individual) {
-      responses = availableResponses;
-    } else {
-      responses = allResponses;
-    }
-    return sortResponsesByNumberOfVote(responses, allVotes);
-  }, [allResponses, allVotes, availableResponses, mode]);
+  const { allThreads } = useThreadsContext();
   return (
     <Stack
       direction="column"
@@ -37,22 +18,14 @@ const VoteResults: FC<VoteResultsProps> = () => {
       alignItems="center"
       spacing={2}
     >
-      <ResponsesGridContainer>
-        {sortedResponses ? (
-          sortedResponses.map((response) => (
-            <ResponseGridItem key={response.id}>
-              <Response
-                response={response}
-                nbrOfVotes={response.data.evaluation?.votes}
-              />
-            </ResponseGridItem>
-          ))
-        ) : (
-          // TODO: translate and improve this message
-          <p>Nothing to show.</p>
-        )}
-      </ResponsesGridContainer>
-      <ExportResponsesButton responses={sortedResponses} />
+      <ThreadsGridContainer>
+        {allThreads.map((thread) => (
+          <ThreadsGridItem key={thread.id}>
+            <Thread thread={thread} />
+          </ThreadsGridItem>
+        ))}
+      </ThreadsGridContainer>
+      {/* <ExportResponsesButton responses={sortedResponses} /> */}
     </Stack>
   );
 };

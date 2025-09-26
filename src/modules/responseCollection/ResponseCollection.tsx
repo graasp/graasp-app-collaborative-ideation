@@ -6,29 +6,28 @@ import Container from '@mui/material/Container';
 import Snackbar from '@mui/material/Snackbar';
 import Stack from '@mui/material/Stack';
 
-import { ResponseAppData } from '@/config/appDataTypes';
 import { RESPONSE_COLLECTION_VIEW_CY } from '@/config/selectors';
-import useActions from '@/hooks/useActions';
-import useSteps from '@/hooks/useSteps';
-import { IdeationPhases } from '@/interfaces/interactionProcess';
+import { IdeationPhases } from '@/interfaces/activity_state';
 import Instructions from '@/modules/common/Instructions';
 import Pausable from '@/modules/common/Pausable';
+import { useThreadsContext } from '@/state/ThreadsContext';
+import useActivityState from '@/state/useActivityState';
 
+import RoomIndicator from '../common/RoomIndicator';
 import Round from '../common/Round';
 import Timer from '../common/Timer';
-import { useActivityContext } from '../context/ActivityContext';
 import IdeaChoose from './ResponseChoose';
 import IdeaInput from './ResponseInput';
 
 const ResponseCollection: FC = () => {
   const { t } = useTranslation('translations');
-  const { round, activityState, availableResponses } = useActivityContext();
-  const { currentStep } = useSteps();
-  const { postChooseResponseAction } = useActions();
-  const [chosenIdea, setChosenIdea] = useState<ResponseAppData>();
+  const { round, activityState, currentStep } = useActivityState();
+
+  const { availableResponses } = useThreadsContext();
+  const [chosenThread, setChosenThread] = useState<string>();
   const [phase, setPhase] = useState<number>(IdeationPhases.Choose);
 
-  const { startTime } = activityState.data;
+  const { startTime } = activityState;
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const handleCloseSnackbar = (
@@ -44,15 +43,16 @@ const ResponseCollection: FC = () => {
 
   useEffect(() => {
     if (phase === IdeationPhases.Choose) {
-      setChosenIdea(undefined);
+      setChosenThread(undefined);
     }
   }, [phase]);
 
   const handleChoose = (id?: string): void => {
-    const idea = availableResponses?.find((i) => i.id === id);
-    if (typeof idea !== 'undefined') {
-      setChosenIdea(idea);
-      postChooseResponseAction(idea);
+    const threadId = availableResponses?.find((i) => i.id === id)?.id;
+    if (typeof threadId !== 'undefined') {
+      setChosenThread(threadId);
+      // TODO: Implement postChooseThreadAction
+      // postChooseThreadAction(threadId);
     }
     setPhase(IdeationPhases.Input);
   };
@@ -66,14 +66,14 @@ const ResponseCollection: FC = () => {
   const renderPhaseOfIdeation = (): React.JSX.Element | null => {
     if (phase === IdeationPhases.Choose) {
       return (
-        <IdeaChoose responses={availableResponses} onChoose={handleChoose} />
+        <IdeaChoose threads={availableResponses} onChoose={handleChoose} />
       );
     }
     return (
       <IdeaInput
         currentRound={round}
-        parent={chosenIdea}
         onSubmitted={handleSubmission}
+        threadId={chosenThread}
         onCancel={() => setPhase(IdeationPhases.Choose)}
       />
     );
@@ -96,9 +96,10 @@ const ResponseCollection: FC = () => {
             width="100%"
           >
             <Round round={round} />
-            {currentStep?.time && (
+            {currentStep?.time && startTime && (
               <Timer startTime={startTime} time={currentStep.time} />
             )}
+            <RoomIndicator />
           </Stack>
           <Instructions />
           {renderPhaseOfIdeation()}

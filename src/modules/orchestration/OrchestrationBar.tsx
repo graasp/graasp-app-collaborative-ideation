@@ -8,10 +8,9 @@ import Blue from '@mui/material/colors/blue';
 import useTheme from '@mui/material/styles/useTheme';
 
 import { ORCHESTRATION_BAR_CY } from '@/config/selectors';
-import useSteps from '@/hooks/useSteps';
-import { ActivityStatus } from '@/interfaces/interactionProcess';
+import { ActivityStatus } from '@/interfaces/activity_state';
+import useActivityState from '@/state/useActivityState';
 
-import { useActivityContext } from '../context/ActivityContext';
 import CommandButton from './CommandButton';
 import StepsButton from './StepsButton';
 
@@ -23,9 +22,9 @@ const OrchestrationBar: FC<OrchestrationBarProps> = () => {
   const { t } = useTranslation('translations', {
     keyPrefix: 'ORCHESTRATION_BAR',
   });
-  const { activityState, pauseActivity, playActivity } = useActivityContext();
-  const { currentStep, nextStep } = useSteps();
-  const { status } = activityState.data;
+  const { activityState, pauseActivity, playActivity, currentStep, nextStep } =
+    useActivityState();
+  const { status } = activityState;
 
   const theme = useTheme();
 

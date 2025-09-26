@@ -6,7 +6,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-import { ActivityStatus } from '@/interfaces/interactionProcess';
+import { ActivityStatus } from '@/interfaces/activity_state';
 
 interface WaitingScreenProps {
   state: ActivityStatus;
@@ -27,7 +27,7 @@ const WaitingScreen: FC<WaitingScreenProps> = ({ state }) => {
   }
   return (
     <Stack direction="column" justifyItems="center" spacing={4}>
-      <Typography>
+      <Typography variant="body1">
         {t('MAIN_INSTRUCTION')}
         <ul>
           <li>{t('STEP1')}</li>

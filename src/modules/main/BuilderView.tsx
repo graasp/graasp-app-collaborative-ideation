@@ -1,4 +1,4 @@
-import { Suspense, SyntheticEvent, lazy, useMemo, useState } from 'react';
+import { JSX, Suspense, SyntheticEvent, lazy, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Paper, Stack } from '@mui/material';

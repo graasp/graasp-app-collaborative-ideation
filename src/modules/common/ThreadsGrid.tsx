@@ -1,18 +1,18 @@
-import { FC, Key } from 'react';
+import { FC, JSX, Key } from 'react';
 
 import Grid from '@mui/material/Grid2';
 
-export const ResponseGridItem: FC<{
+export const ThreadsGridItem: FC<{
   children: JSX.Element;
   key: Key;
   grow?: boolean;
 }> = ({ children, key, grow = false }) => (
-  <Grid key={key} size={grow ? 'grow' : { xl: 4, sm: 6, xs: 12 }} width="100%">
+  <Grid key={key} size={grow ? 'grow' : { xl: 6, sm: 12, xs: 12 }} width="100%">
     {children}
   </Grid>
 );
 
-const ResponsesGridContainer: FC<{ children: JSX.Element[] | JSX.Element }> = ({
+const ThreadsGridContainer: FC<{ children: JSX.Element[] | JSX.Element }> = ({
   children,
 }) => (
   <Grid container spacing={2} wrap="wrap" width="100%">
@@ -20,4 +20,4 @@ const ResponsesGridContainer: FC<{ children: JSX.Element[] | JSX.Element }> = ({
   </Grid>
 );
 
-export default ResponsesGridContainer;
+export default ThreadsGridContainer;

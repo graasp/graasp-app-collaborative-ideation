@@ -3,17 +3,36 @@ import { AppSetting } from '@graasp/sdk';
 import cloneDeep from 'lodash.clonedeep';
 
 import { AllSettingsType } from '@/config/appSettingsType';
-import { AssistantType } from '@/interfaces/assistant';
-import { EvaluationType } from '@/interfaces/evaluation';
 import {
   ActivityType,
   ResponseVisibilityMode,
-} from '@/interfaces/interactionProcess';
+} from '@/interfaces/activity_state';
+import { AssistantType } from '@/interfaces/assistant';
+import { EvaluationType } from '@/interfaces/evaluation';
 
 import { MEMBERS } from './members';
 import { MOCK_SERVER_DISCRIMINATED_ITEM } from './mockItem';
 
 let settingCounter = 0;
+
+// /**
+//  * Reads the content of a text file relative to the project root.
+//  * @param relativePath Path to the file, relative to the project root.
+//  * @returns The content of the file as a string.
+//  */
+// function readTextFile(relativePath: string): string {
+//   // Resolve absolute path relative to project root (process.cwd())
+//   const absolutePath = path.resolve(process.cwd(), relativePath);
+
+//   try {
+//     const content = cy.fixture(absolutePath, 'utf-8');
+//     return content;
+//   } catch (err) {
+//     throw new Error(
+//       `Failed to read file at ${absolutePath}: ${(err as Error).message}`,
+//     );
+//   }
+// }
 
 const newSettingFactory = (
   settingName: string,
@@ -61,7 +80,7 @@ export const ALL_SETTINGS_OBJECT: AllSettingsType = {
     id: MEMBERS.ANNA.id,
   },
   activity: {
-    mode: ResponseVisibilityMode.Open,
+    mode: ResponseVisibilityMode.Sync,
     numberOfResponsesPerSet: 3,
     numberOfBotResponsesPerSet: 1,
     exclusiveResponseDistribution: true,
@@ -92,6 +111,11 @@ export const ALL_SETTINGS_OBJECT: AllSettingsType = {
   prompts: {
     selectedSet: 'test',
     maxNumberOfQueries: 5,
+  },
+  feedback: {
+    enabled: false,
+    systemPrompt: 'Whatever',
+    userPrompt: 'Whatever',
   },
 };
 

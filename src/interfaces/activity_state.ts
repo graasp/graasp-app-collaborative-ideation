@@ -31,6 +31,12 @@ export type ActivityStep = {
   evaluationParameters?: EvaluationParameters;
 };
 
+export type ActivityState = {
+  status: ActivityStatus;
+  startTime: Date;
+  stepIndex?: number;
+};
+
 export type Phase = {
   phase: number;
   label: string;
@@ -47,8 +53,7 @@ export const ChoosePhase: Phase = {
 };
 
 export enum ResponseVisibilityMode {
+  Sync = 'sync',
+  Async = 'async',
   Individual = 'individual',
-  PartiallyBlind = 'partially-blind',
-  Open = 'open',
-  OpenLive = 'open-live',
 }

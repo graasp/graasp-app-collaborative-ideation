@@ -17,7 +17,7 @@ import { ActivitySetting } from '@/config/appSettingsType';
 import {
   ActivityStep,
   ResponseVisibilityMode,
-} from '@/interfaces/interactionProcess';
+} from '@/interfaces/activity_state';
 import { useSettings } from '@/modules/context/SettingsContext';
 
 import SettingsSection from '../../common/SettingsSection';
@@ -41,8 +41,6 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
   const {
     mode,
     exclusiveResponseDistribution,
-    numberOfBotResponsesPerSet,
-    numberOfResponsesPerSet,
     numberOfParticipantsResponsesTriggeringResponsesGeneration,
     reformulateResponses,
     steps,
@@ -69,22 +67,6 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
     });
   };
 
-  const handleNbrRespSetChange = (newVal: string): void => {
-    const newValNbr = parseInt(newVal, 10);
-    onChange({
-      ...activity,
-      numberOfResponsesPerSet: newValNbr,
-    });
-  };
-
-  const handleNbrBotRespSetChange = (newVal: string): void => {
-    const newValNbr = parseInt(newVal, 10);
-    onChange({
-      ...activity,
-      numberOfBotResponsesPerSet: newValNbr,
-    });
-  };
-
   const handleNumberOfParticipantsResponsesTriggeringResponsesGenerationChange =
     (newVal: string): void => {
       const newValNbr = parseInt(newVal, 10);
@@ -108,7 +90,7 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
           <FormLabel>{t('MODE_LABEL')}</FormLabel>
           <RadioGroup
             aria-labelledby="ideation-mode-radio-button"
-            defaultValue={ResponseVisibilityMode.Open}
+            defaultValue={ResponseVisibilityMode.Sync}
             value={mode}
             name="radio-buttons-group"
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -120,24 +102,20 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
           >
             {/* TODO: translate */}
             <FormControlLabel
-              value={ResponseVisibilityMode.OpenLive}
+              value={ResponseVisibilityMode.Sync}
               control={<Radio />}
-              label="Open live (brainstorming)"
+              label="Synchronous"
             />
             <FormControlLabel
-              value={ResponseVisibilityMode.Open}
+              value={ResponseVisibilityMode.Async}
               control={<Radio />}
-              label="Open (brainstorming, asynchronous)"
-            />
-            <FormControlLabel
-              value={ResponseVisibilityMode.PartiallyBlind}
-              control={<Radio />}
-              label="Partially blind (brainwriting)"
+              label="Asynchronous"
             />
             <FormControlLabel
               value={ResponseVisibilityMode.Individual}
               control={<Radio />}
               label="Individual"
+              disabled
             />
           </RadioGroup>
         </FormControl>
@@ -171,32 +149,6 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
             <FormControlLabel
               control={
                 <Input
-                  value={numberOfResponsesPerSet}
-                  onChange={(e) => handleNbrRespSetChange(e.target.value)}
-                />
-              }
-              disabled={mode !== ResponseVisibilityMode.PartiallyBlind}
-              labelPlacement="top"
-              label={t('NUMBER_RESP_SET_LABEL')}
-            />
-          </FormControl>
-          <FormControl>
-            <FormControlLabel
-              control={
-                <Input
-                  value={numberOfBotResponsesPerSet}
-                  onChange={(e) => handleNbrBotRespSetChange(e.target.value)}
-                />
-              }
-              disabled={mode !== ResponseVisibilityMode.PartiallyBlind}
-              labelPlacement="top"
-              label={t('NUMBER_BOT_RESP_SET_LABEL')}
-            />
-          </FormControl>
-          <FormControl>
-            <FormControlLabel
-              control={
-                <Input
                   value={
                     numberOfParticipantsResponsesTriggeringResponsesGeneration
                   }
@@ -207,7 +159,7 @@ const ActivitySettings: FC<ActivitySettingsProps> = ({
                   }
                 />
               }
-              disabled={mode !== ResponseVisibilityMode.OpenLive}
+              disabled={mode !== ResponseVisibilityMode.Sync}
               labelPlacement="top"
               label={t(
                 'NUMBER_OF_PARTICIPANTS_RESPONSES_TRIGGERING_RESPONSES_GENERATION',

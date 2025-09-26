@@ -17,20 +17,17 @@ import {
   SubmitNewResponseAction,
   VoteForAction,
 } from '@/config/appActionsTypes';
-import {
-  CurrentStateData,
-  ResponseAppData,
-  VoteAppData,
-} from '@/config/appDataTypes';
+import { VoteAppData } from '@/config/appDataTypes';
 import { mutations } from '@/config/queryClient';
-import { ActivityStep } from '@/interfaces/interactionProcess';
+import { ActivityState, ActivityStep } from '@/interfaces/activity_state';
+import { ResponseData } from '@/interfaces/response';
 
 interface UseActionsValues {
-  postSubmitNewResponseAction: (response: ResponseAppData) => void;
-  postDeleteResponseAction: (id: ResponseAppData['id']) => void;
-  postChooseResponseAction: (response: ResponseAppData) => void;
+  postSubmitNewResponseAction: (response: ResponseData) => void;
+  postDeleteResponseAction: (id: ResponseData['id']) => void;
+  postChooseResponseAction: (response: ResponseData<undefined>) => void;
   postOpenAppAction: (
-    currentState?: CurrentStateData,
+    activityState?: ActivityState,
     context?: LocalContext,
   ) => void;
   // postEvaluateResponseAction: <T>(evaluation: RatingsAppData<T>) => void;
@@ -46,14 +43,10 @@ interface UseActionsValues {
 const useActions = (): UseActionsValues => {
   const { mutate: postAppAction } = mutations.usePostAppAction();
   const postSubmitNewResponseAction = useMemo(
-    () => (response: ResponseAppData) => {
+    () => (response: ResponseData) => {
       const action: SubmitNewResponseAction = {
         type: AppActionTypes.SubmitNewResponse,
-        data: {
-          id: response.id,
-          type: response.type,
-          data: response.data,
-        },
+        data: response,
       };
       postAppAction(action);
     },
@@ -61,7 +54,7 @@ const useActions = (): UseActionsValues => {
   );
 
   const postDeleteResponseAction = useMemo(
-    () => (id: ResponseAppData['id']) => {
+    () => (id: ResponseData['id']) => {
       const action: DeleteResponseAction = {
         type: AppActionTypes.DeleteResponse,
         data: {
@@ -74,7 +67,7 @@ const useActions = (): UseActionsValues => {
   );
 
   const postChooseResponseAction = useMemo(
-    () => (response: ResponseAppData) => {
+    () => (response: ResponseData) => {
       const action: ChooseResponseAction = {
         type: AppActionTypes.ChooseResponse,
         data: response,
@@ -85,10 +78,10 @@ const useActions = (): UseActionsValues => {
   );
 
   const postOpenAppAction = useMemo(
-    () => (currentState?: CurrentStateData, context?: LocalContext) => {
+    () => (activityState?: ActivityState, context?: LocalContext) => {
       const action: OpenAppAction = {
         type: AppActionTypes.OpenApp,
-        data: { currentState, context },
+        data: { activityState, context },
       };
       postAppAction(action);
     },

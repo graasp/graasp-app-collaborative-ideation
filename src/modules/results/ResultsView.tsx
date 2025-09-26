@@ -1,9 +1,11 @@
+import { JSX } from 'react';
+
 import Container from '@mui/material/Container';
 
 import { DEFAULT_EVALUATION_TYPE } from '@/config/constants';
 import { RESPONSE_RESULTS_VIEW_CY } from '@/config/selectors';
-import useSteps from '@/hooks/useSteps';
 import { EvaluationType } from '@/interfaces/evaluation';
+import useActivityState from '@/state/useActivityState';
 
 import Instructions from '../common/Instructions';
 import Pausable from '../common/Pausable';
@@ -17,7 +19,7 @@ type ResultsViewProps = unknown;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ResultsView = (props: ResultsViewProps): JSX.Element => {
-  const { currentStep, previousStep } = useSteps();
+  const { currentStep, previousStep } = useActivityState();
   const resultsType = currentStep?.resultsType ?? DEFAULT_EVALUATION_TYPE;
   /**
    * With this mechanism, bear in mind that the configuration of

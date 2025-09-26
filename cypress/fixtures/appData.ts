@@ -1,7 +1,7 @@
 import { AppData, AppDataVisibility, Member } from '@graasp/sdk';
 
 import { AppDataTypes } from '@/config/appDataTypes';
-import { ActivityStatus, ActivityType } from '@/interfaces/interactionProcess';
+import { ActivityStatus, ActivityType } from '@/interfaces/activity_state';
 import { ResponseData } from '@/interfaces/response';
 
 import { MEMBERS } from './members';
@@ -32,7 +32,7 @@ const appDataFactory = (
 };
 
 const responseFactory = (
-  responseData: ResponseData,
+  responseData: Partial<ResponseData>,
   account: Member,
 ): AppData =>
   appDataFactory(

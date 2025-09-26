@@ -17,5 +17,8 @@
     "USER_1_DETAILS": "Details about the problem:\n${{ details }}\n\n",
     "ASSISTANT_1": "Provide me with the idea you want me to reformulate.",
     "USER_2": "Reformulate this response:\n {{ response }}"
+  },
+  "GET_FEEDBACK": {
+    "SYSTEM": "Please provide feedback on the following response:\n {{ response }}"
   }
 }

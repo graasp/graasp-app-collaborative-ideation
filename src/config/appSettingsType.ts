@@ -3,15 +3,15 @@ import { Member } from '@graasp/sdk';
 import { t } from 'i18next';
 
 import {
+  ActivityStep,
+  ActivityType,
+  ResponseVisibilityMode,
+} from '@/interfaces/activity_state';
+import {
   AssistantConfiguration,
   AssistantPersona,
   PromptMode,
 } from '@/interfaces/assistant';
-import {
-  ActivityStep,
-  ActivityType,
-  ResponseVisibilityMode,
-} from '@/interfaces/interactionProcess';
 
 type InstructionFormatType = 'html' | 'markdown' | 'plain-text';
 
@@ -57,12 +57,19 @@ export type PromptsSetting = {
 
 export type NotParticipatingSetting = { ids: Member['id'][] };
 
+export type FeedbackSettings = {
+  enabled: boolean;
+  systemPrompt?: string;
+  userPrompt?: string;
+};
+
 export type AllSettingsType = {
   instructions: InstructionsSetting;
   orchestrator: OrchestratorSetting;
   activity: ActivitySetting;
   notParticipating: NotParticipatingSetting;
   assistants: AssistantsSetting;
+  feedback: FeedbackSettings;
   prompts: PromptsSetting;
 };
 
@@ -92,7 +99,7 @@ export const defaultSettingsValues: AllSettingsType = {
     id: '',
   },
   activity: {
-    mode: ResponseVisibilityMode.Open,
+    mode: ResponseVisibilityMode.Sync,
     numberOfResponsesPerSet: 3,
     numberOfBotResponsesPerSet: 1,
     numberOfParticipantsResponsesTriggeringResponsesGeneration: 1,
@@ -130,6 +137,11 @@ export const defaultSettingsValues: AllSettingsType = {
     assistants: [],
     promptMode: PromptMode.Problem,
     includeDetails: false,
+  },
+  feedback: {
+    enabled: false,
+    systemPrompt: undefined,
+    userPrompt: undefined,
   },
   prompts: {
     selectedSet: undefined,

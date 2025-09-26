@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { JSX, useEffect, useState } from 'react';
 
 import { useLocalContext } from '@graasp/apps-query-client';
 import { Context } from '@graasp/sdk';
@@ -11,9 +11,10 @@ import { DEFAULT_LANG } from '@/config/constants';
 import { SENTRY_ENV } from '@/config/env';
 import { hooks } from '@/config/queryClient';
 import useActions from '@/hooks/useActions';
+import { LoroProvider } from '@/state/LoroContext';
+import { ThreadsProvider } from '@/state/ThreadsContext';
 
 import i18n from '../../config/i18n';
-import { ActivityProvider } from '../context/ActivityContext';
 import { AppDataProvider } from '../context/AppDataContext';
 import { MembersProvider } from '../context/MembersContext';
 import { SettingsProvider } from '../context/SettingsContext';
@@ -83,7 +84,9 @@ const App = (): JSX.Element => {
     <MembersProvider>
       <SettingsProvider>
         <AppDataProvider>
-          <ActivityProvider>{renderContent()}</ActivityProvider>
+          <LoroProvider>
+            <ThreadsProvider>{renderContent()}</ThreadsProvider>
+          </LoroProvider>
         </AppDataProvider>
       </SettingsProvider>
     </MembersProvider>

@@ -1,11 +1,11 @@
 import { Data } from '@graasp/apps-query-client';
 import { AppAction, AppData, LocalContext } from '@graasp/sdk';
 
-import { ActivityStep } from '@/interfaces/interactionProcess';
+import { ActivityState, ActivityStep } from '@/interfaces/activity_state';
 import { Prompt } from '@/interfaces/prompt';
 import { ResponseData } from '@/interfaces/response';
 
-import { CurrentStateData, ResponseAppData, VoteAppData } from './appDataTypes';
+import { VoteAppData } from './appDataTypes';
 
 export enum AppActionTypes {
   SubmitNewResponse = 'submit-new-response',
@@ -29,7 +29,7 @@ type AppDataRef<T extends Data> = Pick<AppData<T>, 'id' | 'type' | 'data'> &
 
 export type SubmitNewResponseAction = Pick<AppAction, 'type' | 'data'> & {
   type: AppActionTypes.SubmitNewResponse;
-  data: AppDataRef<ResponseData>;
+  data: ResponseData;
 };
 
 export type DeleteResponseAction = Pick<AppAction, 'type' | 'data'> & {
@@ -39,13 +39,13 @@ export type DeleteResponseAction = Pick<AppAction, 'type' | 'data'> & {
 
 export type ChooseResponseAction = Pick<AppAction, 'type' | 'data'> & {
   type: AppActionTypes.ChooseResponse;
-  data: ResponseAppData;
+  data: ResponseData;
 };
 
 export type OpenAppAction = Pick<AppAction, 'type' | 'data'> & {
   type: AppActionTypes.OpenApp;
   data: {
-    currentState?: CurrentStateData;
+    activityState?: ActivityState;
     context?: LocalContext;
   };
 };

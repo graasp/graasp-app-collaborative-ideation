@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, JSX, useState } from 'react';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -9,7 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
-import { ActivityStep, ActivityType } from '@/interfaces/interactionProcess';
+import { ActivityStep, ActivityType } from '@/interfaces/activity_state';
 
 import StepEditDialog from './StepEditDialog';
 

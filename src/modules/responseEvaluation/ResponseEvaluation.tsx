@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC, JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Alert from '@mui/material/Alert';
@@ -6,37 +6,25 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 
 import { RESPONSE_EVALUATION_VIEW_CY } from '@/config/selectors';
-import useSteps from '@/hooks/useSteps';
 import { EvaluationType } from '@/interfaces/evaluation';
-import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
 import Pausable from '@/modules/common/Pausable';
-import Response from '@/modules/common/response/Response';
+import { useThreadsContext } from '@/state/ThreadsContext';
+import useActivityState from '@/state/useActivityState';
 
 import Instructions from '../common/Instructions';
-import ResponsesGridContainer, {
-  ResponseGridItem,
-} from '../common/ResponsesGrid';
-import { useActivityContext } from '../context/ActivityContext';
+import ThreadsGridContainer, { ThreadsGridItem } from '../common/ThreadsGrid';
+import Thread from '../common/response/Thread';
 import { useAppDataContext } from '../context/AppDataContext';
 import { RatingsProvider } from '../context/RatingsContext';
-import { useSettings } from '../context/SettingsContext';
 import { VoteProvider } from '../context/VoteContext';
 import VoteToolbar from './VoteToolbar';
 
 const ResponseEvaluation: FC = () => {
   const { t } = useTranslation();
-  const { allResponses, availableResponses } = useActivityContext();
-  const { activity } = useSettings();
-  const { mode } = activity;
-  const { currentStep } = useSteps();
+  const { allThreads } = useThreadsContext();
+  const { currentStep } = useActivityState();
   const evaluationType = currentStep?.evaluationType;
   const evaluationParameters = currentStep?.evaluationParameters ?? {};
-  const responses = useMemo(() => {
-    if (mode === ResponseVisibilityMode.Individual) {
-      return availableResponses;
-    }
-    return allResponses;
-  }, [allResponses, availableResponses, mode]);
 
   const { invalidateAppData } = useAppDataContext();
 
@@ -86,19 +74,15 @@ const ResponseEvaluation: FC = () => {
           <>
             <Instructions />
             {renderEvaluationToolbar()}
-            <ResponsesGridContainer>
-              {responses
-                ? responses.map((response) => (
-                    <ResponseGridItem key={response.id}>
-                      <Response
-                        key={response.id}
-                        response={response}
-                        evaluationType={evaluationType}
-                      />
-                    </ResponseGridItem>
+            <ThreadsGridContainer>
+              {allThreads
+                ? allThreads.map((thread) => (
+                    <ThreadsGridItem key={thread.id}>
+                      <Thread key={thread.id} thread={thread} />
+                    </ThreadsGridItem>
                   ))
                 : renderPlaceHolderForNoResponses()}
-            </ResponsesGridContainer>
+            </ThreadsGridContainer>
           </>,
         )}
       </Container>

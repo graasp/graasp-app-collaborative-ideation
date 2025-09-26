@@ -16,6 +16,7 @@ const ALL_SETTING_NAMES = [
   'activity',
   'notParticipating',
   'assistants',
+  'feedback',
   'prompts',
 ] as const;
 

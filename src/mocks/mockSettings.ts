@@ -4,7 +4,7 @@ import { AllSettingsType } from '@/config/appSettingsType';
 import {
   ActivityType,
   ResponseVisibilityMode,
-} from '@/interfaces/interactionProcess';
+} from '@/interfaces/activity_state';
 
 import { mockItem } from './mockItem';
 import { mockMembers } from './mockMembers';
@@ -57,7 +57,7 @@ const ALL_SETTINGS_OBJECT: AllSettingsType = {
     id: mockMembers[0].id,
   },
   activity: {
-    mode: ResponseVisibilityMode.Open,
+    mode: ResponseVisibilityMode.Async,
     numberOfResponsesPerSet: 3,
     numberOfBotResponsesPerSet: 1,
     exclusiveResponseDistribution: true,
@@ -84,6 +84,13 @@ const ALL_SETTINGS_OBJECT: AllSettingsType = {
   notParticipating: { ids: [] },
   assistants: {
     assistants: [],
+  },
+  feedback: {
+    enabled: true,
+    systemPrompt:
+      'You are an expert assistant helping users improve their ideas. Provide constructive feedback that highlights strengths and suggests areas for improvement. Be concise and encouraging.',
+    userPrompt:
+      'Please provide feedback on the following idea:\n\n"{{response}}"\n\nAuthor: {{author}}',
   },
   prompts: {
     selectedSet: 'test',

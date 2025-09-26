@@ -7,6 +7,8 @@ import { resolve } from 'path';
 import { UserConfigExport, defineConfig, loadEnv } from 'vite';
 import checker from 'vite-plugin-checker';
 import istanbul from 'vite-plugin-istanbul';
+import wasm from "vite-plugin-wasm";
+import topLevelAwait from "vite-plugin-top-level-await";
 
 const getHttpsOptions = (): { key: Buffer; cert: Buffer } | undefined => {
   try {
@@ -37,7 +39,8 @@ export default ({ mode }: { mode: string }): UserConfigExport => {
       watch: {
         ignored: ['**/coverage/**', '**/cypress/downloads/**'],
       },
-      https: mode === 'test' ? undefined : getHttpsOptions(),
+      https: (mode === 'test') || (mode === 'production')
+       ? undefined : getHttpsOptions(),
     },
     preview: {
       port: parseInt(process.env.VITE_PORT || '3333', 10),
@@ -67,11 +70,12 @@ export default ({ mode }: { mode: string }): UserConfigExport => {
         checkProd: true,
       }),
       // Put the Sentry vite plugin after all other plugins
-      sentryVitePlugin({
-        authToken: process.env.SENTRY_AUTH_TOKEN,
-        org: 'graasp',
-        project: 'graasp-app-collaborative-ideation',
-      }),
+    sentryVitePlugin({
+      authToken: process.env.SENTRY_AUTH_TOKEN,
+      org: "graasp",
+      project: "graasp-app-collaborative-ideation",
+    }),
+    wasm(), topLevelAwait()
     ],
     resolve: {
       alias: {

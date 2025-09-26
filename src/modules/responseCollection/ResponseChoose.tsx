@@ -1,33 +1,29 @@
-import { FC, useMemo, useRef, useState } from 'react';
+import { FC, JSX, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 
-import { ResponseAppData } from '@/config/appDataTypes';
-import { HIGHLIGHT_RESPONSE_TIME_MS } from '@/config/constants';
 import { PROPOSE_NEW_RESPONSE_BTN_CY } from '@/config/selectors';
-import Response from '@/modules/common/response/Response';
-import { useAppDataContext } from '@/modules/context/AppDataContext';
+import { Threads } from '@/interfaces/threads';
+import Thread from '@/modules/common/response/Thread';
 
-import ResponsesGridContainer, {
-  ResponseGridItem,
-} from '../common/ResponsesGrid';
+import Loader from '../common/Loader';
+import ThreadsGridContainer, { ThreadsGridItem } from '../common/ThreadsGrid';
 import { useSettings } from '../context/SettingsContext';
 
 interface ResponseChooseProps {
-  responses: ResponseAppData[];
+  threads: Threads;
   onChoose: (id?: string) => void;
 }
 
-const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
+const ResponseChoose: FC<ResponseChooseProps> = ({ threads, onChoose }) => {
   const { t } = useTranslation();
 
-  const [highlightId, setHighlightId] = useState<string>();
-  const highlightTimeout = useRef<NodeJS.Timeout>();
+  // const [highlightId, setHighlightId] = useState<string>();
+  // const highlightTimeout = useRef<NodeJS.Timeout>(undefined);
 
-  const { invalidateAppData, deleteAppData } = useAppDataContext();
   const { instructions } = useSettings();
   const chooseInstructions = useMemo(
     () =>
@@ -41,16 +37,7 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
     onChoose(id);
   };
 
-  const renderPlaceHolderForNoIdeas = (): JSX.Element => (
-    <>
-      <Alert sx={{ m: 1 }} severity="info">
-        {t('NO_IDEAS_TO_SHOW_TEXT')}
-      </Alert>
-      <Button onClick={() => invalidateAppData()}>
-        {t('CHECK_FOR_NEW_RESPONSES')}
-      </Button>
-    </>
-  );
+  const renderPlaceHolderForNoIdeas = (): JSX.Element => <Loader />;
 
   return (
     <>
@@ -64,30 +51,29 @@ const ResponseChoose: FC<ResponseChooseProps> = ({ responses, onChoose }) => {
       >
         {t('PROPOSE_NEW_RESPONSE')}
       </Button>
-      <ResponsesGridContainer>
-        {responses
-          ? responses.map((response) => (
-              <ResponseGridItem key={response.id}>
-                <Response
-                  key={response.id}
-                  response={response}
+      <ThreadsGridContainer>
+        {threads
+          ? threads.map((thread) => (
+              <ThreadsGridItem key={thread.id}>
+                <Thread
+                  key={thread.id}
+                  thread={thread}
                   onSelect={handleChoose}
-                  onDelete={() => deleteAppData({ id: response.id })}
-                  highlight={highlightId === response.id}
-                  onParentIdeaClick={(id: string) => {
-                    setHighlightId(id);
-                    highlightTimeout.current = setTimeout(() => {
-                      setHighlightId(undefined);
-                      if (highlightTimeout?.current) {
-                        clearTimeout(highlightTimeout.current);
-                      }
-                    }, HIGHLIGHT_RESPONSE_TIME_MS);
-                  }}
+                  // highlight={highlightId === thread.id}
+                  // onParentIdeaClick={(id: string) => {
+                  //   setHighlightId(id);
+                  //   highlightTimeout.current = setTimeout(() => {
+                  //     setHighlightId(undefined);
+                  //     if (highlightTimeout?.current) {
+                  //       clearTimeout(highlightTimeout.current);
+                  //     }
+                  //   }, HIGHLIGHT_RESPONSE_TIME_MS);
+                  // }}
                 />
-              </ResponseGridItem>
+              </ThreadsGridItem>
             ))
           : renderPlaceHolderForNoIdeas()}
-      </ResponsesGridContainer>
+      </ThreadsGridContainer>
     </>
   );
 };

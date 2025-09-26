@@ -1,3 +1,5 @@
+import { JSX } from 'react';
+
 import { ANALYTICS_VIEW_CY } from '@/config/selectors';
 
 const AnalyticsView = (): JSX.Element => (

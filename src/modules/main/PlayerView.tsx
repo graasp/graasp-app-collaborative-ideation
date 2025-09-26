@@ -1,3 +1,5 @@
+import { JSX } from 'react';
+
 import { PLAYER_VIEW_CY } from '@/config/selectors';
 
 import Activity from './Activity';

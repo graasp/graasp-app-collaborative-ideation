@@ -1,101 +1,117 @@
-import { FC, useMemo } from 'react';
+import { FC, JSX, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import DeleteIcon from '@mui/icons-material/Delete';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Link from '@mui/material/Link';
-import Stack from '@mui/material/Stack';
+import SmartToyIcon from '@mui/icons-material/SmartToy';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import Typography from '@mui/material/Typography';
-import { SxProps, useTheme } from '@mui/material/styles';
-import { Theme } from '@mui/material/styles/createTheme';
-import styled from '@mui/material/styles/styled';
+import useTheme from '@mui/material/styles/useTheme';
 
-import { useLocalContext } from '@graasp/apps-query-client';
+import DOMPurify from 'dompurify';
+import hljs from 'highlight.js';
+import { Marked, Renderer } from 'marked';
+import { markedHighlight } from 'marked-highlight';
 
-import { ResponseAppData } from '@/config/appDataTypes';
-import { RESPONSES_TOP_COLORS } from '@/config/constants';
-import { RESPONSE_CY } from '@/config/selectors';
+import { MARKDOWN_CONTAINER_CY } from '@/config/selectors';
+import {
+  ActivityType,
+  ResponseVisibilityMode,
+} from '@/interfaces/activity_state';
 import { EvaluationType } from '@/interfaces/evaluation';
-import { ResponseVisibilityMode } from '@/interfaces/interactionProcess';
-import { ResponseEvaluation } from '@/interfaces/response';
+import {
+  ResponseData,
+  ResponseEvaluation,
+  ResponseVotes,
+} from '@/interfaces/response';
+import { Thread } from '@/interfaces/threads';
 import { useSettings } from '@/modules/context/SettingsContext';
+import useActivityState from '@/state/useActivityState';
 
-import ResponsePart from './ResponsePart';
-import Rate from './evaluation/Rate';
+import FeedbackButton from './FeedbackButton';
 import Vote from './evaluation/Vote';
 import RatingsVisualization from './visualization/RatingsVisualization';
 import Votes from './visualization/Votes';
 
-const TopAnnotationTypography = styled(Typography)(() => ({
-  fontWeight: 'bold',
-  textTransform: 'uppercase',
-}));
+// For the syntax highlighting, the stylesheet is imported in the App.tsx
+// import "highlight.js/styles/github.css";
 
-interface ResponseProps {
-  response: ResponseAppData<ResponseEvaluation>;
-  onSelect?: (id: string) => void;
-  enableBuildAction?: boolean;
-  onDelete?: (id: string) => void;
-  showRatings?: boolean;
-  onParentIdeaClick?: (id: string) => void;
-  highlight?: boolean;
-  evaluationType?: EvaluationType;
-  nbrOfVotes?: number;
-}
-
-const Response: FC<ResponseProps> = ({
-  response,
-  onSelect,
-  onDelete,
-  evaluationType,
-  enableBuildAction = true,
-  showRatings = false,
-  onParentIdeaClick = (id: string) =>
-    // eslint-disable-next-line no-console
-    console.debug(`The user clicked on link to idea ${id}`),
-  highlight = false,
-  nbrOfVotes,
-}) => {
-  const { t } = useTranslation('translations', { keyPrefix: 'RESPONSE_CARD' });
+const Response: FC<{
+  response: ResponseData<ResponseEvaluation>;
+  thread: Thread;
+}> = ({ response, thread }) => {
+  const { response: content, markup, author, round, feedback } = response;
+  const { activity, feedback: feebackSettings } = useSettings();
+  const { enabled: feedbackEnabled } = feebackSettings;
   const { t: generalT } = useTranslation('translations');
-  const { accountId } = useLocalContext();
   const theme = useTheme();
-
-  const { id, data, creator } = response;
-  const {
-    response: responseContent,
-    round,
-    parentId,
-    assistantId,
-    markup,
-  } = data;
-  const { activity } = useSettings();
+  const isLive = activity.mode === ResponseVisibilityMode.Sync;
+  const { currentStep } = useActivityState();
+  const evaluationType = currentStep?.evaluationType;
+  const resultsType = currentStep?.resultsType;
 
   const isMarkdown = useMemo(() => markup === 'markdown', [markup]);
-
-  const isOwn = creator?.id === accountId && typeof assistantId === 'undefined';
   const isAiGenerated = useMemo(
-    () => typeof assistantId !== 'undefined',
-    [assistantId],
+    () => author?.isArtificial || false,
+    [author?.isArtificial],
   );
 
-  const showSelectButton = typeof onSelect !== 'undefined';
-  const showDeleteButton = typeof onDelete !== 'undefined' && isOwn;
-  const showActions = showDeleteButton || showSelectButton;
-  const isLive = activity.mode === ResponseVisibilityMode.OpenLive;
+  const customRenderer = useMemo(() => {
+    // Custom renderer to disable headings
+    const renderer = new Renderer();
+    renderer.heading = ({ text }) =>
+      // Just return the plain text, not wrapped in <h1>..<h6>
+      `${text}\n`;
+    // Disable raw HTML rendering
+    renderer.html = () => '';
+
+    // Flatten table structure
+    renderer.table = ({ header, rows }) => `${header}\n${rows}`;
+
+    renderer.tablerow = ({ text }) => `${text}\n`; // each row on a new line
+
+    renderer.tablecell = ({ text }) => `${text}\t`; // tab-separated columns
+
+    renderer.image = ({ href, text }) =>
+      `<a href="${href}"  referrerpolicy="no-referrer" target="_blank" rel="noreferrer">${text}</a>`;
+    return renderer;
+  }, []);
+  const marked = useMemo(
+    () =>
+      new Marked(
+        {
+          renderer: customRenderer,
+        },
+        markedHighlight({
+          emptyLangClass: 'hljs',
+          langPrefix: 'hljs language-',
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          highlight(code, lang, _info) {
+            const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+            return hljs.highlight(code, { language }).value;
+          },
+        }),
+      ),
+    [customRenderer],
+  );
+
+  const feedbackContent = useMemo(() => {
+    if (feedback) {
+      return DOMPurify.sanitize(marked.parse(feedback, { async: false }));
+    }
+    return undefined;
+  }, [feedback, marked]);
 
   const renderEvaluationComponent = (): JSX.Element | null => {
     switch (evaluationType) {
       case EvaluationType.Vote:
-        return <Vote responseId={id} />;
-      case EvaluationType.Rate:
-        return <Rate responseId={id} />;
+        return (
+          <Vote
+            response={response as ResponseData<ResponseVotes>}
+            threadId={thread.id}
+          />
+        );
+      // case EvaluationType.Rate:
+      //   return <Rate responseId={id} />;
       // case EvaluationType.Rank:
       //   return <Rank responseId={id} />;
       default:
@@ -103,157 +119,79 @@ const Response: FC<ResponseProps> = ({
     }
   };
 
-  const renderTopResponseAnnotation = (): JSX.Element => {
-    if (isAiGenerated) {
-      return (
-        <TopAnnotationTypography variant="caption" color="white">
-          {t('AI_GENERATED')}
-        </TopAnnotationTypography>
-      );
+  const renderResultsComponent = (): JSX.Element | null => {
+    if (currentStep?.type === ActivityType.Results) {
+      const nbrOfVotes =
+        response.evaluation &&
+        'votes' in response.evaluation &&
+        Array.isArray(response.evaluation.votes)
+          ? response.evaluation.votes.length
+          : 0;
+      switch (resultsType) {
+        case EvaluationType.Vote:
+          return <Votes votes={nbrOfVotes} />;
+        case EvaluationType.Rate:
+          return <RatingsVisualization responseId={response.id} />;
+        default:
+          return null;
+      }
     }
-    if (isOwn) {
-      return (
-        <TopAnnotationTypography color="GrayText" variant="caption">
-          {t('OWN')}
-        </TopAnnotationTypography>
-      );
-    }
-    return <div />;
+    return null;
   };
 
-  const getTopAnnotationBoxStyle = (): SxProps<Theme> => {
-    if (isAiGenerated) {
-      return {
-        backgroundColor: theme.palette.primary.main,
-      };
-    }
-    const rLength =
-      typeof responseContent === 'string'
-        ? responseContent.length
-        : responseContent.length;
-    const colorIndex = rLength % RESPONSES_TOP_COLORS.length;
-    return {
-      backgroundColor: RESPONSES_TOP_COLORS[colorIndex],
-    };
-  };
-
-  if (responseContent) {
+  if (isMarkdown) {
+    const unsafeHtml = marked.parse(content, { async: false });
+    const inlineHtml = DOMPurify.sanitize(unsafeHtml);
     return (
-      <Box
-        minWidth="160pt"
-        width="100%"
-        borderRadius="4px"
-        sx={{
-          ...getTopAnnotationBoxStyle(),
-          boxShadow: highlight
-            ? '0 0 8pt 4pt hsla(47.8, 100%, 50%, 0.8)'
-            : 'none',
-          transition: 'box-shadow 500ms',
-        }}
-      >
-        <Stack
-          height="2em"
-          direction="row"
-          alignItems="center"
-          justifyContent="center"
-        >
-          {renderTopResponseAnnotation()}
-        </Stack>
-        <Card
-          id={id}
-          variant="outlined"
+      <>
+        <Typography
+          variant="body1"
+          sx={{ overflowWrap: 'break-word', mb: 1 }}
+          dangerouslySetInnerHTML={{ __html: inlineHtml }}
+          data-cy={MARKDOWN_CONTAINER_CY}
+        />
+        <Typography
+          variant="body2"
           sx={{
-            width: '100%',
+            color: isAiGenerated
+              ? theme.palette.grey.A400
+              : theme.palette.grey.A700,
           }}
-          data-cy={RESPONSE_CY}
         >
-          <CardContent sx={{ minHeight: '32pt' }}>
-            {typeof responseContent === 'string' ? (
-              <ResponsePart markdown={isMarkdown}>
-                {responseContent}
-              </ResponsePart>
-            ) : (
-              responseContent?.map((r, index) => (
-                <>
-                  {/* {index !== 0 && <br />} */}
-                  <ResponsePart markdown={isMarkdown} key={index}>
-                    {r}
-                  </ResponsePart>
-                </>
-              ))
-            )}
-            <Box
+          {!isLive && generalT('ROUND', { round })}
+        </Typography>
+        {feedbackContent ? (
+          <Alert
+            severity="info"
+            iconMapping={{
+              info: <SmartToyIcon fontSize="inherit" />,
+            }}
+          >
+            <AlertTitle>Feedback</AlertTitle>
+            <Typography
+              variant="body1"
               sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
+                overflowWrap: 'break-word',
+                mb: 1,
               }}
-            >
-              <Typography
-                variant="body2"
-                sx={{
-                  color: isAiGenerated
-                    ? theme.palette.grey.A400
-                    : theme.palette.grey.A700,
-                }}
-              >
-                {!isLive && generalT('ROUND', { round })}
-                {parentId && (
-                  <>
-                    {' • '}
-                    <Link
-                      href={`#${parentId}`}
-                      onClick={() => {
-                        document.getElementById(parentId)?.scrollIntoView();
-                        onParentIdeaClick(parentId);
-                      }}
-                    >
-                      {t('PARENT_IDEA')}
-                    </Link>
-                  </>
-                )}
-              </Typography>
-            </Box>
-          </CardContent>
-          {renderEvaluationComponent()}
-          {showRatings && <RatingsVisualization responseId={id} />}
-          {typeof nbrOfVotes !== 'undefined' && <Votes votes={nbrOfVotes} />}
-          {showActions && (
-            <>
-              <Divider />
-              <CardActions
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                }}
-              >
-                {showSelectButton && (
-                  <Button
-                    disabled={!enableBuildAction}
-                    onClick={() => {
-                      if (typeof onSelect !== 'undefined') onSelect(id);
-                    }}
-                  >
-                    {t('BUILD_ON_THIS')}
-                  </Button>
-                )}
-                {showDeleteButton && (
-                  <IconButton
-                    sx={{ marginLeft: 'auto' }}
-                    onClick={() => onDelete(id)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                )}
-              </CardActions>
-            </>
-          )}
-        </Card>
-      </Box>
+              dangerouslySetInnerHTML={{ __html: feedbackContent }}
+            />
+          </Alert>
+        ) : (
+          feedbackEnabled && (
+            <FeedbackButton response={response} thread={thread} />
+          )
+        )}
+        {renderEvaluationComponent()}
+        {renderResultsComponent()}
+      </>
     );
   }
-  return null;
+  return (
+    <Typography variant="body1" sx={{ overflowWrap: 'break-word', mb: 1 }}>
+      {content}
+    </Typography>
+  );
 };
 
 export default Response;
