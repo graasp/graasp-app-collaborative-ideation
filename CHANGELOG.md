@@ -1,5 +1,26 @@
 # Changelog
 
+## [4.0.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.4.3...v4.0.0) (2025-09-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* The state is now managed with a Loro document and does not rely on AppData anymore.
+
+### Features
+
+* ai feedback ([d7a7d34](https://github.com/graasp/graasp-app-collaborative-ideation/commit/d7a7d3466b1fc096b965d949ff834db1c79af874))
+* sync with CRDT (Loro) ([d7a7d34](https://github.com/graasp/graasp-app-collaborative-ideation/commit/d7a7d3466b1fc096b965d949ff834db1c79af874))
+* sync with custom backend using loro ([d7a7d34](https://github.com/graasp/graasp-app-collaborative-ideation/commit/d7a7d3466b1fc096b965d949ff834db1c79af874))
+* threads ([d7a7d34](https://github.com/graasp/graasp-app-collaborative-ideation/commit/d7a7d3466b1fc096b965d949ff834db1c79af874))
+
+
+### Bug Fixes
+
+* **deps:** update @tanstack/react-query ([d7a7d34](https://github.com/graasp/graasp-app-collaborative-ideation/commit/d7a7d3466b1fc096b965d949ff834db1c79af874))
+* **deps:** update react monorepo to v19 (major) ([d7a7d34](https://github.com/graasp/graasp-app-collaborative-ideation/commit/d7a7d3466b1fc096b965d949ff834db1c79af874))
+* disable https in production (protected by LB) ([d7a7d34](https://github.com/graasp/graasp-app-collaborative-ideation/commit/d7a7d3466b1fc096b965d949ff834db1c79af874))
+
 ## [3.4.3](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.4.2...v3.4.3) (2025-07-11)
 
 
