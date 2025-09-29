@@ -26,9 +26,13 @@ const CustomTickLabel = ({
   <text
     x={p.x}
     y={p.y}
-    dominantBaseline={p.textBaseline}
+    dominantBaseline={
+      p.textBaseline as React.SVGAttributes<SVGTextElement>['dominantBaseline']
+    }
     opacity={p.opacity}
-    textAnchor={p.textAnchor}
+    textAnchor={
+      p.textAnchor as 'start' | 'middle' | 'end' | 'inherit' | undefined
+    }
     style={{
       fontFamily: 'sans-serif',
       fontSize: '11px',
