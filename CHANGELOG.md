@@ -1,5 +1,14 @@
 # Changelog
 
+## [4.0.1](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v4.0.0...v4.0.1) (2025-09-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @mui/lab to v6.0.1-beta.36 ([#745](https://github.com/graasp/graasp-app-collaborative-ideation/issues/745)) ([7f1222f](https://github.com/graasp/graasp-app-collaborative-ideation/commit/7f1222f3e82bb69cf0e9df42ef023492e7529226))
+* **deps:** update mui (non-major) to v6.5.0 ([#748](https://github.com/graasp/graasp-app-collaborative-ideation/issues/748)) ([b7808df](https://github.com/graasp/graasp-app-collaborative-ideation/commit/b7808df9cf6e00e18d257f180158c2f520e1b13b))
+* **deps:** update sentry packages ([#749](https://github.com/graasp/graasp-app-collaborative-ideation/issues/749)) ([690a584](https://github.com/graasp/graasp-app-collaborative-ideation/commit/690a584ecf0cf1c3fd3ab8fe693d4f07f336a2c8))
+
 ## [4.0.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v3.4.3...v4.0.0) (2025-09-26)
 
 
