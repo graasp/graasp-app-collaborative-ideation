@@ -90,9 +90,9 @@
     "cov:report": "open ./coverage/lcov-report/index.html"
   },
   "devDependencies": {
-    "@commitlint/cli": "19.8.1",
-    "@commitlint/config-conventional": "19.8.1",
-    "@commitlint/types": "^19.0.0",
+    "@commitlint/cli": "20.0.0",
+    "@commitlint/config-conventional": "20.0.0",
+    "@commitlint/types": "20.0.0",
     "@cypress/code-coverage": "3.14.5",
     "@eslint/compat": "^1.2.0",
     "@eslint/eslintrc": "3.3.1",
