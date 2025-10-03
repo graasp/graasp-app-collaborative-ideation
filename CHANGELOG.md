@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.0.2](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v4.0.1...v4.0.2) (2025-10-03)
+
+
+### Bug Fixes
+
+* add fr to feedback prompts and en as fallback ([#758](https://github.com/graasp/graasp-app-collaborative-ideation/issues/758)) ([f8cf1e6](https://github.com/graasp/graasp-app-collaborative-ideation/commit/f8cf1e66ec10ef1b82d2446a671d03d533662b69))
+
 ## [4.0.1](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v4.0.0...v4.0.1) (2025-09-29)
 
 
