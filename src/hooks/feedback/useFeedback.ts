@@ -34,7 +34,13 @@ const useFeedback = (): UseFeedbackValues => {
 
   const liquidRef = useRef(new Liquid({ cache: true }));
 
-  const prompts = useMemo(() => feedbackPrompts[lang], [lang]);
+  const prompts = useMemo(() => {
+    const p = feedbackPrompts[lang];
+    if (p) {
+      return p;
+    }
+    return feedbackPrompts.en;
+  }, [lang]);
   const { instructions, feedback } = useSettings();
   const { postAppDataAsync } = useAppDataContext();
 
