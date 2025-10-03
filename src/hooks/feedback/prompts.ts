@@ -15,4 +15,12 @@ export const feedbackPrompts: { [key: string]: FeedbackPrompts } = {
     metaUserPrompt: '{{ userPrompt }}\n',
     exampleBank: [{ label: 'Default example', system: system1, user: user1 }],
   },
+  fr: {
+    metaSystemPrompt: '{{ systemPrompt }}\n',
+    comments: '{% for comment in comments %}\n. {{comment}}\n{% endfor %}\n',
+    metaUserPrompt: '{{ userPrompt }}\n',
+    exampleBank: [
+      { label: 'Exemple par défaut', system: system1, user: user1 },
+    ],
+  },
 };
