@@ -160,6 +160,10 @@
         "SAVED_LABEL": "Saved"
       }
     },
+    "EXPORT": {
+      "EXPORT_JSON": "Export as JSON",
+      "EXPORT_LORO": "Export Loro"
+    },
     "IMPORT_RESPONSES_BUTTON": {
       "IMPORT_RESPONSES": "Import responses"
     }
