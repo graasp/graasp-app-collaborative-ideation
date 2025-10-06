@@ -48,7 +48,7 @@
     "dompurify": "^3.2.6",
     "file-saver": "^2.0.5",
     "highlight.js": "^11.11.1",
-    "i18next": "24.2.2",
+    "i18next": "24.2.3",
     "liquidjs": "^10.21.1",
     "lodash.clone": "^4.5.0",
     "lodash.isequal": "^4.5.0",
