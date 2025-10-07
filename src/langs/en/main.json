@@ -160,6 +160,11 @@
         "SAVED_LABEL": "Saved"
       }
     },
+    "EXPORT": {
+      "TITLE": "Export Loro Document",
+      "EXPORT_JSON": "Export as JSON",
+      "EXPORT_LORO": "Export Loro"
+    },
     "IMPORT_RESPONSES_BUTTON": {
       "IMPORT_RESPONSES": "Import responses"
     }

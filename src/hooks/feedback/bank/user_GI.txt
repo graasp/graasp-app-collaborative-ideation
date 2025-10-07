@@ -1,0 +1,116 @@
+Instruction: {{ problem_statement }}
+
+Proposition de problèmatique: {{ current_response }}
+
+{% if previous_responses.size > 0 %}
+Précédentes itérations avec le feedback correspondant:
+{% for item in previous_responses %}
+- Itération {{ forloop.index }}: {{ item.response }}
+  Feedback: {{ item.feedback }}
+{% endfor %}
+{% endif %}
+
+Donne un retour constructif sur le sujet de poster proposé, en te concentrant sur son adéquation avec le thème du cours [Enjeux mondiaux de la société numérique](https://edu.epfl.ch/coursebook/fr/enjeux-mondiaux-de-la-societe-numerique-HUM-285).
+
+Dans ton retour, utilise la structure suivante et respecte l'indication de longueur entre parenthèses :
+
+    1. Adéquation avec la définition d’un enjeu mondial (1 paragraphe) :
+        - L’idée implique-t-elle clairement la coordination de plusieurs acteurs de la communauté mondiale (nations, ONG, multinationales, institutions internationales) ? Si ce n'est pas le cas, explique pourquoi. Sinon, n'ajoute rien à ce sujet.
+        - Le lien avec la numérisation de la société ou les technologies de l'information est-il explicite et central ? Si ce n'est pas le cas, explique pourquoi. Sinon, n'ajoute rien à ce sujet.
+        - L’idée met-elle en évidence une complexité socio-technique (impliquant à la fois des dimensions humaines/sociales et technologiques, nécessitant une innovation multidisciplinaire) ? Si ce n'est pas le cas, explique pourquoi. Sinon, n'ajoute rien à ce sujet.
+        Ne résume pas la problèmatique.
+        Ne donne que les commentaires critiques et strictement nécessaire.
+        Si des éléments sont manquants ou insuffisamment développés, souligne les. Sinon, valide que la problèmatique concerne bien un enjeu mondial avec une simple phrase.
+
+    2. Suggestions (1 paragraphe) :
+        - La problèmatique proposées doit être d'une longueur comprise entre 60 et 100 mots. Si elle est trop courte, propose des moyens concrets permettant au participant d’affiner le sujet afin de mieux répondre à la définition d’un enjeu mondial. Si elle est trop longue, explique ce qui devrait être modifié et/ou précisé pour mieux répondre à la définition d'un enjeu mondial.
+        - Termine ta suggestion par une ou deux questions sur des aspects qui doivent être approfondis.
+
+{% if previous_responses.size > 0 %}
+    3. Lien avec les itérations précédentes (1 paragraphe) : Indique en quoi cette idée s’améliore par rapport aux précédentes (p. ex. dimension mondiale plus claire, lien plus fort avec la numérisation, complexité socio-technique plus approfondie). Note si certains aspects importants des retours précédents n’ont pas encore été intégrés.
+{% endif %}
+
+Ne répète pas la problèmatique dans ton retour.
+Écris un retour concis. Ne dépasse pas les 200 mots. Ne te répète pas. Si la problématique est aboutie, tu peux la valider dans un commentaire très court.
+
+
+Pour supporter cette réflexion, voici des extraits du cours. Ne cite pas ces extraits directement mais utilise les comme resources pour t'assurer que ton retour est cohérent avec le contenu du cours.
+
+<extrait id="0">
+Les moyens de communication ont une histoire que nous pouvons étudier afin de comprendre les continuités et les changements de notre ère numérique. Aujourd'hui notre communication est à la fois locale et éphémère, globale et durable, instantanée et omniprésente.
+Chaque nouvelle technologie amène avec elle des enjeux importants en terme de liberté d’expression, de désinformation, de censure, d’inclusion, de manipulation, et de protection de la vie privée. Ces problématiques sont exacerbées dans un monde où un message peut instantanément atteindre des millions d’individus.
+</extrait>
+<extrait id="1">
+Les tendances technologiques récentes créent de nouvelles opportunités pour les organisations pour devenir ou rester compétitives, améliorer et repenser les environnements de travail ainsi qu’apporter plus de valeurs aux consommateurs.
+Le revers de la médaille est le fait que ces technologies peuvent donner lieu à des usages abusifs allant de l’exploitation de données privées à la mise en danger des utilisateurs. Aussi, elles font basculer l’ordre établi et remettent en question une grande partie des modèles d’affaire existants.
+Qui plus est, ces nouvelles technologies posent des questions de fond sur la réorganisation de la chaîne de valeur.
+</extrait>
+<extrait id="2">
+Les technologies de l’information et de la communication ont amené une série d’innovations dans le contexte humanitaire. Elles ont donné plus de voix à la population locale et rendu l’action humanitaire plus rapide et plus efficace notamment grâce à l’augmentation des données et des acteurs.
+Cela dit l’utilisation des technologies de l’information et de la communication peut parfois entrer en conflit avec les principes fondamentaux de l’action humanitaire. Elles risquent par exemple de compromettre le principe d’impartialité en marginalisant davantage les personnes illettrées. En outre, certaines données collectées peuvent mettre en danger la population locale si elles tombent entre de mauvaises mains. Il est dès lors crucial que les personnes qui conçoivent ou déploient des technologies de l’information et de la communication prennent préalablement en compte les risques qu’elle peuvent engendrer.
+Il serait préférable d’adhérer au principe humanitaire "ne pas nuire" et non à l’adage de la Silicon Valley "demander pardon plutôt que demander la permission”.
+</extrait>
+<extrait id="3">
+Quand on regarde sous le capot, les services de communications existants sont pour la plupart basés sur le cloud avec une architecture client-serveur pour la logique de communication, en utilisant Internet comme infrastructure de communication.
+Dans certains contextes, l’accès à Internet n’est pas disponible mais il est possible de concevoir des services de communication co-localisés en utilisant des serveurs locaux, une architecture ad hoc et mobile, ou une combinaison de ces solutions.
+Au delà des performances, l'architecture logique et physique des systèmes de communication a aussi des conséquences plus larges auxquelles les concepteurs de systèmes doivent faire face allant de l’accès à l’information, à la protection de la vie privée, en passant par les modèles d’affaires envisageables.
+</extrait>
+<extrait id="4">
+Les médias sociaux reprennent des mécanismes sociaux existants comme la réputation et la confiance pour nous aider à faire des choix, ce qui explique en partie pourquoi nous passons autant de temps dessus.
+Faire en sorte que les systèmes de réputation et de filtrage de contenu soient fiables et dignes de confiance est un des défis majeurs que les concepteurs de médias sociaux devront adresser dans les années à venir.
+</extrait>
+<extrait id="5">
+Évaluer la véracité d’une information en ligne est un défi important.
+Pour avoir moins souvent tort, la question est de savoir si nous sommes prêts à laisser des preuves convaincantes changer nos positions.
+Si oui, suivant si la nouvelle position est plus ou moins extraordinaire, on pourra adapter nos exigences quant au niveau des preuves nécessaires pour nous convaincre, allant d’un simple témoignage à un important faisceau de preuves concordantes recueillies de manière indépendantes et systématiques.
+Et comme la recherche et l’évaluation d’information prend du temps et de l’expertise, il est essentiel de pouvoir identifier des sources de confiance.
+</extrait>
+<extrait id="6">
+Pour pouvoir tirer profit de nouveaux services offerts par l’analyse des données, les concepteurs de logiciels doivent mettre en place des infrastructures qui permettent de tracer les activités, d’analyser les données, et de produire de l’information utile pour la prise de décision.
+Un enjeu majeur est de pouvoir respecter la sphère privée des utilisateurs tout en offrant des services innovants qui utilisent potentiellement des données sensibles.
+Imaginez que l’analyse de photos en ligne puisse permettre aux assurances de vous refuser une couverture pour un cancer de la peau, car vous étiez trop souvent en vacances au soleil quand vous étiez enfants.
+Il va s’agir d’analyser les risques encourus par les utilisateurs et de les réduire lorsque cela est possible.
+Au delà de l’utilisation des données par le fournisseur de service, mettre en place cette infrastructure de surveillance pose un risque de sécurité en cas d’accès à ces données par une personne non-autorisée. En multipliant la récolte de données, on risque de multiplier les vulnérabilités du système.
+Parmi les principes de conception de logiciel utile pour respecter la sphère privée on trouve le concept de privacy by design, qui est imposée par le RGPD, c’est l’idée qu’un service pourrait, de par sa conception, garantir un certain niveau de respect de la sphère privée aux utilisateurs.
+L’anonymat peut être un des moyens utilisés, le réseau local, un autre, l’encryption, un troisième.
+</extrait>
+<extrait id="7">
+Il faut donc savoir qu’il y a une grande différence entre deux façons de décider : le système 1 et le système 2. Le système 1, c’est le système intuitif, automatique, rapide, alors que le système 2 est la réflexion profonde, l’analyse. Cette dernière est plus difficile à utiliser et plus contraignante, alors on aime bien se fier à son intuition. En communication toutefois, il faut se forcer plus souvent à utiliser le système 2 : dans la conception des messages comme dans leur interprétation. Si l’on n’utilise que l’intuition, on peut être influencés par les biais cognitifs, et mal comprendre un message ou ne pas réussir à le faire passer.
+</extrait>
+<extrait id="8">
+La façon dont une interface utilisateur est conçue peut influencer, ou nudger, le comportement des utilisateurs par des interventions qui peuvent paraître aussi triviales que cocher une case par défaut ou non.
+L’utilisation de nudges peut augmenter des comportements désirables ou au contraire réduire les comportements indésirables.
+Mais prendre la décision de ce qui est désirable ou non et concevoir des systèmes qui changent le comportement des utilisateurs pose des défis éthiques qu’il faut adresser.
+</extrait>
+<extrait id="9">
+Internet permet en théorie d’inclure une grande diversité de contributeurs et de points de vue.
+Cependant, en pratique nous trouvons de nombreux exemples ou cette diversité est encore absente et des discriminations plus ou moins fortes envers certains groupes de personnes persistent.
+Pour augmenter l’inclusion en ligne, les architectes d’un système ont un rôle essentiel à jouer car ils peuvent créer des fonctionnalités qui favorisent la diversité.
+Concernant Wikipédia, une étude récente montre que dans des conditions proches de l’environnement Wikipédia, les femmes participent moins que les hommes.
+Par contre, dans des conditions ou plus de contributions de femmes sont visibles et le feedback est constructif, les femmes ont même tendance à contribuer davantage que les hommes.
+</extrait>
+<extrait id="10">
+Décider en commun, c’est très difficile. La technologie peut améliorer nos processus, mais si l’on veut vraiment utiliser la technologie pour nous assister dans les décisions collectives à prendre, il faudra absolument garantir que la population des votants est en mesure de comprendre les systèmes, et garantir de façon très transparente que la sécurité est assurée, et nous n’y sommes encore pas aujourd’hui.
+</extrait>
+<extrait id="11">
+Les nouvelles technologies utilisent massivement le feedback, mais selon comment il est appliqué, cela peut avoir des effets positifs comme négatifs. La possibilité d’avoir un retour sur ce que l’on fait online peut pousser des gens, sans rémunération, à créer des contenus formidables. Malheureusement, cela peut aussi aller parfois jusqu’à la dépendance. L’une des forces positives de ce feedback est ce qui permet à des sites, comme par exemple wikipedia, de fonctionner. Pour beaucoup, wikipedia est considéré comme l’une des plus grandes réussites de l’humanité: des millions de personnes contribuent à créer une base de savoir participative, sans demander quoi que ce soit en échange. C’est la motivation intrinsèque: un engagement pour une cause commune. Et la possibilité de voir le résultat de son travail motive ces millions de personnes à s’engager. Influencer dans le monde des nouvelles technologies reste un graal pour beaucoup de gens, mais une réalité reste commune aux processus standards de leadership : c’est la motivation intrinsèque qui compte.
+</extrait>
+<extrait id="12">
+Passer à un apprentissage en profondeur est un des défis du système éducatif.
+Les technologies de la communication facilitent les interactions en classes et peuvent être utilisées pour mettre en oeuvre des scénarios pédagogiques innovants qui ont le potentiel de conduire à un apprentissage actif et durable.
+Néanmoins, les technologies de la communication ne sont pas la panacée. Les caractéristiques, comme l’anonymat, qui leur permettent précisément d’augmenter les interactions, peuvent avoir un effet indésirable et amener à des comportements problématiques.
+Pour s’assurer que les technologies de la communication aient un impact positif, il est indispensable de les concevoir pour un intégration dans un scénario pédagogique adéquat.
+</extrait>
+<extrait id="13">
+Le développement personnel et la place des individus dans la société ne reposent pas uniquement sur des compétences de base, mais de plus en plus sur l'acquisition et la maîtrise de compétences transversales.
+Parmi ces compétences transversales, les compétences numériques occupent une place de choix, tant dans la formation (avec le développement de l’apprentissage mixte) que des dans la société et les entreprises. La pensée computationnelle est la démarche qui sous-tant à la fois l'acquisition, le développement et l’expression de compétences numériques.
+</extrait>
+<extrait id="14">
+Les MOOC exploitent de manière pertinentes les technologies de l’information et de la communication pour offrir à une population la plus large possible un accès libre et gratuit à la connaissance.
+Même si toutes les motivations à la base de leur développement ne sont pas philanthropiques, son effet l’est.
+Il y a néanmoins un risque d’une discrimination liée au manque de moyens digitaux qui pourrait élargir le fossé entre certaines classes de population. Ce n’est en effet plus l’accès aux livres qui conditionne le savoir mais l’accès à la bande passante.
+</extrait>
+<extrait id="15">
+L’apprentissage personnel a toujours existé au côté de l’apprentissage institutionnel sans être vraiment reconnu (bien qu’essentiel) et sans que les opportunités qu’il offre soient suffisamment mise en valeur.
+Le développement des technologies numériques amplifie largement sa portée et des tentatives de le soutenir au niveau institutionnel voient le jour.
+</extrait>

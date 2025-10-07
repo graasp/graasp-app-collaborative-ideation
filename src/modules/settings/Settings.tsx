@@ -23,6 +23,7 @@ import { SETTINGS_VIEW_CY } from '@/config/selectors';
 import { useSettings } from '@/modules/context/SettingsContext';
 
 import SaveButton from '../common/SaveButton';
+import Export from './Export';
 import FeedbackPromptsSettings from './FeedbackPromptsSettings';
 import InstructionsSettings from './InstructionsSettings';
 import OrchestratorSettings from './OrchestratorSettings';
@@ -160,6 +161,7 @@ const Settings: FC<SettingsProps> = () => {
           <Tab label="Creativity Triggers" />
           <Tab label="AI Feedback" />
           <Tab label="AI Peers" />
+          <Tab label="Export" />
           <Box>
             <SaveButton disabled={isSaved} onSave={handleSave} />
             {/* <ResetSetsButton enable /> */}
@@ -192,6 +194,9 @@ const Settings: FC<SettingsProps> = () => {
         </TabPanel>
         <TabPanel value={tabIndex} index={5}>
           <Assistant assistants={assistants} onChange={setAssistants} />
+        </TabPanel>
+        <TabPanel value={tabIndex} index={6}>
+          <Export />
         </TabPanel>
       </Stack>
     </Stack>
