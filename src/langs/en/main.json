@@ -161,6 +161,7 @@
       }
     },
     "EXPORT": {
+      "TITLE": "Export Loro Document",
       "EXPORT_JSON": "Export as JSON",
       "EXPORT_LORO": "Export Loro"
     },
