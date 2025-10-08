@@ -51,7 +51,7 @@ interface UseAssistantsValues {
 const useAssistants = (): UseAssistantsValues => {
   const { t } = useTranslation('prompts');
   const { mutateAsync: postChatBot } = mutations.usePostChatBot(
-    GPTVersion.GPT_4_O, // TODO: Allow user to choose which model to use.
+    GPTVersion.GPT_5, // TODO: Allow user to choose which model to use.
   );
   const { accountId, itemId } = useLocalContext();
   const {
