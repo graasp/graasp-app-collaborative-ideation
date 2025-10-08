@@ -1637,9 +1637,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graasp/sdk@npm:5.13.2":
-  version: 5.13.2
-  resolution: "@graasp/sdk@npm:5.13.2"
+"@graasp/sdk@npm:5.16.0":
+  version: 5.16.0
+  resolution: "@graasp/sdk@npm:5.16.0"
   dependencies:
     "@faker-js/faker": "npm:9.7.0"
     filesize: "npm:10.1.6"
@@ -1647,7 +1647,7 @@ __metadata:
   peerDependencies:
     date-fns: ^3 || ^4.0.0
     uuid: ^9 || ^10 || ^11.0.0
-  checksum: 10/67936a8b967a2af6efbbe4fa25269a4a02abfe3c2ab8b7deea096d1bc1db15c7dda7dc53b1f4263fc7314d8e7d3f3958b8f2bd19502b07ef337f16fed6179b78
+  checksum: 10/51f9396375d3d7d040212f58512977edd81cce4e865e41fe646f8cb894f861bff849126588163cb4896ec77dcd52fd076297590fa1062a985c7d01ad19bb62c4
   languageName: node
   linkType: hard
 
@@ -10075,7 +10075,7 @@ __metadata:
     "@eslint/eslintrc": "npm:3.3.1"
     "@eslint/js": "npm:9.37.0"
     "@graasp/apps-query-client": "npm:3.7.3"
-    "@graasp/sdk": "npm:5.13.2"
+    "@graasp/sdk": "npm:5.16.0"
     "@graasp/stylis-plugin-rtl": "npm:2.2.0"
     "@graasp/ui": "npm:5.5.1"
     "@mdxeditor/editor": "npm:^3.35.0"
