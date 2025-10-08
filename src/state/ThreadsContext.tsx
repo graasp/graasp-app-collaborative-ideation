@@ -126,14 +126,15 @@ export const ThreadsProvider: FC<ThreadsContextProps> = ({ children }) => {
         const thread = getThreadById(getThreadsList(doc), threadId);
         thread.get('responses').push(response);
         doc.commit();
-        postSubmitNewResponseAction(response);
+        postSubmitNewResponseAction(response, threadId);
         return response;
       }
 
       // Create a new thread
       const threads = getThreadsList(doc);
       const newThread = new LoroMap();
-      newThread.set('id', v4());
+      const newThreadId = v4();
+      newThread.set('id', newThreadId);
       newThread.set('createdAt', new Date());
       newThread.set('updatedAt', new Date());
       newThread.set('creator', participants.me!);
@@ -147,7 +148,7 @@ export const ThreadsProvider: FC<ThreadsContextProps> = ({ children }) => {
 
       threads.pushContainer(newThread);
       doc.commit();
-      postSubmitNewResponseAction(response);
+      postSubmitNewResponseAction(response, newThreadId);
       return response;
     },
     [doc, participants, postSubmitNewResponseAction],
