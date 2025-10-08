@@ -29,7 +29,7 @@ type AppDataRef<T extends Data> = Pick<AppData<T>, 'id' | 'type' | 'data'> &
 
 export type SubmitNewResponseAction = Pick<AppAction, 'type' | 'data'> & {
   type: AppActionTypes.SubmitNewResponse;
-  data: ResponseData;
+  data: ResponseData & { threadId: string };
 };
 
 export type DeleteResponseAction = Pick<AppAction, 'type' | 'data'> & {

@@ -23,7 +23,10 @@ import { ActivityState, ActivityStep } from '@/interfaces/activity_state';
 import { ResponseData } from '@/interfaces/response';
 
 interface UseActionsValues {
-  postSubmitNewResponseAction: (response: ResponseData) => void;
+  postSubmitNewResponseAction: (
+    response: ResponseData,
+    threadId: string,
+  ) => void;
   postDeleteResponseAction: (id: ResponseData['id']) => void;
   postChooseResponseAction: (response: ResponseData<undefined>) => void;
   postOpenAppAction: (
@@ -43,10 +46,13 @@ interface UseActionsValues {
 const useActions = (): UseActionsValues => {
   const { mutate: postAppAction } = mutations.usePostAppAction();
   const postSubmitNewResponseAction = useMemo(
-    () => (response: ResponseData) => {
+    () => (response: ResponseData, threadId: string) => {
       const action: SubmitNewResponseAction = {
         type: AppActionTypes.SubmitNewResponse,
-        data: response,
+        data: {
+          ...response,
+          threadId,
+        },
       };
       postAppAction(action);
     },
