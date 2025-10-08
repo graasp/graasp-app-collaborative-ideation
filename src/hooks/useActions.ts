@@ -23,7 +23,10 @@ import { ActivityState, ActivityStep } from '@/interfaces/activity_state';
 import { ResponseData } from '@/interfaces/response';
 
 interface UseActionsValues {
-  postSubmitNewResponseAction: (response: ResponseData, threadId: string) => void;
+  postSubmitNewResponseAction: (
+    response: ResponseData,
+    threadId: string,
+  ) => void;
   postDeleteResponseAction: (id: ResponseData['id']) => void;
   postChooseResponseAction: (response: ResponseData<undefined>) => void;
   postOpenAppAction: (
