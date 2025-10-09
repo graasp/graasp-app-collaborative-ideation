@@ -29,7 +29,7 @@ const useFeedback = (): UseFeedbackValues => {
   const { i18n } = useTranslation('prompts');
   const lang = i18n.language;
   const { mutateAsync: postChatBot } = mutations.usePostChatBot(
-    GPTVersion.GPT_5, // TODO: Allow user to choose which model to use.
+    GPTVersion.GPT_5_MINI, // TODO: Allow user to choose which model to use.
   );
 
   const liquidRef = useRef(new Liquid({ cache: true }));
