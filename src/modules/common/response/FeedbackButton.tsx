@@ -36,6 +36,7 @@ const FeedbackButton: FC<{ response: ResponseData; thread: Thread }> = ({
         if (oldProgress >= 100) {
           if (timer.current) {
             clearInterval(timer.current);
+            timer.current = null;
           }
           setErrorGettingFeedback(true);
           return 100;
@@ -51,13 +52,13 @@ const FeedbackButton: FC<{ response: ResponseData; thread: Thread }> = ({
 
       if (Array.isArray(processingIds)) {
         setIsBeingProcessed(processingIds.includes(response.id));
-        startLinearProgress();
       }
     });
     return () => unsubscribe();
   }, [isBeingProcessed, response.id, tmpState]);
 
   const handleFeedback = (): void => {
+    startLinearProgress();
     generateFeedback(response as ResponseData, thread);
     const processingIds = tmpState.get(FEEDBACK_PROCESSING_IDS_KEY);
     if (Array.isArray(processingIds)) {
@@ -72,7 +73,11 @@ const FeedbackButton: FC<{ response: ResponseData; thread: Thread }> = ({
 
   return isBeingProcessed ? (
     <>
-      <LinearProgress variant="determinate" value={progress} />
+      {timer.current ? (
+        <LinearProgress variant="determinate" value={progress} />
+      ) : (
+        <LinearProgress variant="indeterminate" />
+      )}
       {errorGettingFeedback && (
         <Alert severity="error">{t('ERROR_GETTING_FEEDBACK')}</Alert>
       )}
