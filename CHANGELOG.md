@@ -1,5 +1,25 @@
 # Changelog
 
+## [4.1.0](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v4.0.1...v4.1.0) (2025-10-09)
+
+
+### Features
+
+* **actions:** add threadId to submit response action ([#762](https://github.com/graasp/graasp-app-collaborative-ideation/issues/762)) ([7c1aa02](https://github.com/graasp/graasp-app-collaborative-ideation/commit/7c1aa0275973d7c1f4c1da7a248449b4b3521f8a))
+* export loro doc ([#761](https://github.com/graasp/graasp-app-collaborative-ideation/issues/761)) ([ce0c108](https://github.com/graasp/graasp-app-collaborative-ideation/commit/ce0c108c87d0fad7a1175ff67bc466c6d849a325))
+
+
+### Bug Fixes
+
+* add fr to feedback prompts and en as fallback ([#758](https://github.com/graasp/graasp-app-collaborative-ideation/issues/758)) ([f8cf1e6](https://github.com/graasp/graasp-app-collaborative-ideation/commit/f8cf1e66ec10ef1b82d2446a671d03d533662b69))
+* **deps:** update dependency i18next to v24.2.3 ([#756](https://github.com/graasp/graasp-app-collaborative-ideation/issues/756)) ([a4b7209](https://github.com/graasp/graasp-app-collaborative-ideation/commit/a4b7209267bb89267fe7da6f439e1b977d686fd0))
+* **deps:** update Graasp sdk ([5beb64f](https://github.com/graasp/graasp-app-collaborative-ideation/commit/5beb64f1fcc3dac46c4f770823e5352ed7242836))
+* **i18n:** add export title ([ce0c108](https://github.com/graasp/graasp-app-collaborative-ideation/commit/ce0c108c87d0fad7a1175ff67bc466c6d849a325))
+* linear progress for feedback ([#764](https://github.com/graasp/graasp-app-collaborative-ideation/issues/764)) ([da5970f](https://github.com/graasp/graasp-app-collaborative-ideation/commit/da5970f2e0ec2657bbaa7a5556c705123bdb9f3c))
+* **prompts:** update GI prompt ([#765](https://github.com/graasp/graasp-app-collaborative-ideation/issues/765)) ([090b778](https://github.com/graasp/graasp-app-collaborative-ideation/commit/090b7780dcd0cb1a9df739647a80a9da753ed641))
+* show thread when submitting new answer ([#766](https://github.com/graasp/graasp-app-collaborative-ideation/issues/766)) ([36238c0](https://github.com/graasp/graasp-app-collaborative-ideation/commit/36238c05a26919d7540df3d108e6b31fab32927d))
+* use gpt5 ([#763](https://github.com/graasp/graasp-app-collaborative-ideation/issues/763)) ([5beb64f](https://github.com/graasp/graasp-app-collaborative-ideation/commit/5beb64f1fcc3dac46c4f770823e5352ed7242836))
+
 ## [4.0.1](https://github.com/graasp/graasp-app-collaborative-ideation/compare/v4.0.0...v4.0.1) (2025-09-29)
 
 
