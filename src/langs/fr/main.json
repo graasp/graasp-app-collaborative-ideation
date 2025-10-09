@@ -59,7 +59,9 @@
     "BUILD_ON_THIS": "Développer ceci",
     "OWN": "Vous avez écrit ça",
     "AI_GENERATED": "Générée par IA",
-    "PARENT_IDEA": "Réponse parente"
+    "PARENT_IDEA": "Réponse parente",
+    "GET_FEEDBACK": "Générer un retour",
+    "ERROR_GETTING_FEEDBACK": "Erreur lors de la génération du retour. Veuillez recharger la page et réessayer."
   },
   "SETTINGS": {
     "TITLE": "Paramètres",

@@ -59,7 +59,9 @@
     "BUILD_ON_THIS": "Build on this",
     "OWN": "You wrote this",
     "AI_GENERATED": "AI generated",
-    "PARENT_IDEA": "Parent idea"
+    "PARENT_IDEA": "Parent idea",
+    "GET_FEEDBACK": "Get feedback",
+    "ERROR_GETTING_FEEDBACK": "Error getting feedback. Please, reload the page and try again."
   },
   "SETTINGS": {
     "TITLE": "Settings",
