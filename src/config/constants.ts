@@ -41,6 +41,8 @@ export const DEFAULT_EVALUATION_TYPE = EvaluationType.None;
 
 export const HIGHLIGHT_RESPONSE_TIME_MS = 2000;
 
+export const WAITING_TIME_FEEDBACK_GENERATION_S = 60;
+
 export const CATEGORY_COLORS = [
   '#ffadad',
   '#ffd6a5',
