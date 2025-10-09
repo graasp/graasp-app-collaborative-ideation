@@ -32,7 +32,7 @@ Structure obligatoire :
 
 **2. Suggestions**
 
-* Vérifie la longueur (60–100 mots). Si trop courte → propose des pistes d’élargissement ; si trop longue → indique quoi condenser ou préciser.
+* Vérifie la longueur (80–120 mots). Si trop courte → propose des pistes d’élargissement ; si trop longue → indique quoi condenser ou préciser.
 * Donne au moins 2 pistes concrètes d’amélioration.
 * Termine par 1–2 questions ciblées pour guider la révision.
 
