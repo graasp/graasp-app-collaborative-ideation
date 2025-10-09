@@ -15,6 +15,7 @@ import { useThreadsContext } from '@/state/ThreadsContext';
 import useParticipants from '@/state/useParticipants';
 
 import Loader from '../common/Loader';
+import Thread from '../common/response/Thread';
 import { useSettings } from '../context/SettingsContext';
 import MarkdownEditor from './MarkdownEditor';
 import Prompts from './prompts/Prompts';
@@ -38,9 +39,11 @@ const ResponseInput: FC<{
   });
   const { instructions } = useSettings();
   const { t: generalT } = useTranslation('translations');
-  const { postResponse } = useThreadsContext();
+  const { postResponse, allThreads } = useThreadsContext();
   const { me: myselfAsParticipant } = useParticipants();
   const me = participantToAuthor(myselfAsParticipant);
+
+  const thread = allThreads?.find((tt) => tt.id === threadId);
 
   const [response, setResponse] = useState<string>('');
 
@@ -82,6 +85,7 @@ const ResponseInput: FC<{
         <Alert severity="info">{inputInstructions.content}</Alert>
       )}
       <Prompts onChange={(p) => setGivenPrompt(p)} />
+      {thread && <Thread thread={thread} />}
       <Paper
         variant="outlined"
         sx={{ width: { md: '75ch', sm: '100%' }, maxWidth: '100%' }}
