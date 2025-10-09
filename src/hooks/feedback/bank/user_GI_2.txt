@@ -1,4 +1,3 @@
-
 Instruction : {{ problem_statement }}
 
 Proposition de problématique : {{ current_response }}
@@ -24,16 +23,16 @@ Ton retour doit être **strictement critique** :
 
 Structure obligatoire :
 
-**1. Adéquation avec la définition d’un enjeu mondial (1 paragraphe)**
+**1. Adéquation avec la définition d’un enjeu mondial**
 
 * La problématique implique-t-elle la coordination d’acteurs mondiaux (nations, ONG, multinationales, institutions) ?
 * Le lien avec la numérisation ou les technologies de l’information est-il central et explicite ?
 * La complexité socio-technique (dimension humaine/sociale + technologique) est-elle claire ?
   👉 Ne commente que les points manquants. Si tout est validé, conclus par une phrase très courte confirmant l’adéquation.
 
-**2. Suggestions (1 paragraphe)**
+**2. Suggestions**
 
-* Vérifie la longueur (60–100 mots). Si trop courte → propose des pistes d’élargissement ; si trop longue → indique quoi condenser ou préciser.
+* Vérifie la longueur (80–120 mots). Si trop courte → propose des pistes d’élargissement ; si trop longue → indique quoi condenser ou préciser.
 * Donne au moins 2 pistes concrètes d’amélioration.
 * Termine par 1–2 questions ciblées pour guider la révision.
 
