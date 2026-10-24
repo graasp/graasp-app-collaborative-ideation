@@ -11758,9 +11758,9 @@ __metadata:
   linkType: hard
 
 "loro-crdt@npm:^1.3.5":
-  version: 1.8.2
-  resolution: "loro-crdt@npm:1.8.2"
-  checksum: 10/204c7a1a72d2000623cfebe2ccdd302f8b7e36aa67711af0d9b4db3013d0cedf860c40232407d4b955bf798da1e92d83750d887d370335c4452384c0e5cb9e85
+  version: 1.17.0
+  resolution: "loro-crdt@npm:1.17.0"
+  checksum: 10/ba300dad2fdd10b81b1e42e57e5ea9b5b14dd774813c1968272b510b79ed87c50966675ec008dc5bcd8cf5d7e4263641f3b75a4da0bc8689b1a5af244811d010
   languageName: node
   linkType: hard
 
