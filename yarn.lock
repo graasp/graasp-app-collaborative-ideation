@@ -11911,11 +11911,11 @@ __metadata:
   linkType: hard
 
 "marked-highlight@npm:^2.2.1":
-  version: 2.2.2
-  resolution: "marked-highlight@npm:2.2.2"
+  version: 2.2.4
+  resolution: "marked-highlight@npm:2.2.4"
   peerDependencies:
-    marked: ">=4 <17"
-  checksum: 10/61a32078dce8b763b6518a1cc843ae937ad880c9fa4c1cd93490593d8bafb213bf77509da63624a854332678774e0844f40737fdee3a78a3bd148cdebf41875a
+    marked: ">=4 <19"
+  checksum: 10/e23a990e2496583074667b1607c05b920ace83291a8754af2a22f05aa4a35563f7d04bd102c283a23e386745e7137ec77766131b489021f35b1ea18b2fc99b53
   languageName: node
   linkType: hard
 
